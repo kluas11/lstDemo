@@ -1,0 +1,9 @@
+<view class='main'>
+  <text>充值金额</text>
+  <view class='input'>
+    <text>￥</text>
+    <input type='digit' bindblur='count'></input>
+  </view>
+  <view class='dLine'></view>
+  <button class='btnNext'>下一步</button>
+</view>

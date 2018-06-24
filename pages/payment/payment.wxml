@@ -1,0 +1,19 @@
+<wxs module='WXSPayment' src='./payment.wxs' />
+
+<view class='mat'>
+  <view class='storeInfo'>
+    <image class='storeIcon' mode='widthFix' src='{{storeInfo.logo}}'></image>
+    {{storeInfo.name}}
+  </view>
+  <view class='payment'>
+    <text style='font-size:30rpx;'>消费金额</text>
+    <view class='amountInput'>
+      <text>￥</text>
+      <input type="digit" value='{{WXSPayment.fixAmount(fixedAmount)}}' bindinput='amountInput' bindblur='amountBlur'></input>
+    </view>
+    <view class='diviLine' />
+    <view class='myBalance'>当前可用余额:￥{{WXSPayment.fixAmount(myInfo.balance)}}</view>
+    <button class='payByBalance' bindtap='payByBalance' disabled='{{!WXSPayment.isEnough(inputAmount,myInfo.balance)}}'>会员余额支付</button>
+    <button class='payByWXPay' bindtap='payByWXPay'>微信支付</button>
+  </view>
+</view>

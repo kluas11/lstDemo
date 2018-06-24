@@ -1,0 +1,22 @@
+<!--pages/member/share/erweima/index.wxml-->
+
+<block wx:if='{{whichPage == 1}}'>
+  <view class='view-head'>
+    <text>会员账号绑定</text>
+  </view>
+  <view class="view-row">
+    <text>店员账号</text>
+    <input name="account_name" bindblur='accountBlur' placeholder-class="input-placeholder" placeholder="请输入店员账号" />
+  </view>
+  <view class="class-line"></view>
+
+  <text bindtap="formSubmit" class="text-save">提交绑定</text>
+</block>
+
+<block wx:if='{{whichPage == 2}}'>
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{result}}" background-size="cover" bindtap="chooseImage"></image>
+    <text class="userinfo-nickname"></text>
+  </view>
+  <button class='btn' bindtap='saveQRCode'>保存二维码到相册</button>
+</block>

@@ -1,0 +1,40 @@
+<view class="view-head">
+  <view class="view-moneyinfo">
+    <text class="text-money-prefix">可提现金额</text>
+    <text class="text-money">￥{{moneys}}</text>
+    <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
+  </view>
+</view>
+<view class="parent">
+
+  <view class="view-row">
+    <text>户主姓名</text>
+    <input name="account_name" bindinput='accountNameInput' placeholder-class="input-placeholder" placeholder="请输入户主姓名" />
+  </view>
+
+  <view class="class-line"></view>
+
+  <view class="view-row">
+    <text>银行名称</text>
+    <input name="bank_name" bindinput='bankNameInput' placeholder-class="input-placeholder" placeholder="请输入银行名称" />
+  </view>
+
+  <view class="class-line"></view>
+
+  <view class="view-row">
+    <text>银行卡号</text>
+    <input name="account_bank" bindinput='bankNumInput' placeholder-class="input-placeholder" placeholder="请输入银行卡号" />
+  </view>
+
+  <view class="class-line"></view>
+
+  <view class="view-row">
+    <text>提现金额</text>
+    <input name="money" bindinput='amountInput' placeholder-class="input-placeholder" placeholder="请输入提现金额" />
+  </view>
+
+  <view class="class-line"></view>
+
+  <text bindtap="formSubmit" class="text-save">提交申请</text>
+
+</view>

@@ -1,0 +1,46 @@
+page {
+  background-color: #eee;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.main {
+  margin: 32rpx;
+  padding: 64rpx;
+  background: white;
+}
+
+.input {
+  display: flex;
+  margin-top: 32rpx;
+}
+
+.input > text {
+  height: 120rpx;
+  font-size: 64rpx;
+  line-height: 120rpx;
+  margin-right: 32rpx;
+}
+
+.input > input {
+  height: 120rpx;
+  font-size: 64rpx;
+  line-height: 120rpx;
+}
+
+.dLine {
+  height: 3rpx;
+  width: 100%;
+  background: #ddd;
+}
+
+.btnNext {
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 50%;
+  background-color: #009247;
+  color: white;
+  text-align: center;
+  margin-top: 64rpx;
+}

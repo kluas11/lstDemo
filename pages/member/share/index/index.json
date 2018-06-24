@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "推荐中心",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+"navigationBarBackgroundColor":"#312e43"
+}
