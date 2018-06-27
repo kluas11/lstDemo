@@ -42,7 +42,8 @@
     "pages/member/share/member/list",
     "pages/video/video",
     "pages/recharge/recharge",
-    "pages/gotoshop/gotoshop"
+    "pages/gotoshop/gotoshop",
+    "pages/web-view/web-view"
   ],
   "window": {
     "navigationBarBackgroundColor": "#009247",

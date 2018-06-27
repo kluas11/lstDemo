@@ -18,7 +18,7 @@ Page({
   },
   addrDetail: '',
   isDefault: false,
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     // user 
     var mobile = this.data.mobile;
     // detail
@@ -43,7 +43,19 @@ Page({
     var district = this.data.regionObjects[this.data.regionIndex].id;
 
     var that = this;
-    server.postJSON('/User/addAddress/user_id/' + user_id, { user_id: user_id, mobile: mobile, zipcode: zipcode, consignee: consignee, address: address, is_default: is_default, country: country, twon: twon, province: province, city: city, district: district }, function (res) {
+    server.postJSON('/User/addAddress/user_id/' + user_id, {
+      user_id: user_id,
+      mobile: mobile,
+      zipcode: zipcode,
+      consignee: consignee,
+      address: address,
+      is_default: is_default,
+      country: country,
+      twon: twon,
+      province: province,
+      city: city,
+      district: district
+    }, function(res) {
 
       if (res.data.status == 1) {
         wx.showToast({
@@ -53,7 +65,7 @@ Page({
 
 
         if (that.data.returnTo == 1)
-          setTimeout(function () {
+          setTimeout(function() {
             wx.navigateTo({
               url: '../../order/ordersubmit/index'
             });
@@ -69,7 +81,7 @@ Page({
 
 
   },
-  nameChange: function (e) {
+  nameChange: function(e) {
 
     var value = e.detail.value;
 
@@ -77,7 +89,7 @@ Page({
       consignee: value
     });
   },
-  addressChange: function (e) {
+  addressChange: function(e) {
     let context = this;
 
     var value = e.detail.value;
@@ -111,7 +123,7 @@ Page({
       foo = foo1;
     }
 
-    server.getJSON('/user/detection_AddressList/', foo, function (res) {
+    server.getJSON('/user/detection_AddressList/', foo, function(res) {
       console.log(res)
 
       if (res.data.status == -2) {
@@ -138,10 +150,15 @@ Page({
           title: '地址可配送',
           icon: 'success'
         })
+      } else {
+        wx.showToast({
+          title: '服务器错误',
+          icon: 'none'
+        })
       }
     })
   },
-  phoneChange: function (e) {
+  phoneChange: function(e) {
 
     var value = e.detail.value;
 
@@ -149,7 +166,7 @@ Page({
       mobile: value
     });
   },
-  yzChange: function (e) {
+  yzChange: function(e) {
 
     var value = e.detail.value;
 
@@ -157,24 +174,28 @@ Page({
       zipcode: value
     });
   },
-  getArea: function (pid, cb) {
+  getArea: function(pid, cb) {
     var that = this;
 
-    server.getJSON('/User/getArea/parent_id/' + pid, { store_id: getApp().globalData.store_id }, function (res) {
+    server.getJSON('/User/getArea/parent_id/' + pid, {
+      store_id: getApp().globalData.store_id
+    }, function(res) {
       cb(res.data.result);
     })
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (options.order != undefined) {
       this.setData({
         order: true
       })
     }
     var returnTo = options.returnTo;
-    this.setData({ returnTo: returnTo });
+    this.setData({
+      returnTo: returnTo
+    });
     var that = this;
     // load province
-    this.getArea(0, function (area) {
+    this.getArea(0, function(area) {
       var array = [];
       for (var i = 0; i < area.length; i++) {
         array[i] = area[i].name;
@@ -190,12 +211,12 @@ Page({
     this.loadAddress(options);
     // TODO:load default city...
   },
-  loadAddress: function (options) {
+  loadAddress: function(options) {
     var that = this;
     if (options.objectId != undefined) {
       // 第一个参数是 className，第二个参数是 objectId
       var address = AV.Object.createWithoutData('Address', options.objectId);
-      address.fetch().then(function () {
+      address.fetch().then(function() {
         that.setData({
           address: address,
           areaSelectedStr: address.get('province') + address.get('city') + address.get('region')
@@ -203,24 +224,24 @@ Page({
         console.log(address.get('province'))
         console.log(address.get('city'))
         console.log(address.get('region'))
-      }, function (error) {
+      }, function(error) {
         // 异常处理
       });
     }
   },
-  setDefault: function () {
+  setDefault: function() {
     var that = this;
     var user = AV.User.current();
     // if user has no address, set the address for default
     var query = new AV.Query('Address');
     query.equalTo('user', user);
-    query.count().then(function (count) {
+    query.count().then(function(count) {
       if (count <= 0) {
         that.isDefault = true;
       }
     });
   },
-  cascadePopup: function () {
+  cascadePopup: function() {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease-in-out',
@@ -232,14 +253,14 @@ Page({
       maskVisual: 'show'
     });
   },
-  cascadeDismiss: function () {
+  cascadeDismiss: function() {
     this.animation.translateY(285).step();
     this.setData({
       animationData: this.animation.export(),
       maskVisual: 'hidden'
     });
   },
-  provinceTapped: function (e) {
+  provinceTapped: function(e) {
     // 标识当前点击省份，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
@@ -258,7 +279,7 @@ Page({
     var that = this;
     //provinceObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.provinceObjects[index].id, function (area) {
+    this.getArea(this.data.provinceObjects[index].id, function(area) {
       var array = [];
       for (var i = 0; i < area.length; i++) {
         array[i] = area[i].name;
@@ -275,7 +296,7 @@ Page({
       });
     });
   },
-  cityTapped: function (e) {
+  cityTapped: function(e) {
     // 标识当前点击县级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
@@ -292,7 +313,7 @@ Page({
     var that = this;
     //cityObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.cityObjects[index].id, function (area) {
+    this.getArea(this.data.cityObjects[index].id, function(area) {
       var array = [];
       for (var i = 0; i < area.length; i++) {
         array[i] = area[i].name;
@@ -309,7 +330,7 @@ Page({
       });
     });
   },
-  regionTapped: function (e) {
+  regionTapped: function(e) {
     // 标识当前点击镇级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
@@ -323,7 +344,7 @@ Page({
     var that = this;
     //townObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.regionObjects[index].id, function (area) {
+    this.getArea(this.data.regionObjects[index].id, function(area) {
       // 假如没有镇一级了，关闭悬浮框，并显示地址
       if (area.length == 0) {
         var areaSelectedStr = that.data.provinceName + that.data.cityName + that.data.regionName;
@@ -349,7 +370,7 @@ Page({
       });
     });
   },
-  townTapped: function (e) {
+  townTapped: function(e) {
     // 标识当前点击镇级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // townIndex是镇级数据的标识
@@ -363,14 +384,14 @@ Page({
     });
     this.cascadeDismiss();
   },
-  currentChanged: function (e) {
+  currentChanged: function(e) {
     // swiper滚动使得current值被动变化，用于高亮标记
     var current = e.detail.current;
     this.setData({
       current: current
     });
   },
-  changeCurrent: function (e) {
+  changeCurrent: function(e) {
     // 记录点击的标题所在的区级级别
     var current = e.currentTarget.dataset.current;
     this.setData({

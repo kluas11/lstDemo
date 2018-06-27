@@ -1,20 +1,20 @@
 <view class="container">
-	<!-- 侧边栏 -->
-	<view class="sidebar">
-		<text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{highlight[index]}}">{{item.mobile_name}}</text>
-	</view>
-	<!-- right -->
-	<view class="main">
-		<!-- banner -->
-		 <!-- <image data-goods-id="{{banner.ad_link}}" bindtap="clickBanner"  class="banner" src="{{banner.image}}" mode="scaleToFill" />  -->
-		<!-- GridView -->
-		<view class="gridview">
-			<block wx:for="{{subCategories}}" wx:key="id">
+  <!-- 侧边栏 -->
+  <view class="sidebar">
+    <text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{highlight[index]}}">{{item.mobile_name}}</text>
+  </view>
+  <!-- right -->
+  <view class="main">
+    <!-- banner -->
+    <!-- <image data-goods-id="{{banner.ad_link}}" bindtap="clickBanner"  class="banner" src="{{banner.image}}" mode="scaleToFill" />  -->
+    <!-- GridView -->
+    <view class="gridview">
+      <block wx:for="{{subCategories}}" wx:key="id">
         <view class='gridview_list'>
-            <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}"/> 
-            <text  mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}">{{item.mobile_name}}</text>
+          <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />
+          <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}">{{item.mobile_name}}</text>
         </view>
-			</block>
-		</view>
-	</view>
+      </block>
+    </view>
+  </view>
 </view>

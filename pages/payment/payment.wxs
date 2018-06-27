@@ -1,8 +1,11 @@
-var fixAmount = function (amount) {
+var fixAmount = function(amount) {
+  if (amount <= 0) {
+    return '';
+  }
   return amount.toFixed(2);
 }
 
-var isEnough = function (inputAmount, balance) {
+var isEnough = function(inputAmount, balance) {
   if (inputAmount <= balance) {
     console.log(true);
     return true;
