@@ -41,7 +41,11 @@ Page({
           title: '申请提现成功',
           duration: 1000
         });
-        wx.navigateBack();
+        app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
+          that.setData({
+            moneys: userBalance
+          });
+        });
       } else {
         console.log(res);
         wx.showToast({
@@ -86,11 +90,22 @@ Page({
     var login = app.globalData.login;
     var that = this;
     var user_id = getApp().globalData.userInfo.user_id
-    var moneys = app.globalData.userInfo.user_money
     wx.getSystemInfo({
       success: function (res) {
-        that.setData({ returnTo: returnTo, moneys: moneys })
+        that.setData({
+          returnTo: returnTo
+        })
       }
     })
+  },
+
+  onShow: function () {
+    let that = this;
+    app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
+      that.setData({
+        moneys: userBalance
+      });
+    });
   }
+
 })

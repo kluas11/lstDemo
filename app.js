@@ -78,6 +78,7 @@ App({
 
     //  })
   },
+
   getUserInfo: function (cb) {
     var that = this
     if (this.globalData.userInfo) {
@@ -97,10 +98,17 @@ App({
     }
   },
 
+  getUserBalance: function (user_id, ctx, func) {
+    server.getJSON("/Scanpay/get_userInfo", { user_id: user_id }, function (res) {
+      let userBalance = new Number(res.data.user_money).toFixed(2);
+      func(ctx, userBalance);
+    });
+  },
+
   globalData: {
     'openid': null,
     'userInfo': null,
     'login': false,
-    'shopName':''
+    'shopName': ''
   }
 })

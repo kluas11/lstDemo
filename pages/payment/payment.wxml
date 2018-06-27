@@ -13,7 +13,7 @@
     </view>
     <view class='diviLine' />
     <view class='myBalance'>当前可用余额:￥{{WXSPayment.fixAmount(myInfo.balance)}}</view>
-    <button class='payByBalance' bindtap='payByBalance' disabled='{{!WXSPayment.isEnough(inputAmount,myInfo.balance)}}'>会员余额支付</button>
-    <button class='payByWXPay' bindtap='payByWXPay'>微信支付</button>
+    <button class='payByBalance' bindtap='payByBalance' disabled='{{!WXSPayment.isEnough(inputAmount,myInfo.balance) || disable.balance}}'>会员余额支付</button>
+    <button class='payByWXPay' disabled='{{disable.WXPay}}' bindtap='payByWXPay'>微信支付</button>
   </view>
 </view>

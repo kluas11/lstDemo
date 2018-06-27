@@ -34,28 +34,12 @@ Page({
   },
 
   onPullDownRefresh: function () {
-    // cPage = 0;
-    // this.data.accounts = [];
-    // this.getMoneyInfoList(0);
+
   },
 
   getMoneyInfoList(page) {
     var that = this;
     var user_id = getApp().globalData.userInfo.user_id
-    var moneys = app.globalData.userInfo.user_money
-    // wx.request({
-    //   url: 'https://shop.poopg.com/index.php/WXAPI/Walletpay/getcode',
-    //   data: { user_id: user_id },
-    //   method: 'POST',
-    //   header: { 'content-type': 'application/x-www-form-urlencoded' },// 将数据转化为query string
-    //   success: res => {
-    //     console.log(res);
-    //     barQRCode.barcode('myBarcode', res.data.code, 680, 200);
-    //     this.setData({
-    //       myCode: res.data.code
-    //     });
-    //   }
-    // });
 
     server.getJSON('/User/account/user_id/' + user_id + "/page/" + page, function (res) {
       // success
@@ -68,7 +52,6 @@ Page({
       wx.stopPullDownRefresh();
       that.setData({
         accounts: ms,
-        moneys: moneys
       });
     });
   },
@@ -132,6 +115,15 @@ Page({
           });
         });
       }
+    });
+  },
+
+  onShow: function () {
+    let that = this;
+    app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
+      that.setData({
+        moneys: userBalance
+      });
     });
   },
 

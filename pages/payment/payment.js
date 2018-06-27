@@ -7,18 +7,21 @@ Page({
   * 页面的初始数据
   *******************************************************************************/
   data: {
-    storeInfo: { name: '', subName: '', logo: '/images/store.png' },
+    storeInfo: { name: '', subName: '', logo: '' },
     myInfo: { name: '', balance: 0 },
     inputAmount: 0,
     fixedAmount: 0,
     enoughBalance: true,
+    disable: {
+      balance: false,
+      WXPay: false
+    }
   },
 
   /*******************************************************************************
   * 生命周期函数
   *******************************************************************************/
   onLoad: function (options) {
-
     let ctx = this;
     console.log(options)
     getStoreInfo(ctx, options.store_id);
@@ -62,6 +65,7 @@ Page({
         inputAmount: new Number(new Number(inputAmount).toFixed(2))
       });
     }
+    console.log('【输入amountBlur】' + this.data.fixedAmount);
   },
 
   /**
@@ -69,21 +73,31 @@ Page({
   =================================*/
   payByBalance: function () {
     let ctx = this;
-    console.log('payByBalance');
-    console.log(this.data.fixedAmount + '  ' + getApp().globalData.store_id + '  ' + getApp().globalData.userInfo.user_id);
-    doPay('walletpay', this.data.fixedAmount, getApp().globalData.store_id, getApp().globalData.userInfo.user_id, function (res) {
-      if (res.data.status == 1 && res.data.payway == 'walletpay') {
-        wx.showToast({ title: '支付成功', });
-        getCustomerInfo(ctx, 94);
-        ctx.setData({
-          inputAmount: 0,
-          fixedAmount: 0
-        });
-      }
-      else if (res.data.status == 1) {
-        wx.showToast({ title: '金额输入错误', })
-      }
+    console.log('【点击payByBalance】' + ctx.data.fixedAmount);
+
+    ctx.setData({
+      'disable.balance': true
     });
+
+    setTimeout(function () {
+      // 为什么有这个timeout呢？那是因为如果输入金额后，不先让input失焦就点击button的话，就会先触发bindTap再触发BindBlur，这样来不及读取input的内容就访问接口了，以下同理
+      doPay('walletpay', ctx.data.fixedAmount, app.globalData.store_id, app.globalData.userInfo.user_id, function (res) {
+        if (res.data.status == 1 && res.data.payway == 'walletpay') {
+          wx.showToast({ title: '支付成功', });
+          getCustomerInfo(ctx, app.globalData.userInfo.user_id);
+          ctx.setData({
+            inputAmount: 0,
+            fixedAmount: 0,
+            'disable.balance': false
+          });
+        } else if (res.data.status == 1) {
+          wx.showToast({ title: '金额输入错误', });
+          ctx.setData({
+            'disable.balance': false
+          });
+        }
+      });
+    }, 200);
   },
 
   /**
@@ -91,28 +105,38 @@ Page({
   =================================*/
   payByWXPay: function () {
     let ctx = this;
-    console.log('payByWXPay');
-    doPay('wxpay', this.data.fixedAmount, getApp().globalData.store_id, getApp().globalData.userInfo.user_id, function (res) {
-      if (res.data.status == 1 && res.data.payway == 'wxpay') {
-        wx.requestPayment({
-          'timeStamp': res.data.data.timeStamp,
-          'nonceStr': res.data.data.nonceStr,
-          'package': res.data.data.package,
-          'signType': res.data.data.signType,
-          'paySign': res.data.data.paySign,
-          'success': function (res) { },
-          'fail': function (res) { }
-        });
-        getCustomerInfo(ctx, 94);
-        ctx.setData({
-          inputAmount: 0,
-          fixedAmount: 0
-        });
-      }
-      else if (res.data.status == 1) {
-        wx.showToast({ title: '金额输入错误', })
-      }
+    console.log('【点击payByBalance】' + ctx.data.fixedAmount);
+
+    ctx.setData({
+      'disable.WXPay': true
     });
+
+    setTimeout(function () {
+      doPay('wxpay', ctx.data.fixedAmount, app.globalData.store_id, app.globalData.userInfo.user_id, function (res) {
+        if (res.data.status == 1 && res.data.payway == 'wxpay') {
+          wx.requestPayment({
+            'timeStamp': res.data.data.timeStamp,
+            'nonceStr': res.data.data.nonceStr,
+            'package': res.data.data.package,
+            'signType': res.data.data.signType,
+            'paySign': res.data.data.paySign,
+            'success': function (res) { },
+            'fail': function (res) { }
+          });
+          getCustomerInfo(ctx, app.globalData.userInfo.user_id);
+          ctx.setData({
+            inputAmount: 0,
+            fixedAmount: 0,
+            'disable.WXPay': false
+          });
+        } else if (res.data.status == 1) {
+          wx.showToast({ title: '金额输入错误', });
+          ctx.setData({
+            'disable.WXPay': false
+          });
+        }
+      });
+    }, 200);
   },
 
   onUnload: function () {
@@ -127,6 +151,7 @@ Page({
 * 通用方法
 *******************************************************************************/
 function doPay(payway, total_amount, store_id, user_id, func) {
+  console.log(payway + '   ' + total_amount + '   ' + store_id + '   ' + user_id)
   wx.request({
     url: 'https://shop.poopg.com/index.php/WXAPI/Scanpay/dopay',
     method: 'POST',
@@ -134,18 +159,15 @@ function doPay(payway, total_amount, store_id, user_id, func) {
     header: { 'content-type': 'application/x-www-form-urlencoded' },// 将数据转化为query string
     success: func,
     complete: res => {
-      console.log('【/Scanpay/dopay】');
+      console.log('【回传/Scanpay/dopay】');
       console.log(res);
-      // wx.switchTab({
-      //   url: '../index/index'
-      // })
     }
   });
 }
 
 function getStoreInfo(ctx, store_id) {
   server.getJSON("/Scanpay/get_storeInfo", { store_id: store_id }, function (res) {
-    console.log('【/Scanpay/get_storeInfo】');
+    console.log('【回传/Scanpay/get_storeInfo】');
     console.log(res);
     ctx.setData({
       'storeInfo.name': res.data.store_name,
@@ -156,7 +178,7 @@ function getStoreInfo(ctx, store_id) {
 
 function getCustomerInfo(ctx, user_id) {
   server.getJSON("/Scanpay/get_userInfo", { user_id: user_id }, function (res) {
-    console.log('【/Scanpay/get_userInfo');
+    console.log('【回传/Scanpay/get_userInfo】');
     console.log(res);
     ctx.setData({
       'myInfo.balance': new Number(res.data.user_money)

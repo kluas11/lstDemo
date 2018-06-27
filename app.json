@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/member/share/erweima/index",
     "pages/payment/payment",
+    "pages/member/share/erweima/index",
     "pages/getUser/getUser",
     "pages/seller/add",
     "pages/details/details",

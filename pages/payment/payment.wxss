@@ -27,6 +27,7 @@ page {
 
 .storeIcon {
   width: 80rpx;
+  height: 80rpx;
   margin-right: 40rpx;
 }
 
