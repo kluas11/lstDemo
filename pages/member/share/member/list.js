@@ -51,6 +51,9 @@ Page({
       that.setData({
         orders: ms
       });
+      wx.setNavigationBarTitle({
+        title: '我的团队' + '(' + ms.length + '人)',
+      })
     });
   },
 
@@ -59,7 +62,6 @@ Page({
     ctype = 1;
     this.data.orders = [];
     this.getOrderLists(ctype, cPage);
-
   },
 
   onLoad: function (option) {

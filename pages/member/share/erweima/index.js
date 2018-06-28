@@ -1,4 +1,6 @@
 var server = require('../../../../utils/server');
+var app = getApp();
+
 Page({
 
   /**
@@ -6,8 +8,8 @@ Page({
    */
   data: {
     result: '',
-    whichPage: 0,
-    staffAccount: ''
+    staffAccount: '',
+    staffName: ''
   },
 
   /**
@@ -19,29 +21,37 @@ Page({
     var app = getApp();
     var user_id = app.globalData.userInfo.user_id
     console.log(user_id)
-    server.getJSON('/User/createrweima?user_id=' + user_id, function (res) {
-      if (res.data.status == 1) {
-        // 一级会员需通过输入店员账号绑定的页面
-        that.setData({
-          whichPage: 1
-        })
-      } else {
-        var result = res.data
-        console.log(result)
-        that.setData({
-          result: result,
-          whichPage: 2
-        });
-      }
-    });
-
   },
 
-  accountBlur: function (e) {
+  accountInput: function (e) {
     const val = e.detail.value;
     this.setData({
       staffAccount: val
     })
+  },
+
+  nameInput: function (e) {
+    const val = e.detail.value;
+    this.setData({
+      staffName: val
+    })
+  },
+
+  formSubmit: function () {
+    server.postJSON('/User/apply_user_level', { user_id: app.globalData.userInfo.user_id, seller_id: this.data.staffAccount, seller_name: this.data.staffName }, function (res) {
+      console.log(res);
+      if (res.data.status == true) {
+        wx.showToast({
+          title: '绑定成功',
+        })
+      } else {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          duration: 5000
+        })
+      }
+    });
   },
 
   /**
@@ -56,49 +66,4 @@ Page({
       path: '/pages/index/index?uid=' + user_id
     }
   },
-
-  saveQRCode: function () {
-    let ctx = this;
-
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.writePhotosAlbum']) {
-          wx.authorize({
-            scope: 'scope.writePhotosAlbum',
-            success() {
-              console.log('授权成功')
-            }
-          })
-        }
-      }
-    })
-
-    wx.downloadFile({
-      url: ctx.data.result,
-      success: function (res) {
-        console.log(res)
-        wx.saveImageToPhotosAlbum({
-          filePath: res.tempFilePath,
-          success: function (res) {
-            wx.showToast({
-              title: '已保存到相册'
-            })
-          },
-          fail: function (res) {
-            wx.showToast({
-              title: '保存失败',
-              icon: 'none'
-            })
-          }
-        })
-      },
-      fail: function () {
-        wx.showToast({
-          title: '保存失败',
-          icon: 'none'
-        })
-      }
-    })
-
-  }
 })

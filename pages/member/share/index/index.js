@@ -1,14 +1,17 @@
-const AV = require('../../../../utils/av-weapp.js')
-var app = getApp()
-var maxTime = 60
-var interval = null
-var currentTime = -1 //倒计时的事件（单位：s）  
+const AV = require('../../../../utils/av-weapp.js');
+var server = require('../../../../utils/server');
+var app = getApp();
+var maxTime = 60;
+var interval = null;
+var currentTime = -1; //倒计时的事件（单位：s）  
 
 Page({
 
   data: {
     login: false,
-    time: '获取验证码'
+    time: '获取验证码',
+    registerStatus: 0,
+    result: ''
   },
 
   onLoad: function (options) {
@@ -21,7 +24,7 @@ Page({
           height: res.windowHeight
         })
       }
-    })
+    });
   },
 
   navigateToMember: function () {
@@ -44,6 +47,8 @@ Page({
     var that = this;
     var login = app.globalData.login;
     var that = this;
+    var user_id = getApp().globalData.userInfo.user_id;
+
     this.setData({ login: login });
     // 调用小程序 API，得到用户信息
     wx.getUserInfo({
@@ -60,6 +65,68 @@ Page({
         moneys: userBalance
       });
     });
+
+    server.getJSON('/User/createrweima?user_id=' + user_id, function (res) {
+      console.log(res)
+      if (res.data.status == 1) {
+        // 一级会员需通过输入店员账号绑定的页面
+        that.setData({
+          registerStatus: 1
+        })
+      } else {
+        var result = res.data
+        console.log(result)
+        that.setData({
+          result: result,
+          registerStatus: 2
+        });
+      }
+    });
   },
+
+  saveQRCode: function () {
+    let ctx = this;
+
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.writePhotosAlbum']) {
+          wx.authorize({
+            scope: 'scope.writePhotosAlbum',
+            success() {
+              console.log('授权成功')
+            }
+          })
+        }
+      }
+    })
+
+    wx.downloadFile({
+      url: ctx.data.result,
+      success: function (res) {
+        console.log(res)
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            wx.showToast({
+              title: '已保存到相册'
+            })
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'none'
+            })
+          }
+        })
+      },
+      fail: function () {
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none'
+        })
+      }
+    })
+
+  }
 
 })

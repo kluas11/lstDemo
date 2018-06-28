@@ -1,32 +1,38 @@
-<view >
+<view style='height:100%;'>
 
-<view class="view-head">
-<view class="view-moneyinfo">
-<text class="text-money-prefix">账户余额</text>
-<text class="text-money">￥{{moneys}}</text>
-<text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
-</view>
-</view>
-<!-- <view bindtap="navigateToOrder" class="tableviewcell">
-	<text>分销订单</text>
-</view> -->
-<!-- <view bindtap="" class="tableviewcell">
-	<text>我的推荐人</text>
-</view> -->
-<view bindtap="navigateToMember" class="tableviewcell">
-	<text>我的团队</text>
-</view>
-<!--<view bindtap="navigateToCoupon" class="tableviewcell">
-	<text>分销二维码</text>
-</view>-->
-<view bindtap="navigateToWithdraw" class="tableviewcell">
-	<text>我要提现</text>
-</view>
-<view bindtap="navigateToWithdrawList" class="tableviewcell">
-	<text>提现记录</text>
-</view>
+  <view class="view-head">
+    <view class="view-moneyinfo">
+      <text class="text-money-prefix">账户余额</text>
+      <text class="text-money">￥{{moneys}}</text>
+      <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
+    </view>
+  </view>
+  <!-- <view bindtap="navigateToOrder" class="tableviewcell">
+    <text>分销订单</text>
+  </view> -->
+  <!-- <view bindtap="" class="tableviewcell">
+    <text>我的推荐人</text>
+  </view> -->
+  <view bindtap="navigateToMember" class="tableviewcell">
+    <text>我的团队</text>
+  </view>
+  <!-- <view bindtap="navigateToCoupon" class="tableviewcell">
+    <text>分销二维码</text>
+  </view> -->
+  <view bindtap="navigateToWithdraw" class="tableviewcell">
+    <text>我要提现</text>
+  </view>
+  <view bindtap="navigateToWithdrawList" class="tableviewcell">
+    <text>提现记录</text>
+  </view>
 
-<view bindtap="navigateToFenxiao" class="tableviewcell1">
-	<text>成為推荐人</text>
-</view>
+  <view wx:if='{{registerStatus == 1}}' bindtap="navigateToFenxiao" class="tableviewcell1">
+    <text>成為推荐人</text>
+  </view>
+
+  <view wx:if='{{registerStatus == 2}}' class='QRCodeBg'>
+     <image src='{{result}}' mode='widthFix'></image> 
+     <button class='btn' bindtap='saveQRCode'>保存二维码到相册</button>
+  </view>
+
 </view>
