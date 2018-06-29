@@ -26,11 +26,12 @@ Page({
     });
   },
   bindChange: function (e) {
-
     var use_money = e.detail.value;
-
+    if (isNaN(new Number(use_money))) {
+      use_money = 0;
+    }
     this.setData({
-      use_money: use_money,
+      _use_money: use_money,
     });
   },
   bindChangeOfcoupon: function (e) {
@@ -111,7 +112,8 @@ Page({
   use: function () {
     //totalPrice:
     var user_money = getApp().globalData.userInfo.user_money;
-    var use_money = this.data.use_money;
+    var use_money = this.data._use_money;
+    this.setData({ use_money: this.data._use_money });
     if (use_money == "0" || use_money == 0 || use_money == "" || use_money == undefined) {
       wx.showToast({
         title: '请输入余额',
@@ -311,7 +313,7 @@ Page({
         wx.showToast({
           title: res.data.msg,
           duration: 2000,
-          icon:'none'
+          icon: 'none'
         });
         return;
       }
