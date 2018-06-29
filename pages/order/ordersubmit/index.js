@@ -307,11 +307,11 @@ Page({
     var cart_id = getApp().globalData.cart_ids;
     server.getJSON('/Cart/cart3/act/submit_order/user_id/' + user_id + "/address_id/" + address_id + "/user_money/" + use_money + "/pay_points/" + pay_points + "/couponTypeSelect/" + couponTypeSelect + "/coupon_id/" + coupon_id + "/couponCode/" + couponCode, { cart_id: cart_id, store_id: stroe_id, distribution_status: selected_distribution }, function (res) {
 
-
       if (res.data.status != 1 && res.data.status != 2) {
         wx.showToast({
           title: res.data.msg,
-          duration: 2000
+          duration: 2000,
+          icon:'none'
         });
         return;
       }
@@ -341,32 +341,22 @@ Page({
       app.globalData.wxdata = res.data.data
       app.globalData.order = res.data.order
       if (res.data.status == 1) {
-
-
         wx.showToast({
           title: '提交成功',
           duration: 2000
         });
-
-
-
         setTimeout(function () {
-
           if (res.data.order.pay_status == 1) {
             wx.switchTab({
               url: "../../member/index/index"
             });
             return;
           }
-
           wx.navigateTo({
             url: '../payment/payment?order_id=' + result
           });
         }, 2000);
-
       }
-
-
     });
   },
 
@@ -378,7 +368,7 @@ Page({
     var cart_id = getApp().globalData.cart_ids;
     server.getJSON('/Cart/cart2/user_id/' + user_id, { cart_id: cart_id, store_id: stroe_id, distribution_status: that.data.distribution_status }, function (res) {
       console.log(res)
-      if (res.data.status == 1){
+      if (res.data.status == 1) {
         that.setData({
           outRange: false
         })
@@ -387,19 +377,6 @@ Page({
         that.setData({
           outRange: true
         })
-        // wx.navigateBack({
-        //   delta: 1, // 回退前 delta(默认为1) 页面
-        //   success: function (res) {
-        //     // success
-        //   },
-        //   fail: function (res) {
-        //     // fail
-        //   },
-        //   complete: function (res) {
-        //     // complete
-        //   }
-        // })
-        // return;
       }
       var user_data = app.globalData.userInfo;
       user_data.user_money = res.data.result.userInfo.user_money;
