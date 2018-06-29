@@ -14,7 +14,7 @@ Page({
     shopName: ''
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (options.q !== undefined) {
       q = options.q;
     }
@@ -27,14 +27,14 @@ Page({
     this.getInviteCode(options);
     console.log(options);
     var app = getApp();
-    app.getOpenId(function() {
+    app.getOpenId(function () {
 
       var openId = getApp().globalData.openid;
       console.log(openId)
 
       server.getJSON("/User/validateOpenid", {
         openid: openId
-      }, function(res) {
+      }, function (res) {
 
         if (res.data.code == 200) {
           console.log('【/User/validateOpenid】')
@@ -66,7 +66,7 @@ Page({
     /* 加载首页banner 和 商品分类 开始 */
     var app = getApp();
     var self = this;
-    self.loadBanner(options);
+    // self.loadBanner(options);
     if (isLoc) {
       var address = getApp().globalData.city;
       this.setData({
@@ -78,13 +78,13 @@ Page({
 
     wx.getLocation({
       type: 'gcj02',
-      success: function(res) {
+      success: function (res) {
+        console.log(res)
         var latitude = res.latitude;
         var longitude = res.longitude;
 
         app.globalData.lat = latitude;
         app.globalData.lng = longitude;
-
         // 实例划API核心类
         var map = new QQMapWX({
           key: 'Q4NBZ-2PIH6-IITSM-MKJOI-IVPGF-WMBBG' // 必填
@@ -96,7 +96,8 @@ Page({
             latitude: latitude,
             longitude: longitude
           },
-          success: function(res) {
+          success: function (res) {
+            console.log('map.reverseGeocoder');
             console.log(res);
 
             if (res.result.ad_info.city != undefined) {
@@ -108,11 +109,11 @@ Page({
               self.loadBanner(options);
             }
           },
-          fail: function(res) {
-            //console.log(res);
+          fail: function (res) {
+            
           },
-          complete: function(res) {
-            //console.log(res);
+          complete: function (res) {
+            self.loadBanner(options);
           }
         });
       }
@@ -120,7 +121,7 @@ Page({
     /* 加载首页banner 和 商品分类 结束 */
   },
 
-  onReady: function() {
+  onReady: function () {
     if (q !== undefined) {
       var scan_url = decodeURIComponent(q);
       console.log(scan_url);
@@ -135,55 +136,55 @@ Page({
   },
 
   //跳转视频
-  jumpVideo: function() {
+  jumpVideo: function () {
     wx.navigateTo({
       url: '../video/video',
     })
   },
 
-  showCoupon: function(e) {
+  showCoupon: function (e) {
     wx.navigateTo({
       url: '../member/coupon/index'
     })
   },
 
-  showOrder: function(e) {
+  showOrder: function (e) {
     wx.navigateTo({
       url: '../order/list/list',
     })
   },
 
-  showPoint: function(e) {
+  showPoint: function (e) {
     wx.navigateTo({
       url: '../member/point/point'
     })
   },
 
-  showMine: function(e) {
+  showMine: function (e) {
     wx.navigateTo({
       url: "../member/money/money"
     });
   },
 
-  showSeller: function(e) {
+  showSeller: function (e) {
     wx.navigateTo({
       url: '../seller/index'
     })
   },
 
-  search: function(e) {
+  search: function (e) {
     wx.navigateTo({
       url: "../search/index"
     });
   },
 
-  showCarts: function(e) {
+  showCarts: function (e) {
     wx.navigateTo({
       url: '../recharge/recharge'
     });
   },
 
-  getInviteCode: function(options) {
+  getInviteCode: function (options) {
 
     if (options.uid != undefined) {
       wx.setStorage({
@@ -198,7 +199,7 @@ Page({
     }
   },
 
-  loadBanner: function(shopId) {
+  loadBanner: function (shopId) {
     var that = this;
     var city = that.data.address;
     city = encodeURI(city);
@@ -214,10 +215,14 @@ Page({
 
     getApp().globalData.stroe_id = stroe_id;
     console.log(stroe_id);
+    console.log(getApp().globalData.lat)
+    console.log(getApp().globalData.lng)
     server.getJSON("/Index/home", {
       city: that.data.address,
-      stroe_id: stroe_id
-    }, function(res) {
+      stroe_id: stroe_id,
+      lat: getApp().globalData.lat,
+      lon: getApp().globalData.lng
+    }, function (res) {
       console.log(res)
       var banner = res.data.result.ad;
       var goods = res.data.result.goods;
@@ -234,77 +239,25 @@ Page({
     });
   },
 
-  loadMainGoods: function() {
+  loadMainGoods: function () {
     var that = this;
     var query = new AV.Query('Goods');
     query.equalTo('isHot', true);
-    query.find().then(function(goodsObjects) {
+    query.find().then(function (goodsObjects) {
       that.setData({
         goods: goodsObjects
       });
     });
   },
 
-  onShow: function() {
+  onShow: function () {
     this.setData({
       shopName: getApp().globalData.store_name
     })
-    /*
-    var app = getApp();
-    var self = this;
-    self.loadBanner( );
-    if (isLoc) {
-      var address = getApp().globalData.city;
-      this.setData({ address: address });
-      self.loadBanner( );
-      return;
-    }
-    wx.getLocation({
-      type: 'gcj02',
-      success: function (res) {
-        var latitude = res.latitude;
-        var longitude = res.longitude;
-
-        app.globalData.lat = latitude;
-        app.globalData.lng = longitude;
-
-        // 实例划API核心类
-        var map = new QQMapWX({
-          key: 'Q4NBZ-2PIH6-IITSM-MKJOI-IVPGF-WMBBG' // 必填
-        });
-        ////address: res.result.address_component.city
-        // 调用接口
-        map.reverseGeocoder({
-          location: {
-            latitude: latitude,
-            longitude: longitude
-          },
-          success: function (res) {
-            console.log(res);
-
-            if (res.result.ad_info.city != undefined) {
-              self.setData({
-
-                address: res.result.ad_info.city
-              });
-              getApp().globalData.city = res.result.ad_info.city;
-              isLoc = true;
-              self.loadBanner( );
-            }
-          },
-          fail: function (res) {
-            //console.log(res);
-          },
-          complete: function (res) {
-            //console.log(res);
-          }
-        });
-      }
-    })
-    */
+   
   },
 
-  clickBanner: function(e) {
+  clickBanner: function (e) {
     var goodsId = e.currentTarget.dataset.goodsId;
     var linktype = e.currentTarget.dataset.linktype;
     console.log(linktype)
@@ -321,26 +274,26 @@ Page({
     }
   },
 
-  showDetail: function(e) {
+  showDetail: function (e) {
     var goodsId = e.currentTarget.dataset.goodsId;
     wx.navigateTo({
       url: "../goods/detail/detail?objectId=" + goodsId
     });
   },
 
-  showCategories: function() {
+  showCategories: function () {
     wx.switchTab({
       url: "../category/category"
     });
   },
 
-  showGroupList: function() {
+  showGroupList: function () {
     wx.navigateTo({
       url: "../goods/grouplist/list"
     });
   },
 
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     var user_id = getApp().globalData.userInfo.user_id
     console.log(user_id);
     return {
@@ -350,7 +303,7 @@ Page({
     }
   },
 
-  select: function() {
+  select: function () {
     wx.navigateTo({
       url: '../switchcity/switchcity'
     })
