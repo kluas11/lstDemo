@@ -1,86 +1,104 @@
-
 var app = getApp()
-var maxTime = 60 
-var interval = null 
+var maxTime = 60
+var interval = null
 var currentTime = -1 //倒计时的事件（单位：s）  
 var server = require('../../utils/server');
 Page({
-	
-	data: {
-		login:false,
-    time:'获取验证码'
-	},
-	onLoad: function (options) {
+
+  data: {
+    login: false,
+    time: '获取验证码',
+    birthday: '',
+    gender: {
+      sel: 2,
+      list: ['男', '女', '其他'],
+      list_en: ['male', 'female', 'other']
+    },
+  },
+
+  onLoad: function(options) {
     currentTime = -1;
-		var login = app.globalData.login;
+    var login = app.globalData.login;
     var that = this;
-		this.setData({login:login});
+    this.setData({
+      login: login
+    });
     wx.getSystemInfo({
-  success: function(res) {
-    that.setData({height:res.windowHeight})
-    var nickname = app.globalData.userInfo.nickname;
-    var mobile =  app.globalData.userInfo.mobile;
-    var email =  app.globalData.userInfo.email;
-    that.setData({phoneNum:mobile,pass:nickname,remindpass:email});
-  }
-})
-	},
-	navigateToAddress: function () {
-		wx.navigateTo({
-			url: '../../address/list/list'
-		});
-	},
-	logout: function () {
-		if (AV.User.current()) {
-			AV.User.logOut();
-			wx.showToast({
-				'title': '退出成功'
-			});
-		} else {
-			wx.showToast({
-				'title': '请先登录'
-			});
-		}
-	},
-	onShow: function () {
-		var that = this;
-		
-	},
-	chooseImage: function () {
-		var that = this;
-		wx.chooseImage({
-			count: 1, // 默认9
-			sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-			sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-			success: function (res) {
-				// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-				var tempFilePath = res.tempFilePaths[0];
-				new AV.File('file-name', {
-					blob: {
-						uri: tempFilePath,
-					},
-				}).save().then(
-				// file => console.log(file.url())
-					function(file) {
-						// 上传成功后，将所上传的头像设置更新到页面<image>中
-						var userInfo = that.data.userInfo;
-						userInfo.avatarUrl = file.url();
-						that.setData({
-							userInfo, userInfo
-						});
-					}
-				).catch(console.error);
-			}
-		})
-	},
-	navigateToAddressAboutus: function () {
-		wx.navigateTo({
-			url: '/pages/member/aboutus/aboutus'
-		});
-	},
+      success: function(res) {
+        that.setData({
+          height: res.windowHeight
+        })
+        var nickname = app.globalData.userInfo.nickname;
+        var mobile = app.globalData.userInfo.mobile;
+        var email = app.globalData.userInfo.email;
+        that.setData({
+          phoneNum: mobile,
+          pass: nickname,
+          remindpass: email
+        });
+      }
+    })
+  },
 
+  navigateToAddress: function() {
+    wx.navigateTo({
+      url: '../../address/list/list'
+    });
+  },
 
-	turnTologin: function (e) {
+  logout: function() {
+    if (AV.User.current()) {
+      AV.User.logOut();
+      wx.showToast({
+        'title': '退出成功'
+      });
+    } else {
+      wx.showToast({
+        'title': '请先登录'
+      });
+    }
+  },
+
+  onShow: function() {
+    var that = this;
+  },
+
+  chooseImage: function() {
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function(res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePath = res.tempFilePaths[0];
+        new AV.File('file-name', {
+          blob: {
+            uri: tempFilePath,
+          },
+        }).save().then(
+          // file => console.log(file.url())
+          function(file) {
+            // 上传成功后，将所上传的头像设置更新到页面<image>中
+            var userInfo = that.data.userInfo;
+            userInfo.avatarUrl = file.url();
+            that.setData({
+              userInfo,
+              userInfo
+            });
+          }
+        ).catch(console.error);
+      }
+    })
+  },
+
+  navigateToAddressAboutus: function() {
+    wx.navigateTo({
+      url: '/pages/member/aboutus/aboutus'
+    });
+  },
+
+  turnTologin: function(e) {
     //转为登录
     this.setData({
       ifLogup: false
@@ -90,7 +108,8 @@ Page({
     this.data.password = '';
     this.data.passwordSure = '';
   },
-  turnTologup: function (e) {
+
+  turnTologup: function(e) {
     this.setData({
       ifphone: false,
       ifLogup: true,
@@ -101,25 +120,20 @@ Page({
     this.data.phoneNum = '';
     this.data.password = '';
   },
-  turnto_phone: function (e) {
+
+  turnto_phone: function(e) {
     this.setData({
       ifphone: true,
     })
   },
 
   tap_logups(e) {
-
-
-
-
-
     wx.switchTab({
       url: '/pages/index/index'
     });
   },
+
   tap_logup(e) {
-
-
     if (this.data.email == "") {
       wx.showToast({
         title: "请输入您的邮箱",
@@ -151,7 +165,7 @@ Page({
       user.setUsername(this.data.name);
       user.setEmail(this.data.email);
       user.setPassword(this.data.password);
-      user.signUp().then(function (loginedUser) {
+      user.signUp().then(function(loginedUser) {
         app.iflogup = true;
         wx.showToast({
           title: '',
@@ -160,7 +174,7 @@ Page({
         wx.redirectTo({
           url: '../main/main?usrid=' + loginedUser.id
         })
-      }, function (error) {
+      }, function(error) {
         switch (error.code) {
           case 203:
             wx.showToast({
@@ -201,7 +215,8 @@ Page({
       });
     }
   },
-  tap_login: function () {
+
+  tap_login: function() {
     var user_login = new AV.User();
     var that = this;
     if (this.data.name == '') {
@@ -273,7 +288,7 @@ Page({
       user_login.setUsername(this.data.name);
       user_login.setPassword(this.data.password);
       user_login.logIn().then(
-        function (loginedUser) {
+        function(loginedUser) {
           wx.showToast({
             title: '',
             icon: 'loading'
@@ -284,8 +299,9 @@ Page({
             url: '../main/main?usrid=' + userid,
           })
         },
-        function (error) {
-          console.log('error.code'); console.log(error.code);
+        function(error) {
+          console.log('error.code');
+          console.log(error.code);
           if (error.code == '210') {
             wx.showToast({
               title: "密码错误",
@@ -317,9 +333,8 @@ Page({
             });
             //往邮箱中发送验证邮件
             AV.User.requestEmailVerify(that.data.email).then(
-              function (result) {
-              },
-              function (error) {
+              function(result) {},
+              function(error) {
                 if (error.code == '1') {
                   wx.showToast({
                     title: "今日往此邮箱发送的邮件数已超上限",
@@ -343,43 +358,38 @@ Page({
         })
     }
   },
-  getnum: function (e) {
+  getnum: function(e) {
     var that = this;
-    
     if (parseInt(that.data.phoneNum).toString().length == 11) {
-      
-      
-
-      server.getJSON("/User/send_sms_reg_code",{ mobile: that.data.phoneNum,user_id:getApp().globalData.userInfo.user_id },function(res){
+      server.getJSON("/User/send_sms_reg_code", {
+        mobile: that.data.phoneNum,
+        user_id: getApp().globalData.userInfo.user_id
+      }, function(res) {
         var data = res.data;
-        if(data.status == 1){
-that.reSendPhoneNum();
+        if (data.status == 1) {
+          that.reSendPhoneNum();
+        } else {
+          wx.showToast({
+            "title": data.msg
+          });
         }
-else{ 
-  wx.showToast({"title":data.msg});
-}
       });
+      return;
 
-      return ;
       wx.request({
         url: 'https://wudhl.com/index.php/Api/Shipper/getCaptcha.html',
-        data: { phone: that.data.phoneNum },
-        method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-        // header: {}, // 设置请求的 header
-        success: function (res) {
-          // success
-          
+        data: {
+          phone: that.data.phoneNum
+        },
+        method: 'POST',
+        success: function(res) {
           wx.showToast({
             title: res.data.msg,
             icon: 'success',
           });
         },
-        fail: function () {
-          // fail
-        },
-        complete: function () {
-          // complete
-        }
+        fail: function() {},
+        complete: function() {}
       })
     } else {
       wx.showToast({
@@ -388,46 +398,40 @@ else{
       })
     }
   },
-  inputNum: function (e) {
+
+  inputNum: function(e) {
     this.data.num = e.detail.value;
   },
-  quick_register_phone: function (e) {
-    
+
+  quick_register_phone: function(e) {
     var that = this;
     if (parseInt(this.data.num).toString().length == 4) {
-      
-      
-      server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&remindpass=" + this.data.remindpass + "&nickName=" + app.globalData.nickName,function(res){
-if (res.data.code == 200) {
-            app.globalData.login = true;
-            app.globalData.userInfo.nickname = res.data.res.nickname;
-            app.globalData.userInfo.email = res.data.res.email;
-            app.globalData.userInfo.mobile = res.data.res.mobile;
-            that.setData({login:true});
-        
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-            });
+      server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&birthday=" + this.data.birthday + "&gender=" + this.data.gender.list_en[this.data.gender.sel] + "&nickName=" + app.globalData.nickName, function(res) {
+        if (res.data.code == 200) {
+          app.globalData.login = true;
+          app.globalData.userInfo.nickname = res.data.res.nickname;
+          app.globalData.userInfo.email = res.data.res.email;
+          app.globalData.userInfo.mobile = res.data.res.mobile;
+          that.setData({
+            login: true
+          });
 
-            var timeout = setTimeout(function doHandler()
-       {
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'success',
+          });
+
+          var timeout = setTimeout(function doHandler() {
             wx.switchTab({
               url: '/pages/member/index/index'
             });
-			
-        },2000);//使用字符串执行方法
-
-
-
-          }
-          else
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'error',
-            });
+          }, 2000);
+        } else
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'error',
+          });
       });
-
     } else {
       wx.showToast({
         title: "无效的验证码",
@@ -435,47 +439,42 @@ if (res.data.code == 200) {
         icon: "loading"
       })
     }
-
-
   },
+
   //短信验证码验证
-  quick_login_phone: function (e) {
+  quick_login_phone: function(e) {
     var that = this;
     if (parseInt(this.data.num).toString().length == 4) {
-      
       console.log('https://wudhl.com/index.php/Api/User/validate?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&openid=" + app.globalData.openid);
       wx.request({
         url: 'https://wudhl.com/index.php/Api/User/validate?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&openid=" + app.globalData.openid,
-        data: { 'phone': this.data.phoneNum, 'num': this.data.num },
-        method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-        // header: {}, // 设置请求的 header
-        success: function (res) {
-
+        data: {
+          'phone': this.data.phoneNum,
+          'num': this.data.num
+        },
+        method: 'GET',
+        success: function(res) {
           if (res.data.code == 200) {
             app.globalData.login = true;
-            that.setData({login:true});
+            that.setData({
+              login: true
+            });
             wx.switchTab({
               url: '/pages/index/index'
             });
-
             wx.showToast({
               title: res.data.msg,
               icon: 'success',
             });
-          }
-          else
+          } else
             wx.showToast({
               title: res.data.msg,
               icon: 'error',
             });
 
         },
-        fail: function () {
-          // fail
-        },
-        complete: function () {
-          // complete
-        }
+        fail: function() {},
+        complete: function() {}
       })
 
     } else {
@@ -486,8 +485,8 @@ if (res.data.code == 200) {
       })
     }
   },
-  
-  getPassword: function (e) {
+
+  getPassword: function(e) {
     this.setData({
       password: e.detail.value,
       warn: {
@@ -496,7 +495,8 @@ if (res.data.code == 200) {
     })
     this.data.password = e.detail.value;
   },
-  getEmail: function (e) {
+
+  getEmail: function(e) {
     this.data.email = e.detail.value;
     this.data.name = e.detail.value;
     this.setData({
@@ -505,7 +505,8 @@ if (res.data.code == 200) {
       },
     });
   },
-  passwordSure: function (e) {
+
+  passwordSure: function(e) {
     if (e.detail.value === this.data.password)
       this.data.passwordSure = e.detail.value;
     this.setData({
@@ -514,38 +515,61 @@ if (res.data.code == 200) {
       },
     });
   },
-  getPhoneNum: function (e) {
+
+  getPhoneNum: function(e) {
     this.setData({
       phoneNum: e.detail.value,
     });
   },
-  inputRemindPass: function (e) {
+
+  // inputBirthday: function(e) {
+  //   this.setData({
+  //     birthday: e.detail.value,
+  //   });
+  // },
+  
+  bindDateChange: function(e) {
     this.setData({
-      remindpass: e.detail.value,
+      birthday: e.detail.value
+    })
+  },
+
+  bindGenderChange: function(e) {
+    this.setData({
+      'gender.sel': e.detail.value,
     });
   },
-  inputPass: function (e) {
+
+  // inputGender: function(e) {
+  //   this.setData({
+  //     gender: e.detail.value,
+  //   });
+  // },
+
+  inputPass: function(e) {
     this.setData({
       pass: e.detail.value,
     });
   },
 
-  input_num: function (e) {
+  input_num: function(e) {
     this.data.num = e.detail.value;
   },
+
   //重置密码";
-  forgetPassword: function (e) {
+  forgetPassword: function(e) {
     var that = this;
     AV.User.requestPasswordReset(this.data.email).then(
-      function (success) {
+      function(success) {
         wx.showToast({
           title: '密码重置邮件已发送，请在邮件中重置密码',
           icon: 'success',
           duration: 5000,
         });
       },
-      function (error) {
-        console.log(error); console.log(error.code);
+      function(error) {
+        console.log(error);
+        console.log(error.code);
         if (error.code == '1') {
           wx.showToast({
             title: "今日往此邮箱发送的邮件数已超上限",
@@ -567,34 +591,31 @@ if (res.data.code == 200) {
         }
       });
   },
-  reSendPhoneNum: function(){  
-        if(currentTime < 0){  
-            var that = this  
-            currentTime = maxTime  
-            interval = setInterval(function(){  
-                currentTime--  
-                that.setData({  
-                    time : currentTime+"s"  
-                })  
-  
-                if(currentTime <= 0){  
-                    currentTime = -1  
-                    clearInterval(interval)
-                    that.setData({  
-                    time : '获取验证码'  
-                })  
-                }  
-            }, 1000)  
-        }else{  
-            wx.showToast({  
-                title: '短信已发到您的手机，请稍后重试!',  
-                icon : 'loading',  
-                duration : 700  
-            })  
-        }  
-    }  
 
+  reSendPhoneNum: function() {
+    if (currentTime < 0) {
+      var that = this
+      currentTime = maxTime
+      interval = setInterval(function() {
+        currentTime--
+        that.setData({
+          time: currentTime + "s"
+        })
+
+        if (currentTime <= 0) {
+          currentTime = -1
+          clearInterval(interval)
+          that.setData({
+            time: '获取验证码'
+          })
+        }
+      }, 1000)
+    } else {
+      wx.showToast({
+        title: '短信已发到您的手机，请稍后重试!',
+        icon: 'loading',
+        duration: 700
+      })
+    }
+  }
 })
-
-
-

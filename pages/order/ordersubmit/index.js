@@ -15,7 +15,7 @@ Page({
     dtb_show: false,
     distribution_status: [
       { id: 0, name: '门店自取' },
-      { id: 1, name: '物流配送' }
+      { id: 1, name: '同城配送' }
     ],
     selected_distribution: 0,
     outRange: false,
