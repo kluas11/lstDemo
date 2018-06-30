@@ -405,40 +405,32 @@ Page({
 
   quick_register_phone: function(e) {
     var that = this;
-    if (parseInt(this.data.num).toString().length == 4) {
-      server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&birthday=" + this.data.birthday + "&gender=" + this.data.gender.list_en[this.data.gender.sel] + "&nickName=" + app.globalData.nickName, function(res) {
-        if (res.data.code == 200) {
-          app.globalData.login = true;
-          app.globalData.userInfo.nickname = res.data.res.nickname;
-          app.globalData.userInfo.email = res.data.res.email;
-          app.globalData.userInfo.mobile = res.data.res.mobile;
-          that.setData({
-            login: true
-          });
+    server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&birthday=" + this.data.birthday + "&gender=" + this.data.gender.list_en[this.data.gender.sel] + "&nickName=" + app.globalData.nickName, function(res) {
+      if (res.data.code == 200) {
+        app.globalData.login = true;
+        app.globalData.userInfo.nickname = res.data.res.nickname;
+        app.globalData.userInfo.email = res.data.res.email;
+        app.globalData.userInfo.mobile = res.data.res.mobile;
+        that.setData({
+          login: true
+        });
 
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'success',
-          });
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'success',
+        });
 
-          var timeout = setTimeout(function doHandler() {
-            wx.switchTab({
-              url: '/pages/member/index/index'
-            });
-          }, 2000);
-        } else
-          wx.showToast({
-            title: res.data.msg,
-            icon: 'error',
+        var timeout = setTimeout(function doHandler() {
+          wx.switchTab({
+            url: '/pages/member/index/index'
           });
-      });
-    } else {
-      wx.showToast({
-        title: "无效的验证码",
-        duration: 1500,
-        icon: "loading"
-      })
-    }
+        }, 2000);
+      } else
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'error',
+        });
+    });
   },
 
   //短信验证码验证
@@ -527,7 +519,7 @@ Page({
   //     birthday: e.detail.value,
   //   });
   // },
-  
+
   bindDateChange: function(e) {
     this.setData({
       birthday: e.detail.value

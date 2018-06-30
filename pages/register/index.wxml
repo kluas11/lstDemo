@@ -4,15 +4,15 @@
   <view class="view_logup_form">
     <view class="wx-view_log_item">
       <input placeholder-style="color:#999999" class="c-block wx_input" placeholder="请输入11位手机号" type="number" bindinput="getPhoneNum" value="{{phoneNum}}" />
-      <view class="btn_getnum" catchtap="getnum">
+      <!-- <view class="btn_getnum" catchtap="getnum">
         {{time}}
-      </view>
+      </view> -->
     </view>
     
-    <view class="wx-view_log_item" style="border-bottom-style: none;">
+    <!-- <view class="wx-view_log_item" style="border-bottom-style: none;">
       <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="请输入验证码" type="number" bindinput="inputNum" />
     </view>
-    <view class="line"></view>
+    <view class="line"></view> -->
 
     <view class="wx-view_log_item" style="border-bottom-style: none;">
       <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="真实姓名" bindinput="inputPass" value="{{pass}}" />

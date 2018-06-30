@@ -14,12 +14,12 @@ Page({
     result: ''
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     var login = app.globalData.login;
     var that = this;
     var user_id = getApp().globalData.userInfo.user_id
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         that.setData({
           height: res.windowHeight
         })
@@ -27,32 +27,48 @@ Page({
     });
   },
 
-  navigateToMember: function () {
-    wx.navigateTo({ url: '../member/list', })
+  navigateToMember: function() {
+    wx.navigateTo({
+      url: '../member/list',
+    })
   },
-  navigateToOrder: function (e) {
-    wx.navigateTo({ url: '../order/list' });
+  navigateToOrder: function(e) {
+    wx.navigateTo({
+      url: '../order/list'
+    });
   },
-  navigateToWithdraw: function (e) {
-    wx.navigateTo({ url: '../withdraw/add' });
+  navigateToWithdraw: function(e) {
+    wx.navigateTo({
+      url: '../withdraw/add'
+    });
   },
-  navigateToWithdrawList: function (e) {
-    wx.navigateTo({ url: '../withdrawlist/list' });
+  navigateToWithdrawList: function(e) {
+    wx.navigateTo({
+      url: '../withdrawlist/list'
+    });
   },
-  navigateToFenxiao: function (e) {
-    wx.navigateTo({ url: '../erweima/index' });
+  navigateToFenxiao: function(e) {
+    wx.navigateTo({
+      url: '../erweima/index'
+    });
   },
 
-  onShow: function () {
+  onShow: function() {
     var that = this;
     var login = app.globalData.login;
     var that = this;
     var user_id = getApp().globalData.userInfo.user_id;
+    var level = app.globalData.userInfo.level;
+    var seller_id = app.globalData.userInfo.seller_id;
 
-    this.setData({ login: login });
+    this.setData({
+      login: login
+    });
     // 调用小程序 API，得到用户信息
     wx.getUserInfo({
-      success: ({ userInfo }) => {
+      success: ({
+        userInfo
+      }) => {
         that.setData({
           userInfo: userInfo
         });
@@ -60,15 +76,15 @@ Page({
       }
     });
 
-    app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
+    app.getUserBalance(app.globalData.userInfo.user_id, that, function(that, userBalance) {
       that.setData({
         moneys: userBalance
       });
     });
 
-    server.getJSON('/User/createrweima?user_id=' + user_id, function (res) {
+    server.getJSON('/User/createrweima?user_id=' + user_id, function(res) {
       console.log(res)
-      if (res.data.status == 1) {
+      if (level == 3 && (seller_id == undefined || seller_id == '' || seller_id == null)) {
         // 一级会员需通过输入店员账号绑定的页面
         that.setData({
           registerStatus: 1
@@ -84,7 +100,7 @@ Page({
     });
   },
 
-  saveQRCode: function () {
+  saveQRCode: function() {
     let ctx = this;
 
     wx.getSetting({
@@ -102,16 +118,16 @@ Page({
 
     wx.downloadFile({
       url: ctx.data.result,
-      success: function (res) {
+      success: function(res) {
         console.log(res)
         wx.saveImageToPhotosAlbum({
           filePath: res.tempFilePath,
-          success: function (res) {
+          success: function(res) {
             wx.showToast({
               title: '已保存到相册'
             })
           },
-          fail: function (res) {
+          fail: function(res) {
             wx.showToast({
               title: '保存失败',
               icon: 'none'
@@ -119,7 +135,7 @@ Page({
           }
         })
       },
-      fail: function () {
+      fail: function() {
         wx.showToast({
           title: '保存失败',
           icon: 'none'
