@@ -179,7 +179,7 @@ Page({
     use_point = use_point - use_point % parseInt(points_rate);
     var m = tp - use_point / parseInt(points_rate)
 
-    var totalPrice = m;
+    var totalPrice = m - use_money;
     if (totalPrice < 0)
       totalPrice = 0;
     var totalObj = this.data.totalPrice;
@@ -191,7 +191,7 @@ Page({
 
     if (this.data.selected_distribution == 1 && this.data.totalPrice3 != undefined) {
       console.log('in================')
-      var totalPrice2 = this.data.totalPrice3
+      var totalPrice2 = this.data.totalPrice3 - use_money
       if (totalPrice2 < 0) totalPrice2 = 0
       this.setData({
         totalPrice2: totalPrice2
