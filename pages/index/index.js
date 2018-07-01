@@ -297,8 +297,8 @@ Page({
     var user_id = getApp().globalData.userInfo.user_id
     console.log(user_id);
     return {
-      title: '品尚医药',
-      desc: '品尚医药',
+      title: '乐善亭',
+      desc: '乐善亭',
       path: '/pages/index/index?uid=' + user_id
     }
   },
