@@ -35,7 +35,7 @@
   <text class="text-prop">选择商品属性</text>
   <view class="rowline">
   </view> 
-  <view wx:for-index="pos" wx:for="{{goods.goods.goods_spec_list}}" class="view-sub-prop">
+  <view wx:for-index="pos" wx:for="{{goods.goods.goods_spec_list}}" wx:key="{{index}}" class="view-sub-prop">
     <text class="text-prop">{{item[0].spec_name}}</text>
     <view  class="view-btns">
       <text bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" class="{{textStates[item.isClick]}}" wx:for="{{item}}">{{item.item}}</text>

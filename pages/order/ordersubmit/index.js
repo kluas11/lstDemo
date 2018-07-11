@@ -14,24 +14,16 @@ Page({
     cpos: -1,
     "couponCode": '',
     dtb_show: false,
-    distribution_status: [{
-        id: 0,
-        name: '门店自取'
-      },
-      {
-        id: 1,
-        name: '同城配送'
-      }
-    ],
+    distribution_status: [{ id: 0, name: '门店自取' }, { id: 1, name: '同城配送' }],
     selected_distribution: 0,
     outRange: false,
   },
-  addressSelect: function() {
+  addressSelect: function () {
     wx.navigateTo({
       url: '../../address/select/index'
     });
   },
-  bindChange: function(e) {
+  bindChange: function (e) {
     var use_money = e.detail.value;
     if (isNaN(new Number(use_money))) {
       use_money = 0;
@@ -40,20 +32,20 @@ Page({
       _use_money: use_money,
     });
   },
-  bindChangeOfcoupon: function(e) {
+  bindChangeOfcoupon: function (e) {
     var couponCode = e.detail.value;
 
     this.setData({
       couponCode: couponCode,
     });
   },
-  bindChangeOfPoint: function(e) {
+  bindChangeOfPoint: function (e) {
     var use_point = e.detail.value;
     this.setData({
       use_point: use_point,
     });
   },
-  bindPickerChange: function(e) {
+  bindPickerChange: function (e) {
     var value = e.detail.value;
     var cv = this.data.coupon[value];
     this.setData({
@@ -67,7 +59,7 @@ Page({
 
 
   },
-  useCoupon: function() {
+  useCoupon: function () {
     if (this.data.cpos == -1)
       return;
 
@@ -120,7 +112,7 @@ Page({
     });
   },
 
-  use: function() {
+  use: function () {
     //totalPrice:
     var user_money = getApp().globalData.userInfo.user_money;
     var use_money = this.data._use_money;
@@ -216,7 +208,7 @@ Page({
     this.useCoupon();
   },
 
-  use_point: function() {
+  use_point: function () {
     //totalPrice:
     var user_point = pay_points;
     var use_point = this.data.use_point;
@@ -294,7 +286,7 @@ Page({
     });
     this.useCoupon();
   },
-  onShow: function() {
+  onShow: function () {
     var app = getApp();
     var cartIds = app.globalData.cartIds;
     var amount = app.globalData.amount;
@@ -308,7 +300,7 @@ Page({
     this.getCarts(cartIds);
     // 页面初始化 options为页面跳转所带来的参数
   },
-  initData: function() {
+  initData: function () {
     var app = getApp();
     pay_points = app.globalData.userInfo.pay_points;
     var user_money = app.globalData.userInfo.user_money;
@@ -317,7 +309,7 @@ Page({
       pay_points: pay_points
     });
   },
-  formSubmit: function(e) {
+  formSubmit: function (e) {
     // user 
     var selected_distribution = this.data.selected_distribution
     var address_id = this.data.address.address_id
@@ -338,7 +330,7 @@ Page({
       cart_id: cart_id,
       store_id: stroe_id,
       distribution_status: selected_distribution
-    }, function(res) {
+    }, function (res) {
 
       if (res.data.status != 1 && res.data.status != 2) {
         wx.showToast({
@@ -353,7 +345,7 @@ Page({
         wx.showModal({
           title: '支付成功',
           content: '跳转到订单详情？',
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               console.log('用户点击确定')
               wx.redirectTo({
@@ -378,7 +370,7 @@ Page({
           title: '提交成功',
           duration: 2000
         });
-        setTimeout(function() {
+        setTimeout(function () {
           if (res.data.order.pay_status == 1) {
             wx.switchTab({
               url: "../../member/index/index"
@@ -393,7 +385,7 @@ Page({
     });
   },
 
-  getCarts: function(cartIds) {
+  getCarts: function (cartIds) {
     var user_id = getApp().globalData.userInfo.user_id
     var that = this
     var app = getApp()
@@ -403,7 +395,7 @@ Page({
       cart_id: cart_id,
       store_id: stroe_id,
       distribution_status: that.data.distribution_status
-    }, function(res) {
+    }, function (res) {
       console.log(res)
       if (res.data.status == 1) {
         that.setData({
@@ -448,35 +440,35 @@ Page({
       that.initData();
     })
   },
-  check1: function() {
+  check1: function () {
     this.setData({
       check: ['true', '']
     });
   },
-  check2: function() {
+  check2: function () {
     this.setData({
       check: ['', 'true']
     });
   },
-  onReady: function() {
+  onReady: function () {
     // 页面渲染完成
   },
 
-  onHide: function() {
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload: function() {
+  onUnload: function () {
     this.setData({
       order: false
     })
     // 页面关闭
   },
-  distribution: function() {
+  distribution: function () {
     this.setData({
       dtb_show: true
     })
   },
-  slectDistribution: function(e) {
+  slectDistribution: function (e) {
     var that = this
     let selected_distribution = e.target.dataset.distribution_status;
     this.setData({
@@ -494,7 +486,7 @@ Page({
         cart_id: cart_id,
         store_id: stroe_id,
         distribution_status: that.data.selected_distribution
-      }, function(res) {
+      }, function (res) {
         console.log(res)
         if (res.data.status == -2) {
           that.setData({
@@ -520,7 +512,7 @@ Page({
     }
   },
 
-  gotoAddAddr: function() {
+  gotoAddAddr: function () {
     wx.navigateTo({
       url: '/pages/address/add/add?order=1',
     })
