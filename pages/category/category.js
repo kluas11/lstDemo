@@ -4,8 +4,8 @@ Page({
   data: {
     topCategories: [],
     subCategories: [],
-    highlight: ['highlight', '', '', '', '', '', '', '', '', '', '', ''],
-    banner: ''
+    banner: '',
+    nav_avtive: 0
   },
 
   onLoad: function() {
@@ -17,7 +17,9 @@ Page({
     var objectId = e.currentTarget.dataset.id;
     var banner_name = e.currentTarget.dataset.banner;
     var index = parseInt(e.currentTarget.dataset.index);
-    this.setHighlight(index);
+    this.setData({
+      nav_avtive:index
+    })
     this.getCategory(objectId);
     this.getBanner(banner_name);
   },
@@ -30,7 +32,6 @@ Page({
   },
 
   getTopCategory: function(parent) {
-    // https://www.o2odws.com/index.php/Api/Goods/goodsCategoryList
     var that = this;
     server.getJSON("/Goods/goodsCategoryList", {
       store_id: getApp().globalData.store_id
@@ -44,30 +45,18 @@ Page({
       that.getBanner(categorys[0].mobile_name);
     });
   },
-
   getCategory: function(parent) {
     var that = this;
     server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
       store_id: getApp().globalData.store_id
     }, function(res) {
+      console.log(res)
       var categorys = res.data.result;
       that.setData({
         subCategories: categorys
       });
     });
   },
-
-  setHighlight: function(index) {
-    var highlight = [];
-    for (var i = 0; i < this.data.topCategories; i++) {
-      highlight[i] = '';
-    }
-    highlight[index] = 'highlight';
-    this.setData({
-      highlight: highlight
-    });
-  },
-
   avatarTap: function(e) {
     // 拿到objectId，作为访问子类的参数
     var objectId = e.currentTarget.dataset.objectId;
@@ -79,7 +68,7 @@ Page({
   getBanner: function(banner_name) {
     var that = this;
     server.getJSON('/goods/categoryBanner/banner_name/' + banner_name, function(res) {
-      console.log(banner_name);
+      console.log(res);
       var banner = res.data.banner;
       that.setData({
         banner: banner

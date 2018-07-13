@@ -1,5 +1,5 @@
 var server = require('../../../utils/server');
-var AV = require('../../../utils/av-weapp');
+var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min');
 Page({
   data: {
     outRange: true,
@@ -30,19 +30,13 @@ Page({
     var address = this.data.address;
 
     var is_default = 1;
-
-    var user_id = getApp().globalData.userInfo.user_id
-
+    var glo_userid = getApp().globalData.userInfo && getApp().globalData.userInfo.user_id;
+    var user_id = glo_userid ? glo_userid:wx.getStorageSync("user_id");
     var country = 1;
-
     var twon = 0;
-
     var province = this.data.provinceObjects[this.data.provinceIndex].id;
-
     var city = this.data.cityObjects[this.data.cityIndex].id;
-
     var district = this.data.regionObjects[this.data.regionIndex].id;
-
     var that = this;
     wx.getLocation({
       success: function (res) {
@@ -61,6 +55,7 @@ Page({
           lat: res.latitude,
           lon: res.longitude,
         }, function (res) {
+          console.log(res)
           if (res.data.status == 1) {
             wx.showToast({
               title: '保存成功',
@@ -81,97 +76,50 @@ Page({
     })
   },
   nameChange: function (e) {
-
     var value = e.detail.value;
-
     this.setData({
       consignee: value
     });
+    this.formdis();
   },
   addressChange: function (e) {
     let context = this;
-
     var value = e.detail.value;
-
     this.setData({
       address: value
     });
-
-    let foo1 = {
-      store_id: getApp().globalData.store_id,
-      city: context.data.cityObjects[context.data.cityIndex].id,
-      province: context.data.provinceObjects[context.data.provinceIndex].id,
-      district: context.data.regionObjects[context.data.regionIndex].id,
-      address: value
-    }
-
-    let foo2 = {
-      store_id: getApp().globalData.store_id,
-      city: context.data.cityObjects[context.data.cityIndex].id,
-      province: context.data.provinceObjects[context.data.provinceIndex].id,
-      district: context.data.regionObjects[context.data.regionIndex].id,
-      address: value,
-      action: 'order'
-    }
-
-    let foo = {};
-
-    if (this.data.order == true) {
-      foo = foo2;
-    } else {
-      foo = foo1;
-    }
-
-    server.getJSON('/user/detection_AddressList/', foo, function (res) {
-      console.log(res)
-
-      if (res.data.status == -2) {
-        context.setData({
-          outRange: true
-        })
-        wx.showToast({
-          title: '该地址不在配送范围',
-          icon: 'none'
-        })
-      } else if (res.data.status == -1) {
-        context.setData({
-          outRange: true
-        })
-        wx.showToast({
-          title: '地址填写错误',
-          icon: 'none'
-        })
-      } else if (res.data.status == 100000) {
-        context.setData({
-          outRange: false
-        })
-        wx.showToast({
-          title: '地址可配送',
-          icon: 'success'
-        })
-      } else {
-        wx.showToast({
-          title: '服务器错误',
-          icon: 'none'
-        })
-      }
-    })
+    this.formdis();
   },
   phoneChange: function (e) {
-
     var value = e.detail.value;
-
-    this.setData({
-      mobile: value
-    });
+    var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    console.log(reg.test(value))
+    if (reg.test(value)){
+      this.setData({
+        mobile: value
+      });
+      this.formdis();
+    }else{
+      wx.showToast({
+        title: '手机格式有误',
+      })
+    }
+    
   },
   yzChange: function (e) {
-
     var value = e.detail.value;
-
     this.setData({
       zipcode: value
     });
+    this.formdis();
+  },
+  formdis:function(){
+    var data = this.data
+    if (data.consignee && data.address && data.mobile && data.zipcode){
+      this.setData({
+        outRange:false
+      })
+    }
   },
   getArea: function (pid, cb) {
     var that = this;
@@ -193,6 +141,42 @@ Page({
       returnTo: returnTo
     });
     var that = this;
+    //获取用户的位置信息
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {
+        // console.log(res)
+        var latitude = res.latitude;
+        var longitude = res.longitude;
+        // 调用腾讯地图API，通过坐标转换用户的确实地址
+        var map = new QQMapWX({
+          key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
+        });
+        // address: res.result.address_component.city
+        // 调用接口
+        map.reverseGeocoder({
+          location: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          success: function (res) {
+            let data = res.result.address_component;
+            console.log(data);
+            if (res.result.ad_info.city != undefined) {
+             that.setData({
+               areaSelectedStr: data.province + data.city + data.district,
+               address: data.street_number
+             })
+            }
+          },
+          fail: function (res) {
+            console.log(res)
+          },
+          complete: function (res) {
+          }
+        });
+      }
+    })
     // load province
     this.getArea(0, function (area) {
       var array = [];
@@ -205,7 +189,7 @@ Page({
       });
     });
     // if isDefault, address is empty
-    this.setDefault();
+    // this.setDefault();
     // this.cascadePopup();
     // this.loadAddress(options);
     // TODO:load default city...

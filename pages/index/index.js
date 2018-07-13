@@ -1,6 +1,6 @@
 var server = require('../../utils/server');
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
-var server = require('../../utils/server');
+var App = getApp();
 var seat;
 var isLoc = false;
 var q;
@@ -18,29 +18,27 @@ Page({
     if (options.q !== undefined) {
       q = options.q;
     }
-
     var scene = decodeURIComponent(options.scene);
     wx.setStorage({
       key: "scene",
       data: scene
     })
+
+    //判断用户来源
     this.getInviteCode(options);
-    // console.log(options);
-    var app = getApp();
-    app.getOpenId(function () {
-
-      var openId = getApp().globalData.openid;
+    
+    App.getOpenId(function () {
+      var openId = App.globalData.openid;
       console.log(openId)
-
       server.getJSON("/User/validateOpenid", {
         openid: openId
       }, function (res) {
-
         if (res.data.code == 200) {
-          // console.log('【/User/validateOpenid】')
+          
           // console.log("用户信息",res.data.data)
-          getApp().globalData.userInfo = res.data.data;
-          var user = app.globalData.userInfo;
+          App.globalData.userInfo = res.data.data;
+          var user = App.globalData.userInfo;
+          wx.setStorageSync("user_id", user.user_id)
           wx.getSetting({
             success(res) {
               if (!res.authSetting['scope.userInfo']) {
@@ -60,15 +58,13 @@ Page({
           }
         }
       });
-
     });
 
     /* 加载首页banner 和 商品分类 开始 */
-    var app = getApp();
     var self = this;
     // self.loadBanner(options);
     if (isLoc) {
-      var address = getApp().globalData.city;
+      var address = App.globalData.city;
       this.setData({
         address: address
       });
@@ -83,8 +79,8 @@ Page({
         var latitude = res.latitude;
         var longitude = res.longitude;
 
-        app.globalData.lat = latitude;
-        app.globalData.lng = longitude;
+        App.globalData.lat = latitude;
+        App.globalData.lng = longitude;
         // 实例划API核心类
         var map = new QQMapWX({
           key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
@@ -97,11 +93,12 @@ Page({
             longitude: longitude
           },
           success: function (res) {
+            console.log(res)
             if (res.result.ad_info.city != undefined) {
               self.setData({
                 address: res.result.ad_info.city
               });
-              getApp().globalData.city = res.result.ad_info.city;
+              App.globalData.city = res.result.ad_info.city;
               isLoc = true;
               self.loadBanner(options);
             }
@@ -117,7 +114,6 @@ Page({
     })
     /* 加载首页banner 和 商品分类 结束 */
   },
-
   onReady: function () {
     if (q !== undefined) {
       var scan_url = decodeURIComponent(q);
@@ -128,61 +124,17 @@ Page({
       })
       return;
     } else {
-      // console.log(123);
     }
   },
-
-  //跳转视频
-  jumpVideo: function () {
-    wx.navigateTo({
-      url: '../video/video',
+  // 页面显示
+  onShow: function () {
+    let shopname = getApp().globalData.store_name;
+    this.setData({
+      shopName: shopname ? shopname : ""
     })
   },
-
-  showCoupon: function (e) {
-    wx.navigateTo({
-      url: '../member/coupon/index'
-    })
-  },
-
-  showOrder: function (e) {
-    wx.navigateTo({
-      url: '../order/list/list',
-    })
-  },
-
-  showPoint: function (e) {
-    wx.navigateTo({
-      url: '../member/point/point'
-    })
-  },
-
-  showMine: function (e) {
-    wx.navigateTo({
-      url: "../member/money/money"
-    });
-  },
-
-  showSeller: function (e) {
-    wx.navigateTo({
-      url: '../seller/index'
-    })
-  },
-
-  search: function (e) {
-    wx.navigateTo({
-      url: "../search/index"
-    });
-  },
-
-  showCarts: function (e) {
-    wx.navigateTo({
-      url: '../recharge/recharge'
-    });
-  },
-
   getInviteCode: function (options) {
-
+    //用户是否通过分享进入，缓存分享者 uid
     if (options.uid != undefined) {
       wx.setStorage({
         key: "scene",
@@ -195,12 +147,10 @@ Page({
       })
     }
   },
-
   loadBanner: function (shopId) {
     var that = this;
     var city = that.data.address;
     city = encodeURI(city);
-
     // console.log(isNaN(shopId));
     if (isNaN(shopId)) {
       //console.log('首次进来');
@@ -209,24 +159,24 @@ Page({
       //console.log('店铺进来');
       var stroe_id = shopId;
     }
-
-    getApp().globalData.stroe_id = stroe_id;
+    App.globalData.stroe_id = stroe_id;
     // console.log(stroe_id);
     // console.log(getApp().globalData.lat)
     // console.log(getApp().globalData.lng)
     server.getJSON("/Index/home", {
       city: that.data.address,
       stroe_id: stroe_id,
-      lat: getApp().globalData.lat,
-      lon: getApp().globalData.lng
+      lat: App.globalData.lat,
+      lon: App.globalData.lng
     }, function (res) {
       // console.log(res)
-      var banner = res.data.result.ad;
-      var goods = res.data.result.goods;
+      var data = res.data.result;
+      var banner =data.ad;
+      var goods = data.goods;
       var ad = res.data.ad;
-      getApp().globalData.store_id = res.data.store_id.store_id;
+      App.globalData.store_id = res.data.store_id.store_id;
       // console.log(res.data.store_id.store_id)
-      getApp().globalData.store_name = res.data.store_id.store_name;
+      App.globalData.store_name = res.data.store_id.store_name;
       that.setData({
         shopName: res.data.store_id.store_name,
         banner: banner,
@@ -235,32 +185,12 @@ Page({
       });
     });
   },
-
-  loadMainGoods: function () {
-    var that = this;
-    var query = new AV.Query('Goods');
-    query.equalTo('isHot', true);
-    query.find().then(function (goodsObjects) {
-      that.setData({
-        goods: goodsObjects
-      });
-    });
-  },
-
-  onShow: function () {
-    let shopname = getApp().globalData.store_name;
-    this.setData({
-      shopName: shopname ? shopname:""
-    })
-   
-  },
-
+  // 点击banner图
   clickBanner: function (e) {
     var goodsId = e.currentTarget.dataset.goodsId;
     var linktype = e.currentTarget.dataset.linktype;
     console.log(linktype)
     console.log(linktype == 'website')
-
     if (linktype == 'website') {
       wx.navigateTo({
         url: "/pages/web-view/web-view?url=" + goodsId
@@ -272,25 +202,73 @@ Page({
     }
   },
 
+  //跳转视频
+  jumpVideo: function () {
+    wx.navigateTo({
+      url: '../video/video',
+    })
+  },
+  // 优惠券
+  showCoupon: function (e) {
+    wx.navigateTo({
+      url: '../member/coupon/index'
+    })
+  },
+  // 我的订单
+  showOrder: function (e) {
+    wx.navigateTo({
+      url: '../order/list/list',
+    })
+  },
+  // 我的积分
+  showPoint: function (e) {
+    wx.navigateTo({
+      url: '../member/point/point'
+    })
+  },
+  // 我的付款码
+  showMine: function (e) {
+    wx.navigateTo({
+      url: "../member/money/money"
+    });
+  },
+  // 附近门店
+  showSeller: function (e) {
+    wx.navigateTo({
+      url: '../seller/index'
+    })
+  },
+  // 搜索
+  search: function (e) {
+    wx.navigateTo({
+      url: "../search/index"
+    });
+  },
+  // 会员充值
+  showCarts: function (e) {
+    wx.navigateTo({
+      url: '../recharge/recharge'
+    });
+  },
+  // 商品详情
   showDetail: function (e) {
     var goodsId = e.currentTarget.dataset.goodsId;
     wx.navigateTo({
       url: "../goods/detail/detail?objectId=" + goodsId
     });
   },
-
+  // 全部分类
   showCategories: function () {
     wx.switchTab({
       url: "../category/category"
     });
   },
-
+  //团购
   showGroupList: function () {
     wx.navigateTo({
       url: "../goods/grouplist/list"
     });
   },
-
   onShareAppMessage: function () {
     var user_id = getApp().globalData.userInfo.user_id
     console.log(user_id);
@@ -299,12 +277,5 @@ Page({
       desc: '乐善亭',
       path: '/pages/index/index?uid=' + user_id
     }
-  },
-
-  select: function () {
-    wx.navigateTo({
-      url: '../switchcity/switchcity'
-    })
-  },
-
+  }
 })

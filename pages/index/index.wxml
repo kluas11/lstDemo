@@ -74,42 +74,6 @@
   </view>
 </view>
 
-<!-- hot goods -->
-
-<!-- <view class="view-ad">
-<view class="ad-header">
-<image data-goods-id="{{ad[0].ad_link}}" bindtap="clickBanner" class="ad1" src="{{ad[0].ad_code}}"></image>
-<view class="header-right">
-<image data-goods-id="{{ad[2].ad_link}}" bindtap="clickBanner"  src="{{ad[2].ad_code}}"></image>
-<image data-goods-id="{{ad[1].ad_link}}" bindtap="clickBanner"  src="{{ad[1].ad_code}}"></image>
-</view>
-</view>
-<view class="ad-footer">
-<image data-goods-id="{{ad[3].ad_link}}" bindtap="clickBanner"  src="{{ad[3].ad_code}}"></image>
-<image data-goods-id="{{ad[4].ad_link}}" bindtap="clickBanner"  src="{{ad[4].ad_code}}"></image>
-</view>
-</view> -->
-
-<!-- <view class="container-class" wx:for="{{goods}}" wx:key="" data-index="{{index}}">
-  <view class="container-goods">
-    <view class="category_title">
-      <view class="redline"></view>
-      <text class="caption">{{item.name}}</text>
-
-    </view>
-    <view class="main-goods">
-      <view class="single-goods" wx:for="{{item.goods_list}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
-        <image class="avatar" src="{{item.original_img}}" mode="aspectFill" />
-        <text class="title">{{item.goods_name}}</text>
-        <view class="summary">
-          <text class="price">￥{{item.shop_price}}元</text>
-          <text class="sale">浏览{{item.click_count}}次</text>
-        </view>
-      </view>
-    </view>
-  </view>
-</view> -->
-
 <!--商品分类  -->
 <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
   <view class='container-goods'>
@@ -122,7 +86,6 @@
         <view class="summary">
           <text class="source improt_color">￥{{item.shop_price}}</text>
         </view>
-
         <image class="avatar" src="{{item.original_img}}" mode="aspectFill" />
       </view>
     </scroll-view>

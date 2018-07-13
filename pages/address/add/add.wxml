@@ -17,7 +17,7 @@
 
 <view class="view-row">
 <text >详细地址</text>
-<input bindchange="addressChange"  placeholder-class="input-placeholder" placeholder="请输入"/>
+<input bindchange="addressChange" value='{{address}}'  placeholder-class="input-placeholder" placeholder="请输入"/>
 </view>
 
 <view class="class-line"></view>

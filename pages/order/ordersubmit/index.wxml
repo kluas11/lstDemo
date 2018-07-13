@@ -122,7 +122,7 @@
   <view class="view-price">
     <view class="view-price1">
       <text class="text-price1">商品总额:</text>
-      <text class="text-red">￥{{filters.toFix(totalPrice.total_fee,2)}}元</text>
+      <text class="text-red">￥{{totalPrice.total_fee}}元</text>
     </view>
     <view hidden class="view-price1">
       <text class="text-price1">邮费:</text>
@@ -131,7 +131,7 @@
 
     <view class="view-price1">
       <text class="text-price1">应付总金额:</text>
-      <text class="text-red">￥{{totalPrice2 < 0 ? filters.toFix(totalPrice.total_fee,2) : filters.toFix(totalPrice2,2)}}元</text>
+      <text class="text-red">￥{{totalPrice2 < 0 ? totalPrice.total_fee: totalPrice2}}元</text>
 
     </view>
 

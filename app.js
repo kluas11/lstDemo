@@ -7,8 +7,6 @@ App({
     // auto login via SDK
     var that = this;
     //AV.User.loginWithWeapp();
-
-
     // 设备信息
     wx.getSystemInfo({
       success: function (res) {
@@ -19,6 +17,7 @@ App({
   },
 
   getOpenId: function (cb) {
+    var that = this;
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -30,12 +29,9 @@ App({
             var openId = res.data.openid;
             // console.log(res);
             // TODO 缓存 openId
-            var app = getApp();
-            var that = app;
             that.globalData.openid = openId;
 
             //验证是否关联openid
-
             typeof cb == "function" && cb()
           });
           //发起网络请求

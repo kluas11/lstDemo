@@ -1,7 +1,7 @@
 <view class="container">
   <!-- 侧边栏 -->
   <view class="sidebar">
-    <text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{highlight[index]}}">{{item.mobile_name}}</text>
+    <text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{nav_avtive==index?'highlight':''}}">{{item.mobile_name}}</text>
   </view>
   <!-- right -->
   <view class="main">
