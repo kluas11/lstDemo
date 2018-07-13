@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -41,6 +41,24 @@
 					"name": "商品详情",
 					"pathName": "pages/goods/detail/detail",
 					"query": "objectId=1907"
+				},
+				{
+					"id": 2,
+					"name": "全部分类",
+					"pathName": "pages/category/category",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "购物车",
+					"pathName": "pages/cart/cart",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "收货地址",
+					"pathName": "pages/address/add/add",
+					"query": "returnTo=1"
 				}
 			]
 		}

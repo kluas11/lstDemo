@@ -31,10 +31,8 @@ Page({
   addCollect: function(e) {
     var goods_id = e.currentTarget.dataset.id;
     console.log(goods_id);
-
     var user_id = getApp().globalData.userInfo.user_id
     var ctype = 0;
-
     server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
       wx.showToast({
         title: res.data.msg,
@@ -98,7 +96,6 @@ Page({
       });
       that.checkPrice();
     });
-
   },
   checkPrice: function() {
     var goods = this.data.goods;
@@ -106,7 +103,9 @@ Page({
     this.setData({
       price: goods.goods.shop_price
     });
-    
+    if (!goods.goods.goods_spec_list){
+      return;
+    }
     for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
       for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
         if (goods.goods.goods_spec_list[i][j].isClick == 1) {

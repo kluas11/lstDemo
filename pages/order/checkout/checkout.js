@@ -1,4 +1,5 @@
 var server = require('../../../utils/server');
+var AV = require('../../../utils/av-weapp');
 var timeout = null 
 var exit;
 Page({

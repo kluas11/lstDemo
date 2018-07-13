@@ -274,7 +274,7 @@ Page({
   },
   saveNum: function (id, num) {
     //https://wudhl.com/index.php/Api/Cart/updateNum/id/1720/num/9
-
+    var that = this
     server.getJSON('/Cart/updateNum/id/' + id + "/num/" + num, function (res) {
 
 

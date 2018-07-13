@@ -1,4 +1,5 @@
 var server = require('../../../utils/server');
+var AV = require('../../../utils/av-weapp');
 Page({
   data: {
     outRange: true,
@@ -78,10 +79,6 @@ Page({
         });
       },
     })
-
-
-
-
   },
   nameChange: function (e) {
 
@@ -178,10 +175,10 @@ Page({
   },
   getArea: function (pid, cb) {
     var that = this;
-
     server.getJSON('/User/getArea/parent_id/' + pid, {
       store_id: getApp().globalData.store_id
     }, function (res) {
+      console.log(res)
       cb(res.data.result);
     })
   },
@@ -210,10 +207,11 @@ Page({
     // if isDefault, address is empty
     this.setDefault();
     // this.cascadePopup();
-    this.loadAddress(options);
+    // this.loadAddress(options);
     // TODO:load default city...
   },
   loadAddress: function (options) {
+  //功能未知
     var that = this;
     if (options.objectId != undefined) {
       // 第一个参数是 className，第二个参数是 objectId
@@ -232,6 +230,7 @@ Page({
     }
   },
   setDefault: function () {
+    //功能未知
     var that = this;
     var user = AV.User.current();
     // if user has no address, set the address for default

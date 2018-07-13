@@ -1,14 +1,47 @@
 page {
   background: #eee;
+  padding-top: 90rpx;
 }
 
 .shopNameTip{
   font-size: 32rpx;
   color: #666;
-  text-align: center;
-  background: wheat;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  padding: 0 40rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  box-sizing: border-box;
 }
-
+.address{
+  display: flex;
+  align-items: center;
+}
+.address_img{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+.search{
+  border: 1px solid #cccccc;
+  flex: 1;
+  margin-left: 20rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding-right: 10rpx;
+  border-radius: 10rpx;
+}
+.search_img{
+  width: 36rpx;
+  height: 36rpx;
+}
 .video {
   position: fixed;
   z-index: 99;
@@ -25,7 +58,7 @@ page {
   width: 100%;
   height: 100%;
 }
-
+/* 
 .view_search {
   width: 100%;
   height: 125rpx;
@@ -73,7 +106,7 @@ page {
   font: 14px;
   color: #999;
   margin-left: 25rpx;
-}
+} */
 
 .view1 {
   height: 100%;
@@ -148,7 +181,6 @@ page {
   text-indent: 20rpx;
   padding: 10rpx;
   text-align: center;
-  color: #3e8f4f;
 }
 
 .main-goods {
@@ -223,7 +255,6 @@ page {
 .main-goods .summary .source {
   display: block;
   width: 100%;
-  color: #3d8f4f;
   text-align: center;
 }
 

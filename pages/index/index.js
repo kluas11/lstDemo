@@ -25,7 +25,7 @@ Page({
       data: scene
     })
     this.getInviteCode(options);
-    console.log(options);
+    // console.log(options);
     var app = getApp();
     app.getOpenId(function () {
 
@@ -37,8 +37,8 @@ Page({
       }, function (res) {
 
         if (res.data.code == 200) {
-          console.log('【/User/validateOpenid】')
-          console.log(res.data.data)
+          // console.log('【/User/validateOpenid】')
+          // console.log("用户信息",res.data.data)
           getApp().globalData.userInfo = res.data.data;
           var user = app.globalData.userInfo;
           wx.getSetting({
@@ -79,7 +79,7 @@ Page({
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         var latitude = res.latitude;
         var longitude = res.longitude;
 
@@ -87,7 +87,7 @@ Page({
         app.globalData.lng = longitude;
         // 实例划API核心类
         var map = new QQMapWX({
-          key: 'Q4NBZ-2PIH6-IITSM-MKJOI-IVPGF-WMBBG' // 必填
+          key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
         });
         // address: res.result.address_component.city
         // 调用接口
@@ -97,9 +97,6 @@ Page({
             longitude: longitude
           },
           success: function (res) {
-            console.log('map.reverseGeocoder');
-            console.log(res);
-
             if (res.result.ad_info.city != undefined) {
               self.setData({
                 address: res.result.ad_info.city
@@ -110,7 +107,7 @@ Page({
             }
           },
           fail: function (res) {
-            
+            console.log(res)
           },
           complete: function (res) {
             self.loadBanner(options);
@@ -131,7 +128,7 @@ Page({
       })
       return;
     } else {
-      console.log(123);
+      // console.log(123);
     }
   },
 
@@ -204,7 +201,7 @@ Page({
     var city = that.data.address;
     city = encodeURI(city);
 
-    console.log(isNaN(shopId));
+    // console.log(isNaN(shopId));
     if (isNaN(shopId)) {
       //console.log('首次进来');
       var stroe_id = '';
@@ -214,21 +211,21 @@ Page({
     }
 
     getApp().globalData.stroe_id = stroe_id;
-    console.log(stroe_id);
-    console.log(getApp().globalData.lat)
-    console.log(getApp().globalData.lng)
+    // console.log(stroe_id);
+    // console.log(getApp().globalData.lat)
+    // console.log(getApp().globalData.lng)
     server.getJSON("/Index/home", {
       city: that.data.address,
       stroe_id: stroe_id,
       lat: getApp().globalData.lat,
       lon: getApp().globalData.lng
     }, function (res) {
-      console.log(res)
+      // console.log(res)
       var banner = res.data.result.ad;
       var goods = res.data.result.goods;
       var ad = res.data.ad;
       getApp().globalData.store_id = res.data.store_id.store_id;
-      console.log(res.data.store_id.store_id)
+      // console.log(res.data.store_id.store_id)
       getApp().globalData.store_name = res.data.store_id.store_name;
       that.setData({
         shopName: res.data.store_id.store_name,
@@ -251,8 +248,9 @@ Page({
   },
 
   onShow: function () {
+    let shopname = getApp().globalData.store_name;
     this.setData({
-      shopName: getApp().globalData.store_name
+      shopName: shopname ? shopname:""
     })
    
   },

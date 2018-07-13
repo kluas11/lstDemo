@@ -11,7 +11,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
   flex-direction: column;
   align-items: center;
   height: 250rpx;
-   background: #009247;  
+   background: #d94612;  
 }
 
 .userinfo-avatar {

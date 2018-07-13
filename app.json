@@ -46,7 +46,7 @@
     "pages/web-view/web-view"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#009247",
+    "navigationBarBackgroundColor": "#d94612",
     "navigationBarTitleText": "乐善亭",
     "navigationBarTextStyle": "white"
   },

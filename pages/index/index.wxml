@@ -1,4 +1,12 @@
-<view class='shopNameTip' wx:if='{{shopName != ""}}'>您所在的门店：{{shopName}}</view>
+<view class='shopNameTip' wx:if='{{shopName != ""}}'>
+  <view class='address'>
+    <image class='address_img' src='/images/icon_address.png'></image>
+    {{shopName}}
+  </view>
+  <view bindtap="search" class='search'>
+    <image class='search_img' src='/images/search.png'></image>
+  </view>
+</view>
 <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
@@ -6,7 +14,7 @@
     </swiper-item>
   </block>
 </swiper>
-<view class="view_search">
+<!-- <view class="view_search">
   <view class="view_searchbg" bindtap="search">
     <text bindtap="search" placeholder-style="color:#999999" class="input_search" placeholder="请输入您所搜索的商品">请输入您所搜索的商品</text>
     <view bindtap="search" class="view1">
@@ -14,9 +22,7 @@
       <image bindtap="search" src="/images/search.png"></image>
     </view>
   </view>
-
-
-</view>
+</view> -->
 
 <view class="func-area">
   <view bindtap="showCategories">
@@ -108,13 +114,13 @@
 <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
   <view class='container-goods'>
     <view class="category_title">
-      <text class="caption">{{item.name}}</text>
+      <text class="caption improt_color">{{item.name}}</text>
     </view>
     <scroll-view scroll-x class="main-goods">
       <view class="single-goods" wx:for="{{item.goods_list}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
         <text class="title">{{item.goods_name}}</text>
         <view class="summary">
-          <text class="source">￥{{item.shop_price}}</text>
+          <text class="source improt_color">￥{{item.shop_price}}</text>
         </view>
 
         <image class="avatar" src="{{item.original_img}}" mode="aspectFill" />
