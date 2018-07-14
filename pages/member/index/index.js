@@ -1,198 +1,203 @@
 const AV = require('../../../utils/av-weapp.js')
 var app = getApp()
-var maxTime = 60 
-var interval = null 
+var maxTime = 60
+var interval = null
 var currentTime = -1 //倒计时的事件（单位：s）  
 
 Page({
-	
-	data: {
-		login:false,
-    time:'获取验证码'
-	},
-	onLoad: function (options) {
-		var login = app.globalData.login;
+
+  data: {
+    login: false,
+    time: '获取验证码'
+  },
+  onLoad: function(options) {
+    var login = app.globalData.login;
     var that = this;
-    
+
     wx.getSystemInfo({
-  success: function(res) {
-    that.setData({height:res.windowHeight})
-  }
-})
-	},
-  navigateToEdit:function(){
-wx.navigateTo({
-  url: '../../register/index',
-  success: function(res){
-    // success
+      success: function(res) {
+        that.setData({
+          height: res.windowHeight
+        })
+      }
+    })
   },
-  fail: function(res) {
-    // fail
+  navigateToEdit: function() {
+    wx.navigateTo({
+      url: '../../register/index',
+      success: function(res) {
+        // success
+      },
+      fail: function(res) {
+        // fail
+      },
+      complete: function(res) {
+        // complete
+      }
+    })
   },
-  complete: function(res) {
-    // complete
-  }
-})
-  },
-  navigateToCoupon: function () {
+  navigateToCoupon: function() {
     wx.navigateTo({
       url: '../coupon/index'
     });
   },
-  navigateToShare:function(){
-wx.navigateTo({
-			url: '../share/index/index'
-		});
+  navigateToShare: function() {
+    wx.navigateTo({
+      url: '../share/index/index'
+    });
   },
-  navigateToEvaluate:function(){
-wx.navigateTo({
-			url: '../evaluate/evaluate'
-		});
-  },
-
-    navigateToPoint:function(){
-wx.navigateTo({
-			url: '../point/point'
-		});
+  navigateToEvaluate: function() {
+    wx.navigateTo({
+      url: '../evaluate/evaluate'
+    });
   },
 
+  navigateToPoint: function() {
+    wx.navigateTo({
+      url: '../point/point'
+    });
+  },
 
-  navigateToCollect:function(){
-wx.navigateTo({
-			url: '../collect/collect'
-		});
-  },
-  navigateToEvaluate:function(){
-wx.navigateTo({
-			url: '../evaluate/evaluate'
-		});
-  },
-  navigateToMoney:function(){
-//url: "../order/list/list"
-wx.navigateTo({
-			url: '../money/money'
-		});
-  },
-  navigateToOrder:function(e){
-//url: "../order/list/list"
-var cid = e.currentTarget.dataset.cid;
-wx.navigateTo({
-			url: '../../order/list/list?cid='+cid
-		});
-  },
-	navigateToAddress: function () {
-		wx.navigateTo({
-			url: '../../address/list/list'
-		});
-	},
-	logout: function () {
 
-wx.navigateTo({
-  url: '../../seller/add',
-  success: function(res){
-    // success
+  navigateToCollect: function() {
+    wx.navigateTo({
+      url: '../collect/collect'
+    });
   },
-  fail: function(res) {
-    // fail
+  navigateToEvaluate: function() {
+    wx.navigateTo({
+      url: '../evaluate/evaluate'
+    });
   },
-  complete: function(res) {
-    // complete
-  }
-})
-    return ;
-		   var app = getApp();
-       app.globalData.login = false;
-       app.globalData.userInfo = null;
+  navigateToMoney: function() {
+    //url: "../order/list/list"
+    wx.navigateTo({
+      url: '../money/money'
+    });
+  },
+  navigateToOrder: function(e) {
+    //url: "../order/list/list"
+    var cid = e.currentTarget.dataset.cid;
+    wx.navigateTo({
+      url: '../../order/list/list?cid=' + cid
+    });
+  },
+  navigateToAddress: function() {
+    wx.navigateTo({
+      url: '../../address/list/list'
+    });
+  },
+  logout: function() {
 
-       wx.request({
-         url: 'https://wudhl.com/index.php/Api/User/logoutWX/openid/' + app.globalData.openid,
-         data: {},
-         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-         // header: {}, // 设置请求的 header
-         success: function(res){
-           // success
-           if(res.data.code == 200)
-           {
-              
-       wx.showToast({
-              title: '注销成功',
-              icon: 'success',
-            });
+    wx.navigateTo({
+      url: '../../seller/add',
+      success: function(res) {
+        // success
+      },
+      fail: function(res) {
+        // fail
+      },
+      complete: function(res) {
+        // complete
+      }
+    })
+    return;
+    var app = getApp();
+    app.globalData.login = false;
+    app.globalData.userInfo = null;
 
-           timeout = setTimeout(function doHandler()
-       {
+    wx.request({
+      url: 'https://wudhl.com/index.php/Api/User/logoutWX/openid/' + app.globalData.openid,
+      data: {},
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function(res) {
+        // success
+        if (res.data.code == 200) {
+
+          wx.showToast({
+            title: '注销成功',
+            icon: 'success',
+          });
+
+          timeout = setTimeout(function doHandler() {
             wx.switchTab({
               url: '/pages/index/index'
             });
-			
-        },2000);//使用字符串执行方法
+
+          }, 2000); //使用字符串执行方法
 
 
-           }
-         },
-         fail: function() {
-           // fail
-         },
-         complete: function() {
-           // complete
-         }
-       })
+        }
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
 
-       
-	},
-	onShow: function () {
-		var that = this;
-		
+
+  },
+  onShow: function() {
+    var that = this;
+
     var login = app.globalData.login;
     var that = this;
-		this.setData({login:login});
-		// 调用小程序 API，得到用户信息
-		wx.getUserInfo({
-			success: ({userInfo}) => {
-				that.setData({
-					userInfo: userInfo
-				});
+    this.setData({
+      login: login
+    });
+    // 调用小程序 API，得到用户信息
+    wx.getUserInfo({
+      success: ({
+        userInfo
+      }) => {
+        that.setData({
+          userInfo: userInfo
+        });
         app.globalData.nickName = userInfo.nickName;
-			}
-		});
-
-    
-	},
-	chooseImage: function () {
-		var that = this;
-		wx.chooseImage({
-			count: 1, // 默认9
-			sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-			sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-			success: function (res) {
-				// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-				var tempFilePath = res.tempFilePaths[0];
-				new AV.File('file-name', {
-					blob: {
-						uri: tempFilePath,
-					},
-				}).save().then(
-				// file => console.log(file.url())
-					function(file) {
-						// 上传成功后，将所上传的头像设置更新到页面<image>中
-						var userInfo = that.data.userInfo;
-						userInfo.avatarUrl = file.url();
-						that.setData({
-							userInfo, userInfo
-						});
-					}
-				).catch(console.error);
-			}
-		})
-	},
-	navigateToAddressAboutus: function () {
-		wx.navigateTo({
-			url: '/pages/member/aboutus/aboutus'
-		});
-	},
+      }
+    });
 
 
-	turnTologin: function (e) {
+  },
+  chooseImage: function() {
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function(res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePath = res.tempFilePaths[0];
+        new AV.File('file-name', {
+          blob: {
+            uri: tempFilePath,
+          },
+        }).save().then(
+          // file => console.log(file.url())
+          function(file) {
+            // 上传成功后，将所上传的头像设置更新到页面<image>中
+            var userInfo = that.data.userInfo;
+            userInfo.avatarUrl = file.url();
+            that.setData({
+              userInfo,
+              userInfo
+            });
+          }
+        ).catch(console.error);
+      }
+    })
+  },
+  navigateToAddressAboutus: function() {
+    wx.navigateTo({
+      url: '/pages/member/aboutus/aboutus'
+    });
+  },
+
+
+  turnTologin: function(e) {
     //转为登录
     this.setData({
       ifLogup: false
@@ -202,7 +207,7 @@ wx.navigateTo({
     this.data.password = '';
     this.data.passwordSure = '';
   },
-  turnTologup: function (e) {
+  turnTologup: function(e) {
     this.setData({
       ifphone: false,
       ifLogup: true,
@@ -213,7 +218,7 @@ wx.navigateTo({
     this.data.phoneNum = '';
     this.data.password = '';
   },
-  turnto_phone: function (e) {
+  turnto_phone: function(e) {
     this.setData({
       ifphone: true,
     })
@@ -263,7 +268,7 @@ wx.navigateTo({
       user.setUsername(this.data.name);
       user.setEmail(this.data.email);
       user.setPassword(this.data.password);
-      user.signUp().then(function (loginedUser) {
+      user.signUp().then(function(loginedUser) {
         app.iflogup = true;
         wx.showToast({
           title: '',
@@ -272,7 +277,7 @@ wx.navigateTo({
         wx.redirectTo({
           url: '../main/main?usrid=' + loginedUser.id
         })
-      }, function (error) {
+      }, function(error) {
         switch (error.code) {
           case 203:
             wx.showToast({
@@ -313,7 +318,7 @@ wx.navigateTo({
       });
     }
   },
-  tap_login: function () {
+  tap_login: function() {
     var user_login = new AV.User();
     var that = this;
     if (this.data.name == '') {
@@ -385,7 +390,7 @@ wx.navigateTo({
       user_login.setUsername(this.data.name);
       user_login.setPassword(this.data.password);
       user_login.logIn().then(
-        function (loginedUser) {
+        function(loginedUser) {
           wx.showToast({
             title: '',
             icon: 'loading'
@@ -396,8 +401,9 @@ wx.navigateTo({
             url: '../main/main?usrid=' + userid,
           })
         },
-        function (error) {
-          console.log('error.code'); console.log(error.code);
+        function(error) {
+          console.log('error.code');
+          console.log(error.code);
           if (error.code == '210') {
             wx.showToast({
               title: "密码错误",
@@ -429,9 +435,8 @@ wx.navigateTo({
             });
             //往邮箱中发送验证邮件
             AV.User.requestEmailVerify(that.data.email).then(
-              function (result) {
-              },
-              function (error) {
+              function(result) {},
+              function(error) {
                 if (error.code == '1') {
                   wx.showToast({
                     title: "今日往此邮箱发送的邮件数已超上限",
@@ -455,30 +460,32 @@ wx.navigateTo({
         })
     }
   },
-  getnum: function (e) {
+  getnum: function(e) {
     var that = this;
-    
+
     if (parseInt(that.data.phoneNum).toString().length == 11) {
-      
+
       that.reSendPhoneNum();
-      return ;
+      return;
       wx.request({
         url: 'https://wudhl.com/index.php/Api/Shipper/getCaptcha.html',
-        data: { phone: that.data.phoneNum },
+        data: {
+          phone: that.data.phoneNum
+        },
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
-        success: function (res) {
+        success: function(res) {
           // success
-          
+
           wx.showToast({
             title: res.data.msg,
             icon: 'success',
           });
         },
-        fail: function () {
+        fail: function() {
           // fail
         },
-        complete: function () {
+        complete: function() {
           // complete
         }
       })
@@ -493,32 +500,37 @@ wx.navigateTo({
       })
     }
   },
-  inputNum: function (e) {
+  inputNum: function(e) {
     this.data.num = e.detail.value;
   },
-  quick_reguster_phone: function (e) {
+  quick_reguster_phone: function(e) {
     wx.navigateTo({
-			url: '../../register/index'
-		});
+      url: '../../register/index'
+    });
   },
   //短信验证码验证
-  quick_login_phone: function (e) {
+  quick_login_phone: function(e) {
     var that = this;
     if (parseInt(this.data.num).toString().length == 4) {
-      
+
       console.log('https://wudhl.com/index.php/Api/User/validate?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&openid=" + app.globalData.openid);
       wx.request({
         url: 'https://wudhl.com/index.php/Api/User/validate?phone=' + this.data.phoneNum + "&num=" + this.data.num + "&openid=" + app.globalData.openid,
-        data: { 'phone': this.data.phoneNum, 'num': this.data.num },
+        data: {
+          'phone': this.data.phoneNum,
+          'num': this.data.num
+        },
         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
-        success: function (res) {
+        success: function(res) {
 
           if (res.data.code == 200) {
             app.globalData.login = true;
             app.globalData.userInfo = res.data.res;
-            that.setData({login:true});
-            
+            that.setData({
+              login: true
+            });
+
 
             wx.showToast({
               title: res.data.msg,
@@ -526,27 +538,25 @@ wx.navigateTo({
             });
 
 
-timeout = setTimeout(function doHandler()
-       {
-            wx.switchTab({
-              url: '/pages/index/index'
-            });
-			
-        },2000);//使用字符串执行方法
+            timeout = setTimeout(function doHandler() {
+              wx.switchTab({
+                url: '/pages/index/index'
+              });
+
+            }, 2000); //使用字符串执行方法
 
 
-          }
-          else
+          } else
             wx.showToast({
               title: res.data.msg,
               icon: 'error',
             });
 
         },
-        fail: function () {
+        fail: function() {
           // fail
         },
-        complete: function () {
+        complete: function() {
           // complete
         }
       })
@@ -559,8 +569,8 @@ timeout = setTimeout(function doHandler()
       })
     }
   },
-  
-  getPassword: function (e) {
+
+  getPassword: function(e) {
     this.setData({
       password: e.detail.value,
       warn: {
@@ -569,7 +579,7 @@ timeout = setTimeout(function doHandler()
     })
     this.data.password = e.detail.value;
   },
-  getEmail: function (e) {
+  getEmail: function(e) {
     this.data.email = e.detail.value;
     this.data.name = e.detail.value;
     this.setData({
@@ -578,7 +588,7 @@ timeout = setTimeout(function doHandler()
       },
     });
   },
-  passwordSure: function (e) {
+  passwordSure: function(e) {
     if (e.detail.value === this.data.password)
       this.data.passwordSure = e.detail.value;
     this.setData({
@@ -587,27 +597,28 @@ timeout = setTimeout(function doHandler()
       },
     });
   },
-  getPhoneNum: function (e) {
+  getPhoneNum: function(e) {
     this.setData({
       phoneNum: e.detail.value,
     });
   },
-  input_num: function (e) {
+  input_num: function(e) {
     this.data.num = e.detail.value;
   },
   //重置密码";
-  forgetPassword: function (e) {
+  forgetPassword: function(e) {
     var that = this;
     AV.User.requestPasswordReset(this.data.email).then(
-      function (success) {
+      function(success) {
         wx.showToast({
           title: '密码重置邮件已发送，请在邮件中重置密码',
           icon: 'success',
           duration: 5000,
         });
       },
-      function (error) {
-        console.log(error); console.log(error.code);
+      function(error) {
+        console.log(error);
+        console.log(error.code);
         if (error.code == '1') {
           wx.showToast({
             title: "今日往此邮箱发送的邮件数已超上限",
@@ -629,34 +640,31 @@ timeout = setTimeout(function doHandler()
         }
       });
   },
-  reSendPhoneNum: function(){  
-        if(currentTime < 0){  
-            var that = this  
-            currentTime = maxTime  
-            interval = setInterval(function(){  
-                currentTime--  
-                that.setData({  
-                    time : currentTime+"s"  
-                })  
-  
-                if(currentTime <= 0){  
-                    currentTime = -1  
-                    clearInterval(interval)
-                    that.setData({  
-                    time : '获取验证码'  
-                })  
-                }  
-            }, 1000)  
-        }else{  
-            wx.showToast({  
-                title: '短信已发到您的手机，请稍后重试!',  
-                icon : 'loading',  
-                duration : 700  
-            })  
-        }  
-    }  
+  reSendPhoneNum: function() {
+    if (currentTime < 0) {
+      var that = this
+      currentTime = maxTime
+      interval = setInterval(function() {
+        currentTime--
+        that.setData({
+          time: currentTime + "s"
+        })
+
+        if (currentTime <= 0) {
+          currentTime = -1
+          clearInterval(interval)
+          that.setData({
+            time: '获取验证码'
+          })
+        }
+      }, 1000)
+    } else {
+      wx.showToast({
+        title: '短信已发到您的手机，请稍后重试!',
+        icon: 'loading',
+        duration: 700
+      })
+    }
+  }
 
 })
-
-
-

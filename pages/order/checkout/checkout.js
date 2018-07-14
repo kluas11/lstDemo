@@ -1,5 +1,5 @@
 var server = require('../../../utils/server');
-var AV = require('../../../utils/av-weapp');
+// var AV = require('../../../utils/av-weapp');
 var timeout = null
 var exit;
 Page({
@@ -50,7 +50,7 @@ Page({
       amount: amount
     });
 
-    timeout = setTimeout(function doHandler() {
+    timeout = setTimeout(function() {
       if (!app.globalData.login) {
         exit = true;
         wx.switchTab({
@@ -64,20 +64,17 @@ Page({
           exit = true;
           if (data.msg == "没有数据") {
             wx.navigateTo({
-              url: '../../../../../../address/add/add?returnTo=1'
+              url: '/pages/address/add/add?returnTo=1'
             });
           } else //ordersubmit/index
           {
             wx.navigateTo({
-              url: '../ordersubmit/index'
+              url: '/pages/ordersubmit/index'
             });
           }
         });
-
       }
     }, 2000); //使用字符串执行方法
-
-
 
     wx.getSystemInfo({
       success: function(res) {
@@ -86,31 +83,33 @@ Page({
         })
       }
     })
-  },
-  readCarts: function(options) {
-    // from carts
-    // amount
-    var amount = parseInt(options.amount);
-    this.setData({
-      amount: amount
-    });
 
-    // cartIds str
-    var cartIds = options.cartIds;
-    var cartIdArray = cartIds.split(',');
-    // restore carts object
-    var carts = [];
-    for (var i = 0; i < cartIdArray.length; i++) {
-      var query = new AV.Query('Cart');
-      query.include('goods');
-      query.get(cartIdArray[i]).then(function(cart) {
-        carts.push(cart);
-      }, function(error) {
-
-      });
-    }
-    this.setData({
-      carts: carts
-    });
   },
+  // readCarts: function(options) {
+  // 未知功能
+  //   // from carts
+  //   // amount
+  //   var amount = parseInt(options.amount);
+  //   this.setData({
+  //     amount: amount
+  //   });
+
+  //   // cartIds str
+  //   var cartIds = options.cartIds;
+  //   var cartIdArray = cartIds.split(',');
+  //   // restore carts object
+  //   var carts = [];
+  //   for (var i = 0; i < cartIdArray.length; i++) {
+  //     var query = new AV.Query('Cart');
+  //     query.include('goods');
+  //     query.get(cartIdArray[i]).then(function(cart) {
+  //       carts.push(cart);
+  //     }, function(error) {
+
+  //     });
+  //   }
+  //   this.setData({
+  //     carts: carts
+  //   });
+  // }
 })

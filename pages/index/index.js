@@ -10,7 +10,7 @@ Page({
     "address": "定位中",
     banner: [],
     goods: [],
-    bannerHeight: Math.ceil(290.0 / 750.0 * getApp().screenWidth),
+    bannerHeight: Math.ceil(290.0 / 750.0 * App.screenWidth),
     shopName: ''
   },
 
@@ -48,7 +48,7 @@ Page({
               }
             }
           })
-          getApp().globalData.login = true;
+          App.globalData.login = true;
         } else {
           if (res.data.code == '400') {
             console.log("need register");
@@ -128,7 +128,7 @@ Page({
   },
   // 页面显示
   onShow: function () {
-    let shopname = getApp().globalData.store_name;
+    let shopname =App.globalData.store_name;
     this.setData({
       shopName: shopname ? shopname : ""
     })
@@ -270,7 +270,7 @@ Page({
     });
   },
   onShareAppMessage: function () {
-    var user_id = getApp().globalData.userInfo.user_id
+    var user_id = App.globalData.userInfo.user_id
     console.log(user_id);
     return {
       title: '乐善亭',

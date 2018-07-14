@@ -1,8 +1,8 @@
 <scroll-view scroll-x="true" class="sc-header">
     <view class="view-header">
        <view wx:for="{{store_class}}" wx:key='unique' >
-       <text bindtap="onClickClass" wx:if="{{item.select == 1}}" style="color:red" data-id="{{item.sc_id}}">{{item.sc_name}}</text>
-       <text bindtap="onClickClass" wx:else data-id="{{item.sc_id}}">{{item.sc_name}}</text>
+       <text bindtap="onClickClass" wx:if="{{active_index == index}}" style="color:red" data-id="{{item.sc_id}}" data-index="{{index}}">{{item.sc_name}}</text>
+       <text bindtap="onClickClass" wx:else data-id="{{item.sc_id}}" data-index="{{index}}">{{item.sc_name}}</text>
        </view>
        
     </view>
