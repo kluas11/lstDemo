@@ -18,6 +18,10 @@ page {
   width: 100%;
   box-sizing: border-box;
 }
+.lists{
+  padding:44rpx 0;
+  background: #ffffff;
+}
 .address{
   display: flex;
   align-items: center;
@@ -85,7 +89,7 @@ page {
   display: flex;
   flex-direction: row;
   margin: 0 0;
-  padding-top: 10rpx;
+  /* padding-top: 10rpx; */
   background: white;
 }
 
@@ -97,7 +101,7 @@ page {
 .func-area text {
   display: block;
   color: #6c6c6c;
-  font-size: 30rpx;
+  font-size: 20rpx;
   line-height: 50rpx;
 }
 

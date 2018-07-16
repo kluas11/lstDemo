@@ -7,7 +7,7 @@
     <image class='search_img' src='/images/search.png'></image>
   </view>
 </view>
-<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;margin-bottom:20rpx;">
+<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
       <image src="{{item.ad_code}}" data-goods-id="{{item.ad_link}}" data-linktype='{{item.linktype}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
@@ -24,56 +24,58 @@
   </view>
 </view> -->
 
-<view class="func-area">
-  <view bindtap="showCategories">
-    <image src="../../images/icon_all.png" mode="aspectFill" class="orange" />
-    <text>全部分类</text>
+<view class='lists'>
+  <view class="func-area">
+    <view bindtap="showCategories">
+      <image src="../../images/icon_all.png" mode="aspectFill" class="orange" />
+      <text>全部分类</text>
+    </view>
+
+    <view bindtap="showSeller">
+      <image src="../../images/icon_seller.png" mode="aspectFill" class="orange" />
+      <text>附近门店</text>
+    </view>
+
+
+    <view bindtap="showGroupList">
+      <image src="../../images/icon_shopping.png" mode="aspectFill" class="blue" />
+      <text>团购</text>
+    </view>
+
+
+    <view bindtap="showCarts">
+      <image src="../../images/icon_carticon.png" mode="aspectFill" class="orange" />
+      <text>会员充值</text>
+    </view>
+
+
   </view>
 
-  <view bindtap="showSeller">
-    <image src="../../images/icon_seller.png" mode="aspectFill" class="orange" />
-    <text>附近门店</text>
+  <view class="func-area" style='padding-top:44rpx'>
+    <view bindtap="showCoupon">
+      <image src="../../images/icon_collect.png" mode="aspectFill" class="orange" />
+      <text>优惠劵</text>
+    </view>
+
+    <view bindtap="showOrder">
+      <image src="../../images/icon_orders.png" mode="aspectFill" class="orange" />
+      <text>我的订单</text>
+    </view>
+
+
+    <view bindtap="showPoint">
+      <image src="../../images/jf.png" mode="aspectFill" class="blue" />
+      <text>我的积分</text>
+    </view>
+
+
+    <view bindtap="showMine">
+      <image src="../../images/icon_membericon.png" mode="aspectFill" class="orange" />
+      <text>我的付款码</text>
+    </view>
   </view>
-
-
-  <view bindtap="showGroupList">
-    <image src="../../images/icon_shopping.png" mode="aspectFill" class="blue" />
-    <text>团购</text>
-  </view>
-
-
-  <view bindtap="showCarts">
-    <image src="../../images/icon_carticon.png" mode="aspectFill" class="orange" />
-    <text>会员充值</text>
-  </view>
-
 
 </view>
-
-<view class="func-area">
-  <view bindtap="showCoupon">
-    <image src="../../images/icon_collect.png" mode="aspectFill" class="orange" />
-    <text>优惠劵</text>
-  </view>
-
-  <view bindtap="showOrder">
-    <image src="../../images/icon_orders.png" mode="aspectFill" class="orange" />
-    <text>我的订单</text>
-  </view>
-
-
-  <view bindtap="showPoint">
-    <image src="../../images/jf.png" mode="aspectFill" class="blue" />
-    <text>我的积分</text>
-  </view>
-
-
-  <view bindtap="showMine">
-    <image src="../../images/icon_membericon.png" mode="aspectFill" class="orange" />
-    <text>我的付款码</text>
-  </view>
-</view>
-
 <!--商品分类  -->
 <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
   <view class='container-goods'>
