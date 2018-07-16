@@ -42,6 +42,7 @@ Page({
         topCategories: categorys
       });
       that.getCategory(categorys[0].id);
+      console.log(categorys[0].mobile_name)
       that.getBanner(categorys[0].mobile_name);
     });
   },

@@ -1,5 +1,6 @@
 var server = require('../../../utils/server');
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min');
+const App = getApp();
 Page({
   data: {
     outRange: true,
@@ -26,7 +27,7 @@ Page({
     var address = this.data.address;
 
     var is_default = 1;
-    var glo_userid = getApp().globalData.userInfo && getApp().globalData.userInfo.user_id;
+    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
     var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
     var country = 1;
     var twon = 0;
@@ -118,9 +119,8 @@ Page({
   getArea: function(pid, cb) {
     var that = this;
     server.getJSON('/User/getArea/parent_id/' + pid, {
-      store_id: getApp().globalData.store_id
+      store_id: App.globalData.store_id
     }, function(res) {
-
       cb(res.data.result);
     })
   },
@@ -177,7 +177,13 @@ Page({
             // load province
             that.getArea(0, function (area) {
               wx.hideToast();
-              that.getid("province", area)
+              that.getid("province", area);//设置省ID
+              that.getArea(that.data.province_id,function(area){
+                  that.getid("city",area); //市id
+                that.getArea(that.data.city_id, function (area) {
+                  that.getid("district", area);//区id
+                })
+              })
               that.setData({
                 provinceObjects: area
               });
@@ -193,13 +199,11 @@ Page({
   },
   getid: function(str,area) {
     var that = this;
-    console.log(that.data)
     var id = str+'_id';
     var obj = {};
     area.forEach(function(val, index) {
       if (val.name == that.data[str]) {
         obj[id] = val.id;
-        console.log(obj)
         that.setData(obj)
         return;
       }
