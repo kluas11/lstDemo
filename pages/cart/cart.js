@@ -17,7 +17,6 @@ Page({
         var height = res.windowHeight;
         var height = height - height / 750.0 * 60;
         that.setData({ height: height })
-
       }
     })
   },
@@ -148,25 +147,18 @@ Page({
     console.log(app.globalData.cart_ids);
 
     wx.navigateTo({
-      url: '../../../../order/checkout/checkout?cartIds=' + cartIds + '&amount=' + this.data.total
+      url: '/pages/order/checkout/checkout?cartIds=' + cartIds + '&amount=' + this.data.total
     });
   },
   getCarts: function () {
     var minusStatuses = [];
     var that = this;
     var stroe_id = getApp().globalData.stroe_id;
-    console.log(stroe_id);
-    if (stroe_id == '') {
-      // wx.switchTab({
-      //   url: '../index/index'
-      // })
-    }
-
     var user_id = ""
-    console.log(app.globalData.userInfo)
+    // console.log(app.globalData.userInfo)
     user_id = app.globalData.userInfo.user_id
     // console.log(res)
-    console.log('/Cart/cartList/session_id/' + app.globalData.openid + '/user_id/' + user_id + '/store_id/' + stroe_id);
+    
     server.getJSON('/Cart/cartList/session_id/' + app.globalData.openid, { user_id: user_id, store_id: stroe_id }, function (res) {
       console.log(res)
       var carts = res.data
@@ -200,8 +192,6 @@ Page({
       });
       // sum
       that.sum();
-
-
     });
   },
   onShow: function () {
@@ -216,31 +206,33 @@ Page({
     }
 
     this.getCarts();
-
     return;
-    var that = this;
-    var user = AV.User.current();
-    var query = new AV.Query('Cart');
-    var minusStatuses = [];
-    query.equalTo('user', user);
-    query.include('goods');
-    query.find().then(function (carts) {
-      // set goods data
-      var goodsList = [];
-      for (var i = 0; i < carts.length; i++) {
-        var goods = carts[i].get('goods');
-        goodsList[i] = goods;
-        minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
-      }
-      // console.log(carts);
-      that.setData({
-        carts: carts,
-        goodsList: goodsList,
-        minusStatuses: minusStatuses
-      });
-      // sum
-      that.sum();
-    });
+
+    // 下面的功能未知
+
+    // var that = this;
+    // var user = AV.User.current();
+    // var query = new AV.Query('Cart');
+    // var minusStatuses = [];
+    // query.equalTo('user', user);
+    // query.include('goods');
+    // query.find().then(function (carts) {
+    //   // set goods data
+    //   var goodsList = [];
+    //   for (var i = 0; i < carts.length; i++) {
+    //     var goods = carts[i].get('goods');
+    //     goodsList[i] = goods;
+    //     minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
+    //   }
+    //   // console.log(carts);
+    //   that.setData({
+    //     carts: carts,
+    //     goodsList: goodsList,
+    //     minusStatuses: minusStatuses
+    //   });
+    //   // sum
+    //   that.sum();
+    // });
 
   },
   sum: function () {

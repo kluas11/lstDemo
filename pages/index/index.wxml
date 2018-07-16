@@ -7,7 +7,7 @@
     <image class='search_img' src='/images/search.png'></image>
   </view>
 </view>
-<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
+<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;margin-bottom:20rpx;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
       <image src="{{item.ad_code}}" data-goods-id="{{item.ad_link}}" data-linktype='{{item.linktype}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />

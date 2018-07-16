@@ -1,12 +1,12 @@
 var server = require('../../../utils/server');
+const App = getApp();
 var objectId;
 Page({
   data: {
     goods: {},
     current: 0,
-    tabStates: [true, false, false],
-    tabClasss: ["text-select", "text-normal", "text-normal"],
-    galleryHeight: getApp().screenWidth,
+    active_index:0,
+    galleryHeight: App.screenWidth,
     tab: 0,
     goods_num: 1,
     textStates: ["view-btns-text-normal", "view-btns-text-select"],
@@ -16,7 +16,6 @@ Page({
     var index = e.currentTarget.dataset.index;
     var goods = this.data.goods
     for (var i = 0; i < goods.goods.goods_spec_list[index].length; i++) {
-
       if (i == pos)
         goods.goods.goods_spec_list[index][pos].isClick = 1;
       else
@@ -31,7 +30,7 @@ Page({
   addCollect: function(e) {
     var goods_id = e.currentTarget.dataset.id;
     console.log(goods_id);
-    var user_id = getApp().globalData.userInfo.user_id
+    var user_id = App.globalData.userInfo.user_id
     var ctype = 0;
     server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
       wx.showToast({
@@ -40,10 +39,6 @@ Page({
         duration: 2000
       })
     });
-
-
-
-
   },
   bindMinus: function(e) {
 
@@ -51,7 +46,6 @@ Page({
     if (num > 1) {
       num--;
     }
-
     this.setData({
       goods_num: num
     });
@@ -79,11 +73,9 @@ Page({
     this.getGoodsById(goodsId);
   },
   tabClick: function(e) {
-    var index = e.currentTarget.dataset.index
-    var classs = ["text-normal", "text-normal", "text-normal"]
-    classs[index] = "text-select"
+    var index = e.currentTarget.dataset.index;
     this.setData({
-      tabClasss: classs,
+      active_index: index,
       tab: index
     })
   },
@@ -103,7 +95,7 @@ Page({
     this.setData({
       price: goods.goods.shop_price
     });
-    if (!goods.goods.goods_spec_list){
+    if (!goods.goods.goods_spec_list) {
       return;
     }
     for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
@@ -156,19 +148,17 @@ Page({
         }
       }
 
-
-    var app = getApp()
     var that = this;
 
     // console.log(that.data.goods);return;
     var goods_id = that.data.goods.goods.goods_id;
     var goods_spec = spec;
-    var session_id = app.globalData.openid //that.data.goods.goods.spec_goods_price
+    var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
     var goods_num = that.data.goods_num;
 
     var user_id = "0"
-    if (app.globalData.login)
-      user_id = app.globalData.userInfo.user_id
+    if (App.globalData.login)
+      user_id = App.globalData.userInfo.user_id
 
 
 
@@ -181,7 +171,7 @@ Page({
     }, function(res) {
 
       if (res.data.status == 1) {
-        app.globalData.stroe_id = that.data.goods.goods.store_id;
+        App.globalData.stroe_id = that.data.goods.goods.store_id;
         wx.showToast({
           title: '已加入购物车',
           icon: 'success',
@@ -228,15 +218,14 @@ Page({
 
 
 
-    var app = getApp()
     var that = this;
     var goods_id = that.data.goods.goods.goods_id;
     var goods_spec = spec;
-    var session_id = app.globalData.openid //that.data.goods.goods.spec_goods_price
+    var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
     var goods_num = that.data.goods_num;
     var user_id = "0"
-    if (app.globalData.login)
-      user_id = app.globalData.userInfo.user_id
+    if (App.globalData.login)
+      user_id = App.globalData.userInfo.user_id
 
 
 
@@ -270,7 +259,7 @@ Page({
       duration: 1000
     });
     wx.navigateTo({
-      url: '../../../../../../cart/cart'
+      url: '/pages/cart/cart'
     });
 
   },

@@ -5,15 +5,15 @@
   </view>
   <view class="order-area">
     <view bindtap="navigateToOrder" data-cid="NO" class="order">
-      <image src="../../../images/icon_order.png" />
+      <image src="../../../images/fukuan.png" />
       <text>待付款</text>
     </view>
     <view bindtap="navigateToOrder" data-cid="WAITSEND" class="order">
-      <image src="../../../images/icon_order.png" />
+      <image src="../../../images/fahuo.png" />
       <text>待发货</text>
     </view>
     <view bindtap="navigateToOrder" data-cid="FINISH" class="order">
-      <image src="../../../images/icon_order.png" />
+      <image src="../../../images/wancheng.png" />
       <text>已完成</text>
     </view>
   </view>

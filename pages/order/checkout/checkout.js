@@ -69,7 +69,7 @@ Page({
           } else //ordersubmit/index
           {
             wx.navigateTo({
-              url: '/pages/ordersubmit/index'
+              url: '/pages/order/ordersubmit/index'
             });
           }
         });

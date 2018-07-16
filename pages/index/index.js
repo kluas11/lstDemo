@@ -71,7 +71,6 @@ Page({
       self.loadBanner(options);
       return;
     }
-
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {

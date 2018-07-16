@@ -1,7 +1,7 @@
 <view class="class-tab">
-  <text bindtap="tabClick" data-index="0" class="{{tabClasss[0]}}">商品</text>
-  <text bindtap="tabClick" data-index="1" class="{{tabClasss[1]}}">详情</text>
-  <text bindtap="tabClick" data-index="2" class="{{tabClasss[2]}}">评价</text>
+  <text bindtap="tabClick" data-index="0" class="{{active_index == 0?'text-select':'text-normal'}}">商品</text>
+  <text bindtap="tabClick" data-index="1" class="{{active_index == 1?'text-select':'text-normal'}}">详情</text>
+  <text bindtap="tabClick" data-index="2" class="{{active_index == 2?'text-select':'text-normal'}}">评价</text>
 </view>
 <view class="parent" wx:if="{{tab == 0}}">
   <swiper class="images" indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{galleryHeight}}px;">
@@ -28,7 +28,7 @@
     <text class="text-price">价格: ￥{{goods.goods.market_price}} </text>
   </view>
   <view class="view-other-info">
-    <text>库存:{{goods.goods.store_count}}</text>
+    <text>库存:{{goods.goods.store_count}}</text>
     <text>{{goods.goods.comment_count}}人评价</text>
     <text>热度:{{goods.goods.click_count}}</text>
   </view>

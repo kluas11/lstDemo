@@ -5,10 +5,6 @@ Page({
     outRange: true,
     order: false,
     current: 0,
-    province: [],
-    city: [],
-    region: [],
-    town: [],
     provinceObjects: [],
     cityObjects: [],
     regionObjects: [],
@@ -19,7 +15,7 @@ Page({
   },
   addrDetail: '',
   isDefault: false,
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     // user 
     var mobile = this.data.mobile;
     // detail
@@ -31,58 +27,57 @@ Page({
 
     var is_default = 1;
     var glo_userid = getApp().globalData.userInfo && getApp().globalData.userInfo.user_id;
-    var user_id = glo_userid ? glo_userid:wx.getStorageSync("user_id");
+    var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
     var country = 1;
     var twon = 0;
-    var province = this.data.provinceObjects[this.data.provinceIndex].id;
-    var city = this.data.cityObjects[this.data.cityIndex].id;
-    var district = this.data.regionObjects[this.data.regionIndex].id;
+    var province_id = this.data.province_id;
+    var city_id = this.data.city_id;
+    var region_id = this.data.region_id;
+    console.log('省市区地址ID', province_id, city_id, region_id)
     var that = this;
-    wx.getLocation({
-      success: function (res) {
-        server.postJSON('/User/addAddress/user_id/' + user_id, {
-          user_id: user_id,
-          mobile: mobile,
-          zipcode: zipcode,
-          consignee: consignee,
-          address: address,
-          is_default: is_default,
-          country: country,
-          twon: twon,
-          province: province,
-          city: city,
-          district: district,
-          lat: res.latitude,
-          lon: res.longitude,
-        }, function (res) {
-          console.log(res)
-          if (res.data.status == 1) {
-            wx.showToast({
-              title: '保存成功',
-              duration: 1000
-            });
-            if (that.data.returnTo == 1)
-              setTimeout(function () {
-                wx.navigateTo({
-                  url: '../../order/ordersubmit/index'
-                });
-              }, 1000);
-            else {
-              wx.navigateBack();
-            }
-          }
+
+    server.postJSON('/User/addAddress/user_id/' + user_id, {
+      user_id: user_id,
+      mobile: mobile,
+      zipcode: zipcode,
+      consignee: consignee,
+      address: address,
+      is_default: is_default,
+      country: country,
+      twon: twon,
+      province: province_id,
+      city: city_id,
+      district: region_id,
+      lat: that.data.latitude,
+      lon: that.data.longitude,
+    }, function(res) {
+      console.log(res)
+      if (res.data.status == 1) {
+        wx.showToast({
+          title: '保存成功',
+          duration: 1000
         });
-      },
-    })
+        if (that.data.returnTo == 1)
+          setTimeout(function() {
+            wx.navigateTo({
+              url: '../../order/ordersubmit/index'
+            });
+          }, 1000);
+        else {
+          wx.navigateBack();
+        }
+      }
+    });
+
   },
-  nameChange: function (e) {
+  nameChange: function(e) {
     var value = e.detail.value;
     this.setData({
       consignee: value
     });
     this.formdis();
   },
-  addressChange: function (e) {
+  addressChange: function(e) {
     let context = this;
     var value = e.detail.value;
     this.setData({
@@ -90,47 +85,51 @@ Page({
     });
     this.formdis();
   },
-  phoneChange: function (e) {
+  phoneChange: function(e) {
     var value = e.detail.value;
     var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-    console.log(reg.test(value))
-    if (reg.test(value)){
+    if (reg.test(value)) {
       this.setData({
         mobile: value
       });
       this.formdis();
-    }else{
+    } else {
       wx.showToast({
         title: '手机格式有误',
       })
     }
-    
+
   },
-  yzChange: function (e) {
+  yzChange: function(e) {
     var value = e.detail.value;
     this.setData({
       zipcode: value
     });
     this.formdis();
   },
-  formdis:function(){
+  formdis: function() {
     var data = this.data
-    if (data.consignee && data.address && data.mobile && data.zipcode){
+    if (data.consignee && data.address && data.mobile && data.zipcode) {
       this.setData({
-        outRange:false
+        outRange: false
       })
     }
   },
-  getArea: function (pid, cb) {
+  getArea: function(pid, cb) {
     var that = this;
     server.getJSON('/User/getArea/parent_id/' + pid, {
       store_id: getApp().globalData.store_id
-    }, function (res) {
-      console.log(res)
+    }, function(res) {
+
       cb(res.data.result);
     })
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
+    wx.showToast({
+      title: '正在加载...',
+      icon: 'loading',
+      duration: 99999
+    })
     if (options.order != undefined) {
       this.setData({
         order: true
@@ -144,10 +143,14 @@ Page({
     //获取用户的位置信息
     wx.getLocation({
       type: 'gcj02',
-      success: function (res) {
+      success: function(res) {
         // console.log(res)
         var latitude = res.latitude;
         var longitude = res.longitude;
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
         // 调用腾讯地图API，通过坐标转换用户的确实地址
         var map = new QQMapWX({
           key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
@@ -159,74 +162,82 @@ Page({
             latitude: latitude,
             longitude: longitude
           },
-          success: function (res) {
+          success: function(res) {
             let data = res.result.address_component;
-            console.log(data);
+            console.log(res.result.ad_info);
             if (res.result.ad_info.city != undefined) {
-             that.setData({
-               areaSelectedStr: data.province + data.city + data.district,
-               address: data.street_number
-             })
+              that.setData({
+                province: data.province,
+                city: data.city,
+                district: data.district,
+                areaSelectedStr: data.province + data.city + data.district,
+                address: data.street_number
+              })
             }
+            // load province
+            that.getArea(0, function (area) {
+              wx.hideToast();
+              that.getid("province", area)
+              that.setData({
+                provinceObjects: area
+              });
+            });
           },
-          fail: function (res) {
+          fail: function(res) {
             console.log(res)
           },
-          complete: function (res) {
-          }
+          complete: function(res) {}
         });
       }
     })
-    // load province
-    this.getArea(0, function (area) {
-      var array = [];
-      for (var i = 0; i < area.length; i++) {
-        array[i] = area[i].name;
-      }
-      that.setData({
-        province: array,
-        provinceObjects: area
-      });
-    });
-    // if isDefault, address is empty
-    // this.setDefault();
-    // this.cascadePopup();
-    // this.loadAddress(options);
-    // TODO:load default city...
   },
-  loadAddress: function (options) {
-  //功能未知
+  getid: function(str,area) {
+    var that = this;
+    console.log(that.data)
+    var id = str+'_id';
+    var obj = {};
+    area.forEach(function(val, index) {
+      if (val.name == that.data[str]) {
+        obj[id] = val.id;
+        console.log(obj)
+        that.setData(obj)
+        return;
+      }
+    })
+  },
+  loadAddress: function(options) {
+    //功能未知
     var that = this;
     if (options.objectId != undefined) {
       // 第一个参数是 className，第二个参数是 objectId
       var address = AV.Object.createWithoutData('Address', options.objectId);
-      address.fetch().then(function () {
+      address.fetch().then(function() {
         that.setData({
           address: address,
           areaSelectedStr: address.get('province') + address.get('city') + address.get('region')
         });
-        console.log(address.get('province'))
-        console.log(address.get('city'))
-        console.log(address.get('region'))
-      }, function (error) {
+        // console.log(address.get('province'))
+        // console.log(address.get('city'))
+        // console.log(address.get('region'))
+      }, function(error) {
         // 异常处理
       });
     }
   },
-  setDefault: function () {
+  setDefault: function() {
     //功能未知
     var that = this;
     var user = AV.User.current();
     // if user has no address, set the address for default
     var query = new AV.Query('Address');
     query.equalTo('user', user);
-    query.count().then(function (count) {
+    query.count().then(function(count) {
       if (count <= 0) {
         that.isDefault = true;
       }
     });
   },
-  cascadePopup: function () {
+  cascadePopup: function() {
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'ease-in-out',
@@ -238,20 +249,22 @@ Page({
       maskVisual: 'show'
     });
   },
-  cascadeDismiss: function () {
+  cascadeDismiss: function() {
     this.animation.translateY(285).step();
     this.setData({
       animationData: this.animation.export(),
       maskVisual: 'hidden'
     });
   },
-  provinceTapped: function (e) {
+  provinceTapped: function(e) {
     // 标识当前点击省份，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
     // provinceIndex是市区数据的标识
+    var province_data = this.data.provinceObjects[index];
     this.setData({
-      provinceName: this.data.province[index],
+      provinceName: province_data.name,
+      province_id: province_data.id,
       regionName: '',
       townName: '',
       provinceIndex: index,
@@ -264,15 +277,10 @@ Page({
     var that = this;
     //provinceObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.provinceObjects[index].id, function (area) {
-      var array = [];
-      for (var i = 0; i < area.length; i++) {
-        array[i] = area[i].name;
-      }
+    this.getArea(province_data.id, function(area) {
       // city就是wxml中渲染要用到的城市数据，cityObjects是LeanCloud对象，用于县级标识取值
       that.setData({
         cityName: '请选择',
-        city: array,
         cityObjects: area
       });
       // 确保生成了数组数据再移动swiper
@@ -281,16 +289,19 @@ Page({
       });
     });
   },
-  cityTapped: function (e) {
+  cityTapped: function(e) {
     // 标识当前点击县级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
     // cityIndex是市区数据的标识
+    var city_data = this.data.cityObjects[index]
+    console.log(city_data)
     this.setData({
       cityIndex: index,
       regionIndex: -1,
       townIndex: -1,
-      cityName: this.data.city[index],
+      cityName: city_data.name,
+      city_id: city_data.id,
       regionName: '',
       townName: '',
       town: []
@@ -298,15 +309,10 @@ Page({
     var that = this;
     //cityObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.cityObjects[index].id, function (area) {
-      var array = [];
-      for (var i = 0; i < area.length; i++) {
-        array[i] = area[i].name;
-      }
+    this.getArea(city_data.id, function(area) {
       // region就是wxml中渲染要用到的城市数据，regionObjects是LeanCloud对象，用于县级标识取值
       that.setData({
         regionName: '请选择',
-        region: array,
         regionObjects: area
       });
       // 确保生成了数组数据再移动swiper
@@ -315,21 +321,23 @@ Page({
       });
     });
   },
-  regionTapped: function (e) {
+  regionTapped: function(e) {
     // 标识当前点击镇级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // current为1，使得页面向左滑动一页至市级列表
     // regionIndex是县级数据的标识
+    var region_data = this.data.regionObjects[index];
     this.setData({
       regionIndex: index,
       townIndex: -1,
-      regionName: this.data.region[index],
+      regionName: region_data.name,
+      region_id: region_data.id,
       townName: ''
     });
     var that = this;
     //townObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.regionObjects[index].id, function (area) {
+    this.getArea(region_data.id, function(area) {
       // 假如没有镇一级了，关闭悬浮框，并显示地址
       if (area.length == 0) {
         var areaSelectedStr = that.data.provinceName + that.data.cityName + that.data.regionName;
@@ -339,14 +347,10 @@ Page({
         that.cascadeDismiss();
         return;
       }
-      var array = [];
-      for (var i = 0; i < area.length; i++) {
-        array[i] = area[i].name;
-      }
+
       // region就是wxml中渲染要用到的县级数据，regionObjects是LeanCloud对象，用于县级标识取值
       that.setData({
         townName: '请选择',
-        town: array,
         townObjects: area
       });
       // 确保生成了数组数据再移动swiper
@@ -355,13 +359,15 @@ Page({
       });
     });
   },
-  townTapped: function (e) {
+  townTapped: function(e) {
     // 标识当前点击镇级，记录其名称与主键id都依赖它
     var index = e.currentTarget.dataset.index;
     // townIndex是镇级数据的标识
+    var town_data = this.data.town[index];
     this.setData({
       townIndex: index,
-      townName: this.data.town[index]
+      townName: town_data.name,
+      town_id: town_data.id
     });
     var areaSelectedStr = this.data.provinceName + this.data.cityName + this.data.regionName + this.data.townName;
     this.setData({
@@ -369,14 +375,14 @@ Page({
     });
     this.cascadeDismiss();
   },
-  currentChanged: function (e) {
+  currentChanged: function(e) {
     // swiper滚动使得current值被动变化，用于高亮标记
     var current = e.detail.current;
     this.setData({
       current: current
     });
   },
-  changeCurrent: function (e) {
+  changeCurrent: function(e) {
     // 记录点击的标题所在的区级级别
     var current = e.currentTarget.dataset.current;
     this.setData({

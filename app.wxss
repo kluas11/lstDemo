@@ -2,3 +2,7 @@
 .improt_color{
   color: #d94612;
 }
+image,view,text {
+  margin: 0;
+  padding: 0;
+}
