@@ -3,14 +3,16 @@ const App = getApp();
 var cPage = 0;
 var ctype = "NO";
 Page({
+  data: {
+    active_index: 0,
+    orders: [],
+  },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index
     var types = ["NO", "WAITPAY", "WAITSEND", "WAITRECEIVE", "FINISH"]
-    var classs = ["text-normal", "text-normal", "text-normal", "text-normal", "text-normal", "text-normal"]
-    classs[index] = "text-select"
     this.setData({
-      tabClasss: classs,
-      tab: index
+      tab: index,
+      active_index:index
     })
     cPage = 0;
     ctype = types[index];
@@ -20,7 +22,6 @@ Page({
   pay: function(e) {
     var index = e.currentTarget.dataset.index;
     var order = this.data.orders[index];
-    
     App.globalData.order = order
     wx.navigateTo({
       url: '../orderpay/payment?order_id=' + 1
@@ -35,12 +36,8 @@ Page({
       showCancel: true,
       content: '确定取消订单吗？',
       success: function(res) {
-
         if (res.confirm) {
-
-
-          var user_id = App.globalData.userInfo.user_id
-
+          var user_id = that.data.user_id;
           server.getJSON('/User/cancelOrder/user_id/' + user_id + "/order_id/" + order['order_id'], function(res) {
             wx.showToast({
               title: res.data.msg,
@@ -51,8 +48,6 @@ Page({
             that.data.orders = [];
             that.getOrderLists(ctype, 0);
           });
-
-
         }
       }
     })
@@ -67,7 +62,7 @@ Page({
       content: '确定已收货吗？',
       success: function(res) {
         if (res.confirm) {
-          var user_id = App.globalData.userInfo.user_id
+          var user_id = that.data.user_id;
           server.getJSON('/User/orderConfirm/user_id/' + user_id + "/order_id/" + order['order_id'], function(res) {
             wx.showToast({
               title: res.data.msg,
@@ -82,9 +77,6 @@ Page({
       }
     })
   },
-
-
-
   details: function(e) {
     var index = e.currentTarget.dataset.index;
     var goods = this.data.orders[index];
@@ -92,29 +84,11 @@ Page({
       url: '../details/index?order_id=' + goods['order_id']
     });
   },
-  onReachBottom: function() {
-    this.getOrderLists(ctype, ++cPage);
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
-  },
-  onPullDownRefresh: function() {
-    cPage = 0;
-    this.data.orders = [];
-    this.getOrderLists(ctype, 0);
-  },
-  data: {
-    orders: [],
-    tabClasss: ["text-select", "text-normal", "text-normal", "text-normal", "text-normal"],
-  },
   //获取订单列表
   getOrderLists: function(ctype, page) {
     var that = this;
-    var glo_userid = App.globalData.userInfo&&App.globalData.userInfo.user_id
-    
+    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
     var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
-    console.log('wwwwwwwwww',user_id);
     server.getJSON('/User/getOrderList/user_id/' + user_id + "/type/" + ctype + "/page/" + page, function(res) {
       var datas = res.data.result;
       var ms = that.data.orders
@@ -123,7 +97,8 @@ Page({
       }
       wx.stopPullDownRefresh();
       that.setData({
-        orders: ms
+        orders: ms,
+        user_id:user_id
       });
     });
   },
@@ -135,20 +110,30 @@ Page({
   onLoad: function(option) {
     // 页面显示
     if (option.cid == "WAITSEND") {
-      var tabClasss = ["text-normal", "text-normal", "text-select", "text-normal", "text-normal"];
+      
       this.setData({
-        tabClasss: tabClasss
+        active_index:2
       });
     }
     if (option.cid == "FINISH") {
-      var tabClasss = ["text-normal", "text-normal", "text-normal", "text-normal", "text-select"];
       this.setData({
-        tabClasss: tabClasss
+        active_index: 4
       });
     }
-
     cPage = 0;
     ctype = option.cid;
     this.data.orders = [];
+  },
+  onReachBottom: function () {
+    this.getOrderLists(ctype, ++cPage);
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading'
+    })
+  },
+  onPullDownRefresh: function () {
+    cPage = 0;
+    this.data.orders = [];
+    this.getOrderLists(ctype, 0);
   }
 });
