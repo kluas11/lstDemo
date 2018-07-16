@@ -11,7 +11,14 @@
   </view> -->
   <!-- right -->
    <scroll-view class="main" scroll-y="false" scroll-x="true" lazy-load="false" style="height:{{wh}}">
-      <view class="gridview">
+   <view class='markshade' wx:if="{{loadings}}">
+   <view class="spinner">
+       <div class="bounce1"></div>
+       <div class="bounce2"></div>
+       <div class="bounce3"></div>
+   </view>
+   </view >
+      <view class="gridview" wx:else>
       <block wx:for="{{subCategories}}" wx:key="id">
         <view class='gridview_list'>
           <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />

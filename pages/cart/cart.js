@@ -93,6 +93,7 @@ Page({
     //拿到下标值，以在carts作遍历指示用
     var index = parseInt(e.currentTarget.dataset.index);
     //原始的icon状态
+    console.log(index)
     var selected = this.data.carts[index].selected;
     var carts = this.data.carts;
     // 对勾选状态取反
@@ -101,6 +102,33 @@ Page({
     this.setData({
       carts: carts,
     });
+    if (!carts[index].selected){
+      this.setData({
+        selectedAllStatus: false,
+      });
+    }else{
+    
+      let cas = this.data.carts;
+      let checkbollen=cas.map((value,index)=>{
+        if (value.selected==false){
+          return false
+        }else{
+          return null
+        }  
+      })
+   
+      if (checkbollen.indexOf(false)>-1){
+     
+        this.setData({
+          selectedAllStatus: false,
+        });
+      }else{
+      
+        this.setData({
+          selectedAllStatus: true,
+        });
+      }
+    }
     // update database
 
     this.updataSelect(carts[index].id, carts[index].selected);

@@ -6,12 +6,16 @@ Page({
     topCategories: [],
     subCategories: [],
     banner: '',
-    nav_avtive: 0
-   
+    nav_avtive: 0,
+   loadings:true
   },
 
   onLoad: function() {
+    this.setData({
+      loadings: true
+    })
     this.getTopCategory();
+    
     try {
       var res = wx.getSystemInfoSync();
       console.log(res.windowHeight)
@@ -30,8 +34,12 @@ Page({
     var objectId = e.currentTarget.dataset.id;
     var banner_name = e.currentTarget.dataset.banner;
     var index = parseInt(e.currentTarget.dataset.index);
+    if (index == this.data.nav_avtive || this.data.loadings==true){
+      return;
+    }
     this.setData({
-      nav_avtive:index
+      nav_avtive:index,
+      loadings:true
     })
     this.getCategory(objectId);
     this.getBanner(banner_name);
@@ -52,7 +60,7 @@ Page({
       console.log(res)
       var categorys = res.data.result;
       that.setData({
-        topCategories: categorys
+        topCategories: categorys,
       });
       that.getCategory(categorys[0].id);
       console.log(categorys[0].mobile_name)
@@ -67,7 +75,8 @@ Page({
       console.log(res)
       var categorys = res.data.result;
       that.setData({
-        subCategories: categorys
+        subCategories: categorys,
+        loadings: false
       });
     });
   },
