@@ -11,12 +11,45 @@ page {
 
 /*侧边栏顶级分类给予固定宽度*/
 .sidebar {
-	width: 220rpx;
-	border-top: 1px solid #e5e5e5;
+	width: 300rpx;
+	background: #e8e8e8;
 }
-
+.sidebar .sidebarlist{
+  height: 100rpx;
+  background:#e8e8e8;
+  display: flex;
+  flex-direction: row;
+  line-height: 100rpx;
+  text-align: center;
+  align-items: center;
+}
+ .sidebar .activetabs {
+  background:#fff;
+} 
+.sidebar .sidebarlist .actives{
+flex:1;
+background: transparent;
+height:62rpx;
+}
+.sidebar .sidebarlist .activestext{
+flex:20;
+font-family: PingFangSC-Regular, sans-serif;
+font-size: 14px;
+color:#838383
+}
+.sidebar .sidebarlist .active {
+flex:1;
+background: #d84712;
+height:62rpx;
+}
+.sidebar .sidebarlist .activetext {
+flex:20;
+font-family: PingFangSC-Regular, sans-serif;
+font-size: 14px;
+color:#000
+}
 /*text块状布局独占一行*/
-.sidebar text {
+/* .sidebar text {
 	display: block;
 	border: 1px solid #e5e5e5;
 	border-top: 0;
@@ -28,14 +61,14 @@ page {
 	background-color: #fff;
   white-space: nowrap;
   padding:0 10rpx;
-}
+} */
 
 /*hight light*/
-.sidebar text.highlight {
+/* .sidebar text.highlight {
 	background-color: #f3f5f7;
 	color: #f23131;
 	border-right: 0;
-}
+} */
 
 .main {
 	display: flex;
@@ -57,10 +90,12 @@ page {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  height:auto;
+  padding:10px 0 10px 0;
 }
 .gridview .gridview_list{
   width: 33%;
-  margin-top: 20rpx;
+  /* margin-top: 20rpx; */
   display: flex;
   flex-direction: column;
   align-items: center;

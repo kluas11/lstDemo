@@ -1,15 +1,28 @@
 var server = require('../../utils/server');
-
+const app = getApp()
 Page({
   data: {
+    wh:null,
     topCategories: [],
     subCategories: [],
     banner: '',
     nav_avtive: 0
+   
   },
 
   onLoad: function() {
     this.getTopCategory();
+    try {
+      var res = wx.getSystemInfoSync();
+      console.log(res.windowHeight)
+      this.setData({
+        wh: res.windowHeight + 'px'
+      })
+
+    } catch (e) {
+      // Do something when catch error
+      console.log(e)
+    }
   },
 
   tapTopCategory: function(e) {
