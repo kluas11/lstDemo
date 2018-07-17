@@ -24,18 +24,18 @@
   </view>
 </view>  -->
 
-  <view class='lists' >
+  <!-- <view class='lists' >
   <view class="func-area">
     <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}"bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
       <image src="{{item.logo}}" mode="aspectFill" class="orange" />
       <text>{{item.name}}</text>
     </navigator>
   </view>
-</view>   
- <!-- <swiper indicator-dots="{{navArray.length>8}}">
+</view>    -->
+  <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff"circular="true">
   <block >
      <swiper-item>
-     <view   class="func-area">
+     <view class="func-area">
      <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
       <image src="{{item.logo}}" mode="aspectFill"  />
       <text>{{item.name}}</text>
@@ -51,7 +51,7 @@
      </view>
     </swiper-item> 
   </block>
-</swiper>  -->
+</swiper>  
     <!-- <view bindtap="showSeller">
       <image src="../../images/icon_seller.png" mode="aspectFill" class="orange" />
       <text>附近门店</text>
