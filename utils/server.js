@@ -24,15 +24,15 @@ function __json(method, setting) {
 	setting.header = {
 		'content-type': 'application/json'
 	};
-	wx.request(setting);
+	return wx.request(setting);
 }
 
 module.exports = {
 	getJSON: function () {
-		__json('GET', __args.apply(this, arguments));
+    return	__json('GET', __args.apply(this, arguments));
 	},
 	postJSON: function () {
-		__json('POST', __args.apply(this, arguments));
+    return	__json('POST', __args.apply(this, arguments));
 	},
 	sendTemplate: function (formId, templateData, success, fail) {
 		var app = getApp();
