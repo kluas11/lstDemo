@@ -58,8 +58,7 @@ Page({
   getTopCategory: function(parent) {
     var that = this;
     server.getJSON("/Goods/goodsCategoryList", {
-      // getApp().globalData.store_id
-      store_id: 26
+      store_id: getApp().globalData.store_id
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;
@@ -74,8 +73,8 @@ Page({
   getCategory: function(parent) {
     var that = this;
     stopgetCategory = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
-      // getApp().globalData.store_id
-      store_id:26
+      
+      store_id:getApp().globalData.store_id
     }, function(res) {
       console.log(res)
       var categorys = res.data.result;

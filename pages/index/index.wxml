@@ -14,7 +14,7 @@
     </swiper-item>
   </block>
 </swiper>
-<!-- <view class="view_search">
+ <!-- <view class="view_search">
   <view class="view_searchbg" bindtap="search">
     <text bindtap="search" placeholder-style="color:#999999" class="input_search" placeholder="请输入您所搜索的商品">请输入您所搜索的商品</text>
     <view bindtap="search" class="view1">
@@ -22,36 +22,57 @@
       <image bindtap="search" src="/images/search.png"></image>
     </view>
   </view>
-</view> -->
+</view>  -->
 
-<view class='lists'>
+  <view class='lists' >
   <view class="func-area">
-    <view bindtap="showCategories">
-      <image src="../../images/icon_all.png" mode="aspectFill" class="orange" />
-      <text>全部分类</text>
-    </view>
-
-    <view bindtap="showSeller">
+    <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}"bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
+      <image src="{{item.logo}}" mode="aspectFill" class="orange" />
+      <text>{{item.name}}</text>
+    </navigator>
+  </view>
+</view>   
+ <!-- <swiper indicator-dots="{{navArray.length>8}}">
+  <block >
+     <swiper-item>
+     <view   class="func-area">
+     <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
+      <image src="{{item.logo}}" mode="aspectFill"  />
+      <text>{{item.name}}</text>
+    </navigator>
+     </view>
+    </swiper-item> 
+     <swiper-item wx:if="{{navArray.length>8}}">
+     <view   class="func-area">
+     <navigator wx:for="{{navArray}}" wx:if="{{index>7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
+      <image src="{{item.logo}}" mode="aspectFill"  />
+      <text>{{item.name}}</text>
+    </navigator>
+     </view>
+    </swiper-item> 
+  </block>
+</swiper>  -->
+    <!-- <view bindtap="showSeller">
       <image src="../../images/icon_seller.png" mode="aspectFill" class="orange" />
       <text>附近门店</text>
-    </view>
+    </view> -->
 
 
-    <view bindtap="showGroupList">
+    <!-- <view bindtap="showGroupList">
       <image src="../../images/icon_shopping.png" mode="aspectFill" class="blue" />
       <text>团购</text>
-    </view>
+    </view> -->
 
 
-    <view bindtap="showCarts">
+    <!-- <view bindtap="showCarts">
       <image src="../../images/icon_carticon.png" mode="aspectFill" class="orange" />
       <text>会员充值</text>
-    </view>
+    </view> -->
 
 
-  </view>
+ 
 
-  <view class="func-area" style='padding-top:44rpx'>
+  <!-- <view class="func-area" style='padding-top:44rpx'>
     <view bindtap="showCoupon">
       <image src="../../images/icon_collect.png" mode="aspectFill" class="orange" />
       <text>优惠劵</text>
@@ -73,9 +94,8 @@
       <image src="../../images/icon_membericon.png" mode="aspectFill" class="orange" />
       <text>我的付款码</text>
     </view>
-  </view>
+  </view> -->
 
-</view>
 <!--商品分类  -->
 <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
   <view class='container-goods'>

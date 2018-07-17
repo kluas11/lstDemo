@@ -11,10 +11,12 @@ Page({
     banner: [],
     goods: [],
     bannerHeight: Math.ceil(290.0 / 750.0 * App.screenWidth),
-    shopName: ''
+    shopName: '',
+    navArray:[]
   },
 
   onLoad: function (options) {
+    var that =this;
     if (options.q !== undefined) {
       q = options.q;
     }
@@ -26,7 +28,16 @@ Page({
 
     //判断用户来源
     this.getInviteCode(options);
-    
+    server.getJSON("/Index/getIndexNav",{},function(res){
+      console.log(res)
+      if (res.statusCode==200){
+        that.setData({
+          navArray: res.data
+        })
+      }else{
+        console.log(res.errMsg)
+      }
+    })
     App.getOpenId(function () {
       var openId = App.globalData.openid;
       console.log(openId)
@@ -133,7 +144,7 @@ Page({
     })
   },
   getInviteCode: function (options) {
-    //用户是否通过分享进入，缓存分享者 uid
+    //用户是否通过分享进入，缓存分享者 uidhge 
     if (options.uid != undefined) {
       wx.setStorage({
         key: "scene",
@@ -210,7 +221,7 @@ Page({
   // 优惠券
   showCoupon: function (e) {
     wx.navigateTo({
-      url: '../member/coupon/index'
+      url: '/pages/member/coupon/index'
     })
   },
   // 我的订单
@@ -257,10 +268,30 @@ Page({
     });
   },
   // 全部分类
-  showCategories: function () {
-    wx.switchTab({
-      url: "../category/category"
-    });
+  showtabs: function (e) {
+    var links = e.currentTarget.dataset.url;
+    console.log(links)
+    switch (links) {
+      case "/pages/category/category":
+        wx.switchTab({
+          url: links
+        });
+        break;
+      case "pages/cart/cart":
+        wx.switchTab({
+          url: "pages/cart/cart"
+        });
+        break;
+      case "pages/member/index/index":
+        wx.switchTab({
+          url: "pages/member/index/index"
+        });
+        break;
+      default:
+      console.log("123")
+        break;
+    }
+    
   },
   //团购
   showGroupList: function () {
