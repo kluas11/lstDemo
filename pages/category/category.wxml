@@ -1,30 +1,37 @@
 <view class="container">
   <!-- 侧边栏 -->
   <scroll-view class="sidebar" scroll-y="false" scroll-x="true" style="height:{{wh}}">
-    <view  wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}"  class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
+    <view wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
       <view class="{{nav_avtive==index?'active':'actives'}}"></view>
-      <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.mobile_name}}</view> 
-      </view> 
+      <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.mobile_name}}</view>
+    </view>
   </scroll-view>
   <!-- <view >
     <text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{nav_avtive==index?'highlight':''}}">{{item.mobile_name}}</text>
   </view> -->
   <!-- right -->
-   <scroll-view class="main" scroll-y="false" scroll-x="true" lazy-load="false" style="height:{{wh}}">
-      <view class="gridview">
+  <scroll-view class="main" scroll-y="false" scroll-x="true" lazy-load="false" style="height:{{wh}}">
+    <view class='markshade' wx:if="{{loadings}}">
+      <view class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </view>
+    </view>
+    <view class="gridview">
       <block wx:for="{{subCategories}}" wx:key="id">
         <view class='gridview_list'>
           <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />
           <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}">{{item.mobile_name}}</text>
         </view>
       </block>
-      </view>
-   </scroll-view>
+    </view>
+  </scroll-view>
   <!-- <view class="main"> -->
-    <!-- banner -->
-    <!-- <image data-goods-id="{{banner.ad_link}}" bindtap="clickBanner"  class="banner" src="{{banner.image}}" mode="scaleToFill" />  -->
-    <!-- GridView -->
-    <!-- <view class="gridview">
+  <!-- banner -->
+  <!-- <image data-goods-id="{{banner.ad_link}}" bindtap="clickBanner"  class="banner" src="{{banner.image}}" mode="scaleToFill" />  -->
+  <!-- GridView -->
+  <!-- <view class="gridview">
       <block wx:for="{{subCategories}}" wx:key="id">
         <view class='gridview_list'>
           <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />
