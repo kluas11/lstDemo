@@ -1,6 +1,7 @@
 var server = require('../../utils/server');
 const app = getApp();
-var stopres;
+var stopgetCategory;
+var stopgetBanner;
 Page({
   data: {
     wh:null,
@@ -30,7 +31,8 @@ Page({
   },
 
   tapTopCategory: function(e) {
-    stopres.abort();
+    stopgetCategory.abort();//结束上一个getCategory请求
+    stopgetBanner.abort();//结束上一个getBanner请求
     // 拿到objectId，作为访问子类的参数
     var objectId = e.currentTarget.dataset.id;
     var banner_name = e.currentTarget.dataset.banner;
@@ -71,7 +73,7 @@ Page({
   },
   getCategory: function(parent) {
     var that = this;
-    stopres = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
+    stopgetCategory = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
       // getApp().globalData.store_id
       store_id:26
     }, function(res) {
@@ -94,7 +96,7 @@ Page({
 
   getBanner: function(banner_name) {
     var that = this;
-    server.getJSON('/goods/categoryBanner/banner_name/' + banner_name, function(res) {
+    stopgetBanner = server.getJSON('/goods/categoryBanner/banner_name/' + banner_name, function(res) {
       // console.log(res);
       var banner = res.data.banner ? res.data.banner:'';
       that.setData({
