@@ -19,7 +19,8 @@
     <view class="class-line">
     </view>
     <view bindtap="addCollect" data-id="{{goods.goods.goods_id}}" class="class-collect">
-      <image src="/images/collect.png"></image>
+        <image src="/images/yetenshrine.png" wx:if="{{collectstate}}"></image>  
+      <image src="/images/enshrine1.png" wx:else></image>
     </view>
   </view>
   
