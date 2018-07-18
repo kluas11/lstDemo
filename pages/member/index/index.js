@@ -1,8 +1,6 @@
-const AV = require('../../../utils/av-weapp.js')
-var app = getApp()
-
+// const AV = require('../../../utils/av-weapp.js')
+var app = getApp();
 Page({
-
   data: {
     
   },
@@ -68,16 +66,16 @@ Page({
   onShow: function() {
     var that = this;
     // 调用小程序 API，得到用户信息
-    wx.getUserInfo({
-      success: ({
-        userInfo
-      }) => {
-        that.setData({
-          userInfo: userInfo
-        });
-        app.globalData.nickName = userInfo.nickName;
-      }
-    });
+    // wx.getUserInfo({
+    //   success: ({
+    //     userInfo
+    //   }) => {
+    //     that.setData({
+    //       userInfo: userInfo
+    //     });
+    //     app.globalData.nickName = userInfo.nickName;
+    //   }
+    // });
   },
   // chooseImage: function() {
   // 莫名其妙的一个功能  功能未知

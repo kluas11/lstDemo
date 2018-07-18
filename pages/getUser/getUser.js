@@ -112,23 +112,23 @@ Page({
 
 
     app.globalData.userInfo = e.detail.userInfo;
-    app.register(function () {
+    // app.register(function () {
 
-      getApp().globalData.login = true;
-      // app.globalData.userInfo.avatarUrl = app.globalData.userInfo.head_pic;
-      // app.globalData.userInfo.nickName = app.globalData.userInfo.nick_name;
-      // app.globalData.userInfo = app.globalData.userInfo;
-      // console.log(app.globalData.userInfo);return;
+    //   getApp().globalData.login = true;
+    //   // app.globalData.userInfo.avatarUrl = app.globalData.userInfo.head_pic;
+    //   // app.globalData.userInfo.nickName = app.globalData.userInfo.nick_name;
+    //   // app.globalData.userInfo = app.globalData.userInfo;
+    //   // console.log(app.globalData.userInfo);return;
 
-      // TODO 2018年6月21日 【修改】 顾客扫码支付，但未授权/注册。则注册完成后，回退上一页
-      wx.navigateBack({
-        delta: 1
-      })
-      // wx.switchTab({
-      //   url: '../index/index'
-      // })
+    //   // TODO 2018年6月21日 【修改】 顾客扫码支付，但未授权/注册。则注册完成后，回退上一页
+    //   wx.navigateBack({
+    //     delta: 1
+    //   })
+    //   // wx.switchTab({
+    //   //   url: '../index/index'
+    //   // })
 
-    });
+    // });
 
 
   },

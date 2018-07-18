@@ -22,9 +22,10 @@ App({
       success: function (res) {
         if (res.code) {
           //console.log(res.code);
-          server.getJSON("/User/getOpenid", {
-            url: 'https://api.weixin.qq.com/sns/jscode2session?appid=wx01555ce453e1ee21&secret=03dc41bec70e309772cb5e81cc8bab49&js_code=' + res.code + '&grant_type=authorization_code&code=' + res.code
-          }, function (res) {
+          server.getJSON(
+            "/User/getOpenid", 
+            {code:res.code},
+             function (res) {
             // 获取openId
             var openId = res.data.openid;
             // console.log(res);
@@ -58,20 +59,22 @@ App({
     }
   },
   // 获取用户地址信息
-  get_getLocation() {
+  get_getLocation(cb) {
     var that = this;
     wx.getLocation({
+      type: 'gcj02',
       success(res) {
-
+        typeof cb == 'function' && cb(res);
       },
       fail() {
         wx.openSetting({
           complete() {
             wx.getSetting({
               success(res) {
-                console.log(res.authSetting)
                 if (!res.authSetting['scope.userLocation']) {
-                  that.get_getLocation();
+                  that.get_getLocation(cb);
+                }else{
+                  that.get_getLocation(cb);
                 }
               }
             })

@@ -226,7 +226,9 @@ Page({
     // auto login
     var stroe_id = getApp().globalData.stroe_id;
     console.log(stroe_id);
-    if (stroe_id == '') {
+    console.log()
+    if (stroe_id == '' || stroe_id == undefined )
+     {
       wx.redirectTo({
         url: '/pages/gotoshop/gotoshop',
       })
