@@ -79,7 +79,7 @@ Page({
    
     if (isLoc) {
      
-      console.log(App.globalData.city)
+      // console.log(App.globalData.city)
       var address = App.globalData.city;
       this.setData({
         address: address
@@ -91,8 +91,8 @@ Page({
       type: 'gcj02',
       success: function (res) {
         // console.log(res)
-        var latitude = res.latitude;
-        var longitude = res.longitude;
+        var latitude = res.latitude||"";
+        var longitude = res.longitude || "";
         App.globalData.lat = latitude;
         App.globalData.lng = longitude;
         // 实例划API核心类
@@ -166,6 +166,7 @@ Page({
       })
     }
   },
+  // 首次加入获取最近门店
   gainStore(){
     var that=this;
     var lats = App.globalData.lat
@@ -197,12 +198,13 @@ Page({
     })
   },
   loadBanner: function (shopId) {
+    // console.log(shopId)
     var that = this;
     var city = that.data.address;
     var storesId="";
     city = encodeURI(city);
     if (isNaN(shopId)) {
-      console.log('首次进来');
+      // console.log('首次进来');
       storesId = App.globalData.store_id;
     } else {
       //console.log('店铺进来');
@@ -214,32 +216,59 @@ Page({
     // console.log(stroe_id);
     // console.log(getApp().globalData.lat)
     // console.log(getApp().globalData.lng)
+    // 获取底部good列表
     server.getJSON("/Index/getColumnGoodlist",{
       store_id: storesId
     },function(res){
-      console.log(res)
+      if (res.statusCode==200){
+        console.log(res)
+        that.setData({
+          goods: res.data
+        });
+      }else{
+        that.setData({
+          goods: [],
+        });
+      }
     })
-    server.getJSON("/Index/home", {
-      city: that.data.address,
-      stroe_id: storesId,
-      lat: App.globalData.lat,
-      lon: App.globalData.lng
-    }, function (res) {
+    server.getJSON("/Index/getBanner", {}, function (res) {
       console.log(res)
-      var data = res.data.result;
-      var banner =data.ad;
-      var goods = data.goods;
-      var ad = res.data.ad;
-      // App.globalData.store_id = res.data.store_id.store_id;
-      // console.log(res.data.store_id.store_id)
-      // App.globalData.store_name = res.data.store_id.store_name;
+      let banner=[];
+      if (res.statusCode==200){
+        banner=res.data
+      }
       that.setData({
-        // shopName: res.data.store_id.store_name,
         banner: banner,
-        goods: goods,
-        ad: ad
       });
     });
+
+    // 获取到
+    // 已废弃
+    // server.getJSON("/Index/home", {
+    //   city: that.data.address,
+    //   stroe_id: storesId,
+    //   lat: App.globalData.lat,
+    //   lon: App.globalData.lng
+    // }, function (res) {
+    //   console.log(res)
+    //   var data = res.data.result;
+    //   var banner =data.ad;
+    //   // var goods = data.goods;
+    //   var ad = res.data.ad;
+    //   // console.log(goods)
+    //   console.log(banner)
+    //   console.log("+++")
+    //   console.log(ad)
+    //   // App.globalData.store_id = res.data.store_id.store_id;
+    //   // console.log(res.data.store_id.store_id)
+    //   // App.globalData.store_name = res.data.store_id.store_name;
+    //   that.setData({
+    //     // shopName: res.data.store_id.store_name,
+    //     banner: banner,
+    //     // goods: goods,
+    //     ad: ad
+    //   });
+    // });
   },
   // 点击banner图
   clickBanner: function (e) {

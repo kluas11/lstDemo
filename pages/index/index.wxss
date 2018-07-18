@@ -194,8 +194,7 @@ line-height:50rpx;
 }
 
 .main-goods .title {
-  margin: 15rpx 0;
-  display: block;
+  /* margin: 15rpx 0; */
   color: #999;
   font-size: 28rpx;
   line-height: 28rpx;
@@ -203,8 +202,10 @@ line-height:50rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  flex-shrink: 0;
-  width: 100%;
+   flex-shrink: 0; 
+   width: 100%; 
+   white-space:nowrap; 
+   text-align: center
 }
 
 .main-goods .summary {

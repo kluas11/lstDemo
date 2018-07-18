@@ -10,7 +10,7 @@
 <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
-      <image src="{{item.ad_code}}" data-goods-id="{{item.ad_link}}" data-linktype='{{item.linktype}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
+      <image src="{{item.image_url}}" data-goods-id="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
     </swiper-item>
   </block>
 </swiper>
@@ -45,7 +45,7 @@
      <swiper-item wx:if="{{navArray.length>8}}">
      <view   class="func-area">
      <navigator wx:for="{{navArray}}" wx:if="{{index>7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
-      <image src="{{item.logo}}" mode="aspectFill"  />
+      <image src="{{item.logo}}" mode="aspectFill" lazy-load="true" />
       <text>{{item.name}}</text>
     </navigator>
      </view>
@@ -103,7 +103,7 @@
       <text class="caption improt_color">{{item.name}}</text>
     </view>
     <scroll-view scroll-x class="main-goods">
-      <view class="single-goods" wx:for="{{item.goods_list}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
+      <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
         <text class="title">{{item.goods_name}}</text>
         <view class="summary">
           <text class="source improt_color">￥{{item.shop_price}}</text>
