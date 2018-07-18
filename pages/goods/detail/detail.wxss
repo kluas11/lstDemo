@@ -1,5 +1,6 @@
 page {
 	background: #ffffff;
+  height: 100%;
 }
 .parent{
 	display: flex;
@@ -81,7 +82,7 @@ page {
 	background: lightgrey;
 }
 .class-collect{
-	width: 170rpx;
+	width: 120rpx;
 	height: 100%;
 	display: flex;
 	justify-content: center;
@@ -89,8 +90,8 @@ page {
 }
 
 .class-collect image{
-	width: 100%;
-	height: 100%;
+	width: 60rpx;
+	height: 60rpx;
 }
 
 /*goods title*/
@@ -157,6 +158,7 @@ page {
 }
 
 .footer {
+  z-index: 100;
 	background: #f9f9f9;
 	width: 100%;
 	display: flex; 
@@ -164,7 +166,6 @@ page {
 	justify-content: space-between;
 	position: fixed;
 	bottom: 0;
-  z-index: 9;
 }
 
 .add-cart {

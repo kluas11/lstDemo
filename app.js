@@ -57,7 +57,29 @@ App({
       })
     }
   },
+  // 获取用户地址信息
+  get_getLocation() {
+    var that = this;
+    wx.getLocation({
+      success(res) {
 
+      },
+      fail() {
+        wx.openSetting({
+          complete() {
+            wx.getSetting({
+              success(res) {
+                console.log(res.authSetting)
+                if (!res.authSetting['scope.userLocation']) {
+                  that.get_getLocation();
+                }
+              }
+            })
+          }
+        })
+      }
+    })
+  },
   getUserBalance: function (user_id, ctx, func) {
     server.getJSON("/Scanpay/get_userInfo", { user_id: user_id }, function (res) {
       let userBalance = new Number(res.data.user_money).toFixed(2);

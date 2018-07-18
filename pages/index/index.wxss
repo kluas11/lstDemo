@@ -19,7 +19,7 @@ page {
   box-sizing: border-box;
 }
 .lists{
-  padding:44rpx 0;
+  padding:20rpx 0;
   background: #ffffff;
 }
 .address{
@@ -91,11 +91,31 @@ page {
   margin: 0 0;
   /* padding-top: 10rpx; */
   background: white;
+  flex-wrap:wrap;
 }
 
-.func-area view {
+.func-area navigator {
+  padding:20rpx 0;
   width: 25%;
   text-align: center;
+}
+.navslide {
+  display: flex;
+  flex-direction: column
+}
+.navslide navigator{
+  
+}
+.navslide navigator image{
+  width:72rpx;
+height:72rpx;
+}
+.navslide navigator text{
+  display:block;
+color:#6c6c6c;
+font-size:20rpx;
+line-height:50rpx;
+
 }
 
 .func-area text {

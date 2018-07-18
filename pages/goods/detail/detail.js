@@ -8,6 +8,7 @@ Page({
     active_index:0,
     galleryHeight: App.screenWidth,
     tab: 0,
+    collectstate:false,
     goods_num: 1,
     textStates: ["view-btns-text-normal", "view-btns-text-select"],
   },
@@ -25,16 +26,22 @@ Page({
     this.setData({
       goods: goods
     });
+  
     this.checkPrice();
   },
   addCollect: function(e) {
+    var that=this;
     var goods_id = e.currentTarget.dataset.id;
     console.log(goods_id);
     var user_id = App.globalData.userInfo.user_id;
     var ctype = 0;
     server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
+      console.log(res)
+      that.setData({
+        collectstate:true
+      })
       wx.showToast({
-        title: res.data.msg,
+        title:res.data.msg,
         icon: 'success',
         duration: 2000
       })
@@ -70,7 +77,11 @@ Page({
 
     var goodsId = options.objectId;
     objectId = goodsId;
+    this.get_getLocation();
     this.getGoodsById(goodsId);
+  },
+  getScopes(){
+    console.log(1111111111)
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index;
