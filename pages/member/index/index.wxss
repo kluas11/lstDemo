@@ -15,6 +15,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
 }
 
 .userinfo-avatar {
+  overflow:hidden;
   width: 128rpx;
   height: 128rpx;
   margin: 20rpx;

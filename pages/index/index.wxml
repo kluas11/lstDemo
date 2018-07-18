@@ -7,13 +7,14 @@
     <image class='search_img' src='/images/search.png'></image>
   </view>
 </view>
-<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:{{bannerHeight}}px;">
+<swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:290rpx;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
       <image src="{{item.image_url}}" data-goods-id="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
     </swiper-item>
   </block>
 </swiper>
+
  <!-- <view class="view_search">
   <view class="view_searchbg" bindtap="search">
     <text bindtap="search" placeholder-style="color:#999999" class="input_search" placeholder="请输入您所搜索的商品">请输入您所搜索的商品</text>
@@ -114,15 +115,3 @@
 
   </view>
 </view>
-
-<!--视频  -->
-<!-- <view class='video' bindtap='jumpVideo'>
-  <image src='../../images/vedio.png' />
-</view> -->
-
-<!--客服  -->
-<!-- <view class="footer">
-  <image src="/images/kf.png"></image>
-  <contact-button style="opacity:0.1" type="default-dark" size="160" session-from="weapp">
-  </contact-button>
-</view> -->

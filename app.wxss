@@ -6,3 +6,11 @@ image,view,text {
   margin: 0;
   padding: 0;
 }
+.get_location{
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .6);
+  height: 100%;
+  width: 100%;
+}

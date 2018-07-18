@@ -71,7 +71,6 @@
     <image wx:for="{{goods.detail}}" src="{{item}}" wx:key="" mode="widthFix"></image>
   </view>
 </view>
-
 <view class="parent" wx:if="{{tab == 1}}">
 
   <!--<swiper class="images" indicator-dots="true"
@@ -125,3 +124,9 @@
   <button class="btn-bug" bindtap="bug">立即购买</button>
   <button class="add-cart" bindtap="addCart">加入购物车</button>
 </view>
+<!-- <view class='get_location'>
+    <view class='box'>
+        <text>需要获取地理位置信息</text>
+        <button open-type="openSetting">打开授权设置页</button>
+    </view>
+</view> -->

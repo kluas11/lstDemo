@@ -32,7 +32,8 @@ Page({
   addCollect: function(e) {
     var that=this;
     var goods_id = e.currentTarget.dataset.id;
-    var user_id = App.globalData.userInfo.user_id
+    console.log(goods_id);
+    var user_id = wx.getStorageSync("user_id");
     var ctype = 0;
     server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
       console.log(res)
@@ -65,9 +66,7 @@ Page({
   },
   bindPlus: function(e) {
     var num = this.data.goods_num;
-
     num++;
-
     this.setData({
       goods_num: num
     });
@@ -76,7 +75,11 @@ Page({
 
     var goodsId = options.objectId;
     objectId = goodsId;
+    // this.get_getLocation();
     this.getGoodsById(goodsId);
+  },
+  getScopes(){
+    console.log(1111111111)
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index;
