@@ -30,7 +30,7 @@ Page({
   addCollect: function(e) {
     var goods_id = e.currentTarget.dataset.id;
     console.log(goods_id);
-    var user_id = App.globalData.userInfo.user_id
+    var user_id = App.globalData.userInfo.user_id;
     var ctype = 0;
     server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
       wx.showToast({

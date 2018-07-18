@@ -232,58 +232,6 @@ Page({
         icon: "loading"
       })
     }
-    /*邮箱+密码登陆不行 leancloud没有提供这个接口
-     else if(this.data.num.indexOf(".com",0)>0){
-       //user_login.setEmail(this.data.num);
-       user_login.set("email",this.data.num);
-       user_login.setPassword(this.data.password);
-       user_login.logIn().then(
-         function(loginedUser){
-           console.log("success_mail");console.log(loginedUser);
-           var getname=loginedUser.getUseName();
-           console.log(getname);
-           var getemail=loginedUser.getEmail();
-           console.log(getemail);
-         },
-         function(error){
-           console.log(error);
-           if(error.code=='205'){
-             wx.showToast({
-               img:'../../images/remind.png', 
-               title:"查无此用户",
-               duration:1500,
-               titleClassName:'my_toast_title'
-             });
-           }else if(error.code=='216'){
-             AV.User.requestEmailVerfiy('abc@xyz.com').then(
-               function (result) {
-                 console.log(JSON.stringify(result));
-                 }, 
-                 function (error) {
-                   console.log(JSON.stringify(error));
-             });
-             wx.showToast({
-               img:'../../images/remind.png', 
-               title:"请先验证邮箱",
-               duration:1500,
-               titleClassName:'my_toast_title'
-             });
-           }else if(error.code=='210'){
-             wx.showToast({
-               img:'../../images/remind.png', 
-               title:"密码错误",
-               duration:1500,
-               titleClassName:'my_toast_title'
-             });
-             that.setData({
-               warn:{
-                 warn_passwordSure:"color:rgb(241,1,25);",
-               },
-             });
-           };
-         })
-     }
-   */
     else {
       user_login.setUsername(this.data.name);
       user_login.setPassword(this.data.password);

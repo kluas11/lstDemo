@@ -30,7 +30,6 @@ App({
             // console.log(res);
             // TODO 缓存 openId
             that.globalData.openid = openId;
-
             //验证是否关联openid
             typeof cb == "function" && cb()
           });
@@ -38,43 +37,8 @@ App({
         }
       }
     });
-
-
   },
-
-  register: function (cb) {
-    var first_leader = 0;
-    wx.getStorage({
-      key: 'scene',
-      success: function (res) {
-        first_leader = res.data;
-        console.log(res.data);
-      }
-    })
-
-    var app = this;
-    //  this.getUserInfo(function () {
-    var openId = app.globalData.openid;
-    console.log(openId);
-    var userInfo = app.globalData.userInfo;
-    var country = userInfo.country;
-    var city = userInfo.city;
-    var gender = userInfo.gender;
-    var nick_name = userInfo.nickName;
-    var province = userInfo.province;
-    var avatarUrl = userInfo.avatarUrl;
-    console.log('/User/register?open_id=' + openId + "&country=" + country + "&gender=" + gender + "&nick_name=" + nick_name + "&province=" + province + "&city=" + city + "&head_pic=" + avatarUrl + "&first_leader=" + first_leader);
-
-    server.getJSON('/User/register?open_id=' + openId + "&country=" + country + "&gender=" + gender + "&nick_name=" + nick_name + "&province=" + province + "&city=" + city + "&head_pic=" + avatarUrl + "&first_leader=" + first_leader, function (res) {
-      console.log(res);
-      app.globalData.userInfo = res.data.res
-
-      typeof cb == "function" && cb()
-    });
-
-    //  })
-  },
-
+  
   getUserInfo: function (cb) {
     var that = this
     if (this.globalData.userInfo) {

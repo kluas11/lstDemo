@@ -13,9 +13,6 @@ Page({
   },
 
   onLoad: function() {
-    // this.setData({
-    //   loadings: true
-    // })
     this.getTopCategory();
     try {
       var res = wx.getSystemInfoSync();
@@ -58,8 +55,7 @@ Page({
   getTopCategory: function(parent) {
     var that = this;
     server.getJSON("/Goods/goodsCategoryList", {
-      // getApp().globalData.store_id
-      store_id: 26
+      store_id: getApp().globalData.store_id
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;
@@ -67,17 +63,14 @@ Page({
         topCategories: categorys,
       });
       that.getCategory(categorys[0].id);
-      console.log(categorys[0].mobile_name)
       that.getBanner(categorys[0].mobile_name);
     });
   },
   getCategory: function(parent) {
     var that = this;
     stopgetCategory = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
-      // getApp().globalData.store_id
-      store_id:26
+      store_id: getApp().globalData.store_id
     }, function(res) {
-      console.log(res)
       var categorys = res.data.result;
       that.setData({
         subCategories: categorys,

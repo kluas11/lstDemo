@@ -2,7 +2,6 @@ var server = require('../../utils/server');
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var App = getApp();
 var seat;
-var isLoc = false;
 var q;
 
 Page({
@@ -13,7 +12,6 @@ Page({
     bannerHeight: Math.ceil(290.0 / 750.0 * App.screenWidth),
     shopName: ''
   },
-
   onLoad: function (options) {
     if (options.q !== undefined) {
       q = options.q;
@@ -26,7 +24,6 @@ Page({
 
     //判断用户来源
     this.getInviteCode(options);
-    
     App.getOpenId(function () {
       var openId = App.globalData.openid;
       console.log(openId)
@@ -34,7 +31,6 @@ Page({
         openid: openId
       }, function (res) {
         if (res.data.code == 200) {
-          
           // console.log("用户信息",res.data.data)
           App.globalData.userInfo = res.data.data;
           var user = App.globalData.userInfo;
@@ -62,15 +58,6 @@ Page({
 
     /* 加载首页banner 和 商品分类 开始 */
     var self = this;
-    // self.loadBanner(options);
-    if (isLoc) {
-      var address = App.globalData.city;
-      this.setData({
-        address: address
-      });
-      self.loadBanner(options);
-      return;
-    }
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
@@ -98,8 +85,6 @@ Page({
                 address: res.result.ad_info.city
               });
               App.globalData.city = res.result.ad_info.city;
-              isLoc = true;
-              self.loadBanner(options);
             }
           },
           fail: function (res) {
@@ -132,15 +117,15 @@ Page({
       shopName: shopname ? shopname : ""
     })
   },
-  getInviteCode: function (options) {
+  getInviteCode: function (data) {
     //用户是否通过分享进入，缓存分享者 uid
-    if (options.uid != undefined) {
+    if (data.uid != undefined) {
       wx.setStorage({
         key: "scene",
-        data: options.uid
+        data: data.uid
       })
       wx.showToast({
-        title: '来自用户:' + options.uid + '的分享',
+        title: '来自用户:' + data.uid + '的分享',
         icon: 'success',
         duration: 2000
       })
@@ -168,13 +153,12 @@ Page({
       lat: App.globalData.lat,
       lon: App.globalData.lng
     }, function (res) {
-      // console.log(res)
+      console.log(res)
       var data = res.data.result;
       var banner =data.ad;
       var goods = data.goods;
       var ad = res.data.ad;
       App.globalData.store_id = res.data.store_id.store_id;
-      // console.log(res.data.store_id.store_id)
       App.globalData.store_name = res.data.store_id.store_name;
       that.setData({
         shopName: res.data.store_id.store_name,
@@ -196,16 +180,9 @@ Page({
       });
     } else {
       wx.navigateTo({
-        url: "../goods/detail/detail?objectId=" + goodsId
+        url: "/pages/goods/detail/detail?objectId=" + goodsId
       });
     }
-  },
-
-  //跳转视频
-  jumpVideo: function () {
-    wx.navigateTo({
-      url: '../video/video',
-    })
   },
   // 优惠券
   showCoupon: function (e) {

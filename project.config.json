@@ -11,14 +11,14 @@
 	"libVersion": "1.9.91",
 	"appid": "wx01555ce453e1ee21",
 	"projectname": "%E4%B9%90%E5%96%84%E4%BA%AD%E6%AD%A3%E5%BC%8F%E7%89%88%E6%9C%AC",
-  "packOptions":{
-    "ignore":[
-      {
-        "type": "folder",
-        "value": "./.idea"
-      }
-    ]
-  },
+	"packOptions": {
+		"ignore": [
+			{
+				"type": "folder",
+				"value": "./.idea"
+			}
+		]
+	},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
@@ -48,7 +48,7 @@
 					"id": 1,
 					"name": "商品详情",
 					"pathName": "pages/goods/detail/detail",
-					"query": "objectId=2269"
+					"query": "objectId=2270"
 				},
 				{
 					"id": 2,
@@ -103,6 +103,18 @@
 					"name": "订单详情",
 					"pathName": "pages/order/details/index",
 					"query": "order_id=580"
+				},
+				{
+					"id": -1,
+					"name": "外链",
+					"pathName": "pages/web-view/web-view",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "编辑地址",
+					"pathName": "pages/address/edit/index",
+					"query": "objectId=45"
 				}
 			]
 		}
