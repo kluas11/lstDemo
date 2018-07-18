@@ -1,12 +1,30 @@
+<view class='classifyChoice'>
+  <text >点击切换分类:</text>
+  <view style='border:1px solid #E3E3E3;width:20%;height:100%;margin: 0 10rpx 0 10rpx;display:flex;justify-content:center;align-items:center;' >
+  <!-- <text style=''>全部分类</text> -->
+ <picker class="picker" bindchange="firstateChange" value="{{firstindex}}"  range="{{firstate}}" range-key="name">
+    <view >
+     <text class="picker-title" data-id="{{firstate[firstindex]}}"></text>{{firstate[firstindex].name}}
+    </view>
+</picker>
+  </view>
+  <view wx:if="{{sencondstate.length!=0}}" style='border:1px solid #E3E3E3;width:20%;height:100%;display:flex;justify-content:center;align-items:center;'>
+  <!-- <text style=''>全部分类</text> -->
+   <picker class="picker" bindchange="sencondChange" value="{{sencondindex}}"  range="{{sencondstate}}" range-key="name">
+    <view >
+     <text class="picker-title" data-id="{{sencondstate[sencondindex]}}"></text>{{sencondstate[sencondindex].name}}
+    </view>
+</picker> 
+  </view>
+</view>
 <view class="search">
      <view class="search-content">
 		 <image src="/images/search1.png"></image>
 
-		 <input bindchange="bindChange" placeholder-style="color:#999" class="input_search" placeholder="搜索关键字"/>
-
+		 <input bindchange="bindChangeSearch" placeholder-style="color:#999" class="input_search" placeholder="搜索关键字"/>
 
 		 </view>
-		 <text bindtap="search" >筛选</text>
+		 <text bindtap="search" >搜索</text>
 </view>
 
 <dl class="menu">

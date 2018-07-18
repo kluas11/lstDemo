@@ -33,7 +33,7 @@
     </navigator>
   </view>
 </view>    -->
-  <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff"circular="true">
+  <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff;height:350rpx"circular="true">
   <block >
      <swiper-item>
      <view class="func-area">

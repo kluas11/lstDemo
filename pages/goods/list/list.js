@@ -1,8 +1,10 @@
 var server = require('../../../utils/server');
-var categoryId
-var keywords
+var categoryId;
+var parentId;
+var keywords;
 var cPage = 0;
 var gsort = "shop_price";
+const app = getApp();
 var asc = "desc";
 // 使用function初始化array，相比var initSubMenuDisplay = [] 既避免的引用复制的，同时方式更灵活，将来可以是多种方式实现，个数也不定的
 function initSubMenuDisplay() {
@@ -19,6 +21,11 @@ var initSubMenuHighLight = [
 Page({
   data: {
     menu: ["highlight", "", "", ""],
+    firstindex:0,
+    sencondindex:0,
+    firstate: [
+      { id: "0", name: "全部分类", image: "", level: "1" }], 
+    sencondstate:[],
     subMenuDisplay: initSubMenuDisplay(),
     subMenuHighLight: initSubMenuHighLight,
     sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['is_new-desc', 'is_new-asc'], 'comment_count-asc'],
@@ -27,13 +34,44 @@ Page({
   },
   search: function (e) {
 
-    keywords = this.data.keywords;
+    // keywords = this.data.keywords;
     cPage = 0;
     this.data.goods = [];
     this.getGoodsByKeywords(keywords, cPage, gsort + "-" + asc);
 
   },
-  bindChange: function (e) {
+  firstateChange:function(e){
+    // 根据以及分类筛选二级分类
+    var indexs = e.detail.value
+    var that = this
+    if (e.detail.value != 0 && e.detail.value != ""){
+      var parent = that.data.firstate[indexs].id
+      server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
+        store_id: 30
+      }, function (res) {
+        console.log(res)
+        var categorys = res.data.result;
+        that.setData({
+          sencondstate: categorys,
+          firstindex:indexs
+        })
+      })
+    }else{
+      that.setData({
+        firstindex: 0,
+        sencondstate:[],
+        sencondindex:0
+      })
+    }
+    
+  
+  },
+  sencondChange:function(e){
+    this.setData({
+      sencondindex: e.detail.value
+    })
+  },
+  bindChangeSearch: function (e) {
 
     var keywords = e.detail.value;
 
@@ -42,16 +80,60 @@ Page({
     });
   },
   onLoad: function (options) {
-    categoryId = options.categoryId;
-    keywords = options.keywords;
+    // 通过分类页跳转  获取到2级的分类ID
+    // 改
+    // 通过首页跳转 没有2级的分类ID
+    var that = this;
+    //  获取到首页点击跳转全部分类
+     parentId = options.parentId||"";
+     categoryId = options.categoryId||"";
+     console.log(parentId)
+     console.log(categoryId)
+    var storeids = app.globalData.store_id;
+    var firstArray = that.data.firstate
+    // categoryId = options.categoryId;
+    // keywords = options.keywords;
+    // console.log(options)
+    // console.log(storeids)
+    // 获取一级分类
+    var firstArr= server.getJSON("/Goods/goodsCategoryList", {
+      store_id: 30
+    }, function (res) {
+      var firstcategorys = res.data.result;
+      that.setData({
+        firstate: firstArray.concat(firstcategorys),
+      });
+      if (parentId != "" && categoryId != "") {
+        var secondArr = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parentId, {
+          store_id: 30
+        }, function (res) {
+          var categorys = res.data.result;
+          that.setData({
+            sencondstate: categorys,
+            sencondindex: that.selectIndex(categorys, categoryId) || 0,
+            firstindex: that.selectIndex(that.data.firstate, parentId) || 0
+          });
+          console.log(that.selectIndex(categorys, categoryId))
+          console.log(that.selectIndex(that.data.firstate, parentId))
+          
+        });
+      }
+    });
+   
     // 生成Category对象
     //var category = AV.Object.createWithoutData('Category', categoryId);
     //this.category = category;
 
-    if (!keywords)
-      this.getGoods(categoryId, 0, this.data.sort[0][0]);
-    else
-      this.getGoodsByKeywords(keywords, 0, this.data.sort[0][0]);
+    // if (!keywords)
+    //   this.getGoods(categoryId, 0, this.data.sort[0][0]);
+    // else
+    //   this.getGoodsByKeywords(keywords, 0, this.data.sort[0][0]);
+  },
+  selectIndex:function(arr,indexID){
+   return  arr.findIndex((value, index, arr) => {
+      // console.log(value)
+      return value.id == indexID
+    })
   },
   getGoodsByKeywords: function (keywords, page, sort) {
     var that = this;
@@ -60,34 +142,34 @@ Page({
     asc = sortArray[1];
 
 
-    server.getJSON('/Goods/search/keywords/' + keywords + "/p/" + page + "/sort/" + gsort + "/sort_asc/" + asc, { store_id: getApp().globalData.store_id }, function (res) {
+    // server.getJSON('/Goods/search/keywords/' + keywords + "/p/" + page + "/sort/" + gsort + "/sort_asc/" + asc, { store_id: getApp().globalData.store_id }, function (res) {
 
-      console.log(res.data);
+    //   console.log(res.data);
 
-      var newgoods = res.data.result.goods_list
-      var ms = that.data.goods
-      for (var i in newgoods) {
-        ms.push(newgoods[i]);
-      }
+    //   var newgoods = res.data.result.goods_list
+    //   var ms = that.data.goods
+    //   for (var i in newgoods) {
+    //     ms.push(newgoods[i]);
+    //   }
 
-      wx.stopPullDownRefresh();
+    //   wx.stopPullDownRefresh();
 
-      if (ms.length == 0) {
-        that.setData({
-          empty: true
-        });
-      }
-      else
-        that.setData({
-          empty: false
-        });
+    //   if (ms.length == 0) {
+    //     that.setData({
+    //       empty: true
+    //     });
+    //   }
+    //   else
+    //     that.setData({
+    //       empty: false
+    //     });
 
-      that.setData({
-        goods: ms
-      });
+    //   that.setData({
+    //     goods: ms
+    //   });
 
 
-    });
+    // });
 
 
   },
@@ -99,33 +181,33 @@ Page({
     asc = sortArray[1];
 
 
-    server.getJSON('/Goods/goodsList/id/' + category + "/sort/" + sortArray[0] + "/sort_asc/" + sortArray[1] + "/p/" + pageIndex, { store_id: getApp().globalData.store_id }, function (res) {
+    // server.getJSON('/Goods/goodsList/id/' + category + "/sort/" + sortArray[0] + "/sort_asc/" + sortArray[1] + "/p/" + pageIndex, { store_id: getApp().globalData.store_id }, function (res) {
   
-      // success
-      var newgoods = res.data.result.goods_list
+    //   // success
+    //   var newgoods = res.data.result.goods_list
 
-      var ms = that.data.goods
-      for (var i in newgoods) {
-        ms.push(newgoods[i]);
-      }
+    //   var ms = that.data.goods
+    //   for (var i in newgoods) {
+    //     ms.push(newgoods[i]);
+    //   }
 
-      if (ms.length == 0) {
-        that.setData({
-          empty: true
-        });
-      }
-      else
-        that.setData({
-          empty: false
-        });
-      wx.stopPullDownRefresh();
+    //   if (ms.length == 0) {
+    //     that.setData({
+    //       empty: true
+    //     });
+    //   }
+    //   else
+    //     that.setData({
+    //       empty: false
+    //     });
+    //   wx.stopPullDownRefresh();
 
-      that.setData({
-        goods: ms
-      });
+    //   that.setData({
+    //     goods: ms
+    //   });
 
 
-    });
+    // });
 
   },
 
