@@ -62,12 +62,14 @@ Page({
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;
+      console.log(categorys)
       that.setData({
         topCategories: categorys,
       });
       that.getCategory(categorys[0].id);
-      console.log(categorys[0].mobile_name)
-      that.getBanner(categorys[0].mobile_name);
+      console.log(categorys[0].id)
+      // console.log(categorys[0].name)
+      that.getBanner(categorys[0].name);
     });
   },
   getCategory: function(parent) {
