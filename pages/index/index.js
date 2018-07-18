@@ -11,7 +11,8 @@ Page({
     goods: [],
     bannerHeight: Math.ceil(290.0 / 750.0 * App.screenWidth),
     shopName: '',
-    navArray: []
+    navArray: [],
+    imageErr:"../../images/failImg.png"
   },
   onLoad: function(options) {
 
@@ -293,7 +294,7 @@ Page({
   // 搜索
   search: function(e) {
     wx.navigateTo({
-      url: "../search/index"
+      url: "../goods/list/list"
     });
   },
   // 会员充值
