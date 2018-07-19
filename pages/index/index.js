@@ -9,7 +9,8 @@ Page({
     banner: [],
     goods: [],
     shopName: '',
-    navArray: []
+    navArray: [],
+    imageErr:"../../images/failImg.png"
   },
   onLoad: function(options) {
     var that = this;
@@ -323,7 +324,7 @@ Page({
   // 搜索
   search: function(e) {
     wx.navigateTo({
-      url: "../search/index"
+      url: "../goods/list/list"
     });
   },
   // 会员充值

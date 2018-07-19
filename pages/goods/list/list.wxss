@@ -1,7 +1,18 @@
 page{
 	background: #ffffff;
 }
-
+.classifyChoice{
+  	width: 100%;
+    flex-direction: row;
+    height:65rpx;
+    padding:10rpx 0 0 0  ;
+    display: flex;
+    padding-left: 25rpx;
+    justify-content:flex-start;
+    align-items:center;
+   font-size:30rpx;
+    background: #f8f8f8;
+}
 .search{
 	width: 100%;
 	height: 100rpx;

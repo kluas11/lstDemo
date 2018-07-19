@@ -5,6 +5,7 @@ var stopgetBanner;
 Page({
   data: {
     wh:null,
+    stairId:"",
     topCategories: [],
     subCategories: [],
     banner: '',
@@ -13,6 +14,9 @@ Page({
   },
 
   onLoad: function() {
+    // this.setData({
+    //   loadings: true
+    // })
     this.getTopCategory();
     try {
       var res = wx.getSystemInfoSync();
@@ -59,21 +63,27 @@ Page({
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;
+      console.log(categorys)
       that.setData({
         topCategories: categorys,
       });
       that.getCategory(categorys[0].id);
-      that.getBanner(categorys[0].mobile_name);
+      // console.log(categorys[0].name)
+      that.getBanner(categorys[0].name);
     });
   },
   getCategory: function(parent) {
     var that = this;
+    console.log(parent)
     stopgetCategory = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
-      store_id: getApp().globalData.store_id
+      
+      store_id:getApp().globalData.store_id
     }, function(res) {
+      console.log(res)
       var categorys = res.data.result;
       that.setData({
         subCategories: categorys,
+        stairId: parent,
         loadings: false
       });
     });
@@ -82,8 +92,9 @@ Page({
   avatarTap: function(e) {
     // 拿到objectId，作为访问子类的参数
     var objectId = e.currentTarget.dataset.objectId;
+    var stairId = this.data.stairId
     wx.navigateTo({
-      url: "../../../../goods/list/list?categoryId=" + objectId
+      url: "../../../../goods/list/list?categoryId=" + objectId + "&parentId=" + stairId
     });
   },
 
