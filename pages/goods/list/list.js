@@ -31,7 +31,7 @@ Page({
     sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['comment_count-asc']],
     goods: [],
     empty: false,
-    list_oss: app.images_oss+'150_150'
+    list_oss: app.image_oss+'150_150'
   },
   // 点击搜索执行查询
   search: function (e) {
@@ -266,7 +266,6 @@ Page({
         // console.log(res)
     //   // success
       var newgoods = res.data
-
       var ms = that.data.goods.concat(newgoods)
       // for (var i in newgoods) {
       //   ms.push(newgoods[i]);
