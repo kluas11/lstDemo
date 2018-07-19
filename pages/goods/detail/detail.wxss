@@ -111,19 +111,20 @@ page {
 }
 
 .view-other-info{
-    width: 80%;
+    width: 90%;
 	height: 75rpx;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	padding: 15rpx 20rpx 15rpx 20rpx;
+	padding: 15rpx 20rpx 15rpx 30rpx;
 }
 .view-other-info text{
 	font-size: 27rpx;
-	width:150rpx;
+	/* width:150rpx; */
+  flex:1;
 	color: #999999;
-	text-align: center;
+	/* text-align: center; */
 }
 
 .text-price{

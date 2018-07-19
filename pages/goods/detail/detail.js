@@ -76,6 +76,7 @@ Page({
 
     var goodsId = options.objectId;
     objectId = goodsId;
+    console.log(goodsId)
     // this.get_getLocation();
     this.getGoodsById(goodsId);
   },
@@ -91,72 +92,86 @@ Page({
   },
   getGoodsById: function(goodsId) {
     var that = this
-    server.getJSON('/Goods/goodsInfo/id/' + goodsId, function(res) {
-      var goodsInfo = res.data.result;
-      that.setData({
-        goods: goodsInfo
-      });
-      that.checkPrice();
-    });
-  },
-  checkPrice: function() {
-    var goods = this.data.goods;
-    var spec = ""
-    this.setData({
-      price: goods.goods.shop_price
-    });
-    if (!goods.goods.goods_spec_list) {
-      return;
-    }
-    for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
-      for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-        if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-          if (spec == "")
-            spec = goods.goods.goods_spec_list[i][j].item_id
-          else
-            spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-        }
+ 
+    server.getJSON('/Goods/goodsInfo',{
+      goods_id: goodsId
+    }, function(res) {
+      var goodsInfo = res.data;
+      console.log(res)
+      if (res.statusCode==200){
+        that.setData({
+          goods: goodsInfo
+        });
+      }else{
+        wx.showToast({
+          title: "数据异常",
+          image: "../../../images/about.png"
+        })
+        return;
       }
-    }
-    console.log(spec);
-
-    var specs = spec.split("_");
-    for (var i = 0; i < specs.length; i++) {
-      specs[i] = parseInt(specs[i])
-    }
-    specs.sort(function(a, b) {
-      return a - b
-    });
-    spec = ""
-    for (var i = 0; i < specs.length; i++) {
-      if (spec == "")
-        spec = specs[i]
-      else
-        spec = spec + "_" + specs[i]
-    }
-    console.log(spec);
-    var price = goods['spec_goods_price'][spec].price;
-    console.log(price);
-    this.setData({
-      price: price
+      
+      // that.checkPrice();
     });
   },
+  // checkPrice: function() {
+  //   var goods = this.data.goods;
+  //   var spec = ""
+  //   this.setData({
+  //     price: goods.goods.shop_price
+  //   });
+  //   if (!goods.goods.goods_spec_list) {
+  //     return;
+  //   }
+  //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
+  //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
+  //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
+  //         if (spec == "")
+  //           spec = goods.goods.goods_spec_list[i][j].item_id
+  //         else
+  //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
+  //       }
+  //     }
+  //   }
+  //   console.log(spec);
 
+  //   var specs = spec.split("_");
+  //   for (var i = 0; i < specs.length; i++) {
+  //     specs[i] = parseInt(specs[i])
+  //   }
+  //   specs.sort(function(a, b) {
+  //     return a - b
+  //   });
+  //   spec = ""
+  //   for (var i = 0; i < specs.length; i++) {
+  //     if (spec == "")
+  //       spec = specs[i]
+  //     else
+  //       spec = spec + "_" + specs[i]
+  //   }
+  //   console.log(spec);
+  //   var price = goods['spec_goods_price'][spec].price;
+  //   console.log(price);
+  //   this.setData({
+  //     price: price
+  //   });
+  // },
+//  立即购买了解一下
   bug: function() {
     var goods = this.data.goods;
-    var spec = ""
-    if (goods.goods.goods_spec_list != null)
-      for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
+    // 商品规格
+    // var spec = ""
+    // if (goods.goods.goods_spec_list != null)
+    //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
 
-        for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-          if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-            if (spec == "")
-              spec = goods.goods.goods_spec_list[i][j].item_id
-            else
-              spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-          }
-        }
-      }
+    //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
+    //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
+    //         if (spec == "")
+    //           spec = goods.goods.goods_spec_list[i][j].item_id
+    //         else
+    //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
+    //       }
+    //     }
+    //   }
 
     var that = this;
 
@@ -208,26 +223,32 @@ Page({
 
 
   },
+  //  
+  /*
+    加入购物车
+    说明: goods_id，goods_num，user_id 
+  */
   addCart: function() {
-
+    App.getUserInfo(function(user){
+      console.log(user)
+    })
+    // console.log(userID)
+    return ;
     var goods = this.data.goods;
-    var spec = ""
-    if (goods.goods.goods_spec_list != null)
-      for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
+    // 商品规格
+    // var spec = ""
+    // if (goods.goods.goods_spec_list != null)
+    //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
 
-        for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-          if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-            if (spec == "")
-              spec = goods.goods.goods_spec_list[i][j].item_id
-            else
-              spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-          }
-        }
-      }
-
-
-
-
+    //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
+    //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
+    //         if (spec == "")
+    //           spec = goods.goods.goods_spec_list[i][j].item_id
+    //         else
+    //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
+    //       }
+    //     }
+    //   }
     var that = this;
     var goods_id = that.data.goods.goods.goods_id;
     var goods_spec = spec;
@@ -274,10 +295,11 @@ Page({
 
   },
   previewImage: function(e) {
+    var that= this
     wx.previewImage({
       //从<image>的data-current取到current，得到String类型的url路径
-      current: this.data.goods.get('images')[parseInt(e.currentTarget.dataset.current)],
-      urls: this.data.goods.get('images') // 需要预览的图片http链接列表
+      current: that.data.goods.original_img,
+      urls:[that.data.goods.original_img] // 需要预览的图片http链接列表
     })
   },
   onShareAppMessage: function() {
