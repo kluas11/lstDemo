@@ -1,55 +1,89 @@
-
 var server = require('./utils/server');
 var md5 = require('./utils/md5.js');
 // 授权登录 
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     // auto login via SDK
     var that = this;
     //AV.User.loginWithWeapp();
     // 设备信息
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         that.screenWidth = res.windowWidth;
         that.pixelRatio = res.pixelRatio;
       }
     });
   },
-
-  getOpenId: function (cb) {
+  // 获取用户的openid 用作用户的注册和登录用
+  getOpenId: function(cb) {
     var that = this;
     wx.login({
-      success: function (res) {
+      success: function(res) {
         if (res.code) {
-          //console.log(res.code);
           server.getJSON(
-            "/User/getOpenid", 
-            {code:res.code},
-             function (res) {
-            // 获取openId
-            var openId = res.data.openid;
-            // console.log(res);
-            // TODO 缓存 openId
-            that.globalData.openid = openId;
-            //验证是否关联openid
-            typeof cb == "function" && cb()
-          });
+            "/User/getOpenid", {
+              code: res.code
+            },
+            function(res) {
+              // 获取openId
+              var openId = res.data.openid;
+              console.log(res);
+              // TODO 缓存 openId
+              that.globalData.openid = openId;
+              //验证是否关联openid
+              typeof cb == "function" && cb()
+            });
           //发起网络请求
         }
       }
     });
   },
-  
-  getUserInfo: function (cb) {
+  // 注册用户
+  register: function(cb) {
+    var first_leader = 0;
+    wx.getStorage({
+      key: 'scene',
+      success: function(res) {
+        first_leader = res.data;
+        // console.log(res.data);
+      }
+    })
+    var app = this;
+    this.getUserInfo(function(res) {
+      // 获取授权
+      var open_id = app.globalData.openid;
+      var userInfo = res;
+      var country = userInfo.country; //国家
+      var city = userInfo.city; //城市
+      var gender = userInfo.gender; //性别
+      var nick_name = userInfo.nickName; //昵称
+      var province = userInfo.province; //省份
+      server.getJSON(
+        '/User/register', {
+          open_id,
+          country,
+          gender,
+          nick_name,
+          province,
+          city,
+          first_leader
+        },
+        function(res) {
+          app.globalData.userInfo = res.data.res
+          typeof cb == "function" && cb()
+        });
+    })
+  },
+  getUserInfo: function(cb) {
     var that = this
     if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
     } else {
       //调用登录接口
       wx.login({
-        success: function () {
+        success: function() {
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
             }
@@ -73,7 +107,7 @@ App({
               success(res) {
                 if (!res.authSetting['scope.userLocation']) {
                   that.get_getLocation(cb);
-                }else{
+                } else {
                   that.get_getLocation(cb);
                 }
               }
@@ -83,8 +117,10 @@ App({
       }
     })
   },
-  getUserBalance: function (user_id, ctx, func) {
-    server.getJSON("/Scanpay/get_userInfo", { user_id: user_id }, function (res) {
+  getUserBalance: function(user_id, ctx, func) {
+    server.getJSON("/Scanpay/get_userInfo", {
+      user_id: user_id
+    }, function(res) {
       let userBalance = new Number(res.data.user_money).toFixed(2);
       func(ctx, userBalance);
     });

@@ -87,8 +87,7 @@ Page({
   //获取订单列表
   getOrderLists: function(ctype, page) {
     var that = this;
-    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
-    var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
+    var user_id =  wx.getStorageSync("user_id");
     server.getJSON('/User/getOrderList/user_id/' + user_id + "/type/" + ctype + "/page/" + page, function(res) {
       var datas = res.data.result;
       var ms = that.data.orders
