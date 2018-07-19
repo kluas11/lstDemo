@@ -43,27 +43,23 @@
 			<li class="{{subMenuHighLight[1][1]}}" data-index="1-1" bindtap="tapSubMenu">从少到多</li>
 		</ul>
 	</dd>
-	<dt data-index="2" bindtap="tapMainMenu" class="{{menu[2]}}">最新</dt>
+	<!-- <dt data-index="2" bindtap="tapMainMenu" class="{{menu[2]}}">最新</dt>
 	<dd class="{{subMenuDisplay[2]}}">
 		<ul>
 			<li class="{{subMenuHighLight[2][0]}}" data-index="2-0" bindtap="tapSubMenu">最新</li>
 			<li class="{{subMenuHighLight[2][1]}}" data-index="2-1" bindtap="tapSubMenu">非最新</li>
 			
 		</ul>
-	</dd>
+	</dd> -->
 
-	<dt data-index="3" bindtap="tapMainMenu" class="{{menu[3]}}">评价</dt>
-	
-		
-	
-
+	<dt data-index="2" bindtap="tapMainMenu" class="{{menu[2]}}">评价</dt>
 </dl>
 
 <view wx:if="{{!empty}}" class="goodsList carts-list">
 	<view wx:for="{{goods}}" wx:key="objectId" class="carts-item" data-object-id="{{item.goods_id}}" bindtap="tapGoods">
 		<view>
 		<!-- 缩略图 -->
-		  <image class="carts-image" src="{{item.image}}" mode="aspectFill"/>
+		  <image class="carts-image" src="{{item.original_img}}" lazy-load="true" mode="aspectFill"/>
 		</view>
       <view class="carts-text">
       	<!-- 商品标题 -->

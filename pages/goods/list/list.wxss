@@ -61,8 +61,10 @@ page{
 
 /*总菜单容器*/
 .menu {
- 	display: block;
+ 	/* display: block; */
 	height: 87rpx;
+  display: flex;
+  position: relative
 }
 
 /*一级菜单*/
@@ -70,9 +72,9 @@ page{
 /*border-bottom: 1px solid #d2d2d2;*/
 .menu dt {
 	font-size: 15px;
-	float: left;
-	/*hack*/
-	width: 25%;
+	/* float: left; */
+	flex:1;
+	/* width: 25%; */
 	height: 80rpx;
 	
 	
@@ -96,7 +98,7 @@ page{
 	position: absolute;
 	width: 100%;
 	/*hack*/
-	top:180rpx;
+	top:80rpx;
 	left:0;
 	z-index:999;
 }
