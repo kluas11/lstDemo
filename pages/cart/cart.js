@@ -182,12 +182,12 @@ Page({
   getCarts: function () {
     var minusStatuses = [];
     var that = this;
-    var stroe_id = getApp().globalData.stroe_id;
+    var stroe_id = getApp().globalData.store_id;
     var user_id = ""
     // console.log(app.globalData.userInfo)
     user_id = app.globalData.userInfo.user_id
     // console.log(res)
-    
+    // console
     server.getJSON('/Cart/cartList/session_id/' + app.globalData.openid, { user_id: user_id, store_id: stroe_id }, function (res) {
       console.log(res)
       var carts = res.data
@@ -225,16 +225,16 @@ Page({
   },
   onShow: function () {
     // auto login
-    var stroe_id = getApp().globalData.stroe_id;
+    var stroe_id = getApp().globalData.store_id;
     console.log(stroe_id);
-    console.log()
-    if (stroe_id == '' || stroe_id == undefined )
-     {
-      wx.redirectTo({
-        url: '/pages/gotoshop/gotoshop',
-      })
-      return;
-    }
+
+    // if (stroe_id == '' || stroe_id == undefined )
+    //  {
+    //   wx.redirectTo({
+    //     url: '/pages/gotoshop/gotoshop',
+    //   })
+    //   return;
+    // }
 
     this.getCarts();
     return;

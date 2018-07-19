@@ -8,70 +8,82 @@ const app = getApp();
 var asc = "desc";
 // 使用function初始化array，相比var initSubMenuDisplay = [] 既避免的引用复制的，同时方式更灵活，将来可以是多种方式实现，个数也不定的
 function initSubMenuDisplay() {
-  return ['hidden', 'hidden', 'hidden', 'hidden'];
+  return ['hidden', 'hidden', 'hidden'];
 }
 
 //定义初始化数据，用于运行时保存
 var initSubMenuHighLight = [
-  ['highlight', '', '', '', ''],
+  ['', '', '', '', ''],
   ['', ''],
-  ['', '', ''], []
+   []
 ];
 
 Page({
   data: {
-    menu: ["highlight", "", "", ""],
+    menu: ["", "",  ""],
     firstindex:0,
     sencondindex:0,
     firstate: [
       { id: "0", name: "全部分类", image: "", level: "1" }], 
-    sencondstate:[],
+    sencondstate: [{ id: "0", name: "全部分类", image: "", level: "1" }],
     subMenuDisplay: initSubMenuDisplay(),
     subMenuHighLight: initSubMenuHighLight,
-    sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['is_new-desc', 'is_new-asc'], 'comment_count-asc'],
+    sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['comment_count-asc']],
     goods: [],
     empty: false,
     list_oss: app.images_oss+'150_150'
   },
+  // 点击搜索执行查询
   search: function (e) {
 
-    // keywords = this.data.keywords;
+    keywords = this.data.keywords;
+    // 分类
     cPage = 0;
-    this.data.goods = [];
+    this.setData({
+      goods:[]
+    })
     this.getGoodsByKeywords(keywords, cPage, gsort + "-" + asc);
 
   },
+  // 分类首个选择器
   firstateChange:function(e){
     // 根据以及分类筛选二级分类
     var indexs = e.detail.value
     var that = this
-    if (e.detail.value != 0 && e.detail.value != ""){
+  
+    if (e.detail.value != 0 && e.detail.value != "" && e.detail.value!="0"){
       var parent = that.data.firstate[indexs].id
       server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
         store_id: 30
       }, function (res) {
-        console.log(res)
-        var categorys = res.data.result;
+        // console.log(res.data.result)
+        var categorys = res.data.result
+        // console.log(categorys)
+        categorys.unshift({ id: "0", name: "全部分类", image: "", level: "1" })
+        // console.log(categorys)
         that.setData({
           sencondstate: categorys,
-          firstindex:indexs
+          firstindex:indexs,
+          sencondindex: 0
         })
       })
     }else{
       that.setData({
         firstindex: 0,
-        sencondstate:[],
+        sencondstate: [{ id: "0", name: "全部分类", image: "", level: "1" }],
         sencondindex:0
       })
     }
     
   
   },
+  // 分类第二个选择器
   sencondChange:function(e){
     this.setData({
       sencondindex: e.detail.value
     })
   },
+  //  搜索的关键字
   bindChangeSearch: function (e) {
 
     var keywords = e.detail.value;
@@ -88,8 +100,8 @@ Page({
     //  获取到首页点击跳转全部分类
      parentId = options.parentId||"";
      categoryId = options.categoryId||"";
-     console.log(parentId)
-     console.log(categoryId)
+    //  console.log(parentId)
+    //  console.log(categoryId)
     var storeids = app.globalData.store_id;
     var firstArray = that.data.firstate
     // categoryId = options.categoryId;
@@ -109,14 +121,20 @@ Page({
           store_id: 30
         }, function (res) {
           var categorys = res.data.result;
+          var sencondArr = that.data.sencondstate
+          sencondArr = sencondArr.concat(categorys)
           that.setData({
-            sencondstate: categorys,
-            sencondindex: that.selectIndex(categorys, categoryId) || 0,
+            sencondstate: sencondArr,
+            sencondindex: that.selectIndex(sencondArr, categoryId) || 0,
             firstindex: that.selectIndex(that.data.firstate, parentId) || 0
           });
-          console.log(that.selectIndex(categorys, categoryId))
-          console.log(that.selectIndex(that.data.firstate, parentId))
-          
+          // console.log(that.selectIndex(categorys, categoryId))
+          // console.log(that.selectIndex(that.data.firstate, parentId))
+          if (!keywords)
+            // 没有关键字查询
+            that.getGoods(categoryId, 0, "");
+          else
+            that.getGoodsByKeywords(keywords, 0, "");
         });
       }
     });
@@ -124,11 +142,9 @@ Page({
     // 生成Category对象
     //var category = AV.Object.createWithoutData('Category', categoryId);
     //this.category = category;
-
-    // if (!keywords)
-    //   this.getGoods(categoryId, 0, this.data.sort[0][0]);
-    // else
-    //   this.getGoodsByKeywords(keywords, 0, this.data.sort[0][0]);
+    // console.log(this.data.sort[0][0])
+    // 首次进入没有排序
+    
   },
   selectIndex:function(arr,indexID){
    return  arr.findIndex((value, index, arr) => {
@@ -136,79 +152,143 @@ Page({
       return value.id == indexID
     })
   },
-  getGoodsByKeywords: function (keywords, page, sort) {
+  getGoodsByKeywords: function (keyword, pageIndex, sort) {
     var that = this;
-    var sortArray = sort.split('-');
-    gsort = sortArray[0];
-    asc = sortArray[1];
+    // 排序
+    var storeid = app.globalData.store_id || 30 //店铺ID
+    // var sortArray = sort.split('-');
+    // gsort = sortArray[0];
+    // asc = sortArray[1];
+    var winrecords = {
+      store_id: storeid,
+      p: pageIndex || 0,
+      cat_id3: 0,
+    }
+    var shopname = keyword || "";
 
+    if (sort == "" || sort == null) {
+      gsort = ""
+      asc = ""
+    } else {
+      // console.log(sort)
+      var sortArray = sort.split('-');
+      gsort = sortArray[0];
+      asc = sortArray[1] == "desc" ? 1 : 0;
+      winrecords['sort_name'] = gsort
+      winrecords['sort'] = asc
+    }
+    var firstateID = that.data.firstate[that.data.firstindex].id || 0
+    var secondID = that.data.sencondstate[that.data.sencondindex].id || 0
+    // var threeID = 0;
+    winrecords['cat_id1'] = firstateID
+    winrecords['cat_id2'] = secondID
+    if (shopname != "" && shopname != undefined) {
+      winrecords['goods_name'] = shopname
+    }
+    // console.log(firstateID)
+    // console.log(secondID)
+    // console.log(storeid)
+    // console.log(gsort)
+    // console.log(asc)
+    // console.log(pageIndex)
+    // console.log(shopname)
+    server.getJSON('/Goods/goodsSearch', winrecords, function (res) {
 
-    // server.getJSON('/Goods/search/keywords/' + keywords + "/p/" + page + "/sort/" + gsort + "/sort_asc/" + asc, { store_id: getApp().globalData.store_id }, function (res) {
+      // console.log(res.data);
 
-    //   console.log(res.data);
-
-    //   var newgoods = res.data.result.goods_list
-    //   var ms = that.data.goods
-    //   for (var i in newgoods) {
-    //     ms.push(newgoods[i]);
+      var newgoods = res.data
+      var ms = (that.data.goods).concat(newgoods)
+      // for (var i in newgoods) {
+      //   ms.push(newgoods[i]);
     //   }
 
-    //   wx.stopPullDownRefresh();
+      wx.stopPullDownRefresh();
 
-    //   if (ms.length == 0) {
-    //     that.setData({
-    //       empty: true
-    //     });
-    //   }
-    //   else
-    //     that.setData({
-    //       empty: false
-    //     });
+      if (ms.length == 0) {
+        that.setData({
+          empty: true
+        });
+      }
+      else
+        that.setData({
+          empty: false
+        });
 
-    //   that.setData({
-    //     goods: ms
-    //   });
+      that.setData({
+        goods: ms
+      });
 
 
-    // });
+    });
 
 
   },
 
   getGoods: function (category, pageIndex, sort) {
     var that = this;
-    var sortArray = sort.split('-');
-    gsort = sortArray[0];
-    asc = sortArray[1];
-
-
-    // server.getJSON('/Goods/goodsList/id/' + category + "/sort/" + sortArray[0] + "/sort_asc/" + sortArray[1] + "/p/" + pageIndex, { store_id: getApp().globalData.store_id }, function (res) {
+    // 排序
+    var storeid = app.globalData.store_id || 30;
+    var winrecord = { 
+      store_id: storeid,
+      p: pageIndex || 0,
+      cat_id3:0,
+      }
   
+    if (sort == "" || sort==null){
+      // gsort ="shop_price"
+      // asc=0
+    }else{
+      // console.log(sort)
+      var sortArray = sort.split('-');
+      var shopname = keywords || "";
+      gsort = sortArray[0];
+      asc = sortArray[1] =="desc"?0:1;
+      winrecord['sort_name'] = gsort
+      winrecord['sort'] = asc
+    }
+    if (shopname != "" && shopname!=undefined){
+      winrecord['goods_name'] = shopname
+    }
+    //  一级分类，二级分类
+    var firstateID = that.data.firstate[that.data.firstindex].id || 0
+    var secondID = that.data.sencondstate[that.data.sencondindex].id|| 0
+    var threeID=0;
+    winrecord['cat_id1'] = firstateID
+    winrecord['cat_id2'] = secondID
+
+    // console.log(firstateID)
+    // console.log(secondID)
+    // console.log(storeid)
+    // console.log(gsort)
+    // console.log(asc)
+    // console.log(pageIndex)
+    server.getJSON('/Goods/goodsSearch', winrecord, function (res) {
+        // console.log(res)
     //   // success
-    //   var newgoods = res.data.result.goods_list
+      var newgoods = res.data
 
-    //   var ms = that.data.goods
-    //   for (var i in newgoods) {
-    //     ms.push(newgoods[i]);
-    //   }
+      var ms = that.data.goods.concat(newgoods)
+      // for (var i in newgoods) {
+      //   ms.push(newgoods[i]);
+      // }
 
-    //   if (ms.length == 0) {
-    //     that.setData({
-    //       empty: true
-    //     });
-    //   }
-    //   else
-    //     that.setData({
-    //       empty: false
-    //     });
-    //   wx.stopPullDownRefresh();
+      if (ms.length == 0) {
+        that.setData({
+          empty: true
+        });
+      }
+      else
+        that.setData({
+          empty: false
+        });
+      wx.stopPullDownRefresh();
 
-    //   that.setData({
-    //     goods: ms
-    //   });
+      that.setData({
+        goods: ms
+      });
 
 
-    // });
+    });
 
   },
 
@@ -234,15 +314,18 @@ Page({
     var menu = ["", "", "", ""];
     menu[index] = "highlight";
 
-    if (index == 3) {
+    if (index == 2) {
       this.setData({
         goods: []
       });
       cPage = 0;
+      // console.log(this.data.sort[index])
       if (!keywords)
-        this.getGoods(categoryId, 0, this.data.sort[index]);
+      // 没有关键字
+        this.getGoods(categoryId, 0, this.data.sort[index][0]);
       else
-        this.getGoodsByKeywords(keywords, 0, this.data.sort[index]);
+      // 有关键字查询
+        this.getGoodsByKeywords(keywords, 0, this.data.sort[index][0]);
     }
 
     // 设置为新的数组
