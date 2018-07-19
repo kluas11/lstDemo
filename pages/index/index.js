@@ -1,7 +1,6 @@
 var server = require('../../utils/server');
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var App = getApp();
-var seat;
 var q;
 
 Page({
@@ -9,12 +8,10 @@ Page({
     "address": "定位中",
     banner: [],
     goods: [],
-    bannerHeight: Math.ceil(290.0 / 750.0 * App.screenWidth),
     shopName: '',
     navArray: []
   },
   onLoad: function(options) {
-
     var that = this;
     this.setData({
       options: options
@@ -29,6 +26,25 @@ Page({
     })
     //判断用户来源
     this.getInviteCode(options);
+    wx.getSetting({
+      //判断用户是否已经授权注册
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          // 没有授权，跳到授权注册
+          wx.navigateTo({
+            url: '/pages/getUser/getUser',
+          })
+          that.setData({
+            register: true
+          })
+          return;
+        } else {
+          //已授权
+          console.log("onload")
+          App.get_getLocation(that.getstore_id);
+        }
+      }
+    })
     // 获取后台设置全部分类
     server.getJSON("/Index/getIndexNav", {}, function(res) {
       if (res.statusCode == 200) {
@@ -39,15 +55,20 @@ Page({
         console.log(res.errMsg)
       }
     })
+  },
+  load() {
+    // 获取首页数据
+    App.get_getLocation(that.getstore_id);
+    // 
     App.getOpenId(function() {
       var openId = App.globalData.openid;
       // 获取openID
       server.getJSON(
-        "/User/validateOpenid", 
-        {
+        "/User/validateOpenid", {
           openid: openId
         },
         function(res) {
+          console.log(res)
           if (res.data.code == 200) {
             console.log("用户信息", res.data)
             // console.log(res.data.data)
@@ -60,11 +81,6 @@ Page({
           }
         });
     });
-
-
-    /* 加载首页banner 和 商品分类 开始 */
-    App.get_getLocation(this.getstore_id)
-    /* 加载首页banner 和 商品分类 结束 */
   },
   getstore_id(res) {
     var self = this;
@@ -90,7 +106,6 @@ Page({
             address: res.result.ad_info.city
           });
           App.globalData.city = res.result.ad_info.city;
-
         }
       },
       fail: function(res) {
@@ -105,7 +120,6 @@ Page({
         })
       }
     });
-
   },
   onReady: function() {
     if (q !== undefined) {
@@ -121,14 +135,30 @@ Page({
   // 页面显示
   onShow: function() {
     let shopname = App.globalData.store_name;
+    const that =this;
     this.setData({
       shopName: shopname ? shopname : ""
     })
+    if (this.data.register) {
+      wx.getSetting({
+        //判断用户是否已经授权注册
+        success(res) {
+          if (!res.authSetting['scope.userInfo']) {
+            // 没有授权，跳到授权注册
+            wx.navigateTo({
+              url: '/pages/getUser/getUser',
+            })
+          } else {
+            //已授权
+            App.get_getLocation(that.getstore_id);
+          }
+        }
+      })
+    }
   },
   getInviteCode: function(options) {
     //用户是否通过分享进入，缓存分享者 uidhge 
     if (options.uid != undefined) {
-
       wx.setStorage({
         key: "scene",
         data: data.uid

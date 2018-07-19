@@ -14,7 +14,8 @@ function __args() {
 	if (setting.url.indexOf('http://') !== 0) {
 		//http://120.27.18.4/index.php/
 		//http://shops.wudhl.com/index.php/WXAPIhttps://www.505coder.com
-    setting.url = 'https://lstmall.paycore.cc/index.php/WXAPI' + setting.url;
+    setting.url = 'https://tlst.paycore.cc/index.php/WXAPI' + setting.url;  // 测试
+   // setting.url = 'https://lst.paycore.cc/index.php/WXAPI' + setting.url;  // 正式
 	}
 	return setting;
 }
