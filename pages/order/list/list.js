@@ -6,6 +6,7 @@ Page({
   data: {
     active_index: 0,
     orders: [],
+    goods_oss: App.image_oss + '150_150'
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index

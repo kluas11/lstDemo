@@ -16,7 +16,7 @@
   <view wx:for="{{item.goods_list}}" wx:for-item="mapping" wx:key="" class="carts-item" bindtap="details" data-index="{{index}}">
     <view>
       <!-- 缩略图 -->
-      <image class="carts-image" src="{{mapping.image}}" mode="aspectFill" />
+      <image class="carts-image" src="{{mapping.image+goods_oss}}" mode="aspectFill" />
     </view>
     <view class="carts-text">
       <!-- 商品标题 -->

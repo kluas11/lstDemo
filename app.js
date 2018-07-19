@@ -131,5 +131,6 @@ App({
     'userInfo': null,
     'login': false,
     'shopName': ''
-  }
+  },
+  image_oss: '?x-oss-process=style/fixed_'
 })

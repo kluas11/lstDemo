@@ -30,7 +30,8 @@ Page({
     subMenuHighLight: initSubMenuHighLight,
     sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['is_new-desc', 'is_new-asc'], 'comment_count-asc'],
     goods: [],
-    empty: false
+    empty: false,
+    list_oss: app.images_oss+'150_150'
   },
   search: function (e) {
 

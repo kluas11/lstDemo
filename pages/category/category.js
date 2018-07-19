@@ -10,7 +10,8 @@ Page({
     subCategories: [],
     banner: '',
     nav_avtive: 0,
-   loadings:true
+   loadings:true,
+   list_oss:app.image_oss+'130_130'
   },
 
   onLoad: function() {

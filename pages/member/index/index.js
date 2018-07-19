@@ -40,7 +40,7 @@ Page({
   // 我的收藏
   navigateToCollect: function() {
     wx.navigateTo({
-      url: '/pages/member//collect/collect'
+      url: '/pages/member/collect/collect'
     });
   },
   // 我的钱包

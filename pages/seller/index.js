@@ -1,6 +1,9 @@
 var server = require('../../utils/server');
+const App = getApp();
 Page({
-  data: {},
+  data: {
+    goods_oss:App.image_oss+'160_170'
+  },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
@@ -20,7 +23,6 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success: function(res2) {
-        console.log(res2)
         server.getJSON("/Store/getStores", {
           cid: sc_id,
           lat: res2.latitude,
@@ -30,11 +32,7 @@ Page({
           that.setData({
             stores: stores
           });
-          console.log(res)
-
         });
-        // lat = res2.latitude;
-        // lon = res2.longitude;
       }
     })
 
@@ -62,7 +60,7 @@ Page({
     getApp().globalData.store_name = e.currentTarget.dataset.store_name;
 
     wx.switchTab({
-      url: '../index/index',
+      url: '/pages/index/index',
       success: function(res) {
         // success
         var page = getCurrentPages().pop();

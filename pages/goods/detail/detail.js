@@ -11,6 +11,7 @@ Page({
     collectstate:false,
     goods_num: 1,
     textStates: ["view-btns-text-normal", "view-btns-text-select"],
+    goods_oss:App.image_oss+'750_750'
   },
   propClick: function(e) {
     var pos = e.currentTarget.dataset.pos;

@@ -14,12 +14,7 @@ Page({
   },
 
   data: {
-    accounts: [
-      { user_money: 12.36, change_time: '2018-06-22 17:25:56', desc: '京溪店' },
-      { user_money: 47.24, change_time: '2018-06-20 12:45:36', desc: '盈隆店' },
-      { user_money: 56.13, change_time: '2018-06-17 11:58:45', desc: '华夏店' },
-      { user_money: 34.89, change_time: '2018-06-15 14:37:51', desc: '岗顶店' },
-    ],
+    accounts:[],
     orders: [],
     tabClasss: ["text-select", "text-normal", "text-normal", "text-normal", "text-normal"],
     myCode: ''

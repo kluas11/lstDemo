@@ -10,7 +10,10 @@ Page({
     goods: [],
     shopName: '',
     navArray: [],
-    imageErr: "../../images/failImg.png"
+    imageErr: "../../images/failImg.png",
+    lists_oss: App.image_oss+'72_72',
+    goods_oss: App.image_oss + '224_280',
+    banner_oss: App.image_oss + '750_290'
   },
   onLoad: function(options) {
     var that = this;
@@ -27,6 +30,21 @@ Page({
     })
     //判断用户来源
     this.getInviteCode(options);
+    // 首页加载
+    this.load();
+    // 获取后台设置全部分类
+    server.getJSON("/Index/getIndexNav", {}, function(res) {
+      if (res.statusCode == 200) {
+        that.setData({
+          navArray: res.data
+        })
+      } else {
+        console.log(res.errMsg)
+      }
+    })
+  },
+  load() {
+    var that = this;
     wx.getSetting({
       //判断用户是否已经授权注册
       success(res) {
@@ -41,7 +59,7 @@ Page({
           return;
         } else {
           //已授权
-          console.log("onload")
+          // console.log("onload")
           App.get_getLocation(that.getstore_id);
           App.getOpenId(function() {
             var openId = App.globalData.openid;
@@ -51,9 +69,11 @@ Page({
                 openid: openId
               },
               function(res) {
-                console.log(res)
+                // console.log(res)
                 if (res.data.status) {
-                  App.globalData.userInfo = { user_id:367};
+                  App.globalData.userInfo = {
+                    user_id: 367
+                  };
                   // 全局app变量
                   var user = App.globalData.userInfo;
                   //本地缓存
@@ -63,16 +83,6 @@ Page({
               });
           });
         }
-      }
-    })
-    // 获取后台设置全部分类
-    server.getJSON("/Index/getIndexNav", {}, function(res) {
-      if (res.statusCode == 200) {
-        that.setData({
-          navArray: res.data
-        })
-      } else {
-        console.log(res.errMsg)
       }
     })
   },
@@ -134,41 +144,8 @@ Page({
       shopName: shopname ? shopname : ""
     })
     if (this.data.register) {
-      wx.getSetting({
-        //判断用户是否已经授权注册
-        success(res) {
-          if (!res.authSetting['scope.userInfo']) {
-            // 没有授权，跳到授权注册
-            wx.navigateTo({
-              url: '/pages/getUser/getUser',
-            })
-          } else {
-            //已授权
-            App.get_getLocation(that.getstore_id);
-            App.getOpenId(function() {
-              var openId = App.globalData.openid;
-              // 获取openID
-              server.getJSON(
-                "/User/validateOpenid", {
-                  openid: openId
-                },
-                function(res) {
-                  console.log(res)
-                  if (res.data.code == 200) {
-                    console.log("用户信息", res.data)
-                    console.log(res.data.data)
-                    App.globalData.userInfo = res.data.data;
-                    // 全局app变量
-                    var user = App.globalData.userInfo;
-                    //本地缓存
-                    wx.setStorageSync("user_id", user.user_id)
-                    App.globalData.login = true;
-                  }
-                });
-            });
-          }
-        }
-      })
+      // 首页加载
+      this.load();
     }
   },
   getInviteCode: function(options) {
@@ -191,30 +168,31 @@ Page({
     var lats = App.globalData.lat
     var lngs = App.globalData.lng
     // 获取最近门店
-
-    return new Promise((resolve, reject) => {
-      try {
-        server.getJSON('/Index/getNearStore', {
-          log: lngs,
-          lat: lats
-        }, function(res) {
-          // console.log(res)
-          App.globalData.store_id = res.data.store_id;
-          // console.log(res.data.store_id.store_id)
-          App.globalData.store_name = res.data.store_name;
-          that.setData({
-            shopName: res.data.store_name
+    // if (typeof options == 'number') {
+      return new Promise((resolve, reject) => {
+        try {
+          server.getJSON('/Index/getNearStore', {
+            log: lngs,
+            lat: lats
+          }, function(res) {
+            // console.log(res)
+            App.globalData.store_id = res.data.store_id;
+            // console.log(res.data.store_id.store_id)
+            App.globalData.store_name = res.data.store_name;
+            that.setData({
+              shopName: res.data.store_name
+            })
+            // console.log(App.globalData.store_id)
+            resolve({
+              state: "success"
+            })
           })
-          // console.log(App.globalData.store_id)
-          resolve({
-            state: "success"
-          })
-        })
-      } catch (e) {
-        reject(e)
-      }
+        } catch (e) {
+          reject(e)
+        }
 
-    })
+      })
+    // }
   },
   loadBanner: function(shopId) {
     // console.log(shopId)

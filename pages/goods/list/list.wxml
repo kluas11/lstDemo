@@ -63,7 +63,7 @@
 	<view wx:for="{{goods}}" wx:key="objectId" class="carts-item" data-object-id="{{item.goods_id}}" bindtap="tapGoods">
 		<view>
 		<!-- 缩略图 -->
-		  <image class="carts-image" src="{{item.image}}" mode="aspectFill"/>
+		  <image class="carts-image" src="{{item.image+list_oss}}" mode="aspectFill"/>
 		</view>
       <view class="carts-text">
       	<!-- 商品标题 -->

@@ -10,7 +10,7 @@
 <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:290rpx;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
-      <image src="{{item.image_url}}" data-goods-id="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
+      <image src="{{item.image_url+banner_oss}}" data-goods-id="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
     </swiper-item>
   </block>
 </swiper>
@@ -38,7 +38,7 @@
      <swiper-item>
      <view class="func-area">
      <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
-      <image src="{{item.logo}}" mode="aspectFill"  />
+      <image src="{{item.logo+lists_oss}}" mode="aspectFill"  />
       <text>{{item.name}}</text>
     </navigator>
      </view>
@@ -46,7 +46,7 @@
      <swiper-item wx:if="{{navArray.length>8}}">
      <view   class="func-area">
      <navigator wx:for="{{navArray}}" wx:if="{{index>7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key="" url="{{item.link}}">
-      <image src="{{item.logo}}" mode="aspectFill" lazy-load="true" />
+      <image src="{{item.logo+lists_oss}}" mode="aspectFill" lazy-load="true" />
       <text>{{item.name}}</text>
     </navigator>
      </view>
@@ -107,9 +107,8 @@
       <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
         <text class="title">{{item.goods_name}}</text>
         <text class="source improt_color">￥{{item.shop_price}}</text>
-        <image class="avatar" src="{{item.original_img==null?'../../images/failImg.png':item.original_img}}"binderror="{{imageErr}}"mode="aspectFill" />
+        <image class="avatar" src="{{item.original_img==null?'../../images/failImg.png':item.original_img+goods_oss}}"binderror="{{imageErr}}"mode="aspectFill" />
       </view>
     </scroll-view>
-
   </view>
 </view>

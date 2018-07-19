@@ -20,7 +20,7 @@
         <view>
 
           <!-- 缩略图 -->
-          <image class="carts-image" src="{{item.image}}" mode="aspectFill" />
+          <image class="carts-image" src="{{item.image+goods_oss}}" mode="aspectFill" />
         </view>
         <view class="carts-text">
 

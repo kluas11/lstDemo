@@ -40,7 +40,7 @@
 
   <view class="seller-goods">
     <view class="seller-goods-item" wx:for="{{item.goods}}" wx:for-item="good" wx:key='unique'>
-      <image src="{{good.original_img}}"></image>
+      <image src="{{good.original_img+goods_oss}}"></image>
       <view class="view-price">
         <text>{{good.shop_price}}</text>
       </view>
