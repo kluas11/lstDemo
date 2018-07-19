@@ -10,7 +10,7 @@ Page({
     goods: [],
     shopName: '',
     navArray: [],
-    imageErr:"../../images/failImg.png"
+    imageErr: "../../images/failImg.png"
   },
   onLoad: function(options) {
     var that = this;
@@ -43,6 +43,25 @@ Page({
           //已授权
           console.log("onload")
           App.get_getLocation(that.getstore_id);
+          App.getOpenId(function() {
+            var openId = App.globalData.openid;
+            // 获取openID
+            server.getJSON(
+              "/User/validateOpenid", {
+                openid: openId
+              },
+              function(res) {
+                console.log(res)
+                if (res.data.status) {
+                  App.globalData.userInfo = { user_id:367};
+                  // 全局app变量
+                  var user = App.globalData.userInfo;
+                  //本地缓存
+                  wx.setStorageSync("user_id", user.user_id)
+                  App.globalData.login = true;
+                }
+              });
+          });
         }
       }
     })
@@ -56,32 +75,6 @@ Page({
         console.log(res.errMsg)
       }
     })
-  },
-  load() {
-    // 获取首页数据
-    App.get_getLocation(that.getstore_id);
-    // 
-    App.getOpenId(function() {
-      var openId = App.globalData.openid;
-      // 获取openID
-      server.getJSON(
-        "/User/validateOpenid", {
-          openid: openId
-        },
-        function(res) {
-          console.log(res)
-          if (res.data.code == 200) {
-            console.log("用户信息", res.data)
-            // console.log(res.data.data)
-            App.globalData.userInfo = res.data.data;
-            // 全局app变量
-            var user = App.globalData.userInfo;
-            //本地缓存
-            wx.setStorageSync("user_id", user.user_id)
-            App.globalData.login = true;
-          }
-        });
-    });
   },
   getstore_id(res) {
     var self = this;
@@ -136,7 +129,7 @@ Page({
   // 页面显示
   onShow: function() {
     let shopname = App.globalData.store_name;
-    const that =this;
+    const that = this;
     this.setData({
       shopName: shopname ? shopname : ""
     })
@@ -152,6 +145,27 @@ Page({
           } else {
             //已授权
             App.get_getLocation(that.getstore_id);
+            App.getOpenId(function() {
+              var openId = App.globalData.openid;
+              // 获取openID
+              server.getJSON(
+                "/User/validateOpenid", {
+                  openid: openId
+                },
+                function(res) {
+                  console.log(res)
+                  if (res.data.code == 200) {
+                    console.log("用户信息", res.data)
+                    console.log(res.data.data)
+                    App.globalData.userInfo = res.data.data;
+                    // 全局app变量
+                    var user = App.globalData.userInfo;
+                    //本地缓存
+                    wx.setStorageSync("user_id", user.user_id)
+                    App.globalData.login = true;
+                  }
+                });
+            });
           }
         }
       })
