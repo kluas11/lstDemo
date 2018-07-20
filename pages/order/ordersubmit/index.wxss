@@ -335,17 +335,13 @@
 }
 
 .text-save {
-  width: 680rpx;
+  width:25%;
+  height:100%;
   align-self: center;
   font-size: 32rpx;
-  margin-top: 30rpx;
   color: #fff;
   text-align: center;
-  height: 70rpx;
-  border-radius: 9rpx;
   background: orange;
-  line-height: 70rpx;
-  margin-bottom: 40rpx;
 }
 
 .parent {
@@ -485,14 +481,27 @@
 
 .distr {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+   /* align-items: center;  */
+}
+.distrbox{
+  width: 100%;
+ /* float: left; */
+  font-size:30rpx;
+  height:100rpx;
+   line-height: 100rpx;
+   border-bottom: 1px solid #F4F4F4;
+
+ 
 }
 
+.distrbox image{
+  width:30rpx;height:30rpx;padding-left:20rpx; vertical-align: auto
+}
 .distr text {
-  color: orange;
-  margin-left: 64rpx;
-  font-size: 36rpx;
+  /* color: orange; */
+  /* margin-left: 64rpx; */
+  /* font-size: 36rpx; */
 }
 
 .outRangeTip{

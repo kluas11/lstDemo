@@ -46,6 +46,7 @@
 .carts-item-title {
 	display: flex;
 	flex-direction: row;
+
 	
 	/*width属性解决标题文字太短而缩略图偏移*/
 	width:100%;
@@ -72,7 +73,7 @@
 .carts-item {
 	display: flex;
 	flex-direction: row;
-	height:200rpx;
+	height:155rpx;
 	/*width属性解决标题文字太短而缩略图偏移*/
 	width:100%;
 	border-bottom: 2px solid #eee;
@@ -209,8 +210,8 @@
 
 /*复选框*/
 .carts-footer icon {
-	margin-left: 20rpx;
-	margin-top: 20rpx;
+	/* margin-left: 20rpx;
+	margin-top: 20rpx; */
 }
 
 /*全选字样*/
@@ -236,10 +237,14 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+  height:100%;
+  justify-content:center;
+  padding-left:15rpx;
+
 }
 
 .carts-footer-left text{
-	margin-top: 20rpx;
+	/* margin-top: 20rpx; */
 }
 
 
