@@ -69,10 +69,10 @@ Page({
                 openid: openId
               },
               function(res) {
-                // console.log(res)
+                console.log(res)
                 if (res.data.status) {
                   App.globalData.userInfo = {
-                    user_id: 367
+                    user_id: res.data.user_id
                   };
                   // 全局app变量
                   var user = App.globalData.userInfo;

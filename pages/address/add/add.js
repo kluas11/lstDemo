@@ -33,10 +33,9 @@ Page({
     var twon = 0;
     var province_id = this.data.province_id;
     var city_id = this.data.city_id;
-    var region_id = this.data.region_id;
-    console.log('省市区地址ID', province_id, city_id, region_id)
+    var district_id = this.data.district_id;
+    console.log('省市区地址ID', province_id, city_id, district_id)
     var that = this;
-
     server.postJSON('/User/addAddress/user_id/' + user_id, {
       user_id: user_id,
       mobile: mobile,
@@ -48,9 +47,9 @@ Page({
       twon: twon,
       province: province_id,
       city: city_id,
-      district: region_id,
+      district: district_id,
       lat: that.data.latitude,
-      lon: that.data.longitude,
+      lng: that.data.longitude,
     }, function(res) {
       console.log(res)
       if (res.data.status == 1) {
@@ -335,7 +334,7 @@ Page({
       regionIndex: index,
       townIndex: -1,
       regionName: region_data.name,
-      region_id: region_data.id,
+      district_id: region_data.id,
       townName: ''
     });
     var that = this;

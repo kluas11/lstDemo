@@ -6,24 +6,23 @@
 <view class="parent" wx:if="{{tab == 0}}">
   <swiper class="images" indicator-dots="{{false}}" autoplay="true" interval="5000" duration="1000" style="height:{{galleryHeight}}px;">
     <!-- <block wx:for="{{goods.gallery}}" wx:key=""> -->
-      <swiper-item>
-        <image src="{{goods.original_img+goods_oss}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-current="{{1}}" />
-      </swiper-item>
+    <swiper-item>
+      <image src="{{goods.original_img+goods_oss}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-current="{{1}}" />
+    </swiper-item>
     <!-- </block>  -->
   </swiper>
-  
   <view class="view-class-title">
     <view class="summary">
       <text class="title">{{goods.goods_name}}</text>
     </view>
     <view class="class-line">
     </view>
-    <view bindtap="addCollect" data-id="{{goods.goods_id}}" class="class-collect">
-        <image src="/images/yetenshrine.png" wx:if="{{collectstate}}"></image>  
+    <button bindgetuserinfo="addCollect" open-type='getUserInfo' data-id="{{goods.goods_id}}" class="class-collect">
+      <image src="/images/yetenshrine.png" wx:if="{{collectstate}}"></image>
       <image src="/images/enshrine1.png" wx:else></image>
-    </view>
+    </button>
   </view>
-  
+
   <view class="view-price">
     <text class="text-red">￥{{goods.shop_price}}</text>
     <text class="text-price">价格: ￥{{goods.market_price}} </text>
@@ -33,19 +32,6 @@
     <text>{{goods.comment_count}}人评价</text>
     <text>销量:{{goods.sales_sum}}</text>
   </view>
-  <!-- <text class="text-prop " hidden='true'>选择商品属性</text>
-  <view class="rowline"> -->
-  <!-- </view>  -->
-  <!-- <view wx:for-index="pos" wx:for="{{goods.goods.goods_spec_list}}" wx:key="{{index}}" class="view-sub-prop">
-    <text class="text-prop">{{item[0].spec_name}}</text>
-    <view  class="view-btns">
-      <text bindtap="propClick" data-index="{{pos}}" data-pos="{{index}}" class="{{textStates[item.isClick]}}" wx:for="{{item}}">{{item.item}}</text>
-      
-    </view>
-  </view> -->
-<!--  
-  <view class="rowline">
-  </view> -->
   <text class="text-prop">购买数量</text>
   <view class="rowline">
   </view>
@@ -70,28 +56,11 @@
     <image wx:for="{{goods.detail}}" src="{{item}}" wx:key="" mode="widthFix"></image>
   </view>
 </view>
-<!-- <view class="parent" wx:if="{{tab == 1}}"> -->
 
-  <!--<swiper class="images" indicator-dots="true"
-  autoplay="true" interval="5000" duration="1000" style="height:{{galleryHeight}}px;">-->
-  <!-- <block wx:for="{{goods.gallery}}" wx:key="">
-    <image src="{{item.image_url}}" mode="widthFix" class="xq-image" bindtap="previewImage" data-current="{{index}}" />
-  </block> -->
-
-  <!--</swiper>-->
-  <!-- <text class="text-desc-title">商品信息</text>
-  <view class="rowline">
-  </view>
-  <text wx:for="{{goods.goods.goods_attr_list}}" class="text-propdesc">{{item}}</text>
-  
-  <view style="width:100%;height:100px;">
-  </view>
-</view> -->
 <view class="parent" wx:if="{{tab == 2}}">
   <view class="container carts-list">
     <view wx:for="{{goods.comment}}" wx:key="index" class="carts-item">
       <view class="carts-userinfo">
-
         <!-- 缩略图 -->
         <image class="carts-image" src="/images/user.jpg" mode="aspectFill" />
         <text class="text-username">{{item.username}}</text>
@@ -99,7 +68,6 @@
       <view class="carts-text">
         <text class="text-username">{{item.content}}</text>
         <view calss="carts_bottom">
-
           <image wx:if="{{item.service_rank == 0}}" class="stars" src="/images/stars0.gif"></image>
           <image wx:elif="{{item.service_rank == 1}}" class="stars" src="/images/stars1.gif"></image>
           <image wx:elif="{{item.service_rank == 2}}" class="stars" src="/images/stars2.gif"></image>
@@ -115,17 +83,6 @@
   </view>
 </view>
 <view class="footer">
-
-  <!--<view class="favor">
-    <image src="../../../images/favor.png" class="favor-image" />
-    <text class="favor-text">收藏</text>
-  </view>-->
-  <button class="btn-bug" open-type="getUserInfo" >立即购买</button>
-  <button class="add-cart" bindtap="addCart">加入购物车</button>
+  <button class="btn-bug" bindgetuserinfo="bug" open-type='getUserInfo'>立即购买</button>
+  <button class="add-cart"  bindgetuserinfo="addCart" open-type='getUserInfo'>加入购物车</button>
 </view>
-<!-- <view class='get_location'>
-    <view class='box'>
-        <text>需要获取地理位置信息</text>
-        <button open-type="openSetting">打开授权设置页</button>
-    </view>
-</view> -->

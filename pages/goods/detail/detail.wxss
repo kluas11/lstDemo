@@ -87,8 +87,11 @@ page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  background: #ffffff;
 }
-
+button::after{
+  border: none;
+}
 .class-collect image{
 	width: 60rpx;
 	height: 60rpx;
