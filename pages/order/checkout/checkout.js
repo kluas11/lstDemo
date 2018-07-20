@@ -42,7 +42,9 @@ Page({
     var app = getApp();
     var cartIds = options.cartIds;
     var amount = options.amount;
-
+    console.log(cartIds, amount)
+    console.log("+++初次加载++")
+    
     app.globalData.cartIds = cartIds;
     app.globalData.amount = amount;
     this.setData({
@@ -51,6 +53,7 @@ Page({
     });
 
     timeout = setTimeout(function() {
+      // 未登录了解一下就到个人中心
       if (!app.globalData.login) {
         exit = true;
         wx.switchTab({
@@ -61,7 +64,9 @@ Page({
         var user_id = app.globalData.userInfo.user_id
         server.getJSON('/User/getAddressList/user_id/' + user_id, function(res) {
           var data = res.data
+          console.log(data)
           exit = true;
+          // 地址没有 跳转到添加地址 
           if (data.msg == "没有数据") {
             wx.navigateTo({
               url: '/pages/address/add/add?returnTo=1'

@@ -1,5 +1,6 @@
 var server = require('../../utils/server');
 var app = getApp()
+const postUrl ="https://tlst.paycore.cc/index.php/WXAPI"
 Page({
   data: {
     carts: [],
@@ -20,6 +21,7 @@ Page({
         that.setData({ height: height })
       }
     })
+
   },
 
   see: function (e) {
@@ -48,9 +50,13 @@ Page({
       carts: carts,
       minusStatuses: minusStatuses
     });
+    // if (num>1){
+      this.saveNum(carts[index].cart_id, num);
+      // return;
+    
     // update database
     //carts[index].save();
-    this.saveNum(carts[index].id, num);
+    
     this.sum();
   },
   bindPlus: function (e) {
@@ -73,7 +79,7 @@ Page({
     });
     // update database
     //carts[index].save();
-    this.saveNum(carts[index].id, num);
+    this.saveNum(carts[index].cart_id, num);
     this.sum();
   },
   bindManual: function (e) {
@@ -85,7 +91,7 @@ Page({
     this.setData({
       carts: carts
     });
-    this.saveNum(carts[index].id, num);
+    this.saveNum(carts[index].cart_id, num);
     //console.log(this.data.carts);
     this.sum();
   },
@@ -132,7 +138,7 @@ Page({
     }
     // update database
 
-    this.updataSelect(carts[index].id, carts[index].selected);
+    // this.updataSelect(carts[index].id, carts[index].selected);
     this.sum();
   },
   bindSelectAll: function () {
@@ -152,17 +158,18 @@ Page({
       carts: carts,
     });
     this.sum();
-    var open_id = app.globalData.openid;
-    this.updateAllSelect(open_id, selectedAllStatus);
+    // var open_id = app.globalData.openid;
+    // this.updateAllSelect(open_id, selectedAllStatus);
   },
   bindCheckout: function () {
     // 遍历取出已勾选的cid
     var cartIds = [];
     for (var i = 0; i < this.data.carts.length; i++) {
       if (this.data.carts[i].selected) {
-        cartIds.push(this.data.carts[i].id);
+        cartIds.push(this.data.carts[i].cart_id);
       }
     }
+    
     if (cartIds.length <= 0) {
       wx.showToast({
         title: '请勾选商品',
@@ -171,62 +178,77 @@ Page({
       })
       return;
     }
+    console.log(cartIds)
+    // return;
+  
     cartIds = cartIds.join(',');
+    console.log(cartIds)
     app.globalData.cart_ids = cartIds;
-    console.log(app.globalData.cart_ids);
-
+ 
+    // 需要获取出地址 
     wx.navigateTo({
-      url: '/pages/order/checkout/checkout?cartIds=' + cartIds + '&amount=' + this.data.total
+      url: '/pages/order/ordersubmit/index?cartIds' + cartIds
     });
   },
   getCarts: function () {
     var minusStatuses = [];
     var that = this;
-    var stroe_id = getApp().globalData.store_id;
-    var user_id = ""
-    // console.log(app.globalData.userInfo)
-    user_id = app.globalData.userInfo.user_id
-    // console.log(res)
-    // console
-    server.getJSON('/Cart/cartList/session_id/' + app.globalData.openid, { user_id: user_id, store_id: stroe_id }, function (res) {
-      console.log(res)
+    var store_id = app.globalData.store_id;
+     var userID = wx.getStorageSync("user_id")
+     console.log(userID)
+    console.log(store_id)
+     server.getJSON('/Cart/cartList',{
+       user_id: userID, 
+       store_id: store_id
+        }, function (res) {
+          console.log(res)
       var carts = res.data
       // success
-      var goodsList = [];
+      // var goodsList = [];
 
       if (carts.length != 0)
         that.setData({ empty: false });
       else {
         that.setData({ empty: true });
       }
-      var selectedAllStatus = true;
+      // 设置选中??
+      // 全选按钮控制 selectedAllStatus
+      // var selectedAllStatus = true;
       for (var i = 0; i < carts.length; i++) {
-        //var goods = carts[i].get('goods');
-        //goodsList[i] = goods;
-        //carts[i].selected = true;
-        if (carts[i].selected == 1)
-          carts[i].selected = true;
-        else {
-          carts[i].selected = false;
-          selectedAllStatus = false;
-        }
-        minusStatuses[i] = 1;//carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
+        // var goods = carts[i].get('goods');
+        // goodsList[i] = goods;
+        carts[i].selected = true;
+        // if (carts[i].selected == 1)
+        //   carts[i].selected = true;
+        // else {
+        //   carts[i].selected = false;
+        //   selectedAllStatus = false;
+        // }
+        // if (carts[i].goods_num>1){
+        //   minusStatuses[i] = disabled
+        // }else{
+        minusStatuses[i] = carts[i].goods_num > 1 ? "normal" :"disabled"
+        
+        //minusStatuses[i] = 1;//carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
+        // minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
       }
       // console.log(carts);
+      // return;
       that.setData({
         carts: carts,
-        selectedAllStatus: selectedAllStatus,
+        // selectedAllStatus: selectedAllStatus,
         //goodsList: goodsList,
         minusStatuses: minusStatuses
       });
-      // sum
+      // // sum
       that.sum();
     });
   },
   onShow: function () {
     // auto login
     var stroe_id = getApp().globalData.store_id;
-    console.log(stroe_id);
+    // console.log(app.globalData.cart_ids)
+    // console.log(stroe_id);
 
     // if (stroe_id == '' || stroe_id == undefined )
     //  {
@@ -237,8 +259,6 @@ Page({
     // }
 
     this.getCarts();
-    return;
-
     // 下面的功能未知
 
     // var that = this;
@@ -272,7 +292,7 @@ Page({
     var total = 0;
     for (var i = 0; i < carts.length; i++) {
       if (carts[i].selected) {
-        total += carts[i].goods_num * carts[i].member_goods_price;
+        total += carts[i].goods_num * carts[i].shop_price;
       }
     }
     var newValue = parseInt(total * 100);
@@ -285,24 +305,61 @@ Page({
   },
   deleteCart: function (e) {
     var index = parseInt(e.currentTarget.dataset.index)
-    var id = this.data.carts[index].id;
+    var id = this.data.carts[index].cart_id;
     var that = this
 
-    server.getJSON('/Cart/delCart/id/' + id, function (res) {
+    // server.getJSON('/Cart/delCart/id/' + id, function (res) {
 
 
-      that.getCarts();
-    });
-
+    //   that.getCarts();
+    // });
+    console.log(id)
+    wx.request({
+      url: postUrl + "/Cart/delCart",
+      data: {
+        cart_id: id,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: 'POST',
+      success: function (result) {
+        console.log(result)
+        if (result.data == 0) {
+          console.log("err")
+        }else{
+          that.getCarts();
+        }
+      }
+    })
   },
   saveNum: function (id, num) {
     //https://wudhl.com/index.php/Api/Cart/updateNum/id/1720/num/9
     var that = this
-    server.getJSON('/Cart/updateNum/id/' + id + "/num/" + num, function (res) {
-
-
-      that.getCarts();
-    });
+    console.log(id,num)
+    wx.request({
+      url: postUrl+"/Cart/updateNum",
+      data: {
+        cart_id: id,
+        num: num
+        },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: 'POST',
+      success: function (result) {
+        console.log(result)
+        if (result.data == "0" || result.data==0){
+          console.log("err")
+        }
+      }
+    })
+    // server.postJSON('/Cart/updateNum',{
+      
+    // } ,function (res) {
+    //   console.log(res)
+    //   // that.getCarts();
+    // });
 
 
   },
@@ -312,9 +369,6 @@ Page({
     else selected = 0;
 
     server.getJSON('/Cart/updateSelect/id/' + id + "/selected/" + selected, function (res) {
-
-
-
     });
 
 

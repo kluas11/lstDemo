@@ -1,11 +1,25 @@
 // pages/order/ordersubmit/index.js
 var server = require('../../../utils/server');
+const postUrl = "https://tlst.paycore.cc/index.php/WXAPI"
 var tp;
 var pay_points;
 var points_rate;
 Page({
   data: {
+    distributionIndex:0,
+    distributionArray:[{id:0,name:"门店自取"},{id:1,name:"邮寄"}],
+    paymentIndex:0,
+    paymentArray: [{ id: 0, name: "微信支付", way: 'wxpay' }, { id: 1, name: "余额支付", way:'walletpay'}],
+    // 用户余额
     use_money: 0,
+    // 总价格
+    totalPrice: 0,
+    // 商品列表清单
+    shopList:[],
+    // 地址列表
+    addressList:{},
+    // 邮费
+    expressFee:0,
     use_point: 0,
     totalPrice2: -1,
     check: ['true', ''],
@@ -21,9 +35,22 @@ Page({
       id: 1,
       name: '同城配送'
     }],
+    
     selected_distribution: 0,
     outRange: false,
   },
+  distributionChange:function(e){
+    console.log(e.detail.value)
+    this.setData({
+      distributionIndex: e.detail.value
+    })
+  },
+  paymentChange:function(e){
+    this.setData({
+      paymentIndex: e.detail.value
+    })
+  },
+  // 切换地址
   addressSelect: function() {
     wx.navigateTo({
       url: '../../address/select/index'
@@ -62,7 +89,6 @@ Page({
 
 
     this.useCoupon();
-
 
   },
   useCoupon: function() {
@@ -293,21 +319,25 @@ Page({
     this.useCoupon();
   },
   onShow: function() {
+    wx.showLoading({
+      title: '加载中',
+    })
     var app = getApp();
-    var cartIds = app.globalData.cartIds;
+    // 获取到传过来的值
+    var cartIds = app.globalData.cart_ids;
     var amount = app.globalData.amount;
     this.setData({
       cartIds: cartIds,
       amount: amount
     });
-
+    // console.log(cartIds)
     this.getCarts(cartIds);
     // 页面初始化 options为页面跳转所带来的参数
   },
   initData: function() {
     var app = getApp();
-    pay_points = app.globalData.userInfo.pay_points;
-    var user_money = app.globalData.userInfo.user_money;
+    pay_points = app.globalData.userInfo.pay_points;  //
+    var user_money = app.globalData.userInfo.user_money;   //余额
     this.setData({
       freemoney: user_money,
       pay_points: pay_points
@@ -315,21 +345,35 @@ Page({
   },
   formSubmit: function(e) {
     // user 
-    var selected_distribution = this.data.selected_distribution
-    var address_id = this.data.address.address_id
-    var user_id = getApp().globalData.userInfo.user_id
-    var use_money = this.data.use_money
-    var pay_points = this.data.use_point
+    // var selected_distribution = this.data.selected_distribution
+    // 地址ID
+    // var address_id = this.data.address.address_id
+    // 获取到user_id
+    var user_id = wx.getStorageSync("user_id")
+    // 获取到用户余额
+    // var use_money = this.data.use_money
+    // 不明
+    // var pay_points = this.data.use_point
     var that = this;
     var app = getApp();
-    var couponTypeSelect = this.data.check[0] == "true" ? 1 : 2;
-    var coupon_id = 0;
-    if (this.data.cpos != -1) {
-      coupon_id = this.data.couponList[this.data.cpos].id;
-    }
-    var couponCode = this.data.couponCode;
+    // 优惠券判断
+    // var couponTypeSelect = this.data.check[0] == "true" ? 1 : 2;
+    // var coupon_id = 0;
+    // if (this.data.cpos != -1) {
+    //   coupon_id = this.data.couponList[this.data.cpos].id;
+    // }
+    // var couponCode = this.data.couponCode;
+    // store_id 获取到storeID
     var stroe_id = getApp().globalData.stroe_id;
-    var cart_id = getApp().globalData.cart_ids;
+    // 获取需要买的商品 
+    var cart_id = []
+    // console.log(.shopList)
+    that.data.shopList.map((value)=>{
+      cart_id.push(value.cart_id)
+    })
+    cart_id=cart_id.join(',')
+    console.log(cart_id)
+    return;
     server.getJSON('/Cart/cart3/act/submit_order/user_id/' + user_id + "/address_id/" + address_id + "/user_money/" + use_money + "/pay_points/" + pay_points + "/couponTypeSelect/" + couponTypeSelect + "/coupon_id/" + coupon_id + "/couponCode/" + couponCode, {
       cart_id: cart_id,
       store_id: stroe_id,
@@ -390,58 +434,192 @@ Page({
   },
 
   getCarts: function(cartIds) {
-    var user_id = getApp().globalData.userInfo.user_id
+    var user_id = wx.getStorageSync("user_id")
+    // cosnole.log(user_id)
     var that = this
     var app = getApp()
-    var stroe_id = getApp().globalData.stroe_id;
-    var cart_id = getApp().globalData.cart_ids;
-    server.getJSON('/Cart/cart2/user_id/' + user_id, {
-      cart_id: cart_id,
-      store_id: stroe_id,
-      distribution_status: that.data.distribution_status
+    var stroe_id = getApp().globalData.store_id;
+    // var cart_id = "4,5";
+    console.log(cartIds)
+    console.log(stroe_id)
+    // 判断是否有地址;
+     that.getAddress(user_id).then(res =>{
+       console.log(res)
+       
+       if(res.data.status){
+         that.setData({
+          //  默认地址
+           addressList: res.data.address
+         })
+        //  /Dopay/queryShippingPrice
+         server.getJSON('/Dopay/queryShippingPrice', {
+           store_id: stroe_id,
+           address_id: res.data.address.address_id
+           // distribution_status: that.data.distribution_status
+         }, function (res) {
+           console.log(res)
+           if(res.data.status){
+             that.setData({
+               expressFee:res.data.fee
+             })
+           }
+         })
+       }else{
+         wx.hideLoading();
+         wx.showModal({
+           title:"消息提示",
+           content:"目前没有默认地址,跳转至地址管理页面",
+           showCancel:false,
+             success: function (res) {
+             if (res.confirm) {
+               wx.navigateTo({
+                 url: '/pages/address/add/add?order=1',
+               })
+             } else if (res.cancel) {
+               wx.navigateTo({
+                 url: '/pages/address/add/add?order=1',
+               })
+             }
+           }
+         })
+       }
+     }).catch(e =>{
+       console.log(e)
+     })
+     that.getUserMonder(user_id).then(res => {
+       var money = res.data
+       if (that.isRealNum(money)){
+         that.setData({
+           use_money: money
+         })
+       }else{
+         wx.hideLoading();
+         console.log("数值youwu")
+       }
+     }).catch(e => {
+       console.log(e)
+     })
+  
+    // 获取商品 库存 交易金额
+    server.getJSON('/Dopay/confirmOrder', {
+      cart_ids: cartIds,
+      // distribution_status: that.data.distribution_status
     }, function(res) {
       console.log(res)
-      if (res.data.status == 1) {
+      var result=res.data
+      var app = getApp();
+      if (result.status==false){
+       wx.hideLoading()
+       app.globalData.cart_ids=""
+       wx.showModal({
+         title:"消息提示",
+         content:"商品库存不足,请检查商品",
+         success:function(res){
+           if (res.confirm) {
+             wx.switchTab({
+               url: '../../cart/cart'
+             });
+           } else if (res.cancel) {
+             wx.switchTab({
+               url: '../../cart/cart'
+             });
+           }
+         }
+       })
+     }else{
+        wx.hideLoading();
+        // 总价格
+        // totalPrice
+        var shopList = result.goodsList
+        var totalPrice = result.goodsAmount
         that.setData({
-          outRange: false
+          shopList: shopList,
+          totalPrice: totalPrice
         })
-      }
-      if (res.data.status == -2) {
-        that.setData({
-          outRange: true
-        })
-        wx.navigateBack({
-          delta: 1
-        })
-      }
-      var user_data = app.globalData.userInfo;
-      user_data.user_money = res.data.result.userInfo.user_money;
-      user_data.pay_points = res.data.result.userInfo.pay_points;
-      app.globalData.userInfo = user_data
-      var address = res.data.result.addressList
-      var cartList = res.data.result.cartList
+     }
 
-      var userInfo = res.data.result.userInfo
-      var totalPrice = res.data.result.totalPrice
-      tp = totalPrice.total_fee
-      points_rate = res.data.result.points
-      that.setData({
-        address: address,
-        cartList: cartList,
-        userInfo: userInfo,
-        totalPrice: totalPrice
-      });
+    })
+    // server.getJSON('/Cart/cart2/user_id/' + user_id, {
+    //   cart_id: cart_id,
+    //   store_id: stroe_id,
+    //   // distribution_status: that.data.distribution_status
+    // }, function(res) {
+    //   console.log(res)
+    // 区域范围限制
+      // if (res.data.status == 1) {
+      //   that.setData({
+      //     outRange: false
+      //   })
+      // }
+      // if (res.data.status == -2) {
+      //   that.setData({
+      //     outRange: true
+      //   })
+      //   wx.navigateBack({
+      //     delta: 1
+      //   })
+      // }
+      // var user_data = app.globalData.userInfo;
+      // console.log(user_data)
+      // user_data.user_money = res.data.result.userInfo.user_money;
+      // user_data.pay_points = res.data.result.userInfo.pay_points;
+      // app.globalData.userInfo = user_data
+      // var address = res.data.result.addressList
+      // var cartList = res.data.result.cartList
 
-      var couponList = res.data.result.couponList
-      var ms = that.data.coupon
-      for (var i in couponList) {
-        ms.push(couponList[i].name);
+      // var userInfo = res.data.result.userInfo
+      // var totalPrice = res.data.result.totalPrice
+      // tp = totalPrice.total_fee
+      // points_rate = res.data.result.points
+      // that.setData({
+      //   address: address,
+      //   cartList: cartList,
+      //   userInfo: userInfo,
+      //   totalPrice: totalPrice
+      // });
+      // 优惠券设置 展示不用
+      // var couponList = res.data.result.couponList
+      // var ms = that.data.coupon
+      // for (var i in couponList) {
+      //   ms.push(couponList[i].name);
+      // }
+      // that.setData({
+      //   coupon: ms,
+      //   couponList: couponList
+      // });
+      // that.initData();
+    // })
+  },
+  getAddress: function (user_id){
+    console.log(user_id)
+    return new Promise(function (resolve, reject){
+      try{
+        server.getJSON('/Dopay/getAddress', {
+          user_id: user_id,
+          // distribution_status: that.data.distribution_status
+        }, function (res) {
+          resolve(res)
+        })
       }
-      that.setData({
-        coupon: ms,
-        couponList: couponList
-      });
-      that.initData();
+    catch(e){
+        reject(e)
+    }
+    })
+  },
+  getUserMonder: function (user_id){
+    console.log(user_id)
+    return new Promise(function (resolve, reject) {
+      try {
+        server.getJSON('/Dopay/getUserMoney', {
+          user_id: user_id,
+          // distribution_status: that.data.distribution_status
+        }, function (res) {
+          resolve(res)
+        })
+      }
+      catch (e) {
+        reject(e)
+      }
     })
   },
   check1: function() {
@@ -489,7 +667,7 @@ Page({
       server.getJSON('/Cart/cart2/user_id/' + user_id, {
         cart_id: cart_id,
         store_id: stroe_id,
-        distribution_status: that.data.selected_distribution
+        // distribution_status: that.data.selected_distribution
       }, function(res) {
         console.log(res)
         if (res.data.status == -2) {
@@ -521,6 +699,15 @@ Page({
       url: '/pages/address/add/add?order=1',
     })
   },
-
-
+  isRealNum: function(val){
+    // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+    if(val === "" || val ==null){
+        return false;
+    }
+    if(!isNaN(val)){
+        return true;
+    }else{
+        return false;
+    }
+  }   
 })
