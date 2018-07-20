@@ -15,15 +15,31 @@
     <view class="view-addressleft">
       <image src="/images/white_loc.png"></image>
       <view class="view-addressleft-info">
-        <text class="text-name">收货人:{{addressList.consignee}}</text>
-        <text class="text-address">收货地址:{{addressList.address}}</text>
+        <text class="text-name">收货人:{{addressList[addressIndex].consignee}}</text>
+        <text class="text-address">收货地址:{{addressList[addressIndex].address}}</text>
       </view>
     </view>
     <view class="view-addressright">
-      <text class="text-mobile">{{addressList.mobile}}</text>
+      <text class="text-mobile">{{addressList[addressIndex].mobile}}</text>
       <image src="/images/white_hint.png"></image>
     </view>
   </view>
+  <view wx:if="{{addressToggle}}" class='addressmark'>
+
+
+  <scroll-view  scroll-y class='addressbox'>
+  <view  bindtap ="switchaddress" wx:for="{{addressList}}" wx:key="address_id" data-index="{{index}}" style='height:100rpx;padding:10rpx 0 10rpx 10rpx;box-sizing:border-box;width:100%;border-bottom:1px solid #F7F7F7;display:flex;flex-direction: row; align-items: center'>
+  <view style='flex:18;display:flex;flex-direction: column; overflow: hidden;flex-wrap:nowrap;font-size:30rpx;'>
+    <view style='height: 50%; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>收货人: {{item.consignee}} {{item.mobile}}</view>
+    <view style='height: 50%;  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>收货地址:{{item.address}}</view>
+  </view>
+
+ <icon style="flex:2;padding-right:15rpx" type="{{addressIndex == index ? 'success_circle' : 'circle'}}"/>
+  </view>
+  
+  
+  </scroll-view>
+    </view>
   <!-- 订单列表  -->
   <view wx:for="{{shopList}}" wx:key="index" class="container carts-list">
 
@@ -72,7 +88,7 @@
   </picker > 
     <!-- <button class='distribution' bindtap='distribution'>配送方式</button>
     <text>{{distribution_status[selected_distribution].name}}</text> -->
-    <picker class='distrbox' range-key="name" bindchange="paymentChange" value="{{paymentIndex}}" range="{{paymentArray}}">
+    <!-- <picker class='distrbox' range-key="name" bindchange="paymentChange" value="{{paymentIndex}}" range="{{paymentArray}}">
        <text style='float:left  ;padding-left:30rpx;'>支付方式</text>
        <view style='float:right'>
        <text style='width:30rpx;height:30rpx'>{{paymentArray[paymentIndex].name}}</text>
@@ -80,8 +96,8 @@
        </view>
   
        
-  </picker>
-  <view  style="font-size:30rpx;" class="distrbox" style='   padding-left:30rpx;' wx:if="{{paymentIndex == 1}}">剩余余额 :<text style="padding:10rpx;color:red">{{use_money<=0?"余额不足,请及时充值":use_money}}</text></view>
+  </picker> -->
+  <!-- <view  style="font-size:30rpx;" class="distrbox" style='   padding-left:30rpx;' wx:if="{{paymentIndex == 1}}">剩余余额 :<text style="padding:10rpx;color:red">{{use_money<=0?"余额不足,请及时充值":use_money}}</text></view> -->
   </view>
 
   <!-- <view class="view-freemoney"> -->
@@ -148,13 +164,25 @@
 
   </view>
 
-
 <view style="position:fixed;display:flex; bottom:0;line-height:120rpx;width:100%;height:120rpx;background:#F4F4F4">
 <view wx:if="{{distributionIndex==0}}"style='width:75%;padding-left:3%'>应付总金额: {{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元  </view>
 <view wx:else style='width:75%;padding-left:3%'>应付总金额:￥ {{totalPrice<=0?"金额有误,请勿下单":totalPrice+expressFee}}元  </view>
 <text bindtap="formSubmit" class="text-save">提交订单</text>
 </view>
+<view wx:if="{{orderState}}"class='addressmark' style='z-index:200'>
+  <view class="orderpaybox">
+  <view style='text-align:center;padding:30rpx;height:50rpx;background:#c1c1c1'>选择支付方式</view>
+  <view  class="payment" >
+  <block wx:for="{{paymentArray}}" wx:key="index"   >
+   <button   class='{{item.class}}'  bindtap="paymentBtn" data-way="{{item.way}}" >{{item.name}}</button > 
+  </block>
+  </view>
+    
+  </view>
 </view>
+</view>
+<!--支付方式选择  -->
+
 <!--配送选择  -->
 <block wx:if='{{dtb_show}}'>
   <view class='drawer_screen'></view>
