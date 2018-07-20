@@ -5,13 +5,13 @@ Page({
   data: {
     goods: {},
     current: 0,
-    active_index:0,
+    active_index: 0,
     galleryHeight: App.screenWidth,
     tab: 0,
-    collectstate:false,
+    collectstate: false,
     goods_num: 1,
     textStates: ["view-btns-text-normal", "view-btns-text-select"],
-    goods_oss:App.image_oss+'750_750'
+    goods_oss: App.image_oss + '750_750'
   },
   propClick: function(e) {
     var pos = e.currentTarget.dataset.pos;
@@ -23,33 +23,60 @@ Page({
       else
         goods.goods.goods_spec_list[index][i].isClick = 0;
     }
-
     this.setData({
       goods: goods
     });
-  
+
     this.checkPrice();
   },
   addCollect: function(e) {
-    var that=this;
-    var goods_id = e.currentTarget.dataset.id;
-    console.log(goods_id);
-    var user_id = wx.getStorageSync("user_id");
-    var ctype = 0;
-    server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
-      console.log(res)
-      that.setData({
-        collectstate:true
+    var that = this;
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      var goods_id = e.currentTarget.dataset.id;
+      var ctype = 0;
+      this.getuser_id().then(user_id => {
+        server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
+          console.log(res)
+          that.setData({
+            collectstate: true
+          })
+          wx.showToast({
+            title: res.data.msg,
+            icon: 'success',
+            duration: 2000
+          })
+        });
       })
-      wx.showToast({
-        title:res.data.msg,
-        icon: 'success',
-        duration: 2000
-      })
-    });
+    }
+  },
+  getuser_id() {
+    return new Promise((request, reject) => {
+      var user_id = wx.getStorageSync("user_id");
+      if (!user_id) {
+        App.getOpenId(App.register(function() {
+          server.getJSON(
+            "/User/validateOpenid", {
+              openid: App.globalData.openid
+            },
+            function(res) {
+              if (res.data.status) {
+                var user_id = res.data.user_id;
+                App.globalData.userInfo = {
+                  user_id
+                };
+                request(user_id)
+                //本地缓存
+                wx.setStorageSync("user_id", user_id)
+                App.globalData.login = true;
+              }
+            });
+        }))
+      } else {
+        request(user_id)
+      }
+    })
   },
   bindMinus: function(e) {
-
     var num = this.data.goods_num;
     if (num > 1) {
       num--;
@@ -73,15 +100,32 @@ Page({
     });
   },
   onLoad: function(options) {
-
     var goodsId = options.objectId;
     objectId = goodsId;
-    console.log(goodsId)
-    // this.get_getLocation();
+    //获取商品详情
     this.getGoodsById(goodsId);
+    // 用户是否收藏该商品
+    if (wx.getStorageSync('user_id')) {
+      this.iscollect();
+    }
   },
-  getScopes(){
-    console.log(1111111111)
+  iscollect() {
+    let that = this;
+    server.getJSON("/Goods/isCollect",
+      // 传user_id和goods_id
+      {
+        user_id: wx.getStorageSync('user_id'),
+        goods_id: objectId
+      },
+      function(res) {
+        that.setData({
+          collectstate: res.data ? true : false
+        })
+      }
+    )
+  },
+  getScopes() {
+    // console.log(1111111111)
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index;
@@ -92,24 +136,24 @@ Page({
   },
   getGoodsById: function(goodsId) {
     var that = this
- 
-    server.getJSON('/Goods/goodsInfo',{
+
+    server.getJSON('/Goods/goodsInfo', {
       goods_id: goodsId
     }, function(res) {
       var goodsInfo = res.data;
       console.log(res)
-      if (res.statusCode==200){
+      if (res.statusCode == 200) {
         that.setData({
           goods: goodsInfo
         });
-      }else{
+      } else {
         wx.showToast({
           title: "数据异常",
           image: "../../../images/about.png"
         })
         return;
       }
-      
+
       // that.checkPrice();
     });
   },
@@ -155,7 +199,7 @@ Page({
   //     price: price
   //   });
   // },
-//  立即购买了解一下
+  //  立即购买了解一下
   bug: function() {
     var goods = this.data.goods;
     // 商品规格
@@ -183,10 +227,7 @@ Page({
 
     var user_id = "0"
     if (App.globalData.login)
-      user_id = App.globalData.userInfo.user_id
-
-
-
+    user_id = App.globalData.userInfo.user_id
     server.getJSON('/Cart/addCart', {
       goods_id: goods_id,
       goods_spec: goods_spec,
@@ -194,7 +235,6 @@ Page({
       goods_num: goods_num,
       user_id: user_id
     }, function(res) {
-
       if (res.data.status == 1) {
         App.globalData.stroe_id = that.data.goods.goods.store_id;
         wx.showToast({
@@ -211,8 +251,6 @@ Page({
           icon: 'error',
           duration: 2000
         });
-
-
     });
 
 
@@ -229,11 +267,11 @@ Page({
     说明: goods_id，goods_num，user_id 
   */
   addCart: function() {
-    App.getUserInfo(function(user){
+    App.getUserInfo(function(user) {
       console.log(user)
     })
     // console.log(userID)
-    return ;
+    return;
     var goods = this.data.goods;
     // 商品规格
     // var spec = ""
@@ -295,11 +333,11 @@ Page({
 
   },
   previewImage: function(e) {
-    var that= this
+    var that = this
     wx.previewImage({
       //从<image>的data-current取到current，得到String类型的url路径
       current: that.data.goods.original_img,
-      urls:[that.data.goods.original_img] // 需要预览的图片http链接列表
+      urls: [that.data.goods.original_img] // 需要预览的图片http链接列表
     })
   },
   onShareAppMessage: function() {
