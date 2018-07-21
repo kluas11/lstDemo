@@ -15,44 +15,22 @@ page{
 .order_top {
   height: 68rpx;
   background: #ffffff;
-  font-size: 32rpx;
+  font-size: 30rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 20rpx;
   margin-bottom: 10rpx;
 }
-
-.view-orderstatus {
-  display: flex;
-  flex-direction: row;
-  padding: 20rpx 0 0 3;
-  justify-content: flex-start;
-  align-items: center;
-  width: 600rpx;
+.order_top .num{
+  color: #969696;
 }
-
-.view-orderstatus image {
-  width: 50rpx;
-  height: 50rpx;
-  margin-left: 30rpx;
+.order_time{
+  border-bottom: 1px solid #eee;
+  padding:20rpx 10rpx;
+  font-size: 28rpx;
+   color: #444;
 }
-
-.view-orderstatus-info {
-  display: flex;
-  width: 500rpx;
-  flex-direction: column;
-  margin-left: 20rpx;
-  justify-content: space-around;
-  align-items: flex-start;
-  height: 150rpx;
-}
-
-.view-orderstatus-info text {
-  font-size: 29rpx;
-  color: #fff;
-}
-
 .view-address {
   display: flex;
   flex-direction: row;
