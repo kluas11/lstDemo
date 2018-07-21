@@ -1,7 +1,7 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
-
+<wxs module='time' src='./index.wxs' />
 <view class="parent">
-  <view class="view-order">
+  <!-- <view class="view-order">
     <view class="view-orderstatus">
       <image src="/images/oorder.png"></image>
       <view class="view-orderstatus-info">
@@ -10,6 +10,10 @@
         <text hidden class="text-address">配送费用:￥{{result.shipping_price}}元</text>
       </view>
     </view>
+  </view> -->
+  <view class='order_top'>
+    <view class='num'>订单号:222222222222222</view>
+    <view class='order_status improt_color'>代付款</view>
   </view>
 
 
@@ -18,8 +22,8 @@
     <view class="view-addressleft" style='width:100%;'>
       <image src="/images/payicon.png"></image>
       <view class="view-addressleft-info">
-        <text class="text-name">下单时间 : {{result.add_time}}</text>
-        <text class="text-address">应付款金额 : ￥{{result.order_amount}}元</text>
+        <text class="text-name">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
+        <text class="text-address">应付款金额 : ￥{{result.total_amount}}元</text>
       </view>
     </view>
   </view>
@@ -56,14 +60,14 @@
     <text>网站自营</text>
   </view>
 
-  <view class="class-line"></view>
 
   <view class="container carts-list">
-    <view wx:for="{{result.goods_list}}" wx:key="index" class="carts-item">
+    <view class="class-line"></view>
+    <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
       <!-- -->
       <view>
         <!-- 缩略图 -->
-        <image class="carts-image" src="{{item.image+goods_oss}}" mode="aspectFill" />
+        <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" />
       </view>
       <view class="carts-text">
         <!-- 商品标题 -->
@@ -74,27 +78,23 @@
         </view>
       </view>
       <view class="carts-right">
-        <text class="text-red">￥{{item.price}}</text>
+        <text class="text-red improt_color">￥{{item.price}}</text>
         <text class="text-price">x{{item.goods_num}}</text>
       </view>
     </view>
   </view>
-
-  <view class="class-line1"></view>
-
   <view class="view-price">
     <view class="view-price1">
       <text class="text-price1">商品总额:</text>
-      <text class="text-red">￥{{result.goods_price}}元</text>
+      <text class="text-red improt_color">￥{{result.goods_price}}元</text>
     </view>
-    <view hidden class="view-price1">
+    <view class="view-price1">
       <text class="text-price1">邮费:</text>
-      <text class="text-red">￥{{result.shipping_price}}元</text>
+      <text class="text-red improt_color">￥{{result.shipping_price}}元</text>
     </view>
-
     <view class="view-price1">
       <text class="text-price1">应付总金额:</text>
-      <text class="text-red">￥{{result.order_amount}}元</text>
+      <text class="text-red improt_color">￥{{result.total_amount}}元</text>
     </view>
   </view>
 </view>

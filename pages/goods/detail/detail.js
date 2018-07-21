@@ -63,7 +63,7 @@ Page({
             function(res) {
               if (res.data.status) {
                 var user_id = res.data.user_id;
-                
+
                 App.globalData.userInfo = {
                   user_id
                 };
@@ -106,7 +106,6 @@ Page({
     var goodsId = options.objectId;
     objectId = goodsId;
     // 获取到分享商品
-    
     //获取商品详情
     this.getGoodsById(goodsId);
     // 用户是否收藏该商品
@@ -162,51 +161,9 @@ Page({
       // that.checkPrice();
     });
   },
-  // checkPrice: function() {
-  //   var goods = this.data.goods;
-  //   var spec = ""
-  //   this.setData({
-  //     price: goods.goods.shop_price
-  //   });
-  //   if (!goods.goods.goods_spec_list) {
-  //     return;
-  //   }
-  //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
-  //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-  //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-  //         if (spec == "")
-  //           spec = goods.goods.goods_spec_list[i][j].item_id
-  //         else
-  //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-  //       }
-  //     }
-  //   }
-  //   console.log(spec);
-
-  //   var specs = spec.split("_");
-  //   for (var i = 0; i < specs.length; i++) {
-  //     specs[i] = parseInt(specs[i])
-  //   }
-  //   specs.sort(function(a, b) {
-  //     return a - b
-  //   });
-  //   spec = ""
-  //   for (var i = 0; i < specs.length; i++) {
-  //     if (spec == "")
-  //       spec = specs[i]
-  //     else
-  //       spec = spec + "_" + specs[i]
-  //   }
-  //   console.log(spec);
-  //   var price = goods['spec_goods_price'][spec].price;
-  //   console.log(price);
-  //   this.setData({
-  //     price: price
-  //   });
-  // },
   //  立即购买了解一下
   immediatelyBuy: function(e) {
-    var that=this
+    var that = this
     var goods = this.data.goods;
     var goods_num = that.data.goods_num;
     if (e.detail.errMsg === "getUserInfo:ok") {
@@ -215,30 +172,7 @@ Page({
         console.log(goods_num)
       })
     }
- return;
-    
-    // 商品规格
-    // var spec = ""
-    // if (goods.goods.goods_spec_list != null)
-    //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
-
-    //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-    //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-    //         if (spec == "")
-    //           spec = goods.goods.goods_spec_list[i][j].item_id
-    //         else
-    //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-    //       }
-    //     }
-    //   }
-
-    var that = this;
-
-    // console.log(that.data.goods);return;
-    var goods_id = that.data.goods.goods.goods_id;
-    var goods_spec = spec;
-    var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
-
+    return;
   },
   //  
   /*
@@ -250,8 +184,8 @@ Page({
     var goodsId = this.data.goods.goods_id;
     // console.log()
     var goodsNum = this.data.goods_num;
-    if(e.detail.errMsg === "getUserInfo:ok"){
-      that.getuser_id().then(user_id =>{
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      that.getuser_id().then(user_id => {
         wx.request({
           url: postUrl + '/Cart/addCart',
           header: {
@@ -263,7 +197,7 @@ Page({
             user_id: user_id
           },
           method: "POST",
-          success: function (res) {
+          success: function(res) {
             // return 1/0 字符类型 是否加入成功; 
             console.log(res)
             if (res.data == "1")
@@ -279,7 +213,7 @@ Page({
                 duration: 1000
               });
           },
-          'fail': function (res) {
+          'fail': function(res) {
             wx.showToast({
               title: "加入购物车失败",
               icon: 'error',
@@ -289,32 +223,7 @@ Page({
         })
       })
     }
-    // console.log(userID)
- 
-
- 
-
-   
-      
-
-
     return;
-    // 商品规格
-    // var spec = ""
-    // if (goods.goods.goods_spec_list != null)
-    //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
-
-    //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
-    //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
-    //         if (spec == "")
-    //           spec = goods.goods.goods_spec_list[i][j].item_id
-    //         else
-    //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
-    //       }
-    //     }
-    //   }
-    // var goods_spec = spec;
-    // var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
   },
   showCartToast: function() {
     wx.showToast({
@@ -344,11 +253,11 @@ Page({
       path: path
     }
   },
-  onShow: function(){
-    var that=this;
+  onShow: function() {
+    var that = this;
     var store_id = App.globalData.store_id
     console.log(store_id)
-    if (!store_id){
+    if (!store_id) {
       App.get_getLocation(that.getstore_id)
     }
   },
@@ -364,7 +273,7 @@ Page({
         server.getJSON('/Index/getNearStore', {
           log: lngs,
           lat: lats
-        }, function (res) {
+        }, function(res) {
           // console.log(res)
           App.globalData.store_id = res.data.store_id;
           console.log(res.data.store_id)
@@ -403,7 +312,7 @@ Page({
         latitude: latitude,
         longitude: longitude
       },
-      success: function (res) {
+      success: function(res) {
         if (res.result.ad_info.city != undefined) {
           // self.setData({
           //   address: res.result.ad_info.city
@@ -411,10 +320,10 @@ Page({
           App.globalData.city = res.result.ad_info.city;
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res)
       },
-      complete: function (res) {
+      complete: function(res) {
         self.gainStore().then((res) => {
           // console.log(res)
           // self.loadBanner(self.data.options);
