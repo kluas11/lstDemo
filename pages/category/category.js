@@ -59,8 +59,10 @@ Page({
 
   getTopCategory: function(parent) {
     var that = this;
+    var storeid = app.globalData.store_id;
+  
     server.getJSON("/Goods/goodsCategoryList", {
-      store_id: getApp().globalData.store_id
+      store_id: storeid
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;

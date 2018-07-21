@@ -13,7 +13,7 @@ Page({
     addressIndex:0,
     distributionIndex:1,
     distributionArray:[{id:0,name:"门店自取"},{id:1,name:"邮寄"}],
-    paymentIndex:0,
+    paymentIndex:0, 
     paymentArray: [{ id: 0, name: "微信支付", way: 'wxPreparePay', class: "payByBalance" }, { class:"payByWXPay button-hover",id: 1, name: "余额支付", way:'walletPay'}],
     // 用户余额
     use_money: 0,
@@ -467,8 +467,11 @@ Page({
       data: winrecord,
       method: 'POST',
       success: function (res) {
+
         wx.hideLoading()
         console.log(res)
+        // 微信支付
+
         if (payway=="wxPreparePay"){
           var result = res.data.data
           wx.requestPayment({
@@ -485,9 +488,12 @@ Page({
                 icon: "success",
                 duration: 2000,
                 complete: function () {
-                  wx.switchTab({
-                    url: '../../index/index'
-                  });
+                  setTimeout(function () {
+                    wx.switchTab({
+                      url: '../../index/index'
+                    });
+                  }, 2000)
+
                 }
               })
             },
@@ -499,23 +505,30 @@ Page({
                 icon: "success",
                 duration: 2000,
                 complete: function () {
-                  wx.switchTab({
-                    url: '../../index/index'
-                  });
+                  setTimeout(function () {
+                    wx.switchTab({
+                      url: '../../index/index'
+                    });
+                  }, 2000)
                 }
+
               })
             }
           })
         }else{
-          if (res.status){
+          // 余额支付
+          if (res.data.status){
             wx.showToast({
               title:"支付成功",
               icon:"success",
               duration:2000,
-              complete:function(){
-                wx.switchTab({
-                  url: '../../index/index'
-                });
+              complete: function () {
+                setTimeout(function () {
+                  wx.switchTab({
+                    url: '../../index/index'
+                  });
+                }, 2000)
+               
               }
             })
           }else{
@@ -524,9 +537,14 @@ Page({
               icon: "success",
               duration: 2000,
               complete: function () {
-                wx.switchTab({
-                  url: '../../index/index'
-                });
+                setTimeout(function(){
+                  wx.switchTab({
+                    url: '../../index/index'
+                  });
+                }, 2000)
+              
+                 
+                                
               }
             })
           }
@@ -540,10 +558,17 @@ Page({
           image: '../../../images/about.png',
           duration: 2000,
           complete: function () {
-            wx.switchTab({
-              url: '../../index/index'
-            });
+            setTimeout(function () {
+              wx.switchTab({
+                url: '../../index/index'
+              });
+            }, 2000)
+
           }
+        })
+      },complete:function(){
+        that.setData({
+          orderState: false
         })
       }
     })
