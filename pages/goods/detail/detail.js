@@ -1,5 +1,7 @@
 var server = require('../../../utils/server');
+var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
 const App = getApp();
+const postUrl = "https://tlst.paycore.cc/index.php/WXAPI"
 var objectId;
 Page({
   data: {
@@ -61,6 +63,7 @@ Page({
             function(res) {
               if (res.data.status) {
                 var user_id = res.data.user_id;
+                
                 App.globalData.userInfo = {
                   user_id
                 };
@@ -102,6 +105,8 @@ Page({
   onLoad: function(options) {
     var goodsId = options.objectId;
     objectId = goodsId;
+    // 获取到分享商品
+    
     //获取商品详情
     this.getGoodsById(goodsId);
     // 用户是否收藏该商品
@@ -200,8 +205,18 @@ Page({
   //   });
   // },
   //  立即购买了解一下
-  bug: function() {
+  immediatelyBuy: function(e) {
+    var that=this
     var goods = this.data.goods;
+    var goods_num = that.data.goods_num;
+    if (e.detail.errMsg === "getUserInfo:ok") {
+      that.getuser_id().then(user_id => {
+        console.log(goods)
+        console.log(goods_num)
+      })
+    }
+ return;
+    
     // 商品规格
     // var spec = ""
     // if (goods.goods.goods_spec_list != null)
@@ -223,42 +238,6 @@ Page({
     var goods_id = that.data.goods.goods.goods_id;
     var goods_spec = spec;
     var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
-    var goods_num = that.data.goods_num;
-
-    var user_id = "0"
-    if (App.globalData.login)
-    user_id = App.globalData.userInfo.user_id
-    server.getJSON('/Cart/addCart', {
-      goods_id: goods_id,
-      goods_spec: goods_spec,
-      session_id: session_id,
-      goods_num: goods_num,
-      user_id: user_id
-    }, function(res) {
-      if (res.data.status == 1) {
-        App.globalData.stroe_id = that.data.goods.goods.store_id;
-        wx.showToast({
-          title: '已加入购物车',
-          icon: 'success',
-          duration: 2000
-        });
-        wx.switchTab({
-          url: '../../cart/cart'
-        });
-      } else
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'error',
-          duration: 2000
-        });
-    });
-
-
-
-
-
-    return;
-
 
   },
   //  
@@ -266,13 +245,60 @@ Page({
     加入购物车
     说明: goods_id，goods_num，user_id 
   */
-  addCart: function() {
-    App.getUserInfo(function(user) {
-      console.log(user)
-    })
+  addCart: function(e) {
+    var that = this;
+    var goodsId = this.data.goods.goods_id;
+    // console.log()
+    var goodsNum = this.data.goods_num;
+    if(e.detail.errMsg === "getUserInfo:ok"){
+      that.getuser_id().then(user_id =>{
+        wx.request({
+          url: postUrl + '/Cart/addCart',
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          data: {
+            goods_id: goodsId,
+            goods_num: goodsNum,
+            user_id: user_id
+          },
+          method: "POST",
+          success: function (res) {
+            // return 1/0 字符类型 是否加入成功; 
+            console.log(res)
+            if (res.data == "1")
+              wx.showToast({
+                title: '已加入购物车',
+                icon: 'success',
+                duration: 1000
+              });
+            else
+              wx.showToast({
+                title: "加入购物车失败",
+                icon: 'error',
+                duration: 1000
+              });
+          },
+          'fail': function (res) {
+            wx.showToast({
+              title: "加入购物车失败",
+              icon: 'error',
+              duration: 1000
+            });
+          }
+        })
+      })
+    }
     // console.log(userID)
+ 
+
+ 
+
+   
+      
+
+
     return;
-    var goods = this.data.goods;
     // 商品规格
     // var spec = ""
     // if (goods.goods.goods_spec_list != null)
@@ -287,36 +313,8 @@ Page({
     //       }
     //     }
     //   }
-    var that = this;
-    var goods_id = that.data.goods.goods.goods_id;
-    var goods_spec = spec;
-    var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
-    var goods_num = that.data.goods_num;
-    var user_id = "0"
-    if (App.globalData.login)
-      user_id = App.globalData.userInfo.user_id
-    server.getJSON('/Cart/addCart', {
-      goods_id: goods_id,
-      goods_spec: goods_spec,
-      session_id: session_id,
-      goods_num: goods_num,
-      user_id: user_id
-    }, function(res) {
-      if (res.data.status == 1)
-        wx.showToast({
-          title: '已加入购物车',
-          icon: 'success',
-          duration: 1000
-        });
-      else
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'error',
-          duration: 1000
-        });
-    });
-
-
+    // var goods_spec = spec;
+    // var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
   },
   showCartToast: function() {
     wx.showToast({
@@ -345,5 +343,85 @@ Page({
       desc: '联系qq727186863',
       path: path
     }
-  }
+  },
+  onShow: function(){
+    var that=this;
+    var store_id = App.globalData.store_id
+    console.log(store_id)
+    if (!store_id){
+      App.get_getLocation(that.getstore_id)
+    }
+  },
+  // 首次加入获取最近门店
+  gainStore() {
+    var that = this;
+    var lats = App.globalData.lat
+    var lngs = App.globalData.lng
+    // 获取最近门店
+    // if (typeof options == 'number') {
+    return new Promise((resolve, reject) => {
+      try {
+        server.getJSON('/Index/getNearStore', {
+          log: lngs,
+          lat: lats
+        }, function (res) {
+          // console.log(res)
+          App.globalData.store_id = res.data.store_id;
+          console.log(res.data.store_id)
+          // console.log(res.data.store_id.store_id)
+          App.globalData.store_name = res.data.store_name;
+          that.setData({
+            shopName: res.data.store_name
+          })
+          // console.log(App.globalData.store_id)
+          resolve({
+            state: "success"
+          })
+        })
+      } catch (e) {
+        reject(e)
+      }
+
+    })
+    // }
+  },
+  getstore_id(res) {
+    var self = this;
+    // console.log(res)
+    var latitude = res.latitude || "";
+    var longitude = res.longitude || "";
+    App.globalData.lat = latitude;
+    App.globalData.lng = longitude;
+    // 实例划API核心类
+    var map = new QQMapWX({
+      key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
+    });
+    // address: res.result.address_component.city
+    // 调用接口
+    map.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {
+        if (res.result.ad_info.city != undefined) {
+          // self.setData({
+          //   address: res.result.ad_info.city
+          // });
+          App.globalData.city = res.result.ad_info.city;
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) {
+        self.gainStore().then((res) => {
+          // console.log(res)
+          // self.loadBanner(self.data.options);
+        }, (err) => {
+          console.log(err)
+        })
+      }
+    });
+  },
 });

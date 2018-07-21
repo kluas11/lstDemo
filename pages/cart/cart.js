@@ -162,7 +162,6 @@ Page({
         cartIds.push(this.data.carts[i].cart_id);
       }
     }
-    
     if (cartIds.length <= 0) {
       wx.showToast({
         title: '请勾选商品',
@@ -188,11 +187,14 @@ Page({
     var that = this;
     var store_id = app.globalData.store_id;
      var userID = wx.getStorageSync("user_id")
-     console.log(userID)
-    console.log(store_id)
+  //  门店
+    if (!store_id){
+      app.get_getLocation()
+      store_id = app.globalData.store_id;
+    }
      server.getJSON('/Cart/cartList',{
-       user_id: userID, 
-       store_id: store_id
+       user_id: userID||365, 
+       store_id: store_id||30
         }, function (res) {
           console.log(res)
       var carts = res.data;
@@ -218,7 +220,6 @@ Page({
   },
   onShow: function () {
     // auto login
-    var stroe_id = getApp().globalData.store_id;
     // console.log(app.globalData.cart_ids)
     // console.log(stroe_id);
 

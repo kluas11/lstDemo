@@ -83,6 +83,6 @@
   </view>
 </view>
 <view class="footer">
-  <button class="btn-bug" bindgetuserinfo="bug" open-type='getUserInfo'>立即购买</button>
+  <button class="btn-bug" bindgetuserinfo="immediatelyBuy" open-type='getUserInfo'>立即购买</button>
   <button class="add-cart"  bindgetuserinfo="addCart" open-type='getUserInfo'>加入购物车</button>
 </view>
