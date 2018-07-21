@@ -4,12 +4,17 @@ const postUrl = "https://tlst.paycore.cc/index.php/WXAPI"
 var tp;
 var pay_points;
 var points_rate;
+const app = getApp();
 Page({
   data: {
-    distributionIndex:0,
+    orderId:"",
+    orderState:false,
+    addressToggle:false,
+    addressIndex:0,
+    distributionIndex:1,
     distributionArray:[{id:0,name:"门店自取"},{id:1,name:"邮寄"}],
     paymentIndex:0,
-    paymentArray: [{ id: 0, name: "微信支付", way: 'wxpay' }, { id: 1, name: "余额支付", way:'walletpay'}],
+    paymentArray: [{ id: 0, name: "微信支付", way: 'wxPreparePay', class: "payByBalance" }, { class:"payByWXPay button-hover",id: 1, name: "余额支付", way:'walletPay'}],
     // 用户余额
     use_money: 0,
     // 总价格
@@ -17,7 +22,7 @@ Page({
     // 商品列表清单
     shopList:[],
     // 地址列表
-    addressList:{},
+    addressList:[],
     // 邮费
     expressFee:0,
     use_point: 0,
@@ -39,11 +44,59 @@ Page({
     selected_distribution: 0,
     outRange: false,
   },
+  switchaddress:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    var that=this
+    var Index = e.currentTarget.dataset.index;
+    console.log(Index)
+    var address_id = that.data.addressList[Index].address_id
+    console.log(address_id)
+    var stroe_id = getApp().globalData.store_id;
+    console.log(stroe_id)
+    server.getJSON('/Dopay/queryShippingPrice', {
+      store_id: stroe_id,
+      address_id: address_id
+      // distribution_status: that.data.distribution_status
+    }, function (res) {
+      console.log(res)
+      if (res.data.status) {
+      
+        that.setData({
+          expressFee: res.data.fee,
+          addressIndex: Index,
+          addressToggle: false
+        })
+        wx.hideLoading()
+      }
+    })
+    
+  },
   distributionChange:function(e){
     console.log(e.detail.value)
+    var that=this
+    var addressIndex = that.data.addressIndex
+    var address_id = that.data.addressList[addressIndex].address_id
+    var stroe_id = getApp().globalData.stroe_id;
+    if (e.detail.value==1){
+      server.getJSON('/Dopay/queryShippingPrice', {
+        store_id: stroe_id,
+        address_id: address_id
+        // distribution_status: that.data.distribution_status
+      }, function (res) {
+        console.log(res)
+        if (res.data.status) {
+          that.setData({
+            expressFee: res.data.fee
+          })
+        }
+      })
+    }
     this.setData({
       distributionIndex: e.detail.value
     })
+
   },
   paymentChange:function(e){
     this.setData({
@@ -52,9 +105,12 @@ Page({
   },
   // 切换地址
   addressSelect: function() {
-    wx.navigateTo({
-      url: '../../address/select/index'
-    });
+    this.setData({
+      addressToggle:true
+    })
+    // wx.navigateTo({
+    //   url: '../../address/select/index'
+    // });
   },
   bindChange: function(e) {
     var use_money = e.detail.value;
@@ -319,10 +375,9 @@ Page({
     this.useCoupon();
   },
   onShow: function() {
-    wx.showLoading({
-      title: '加载中',
-    })
-    var app = getApp();
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
     // 获取到传过来的值
     var cartIds = app.globalData.cart_ids;
     var amount = app.globalData.amount;
@@ -330,12 +385,10 @@ Page({
       cartIds: cartIds,
       amount: amount
     });
-    // console.log(cartIds)
     this.getCarts(cartIds);
     // 页面初始化 options为页面跳转所带来的参数
   },
   initData: function() {
-    var app = getApp();
     pay_points = app.globalData.userInfo.pay_points;  //
     var user_money = app.globalData.userInfo.user_money;   //余额
     this.setData({
@@ -343,19 +396,171 @@ Page({
       pay_points: pay_points
     });
   },
+  paymentBtn:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    var user_id = wx.getStorageSync("user_id");
+    var open_id = app.globalData.openid;
+    var order_id = this.data.orderId
+    var that=this;
+    if (order_id == "" || !order_id || order_id==null){
+      wx.hideLoading()
+      wx.showToast({
+        title: '订单有误',
+        image: '../../../images/about.png',
+        duration: 3000,
+        complete: function () {
+          wx.switchTab({
+            url: '../../index/index'
+          });
+        }
+      })
+    }
+    if (open_id == "" || !open_id || open_id == null) {
+      wx.hideLoading()
+      wx.showModal({
+        title: "消息提示",
+        content: "获取个人信息有误,请后台关闭小程序再使用",
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/address/add/add?order=1',
+            })
+          } else if (res.cancel) {
+            wx.navigateTo({
+              url: '/pages/address/add/add?order=1',
+            })
+          }
+        }
+      })
+    }
+    var payway = e.currentTarget.dataset.way
+    var port=""
+    var winrecord={}
+    if (payway =="wxPreparePay"){
+      port ="/Dopay/wxPreparePay"
+      winrecord={
+        user_id: user_id,
+        open_id: open_id,
+        order_id: order_id
+      }
+    }else{
+      port ="/Dopay/walletPay"
+      winrecord={
+        user_id: user_id,
+        order_id: order_id
+      }
+    }
+    console.log(postUrl + port)
+    console.log(user_id)
+    console.log(open_id)
+    console.log(order_id)
+    console.log(winrecord)
+    // 请求提交订单
+    wx.request({
+      url: postUrl + port,
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      data: winrecord,
+      method: 'POST',
+      success: function (res) {
+        wx.hideLoading()
+        console.log(res)
+        if (payway=="wxPreparePay"){
+          var result = res.data.data
+          wx.requestPayment({
+            "timeStamp": result.timeStamp,
+            "nonceStr": result.nonceStr,
+            "package": result.package,
+            "signType": result.signType,
+            'paySign': result.paySign,
+            'success': function (res) {
+              wx.hideLoading()
+              console.log(res)
+              wx.showToast({
+                title: "支付成功",
+                icon: "success",
+                duration: 2000,
+                complete: function () {
+                  wx.switchTab({
+                    url: '../../index/index'
+                  });
+                }
+              })
+            },
+            'fail': function (res) {
+              wx.hideLoading()
+              console.log(res)
+              wx.showToast({
+                title: "支付失败",
+                icon: "success",
+                duration: 2000,
+                complete: function () {
+                  wx.switchTab({
+                    url: '../../index/index'
+                  });
+                }
+              })
+            }
+          })
+        }else{
+          if (res.status){
+            wx.showToast({
+              title:"支付成功",
+              icon:"success",
+              duration:2000,
+              complete:function(){
+                wx.switchTab({
+                  url: '../../index/index'
+                });
+              }
+            })
+          }else{
+            wx.showToast({
+              title: "余额不足",
+              icon: "success",
+              duration: 2000,
+              complete: function () {
+                wx.switchTab({
+                  url: '../../index/index'
+                });
+              }
+            })
+          }
+        }
+    
+      // return;
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '下单失败',
+          image: '../../../images/about.png',
+          duration: 2000,
+          complete: function () {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          }
+        })
+      }
+    })
+  },
   formSubmit: function(e) {
+    wx.showLoading({
+      title: '加载中',
+    })
     // user 
     // var selected_distribution = this.data.selected_distribution
     // 地址ID
     // var address_id = this.data.address.address_id
-    // 获取到user_id
-    var user_id = wx.getStorageSync("user_id")
     // 获取到用户余额
     // var use_money = this.data.use_money
     // 不明
     // var pay_points = this.data.use_point
-    var that = this;
-    var app = getApp();
+  
     // 优惠券判断
     // var couponTypeSelect = this.data.check[0] == "true" ? 1 : 2;
     // var coupon_id = 0;
@@ -363,8 +568,7 @@ Page({
     //   coupon_id = this.data.couponList[this.data.cpos].id;
     // }
     // var couponCode = this.data.couponCode;
-    // store_id 获取到storeID
-    var stroe_id = getApp().globalData.stroe_id;
+    var that = this;
     // 获取需要买的商品 
     var cart_id = []
     // console.log(.shopList)
@@ -373,75 +577,139 @@ Page({
     })
     cart_id=cart_id.join(',')
     console.log(cart_id)
-    return;
-    server.getJSON('/Cart/cart3/act/submit_order/user_id/' + user_id + "/address_id/" + address_id + "/user_money/" + use_money + "/pay_points/" + pay_points + "/couponTypeSelect/" + couponTypeSelect + "/coupon_id/" + coupon_id + "/couponCode/" + couponCode, {
-      cart_id: cart_id,
-      store_id: stroe_id,
-      distribution_status: selected_distribution
-    }, function(res) {
-
-      if (res.data.status != 1 && res.data.status != 2) {
-        wx.showToast({
-          title: res.data.msg,
-          duration: 2000,
-          icon: 'none'
-        });
-        return;
-      }
-
-      if (res.data.status == 2) {
-        wx.showModal({
-          title: '支付成功',
-          content: '跳转到订单详情？',
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-              wx.redirectTo({
-                url: '/pages/order/list/list',
-              })
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-              wx.navigateBack({
-                delta: 999
-              })
+    // 获取到user_id
+    var user_id = wx.getStorageSync("user_id")
+    // store_id 获取到storeID
+    var store_id = app.globalData.store_id;
+    var addressIndex = that.data.addressIndex;
+    var addressID = that.data.addressList[addressIndex].address_id
+    console.log(user_id)
+    console.log(store_id)
+    console.log(cart_id)
+    console.log(addressID)
+    console.log(that.data.distributionIndex)
+    wx.request({
+      url: postUrl +"/Dopay/createOrder",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      data: {
+      user_id: user_id,
+      store_id: store_id,
+      cart_ids: cart_id,
+      address_id: addressID,
+      is_express: that.data.distributionIndex
+      },
+      method: 'POST',
+      success:function(res){
+        console.log(res)
+        wx.hideLoading();
+        var result = res.data
+        if (result.status){
+          that.setData({
+            orderId: result.order_id,
+            orderState:true
+          })
+        }else{
+          wx.showToast({
+            title: '下单失败',
+            image: '../../../images/about.png',
+            duration: 2000,
+            complete: function () {
+               wx.switchTab({
+                 url: '../../index/index'
+               });
             }
-          }
-        });
-        return;
-      }
-
-      var result = res.data.result
-      app.globalData.wxdata = res.data.data
-      app.globalData.order = res.data.order
-      if (res.data.status == 1) {
+          })
+        }
+      },
+      fail:function(res){
         wx.showToast({
-          title: '提交成功',
-          duration: 2000
-        });
-        setTimeout(function() {
-          if (res.data.order.pay_status == 1) {
+          title: '下单失败',
+          image: '../../../images/about.png',
+          duration: 2000,
+          complete: function () {
             wx.switchTab({
-              url: "../../member/index/index"
+              url: '../../index/index'
             });
-            return;
           }
-          wx.navigateTo({
-            url: '../payment/payment?order_id=' + result
-          });
-        }, 2000);
+        })
       }
-    });
+    })
+    // server.getJSON('/Dopay/createOrder', {
+    //   user_id: user_id,
+    //   store_id: stroe_id,
+    //   cart_ids: cart_id,
+    //   address_id: addressID,
+    //   is_express: that.data.distributionIndex
+    // }, function(res) {
+    //   console.log(res)
+    //   return;
+    //   // if (res.data.status != 1 && res.data.status != 2) {
+    //   //   wx.showToast({
+    //   //     title: res.data.msg,
+    //   //     duration: 2000,
+    //   //     icon: 'none'
+    //   //   });
+    //   //   return;
+    //   // }
+
+    //   // if (res.data.status == 2) {
+    //   //   wx.showModal({
+    //   //     title: '支付成功',
+    //   //     content: '跳转到订单详情？',
+    //   //     success: function(res) {
+    //   //       if (res.confirm) {
+    //   //         console.log('用户点击确定')
+    //   //         wx.redirectTo({
+    //   //           url: '/pages/order/list/list',
+    //   //         })
+    //   //       } else if (res.cancel) {
+    //   //         console.log('用户点击取消')
+    //   //         wx.navigateBack({
+    //   //           delta: 999
+    //   //         })
+    //   //       }
+    //   //     }
+    //   //   });
+    //   //   return;
+    //   // }
+
+    //   // var result = res.data.result
+    //   // app.globalData.wxdata = res.data.data
+    //   // app.globalData.order = res.data.order
+    //   // if (res.data.status == 1) {
+    //   //   wx.showToast({
+    //   //     title: '提交成功',
+    //   //     duration: 2000
+    //   //   });
+    //   //   setTimeout(function() {
+    //   //     if (res.data.order.pay_status == 1) {
+    //   //       wx.switchTab({
+    //   //         url: "../../member/index/index"
+    //   //       });
+    //   //       return;
+    //   //     }
+    //   //     wx.navigateTo({
+    //   //       url: '../payment/payment?order_id=' + result
+    //   //     });
+    //   //   }, 2000);
+    //   // }
+    // });
   },
 
   getCarts: function(cartIds) {
     var user_id = wx.getStorageSync("user_id")
     // cosnole.log(user_id)
     var that = this
-    var app = getApp()
-    var stroe_id = getApp().globalData.store_id;
-    // var cart_id = "4,5";
+    var stroe_id = app.globalData.store_id;
     console.log(cartIds)
     console.log(stroe_id)
+    if (!stroe_id || !user_id){
+      wx.switchTab({
+        url: '../../index/index'
+      });
+    }
     // 判断是否有地址;
      that.getAddress(user_id).then(res =>{
        console.log(res)
@@ -454,7 +722,7 @@ Page({
         //  /Dopay/queryShippingPrice
          server.getJSON('/Dopay/queryShippingPrice', {
            store_id: stroe_id,
-           address_id: res.data.address.address_id
+           address_id: res.data.address[0].address_id
            // distribution_status: that.data.distribution_status
          }, function (res) {
            console.log(res)
@@ -507,7 +775,6 @@ Page({
     }, function(res) {
       console.log(res)
       var result=res.data
-      var app = getApp();
       if (result.status==false){
        wx.hideLoading()
        app.globalData.cart_ids=""
@@ -532,6 +799,18 @@ Page({
         // totalPrice
         var shopList = result.goodsList
         var totalPrice = result.goodsAmount
+        if (shopList.length==0){
+          wx.showToast({
+            title: '获取商品失败',
+            image:'../../../images/about.png',
+            duration: 3000,
+            complete:function(){
+              wx.switchTab({
+                url: '../../cart/cart'
+              });
+            }
+          })
+        }
         that.setData({
           shopList: shopList,
           totalPrice: totalPrice
@@ -641,7 +920,7 @@ Page({
   },
   onUnload: function() {
     this.setData({
-      order: false
+      orderState: false
     })
     // 页面关闭
   },
@@ -660,7 +939,6 @@ Page({
 
     if (selected_distribution == 1) {
       var user_id = getApp().globalData.userInfo.user_id
-      var app = getApp()
       var stroe_id = getApp().globalData.stroe_id;
       var cart_id = getApp().globalData.cart_ids;
       console.log(that.data.selected_distribution)
