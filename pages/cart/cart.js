@@ -77,6 +77,8 @@ Page({
       carts: carts,
       minusStatuses: minusStatuses
     });
+    // update database
+    //carts[index].save();
     this.saveNum(carts[index].cart_id, num);
     this.sum();
   },
@@ -134,6 +136,9 @@ Page({
         });
       }
     }
+    // update database
+
+    // this.updataSelect(carts[index].id, carts[index].selected);
     this.sum();
   },
   bindSelectAll: function () {
@@ -153,6 +158,8 @@ Page({
       carts: carts,
     });
     this.sum();
+    // var open_id = app.globalData.openid;
+    // this.updateAllSelect(open_id, selectedAllStatus);
   },
   bindCheckout: function () {
     // 遍历取出已勾选的cid
@@ -204,7 +211,10 @@ Page({
        store_id: store_id||30
         }, function (res) {
           console.log(res)
-      var carts = res.data;
+      var carts = res.data
+      // success
+      // var goodsList = [];
+
       if (carts.length != 0)
         that.setData({ empty: false });
       else {
@@ -214,11 +224,29 @@ Page({
       // 全选按钮控制 selectedAllStatus
       // var selectedAllStatus = true;
       for (var i = 0; i < carts.length; i++) {
+        // var goods = carts[i].get('goods');
+        // goodsList[i] = goods;
         carts[i].selected = true;
+        // if (carts[i].selected == 1)
+        //   carts[i].selected = true;
+        // else {
+        //   carts[i].selected = false;
+        //   selectedAllStatus = false;
+        // }
+        // if (carts[i].goods_num>1){
+        //   minusStatuses[i] = disabled
+        // }else{
         minusStatuses[i] = carts[i].goods_num > 1 ? "normal" :"disabled"
+        
+        //minusStatuses[i] = 1;//carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
+        // minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
       }
+      // console.log(carts);
+      // return;
       that.setData({
         carts: carts,
+        // selectedAllStatus: selectedAllStatus,
+        //goodsList: goodsList,
         minusStatuses: minusStatuses
       });
       // // sum
