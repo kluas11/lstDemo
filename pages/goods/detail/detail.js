@@ -170,9 +170,43 @@ Page({
       that.getuser_id().then(user_id => {
         console.log(goods)
         console.log(goods_num)
+        var goodsID = goods.goods_id
+        if (goodsID)
+        {
+          wx.navigateTo({
+            url: '/pages/order/ordersubmit/index?origin=detail' + "&goodsID=" + goodsID + "&goods_num=" + goods_num
+          });
+        }
+        
       })
     }
     return;
+<<<<<<< HEAD
+=======
+  
+    // 商品规格
+    // var spec = ""
+    // if (goods.goods.goods_spec_list != null)
+    //   for (var i = 0; i < goods.goods.goods_spec_list.length; i++) {
+
+    //     for (var j = 0; j < goods.goods.goods_spec_list[i].length; j++) {
+    //       if (goods.goods.goods_spec_list[i][j].isClick == 1) {
+    //         if (spec == "")
+    //           spec = goods.goods.goods_spec_list[i][j].item_id
+    //         else
+    //           spec = spec + "_" + goods.goods.goods_spec_list[i][j].item_id
+    //       }
+    //     }
+    //   }
+
+    var that = this;
+
+    // console.log(that.data.goods);return;
+    var goods_id = that.data.goods.goods.goods_id;
+    var goods_spec = spec;
+    var session_id = App.globalData.openid //that.data.goods.goods.spec_goods_price
+
+>>>>>>> 1dea6fef4f4f3a2b23e359980afd2c9c8d950585
   },
   //  
   /*

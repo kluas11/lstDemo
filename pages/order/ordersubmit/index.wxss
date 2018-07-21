@@ -3,13 +3,14 @@
  width:70%;
  height:70%;
 background: #fff;
-  display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:100rpx;
-    display: flex;
-    
-    flex-direction: column
+margin-left: auto;
+margin-right: auto;
+margin-top:100rpx;
+display: flex;
+flex-direction: column
+}
+.improt_color{
+  color: #d94612;
 }
 .payByBalance {
   background:#38A4F0;
@@ -347,7 +348,7 @@ background: rgba(0, 0, 0, 0.5);
 
 .text-red {
   font-size: 32rpx;
-  color: orangered;
+  /* color: orangered; */
 }
 
 .image-delete {

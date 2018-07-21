@@ -157,12 +157,19 @@ Page({
   bindCheckout: function () {
     // 遍历取出已勾选的cid
     var cartIds = [];
+    var  goodsID=[];
+
     for (var i = 0; i < this.data.carts.length; i++) {
       if (this.data.carts[i].selected) {
-        cartIds.push(this.data.carts[i].cart_id);
+        console.log(this.data.carts[i])
+        goodsID.push(this.data.carts[i].goods_id)
+      
+        // cartIds.push(this.data.carts[i].cart_id);
       }
     }
-    if (cartIds.length <= 0) {
+    console.log(goodsID)
+
+    if (goodsID.length <= 0) {
       wx.showToast({
         title: '请勾选商品',
         icon: 'success',
@@ -170,16 +177,16 @@ Page({
       })
       return;
     }
-    console.log(cartIds)
+
     // return;
   
-    cartIds = cartIds.join(',');
-    console.log(cartIds)
-    app.globalData.cart_ids = cartIds;
+
+
+    // app.globalData.cart_ids = cartIds;
  
     // 需要获取出地址 
     wx.navigateTo({
-      url: '/pages/order/ordersubmit/index?cartIds' + cartIds
+      url: '/pages/order/ordersubmit/index?origin=cart' + "&goodsID=" + goodsID 
     });
   },
   getCarts: function () {

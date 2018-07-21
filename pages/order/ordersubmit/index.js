@@ -6,7 +6,12 @@ var pay_points;
 var points_rate;
 const app = getApp();
 Page({
+
+  
   data: {
+    goodsID:"",
+    goodsNum:"",
+    orginPage:"",
     orderId:"",
     orderState:false,
     addressToggle:false,
@@ -374,18 +379,44 @@ Page({
     });
     this.useCoupon();
   },
-  onShow: function() {
+  onLoad: function (options){
+    this.setData({
+      goodsID: options.goodsID,
+      orginPage: options.origin,
+      goodsNum: options.goods_num||0
+    })
+  },
+  onShow: function () {
+    if (!this.data.goodsID){
+      wx.showToast({
+        title: '订单有误',
+        image: '../../../images/about.png',
+        duration: 2000,
+        complete: function () {
+          setTimeout(function () {
+            wx.switchTab({
+              url: '../../cart/cart'
+            });
+          }, 2000)
+         
+        }
+      })
+      return;
+    }
+    // console.log(options)
     // wx.showLoading({
     //   title: '加载中',
     // })
     // 获取到传过来的值
-    var cartIds = app.globalData.cart_ids;
-    var amount = app.globalData.amount;
-    this.setData({
-      cartIds: cartIds,
-      amount: amount
-    });
-    this.getCarts(cartIds);
+    // var cartIds = app.globalData.cart_ids;
+    // var amount = app.globalData.amount;
+    // var goodsId = options.
+
+    // this.setData({
+    //   // cartIds: cartIds,
+    //   // amount: amount
+    // });
+    this.getCarts();
     // 页面初始化 options为页面跳转所带来的参数
   },
   initData: function() {
@@ -397,9 +428,6 @@ Page({
     });
   },
   paymentBtn:function(e){
-    wx.showLoading({
-      title: '加载中',
-    })
     var user_id = wx.getStorageSync("user_id");
     var open_id = app.globalData.openid;
     var order_id = this.data.orderId
@@ -409,11 +437,14 @@ Page({
       wx.showToast({
         title: '订单有误',
         image: '../../../images/about.png',
-        duration: 3000,
+        duration: 2000,
         complete: function () {
-          wx.switchTab({
-            url: '../../index/index'
-          });
+       
+          setTimeout(function () {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          }, 2000);
         }
       })
     }
@@ -446,18 +477,46 @@ Page({
         open_id: open_id,
         order_id: order_id
       }
+      that.sendpayment(postUrl, port, winrecord, payway)
     }else{
-      port ="/Dopay/walletPay"
-      winrecord={
+      port = "/Dopay/walletPay"
+      winrecord = {
         user_id: user_id,
         order_id: order_id
       }
+      
+    
+      wx.showModal({
+        title:"交易提示",
+        content: "此次付款金额为" + (that.data.totalPrice + that.data.expressFee)+"元",
+        success:function(res){
+          if (res.confirm) {
+            that.sendpayment(postUrl, port, winrecord, payway)
+          } else if (res.cancel) {
+           return;
+          }
+        },
+        fail:function(){
+          wx.hideLoading()
+          return;
+        }
+
+      })
+    
     }
-    console.log(postUrl + port)
-    console.log(user_id)
-    console.log(open_id)
-    console.log(order_id)
-    console.log(winrecord)
+    // console.log(winrecord)
+    // console.log(postUrl + port)
+    // console.log(user_id)
+    // console.log(open_id)
+    // console.log(order_id)
+    // console.log(winrecord)
+
+  },
+  sendpayment: function (postUrl, port, winrecord, payway){
+    var that = this;
+    wx.showLoading({
+      title: '加载中',
+    })
     // 请求提交订单
     wx.request({
       url: postUrl + port,
@@ -472,7 +531,7 @@ Page({
         console.log(res)
         // 微信支付
 
-        if (payway=="wxPreparePay"){
+        if (payway == "wxPreparePay") {
           var result = res.data.data
           wx.requestPayment({
             "timeStamp": result.timeStamp,
@@ -489,8 +548,8 @@ Page({
                 duration: 2000,
                 complete: function () {
                   setTimeout(function () {
-                    wx.switchTab({
-                      url: '../../index/index'
+                    wx.navigateTo({
+                      url: '../../order/list/list'
                     });
                   }, 2000)
 
@@ -502,7 +561,7 @@ Page({
               console.log(res)
               wx.showToast({
                 title: "支付失败",
-                icon: "success",
+                image: '../../../images/about.png',
                 duration: 2000,
                 complete: function () {
                   setTimeout(function () {
@@ -515,42 +574,42 @@ Page({
               })
             }
           })
-        }else{
+        } else {
           // 余额支付
-          if (res.data.status){
+          if (res.data.status) {
             wx.showToast({
-              title:"支付成功",
-              icon:"success",
-              duration:2000,
+              title: "支付成功",
+              icon: "success",
+              duration: 2000,
+              complete: function () {
+                setTimeout(function () {
+                  wx.navigateTo({
+                    url: '../../order/list/list'
+                  });
+                }, 2000)
+
+              }
+            })
+          } else {
+            wx.showToast({
+              title: "余额不足",
+              image: '../../../images/about.png',
+              duration: 2000,
               complete: function () {
                 setTimeout(function () {
                   wx.switchTab({
                     url: '../../index/index'
                   });
                 }, 2000)
-               
-              }
-            })
-          }else{
-            wx.showToast({
-              title: "余额不足",
-              icon: "success",
-              duration: 2000,
-              complete: function () {
-                setTimeout(function(){
-                  wx.switchTab({
-                    url: '../../index/index'
-                  });
-                }, 2000)
-              
-                 
-                                
+
+
+
               }
             })
           }
         }
-    
-      // return;
+
+        // return;
       },
       fail: function (res) {
         wx.showToast({
@@ -566,7 +625,7 @@ Page({
 
           }
         })
-      },complete:function(){
+      }, complete: function () {
         that.setData({
           orderState: false
         })
@@ -595,36 +654,36 @@ Page({
     // var couponCode = this.data.couponCode;
     var that = this;
     // 获取需要买的商品 
-    var cart_id = []
+    var goodsID = this.data.goodsID
     // console.log(.shopList)
-    that.data.shopList.map((value)=>{
-      cart_id.push(value.cart_id)
-    })
-    cart_id=cart_id.join(',')
-    console.log(cart_id)
     // 获取到user_id
     var user_id = wx.getStorageSync("user_id")
     // store_id 获取到storeID
     var store_id = app.globalData.store_id;
     var addressIndex = that.data.addressIndex;
     var addressID = that.data.addressList[addressIndex].address_id
-    console.log(user_id)
-    console.log(store_id)
-    console.log(cart_id)
-    console.log(addressID)
-    console.log(that.data.distributionIndex)
+    var winrecord={
+      user_id: user_id,
+      store_id: store_id,
+      goods_ids: goodsID,
+      address_id: addressID,
+      is_express: that.data.distributionIndex
+    }
+    // console.log(user_id)
+    // console.log(store_id)
+    // console.log(goodsID)
+    // console.log(addressID)
+    // console.log(that.data.distributionIndex)
+    if (that.data.goodsNum > 0) {
+      winrecord["goods_num"] = that.data.goodsNum
+    }
+    console.log(winrecord)
     wx.request({
       url: postUrl +"/Dopay/createOrder",
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      data: {
-      user_id: user_id,
-      store_id: store_id,
-      cart_ids: cart_id,
-      address_id: addressID,
-      is_express: that.data.distributionIndex
-      },
+      data: winrecord,
       method: 'POST',
       success:function(res){
         console.log(res)
@@ -641,9 +700,12 @@ Page({
             image: '../../../images/about.png',
             duration: 2000,
             complete: function () {
-               wx.switchTab({
-                 url: '../../index/index'
-               });
+            
+               setTimeout(function () {
+                 wx.switchTab({
+                   url: '../../index/index'
+                 });
+        }, 2000);
             }
           })
         }
@@ -654,9 +716,11 @@ Page({
           image: '../../../images/about.png',
           duration: 2000,
           complete: function () {
-            wx.switchTab({
-              url: '../../index/index'
-            });
+            setTimeout(function () {
+              wx.switchTab({
+                url: '../../index/index'
+              });
+            }, 2000);
           }
         })
       }
@@ -723,13 +787,13 @@ Page({
     // });
   },
 
-  getCarts: function(cartIds) {
+  getCarts: function() {
     var user_id = wx.getStorageSync("user_id")
     // cosnole.log(user_id)
     var that = this
     var stroe_id = app.globalData.store_id;
-    console.log(cartIds)
-    console.log(stroe_id)
+    // console.log(cartIds)
+    // console.log(stroe_id)
     if (!stroe_id || !user_id){
       wx.switchTab({
         url: '../../index/index'
@@ -792,13 +856,18 @@ Page({
      }).catch(e => {
        console.log(e)
      })
-  
+     console.log(user_id)
+     console.log(that.data.goodsID)
+     console.log(that.data.goodsNum)
+     var winrecord = {
+       user_id: user_id,
+       goods_ids: that.data.goodsID
+       };
+     if (that.data.orginPage =="detail"){
+       winrecord["goods_num"] = parseInt(that.data.goodsNum)
+     }
     // 获取商品 库存 交易金额
-    server.getJSON('/Dopay/confirmOrder', {
-      cart_ids: cartIds,
-      // distribution_status: that.data.distribution_status
-    }, function(res) {
-      console.log(res)
+     server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
       var result=res.data
       if (result.status==false){
        wx.hideLoading()
@@ -828,11 +897,13 @@ Page({
           wx.showToast({
             title: '获取商品失败',
             image:'../../../images/about.png',
-            duration: 3000,
+            duration: 2000,
             complete:function(){
-              wx.switchTab({
-                url: '../../cart/cart'
-              });
+              setTimeout(function () {
+                wx.switchTab({
+                  url: '../../cart/cart'
+                });
+              }, 2000);
             }
           })
         }
