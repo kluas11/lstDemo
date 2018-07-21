@@ -24,12 +24,12 @@ Page({
 
   },
 
-  see: function (e) {
-    wx.switchTab({
-      url: "../category/category"
-    });
-  },
-
+  // see: function (e) {
+  //   wx.switchTab({
+  //     url: "../category/category"
+  //   });
+  // },
+// 自减
   bindMinus: function (e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var num = this.data.carts[index].goods_num;
@@ -59,6 +59,7 @@ Page({
     
     this.sum();
   },
+  // 增加
   bindPlus: function (e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var num = this.data.carts[index].goods_num;
@@ -82,6 +83,7 @@ Page({
     this.saveNum(carts[index].cart_id, num);
     this.sum();
   },
+  // 输入
   bindManual: function (e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var carts = this.data.carts;
@@ -95,6 +97,7 @@ Page({
     //console.log(this.data.carts);
     this.sum();
   },
+  // 取反选中
   bindCheckbox: function (e) {
     /*绑定点击事件，将checkbox样式改变为选中与非选中*/
     //拿到下标值，以在carts作遍历指示用
@@ -141,6 +144,7 @@ Page({
     // this.updataSelect(carts[index].id, carts[index].selected);
     this.sum();
   },
+  // 全选按钮
   bindSelectAll: function () {
     // 环境中目前已选状态
     var selectedAllStatus = this.data.selectedAllStatus;
@@ -161,6 +165,7 @@ Page({
     // var open_id = app.globalData.openid;
     // this.updateAllSelect(open_id, selectedAllStatus);
   },
+  // 立即结算
   bindCheckout: function () {
     // 遍历取出已勾选的cid
     var cartIds = [];
@@ -294,6 +299,7 @@ Page({
     // });
 
   },
+  // 计算总和
   sum: function () {
     var carts = this.data.carts;
     // 计算总金额
@@ -311,6 +317,7 @@ Page({
       total: total
     });
   },
+  // 移除购物车
   deleteCart: function (e) {
     var index = parseInt(e.currentTarget.dataset.index)
     var id = this.data.carts[index].cart_id;
@@ -371,6 +378,7 @@ Page({
 
 
   },
+  // 弃用
   updataSelect: function (id, selected) {
     if (selected)
       selected = 1;
@@ -381,6 +389,7 @@ Page({
 
 
   },
+  // 弃用
   updateAllSelect: function (id, selected) {
     if (selected)
       selected = 1;
