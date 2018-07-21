@@ -295,9 +295,6 @@ Page({
     var user_id = "0"
     if (App.globalData.login)
       user_id = App.globalData.userInfo.user_id
-
-
-
     server.getJSON('/Cart/addCart', {
       goods_id: goods_id,
       goods_spec: goods_spec,

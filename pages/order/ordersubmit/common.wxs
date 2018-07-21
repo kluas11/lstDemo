@@ -1,5 +1,4 @@
 
-
 var filters = {
   toFix: function (value, count) {
     return value.toFixed(count);
