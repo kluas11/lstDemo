@@ -1,7 +1,7 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
 <!--保留几位小数方法  -->
 <wxs module="filters" src="common.wxs"></wxs>
-<view class="parent">
+<view class="parent" style='margin-bottom:200rpx'>
 <!--区域范围判断废弃  -->
   <view class='outRangeTip' wx:if='{{outRange}}'>
     <view>
@@ -70,7 +70,7 @@
       </view>
       <view class="carts-right">
 
-        <text class="text-red">￥{{item.shop_price}}</text>
+        <text class="text-red improt_color">￥{{item.shop_price}}</text>
         <text class="text-price">x{{item.goods_num}}</text>
       </view>
     </view>
@@ -146,12 +146,12 @@
 
   <view class="view-price">
     <view class="view-price1">
-      <text class="text-price1">商品总额:</text>
-      <text class="text-red">￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元</text>
+      <text class="text-price1 ">商品总额:</text>
+      <text class="text-red improt_color">￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元</text>
     </view>
     <view  wx:if="{{distributionIndex==1}}"class="view-price1">
       <text class="text-price1">邮费:</text>
-      <text class="text-red">￥{{expressFee}}元</text>
+      <text class="text-red improt_color">￥{{expressFee}}元</text>
     </view>
 
     <!-- <view class="view-price1">
@@ -165,7 +165,7 @@
 
 <view style="position:fixed;display:flex; bottom:0;line-height:120rpx;width:100%;height:120rpx;background:#F4F4F4">
 <view wx:if="{{distributionIndex==0}}"style='width:75%;padding-left:3%'>应付总金额: {{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元  </view>
-<view wx:else style='width:75%;padding-left:3%'>应付总金额:￥ {{totalPrice<=0?"金额有误,请勿下单":totalPrice+expressFee}}元  </view>
+<view wx:else style='width:75%;padding-left:3%'>应付总金额:<text class='improt_color'>  ￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice+expressFee}}元 </text> </view>
 <text bindtap="formSubmit" class="text-save">提交订单</text>
 </view>
 <view wx:if="{{orderState}}"class='addressmark' style='z-index:200'>

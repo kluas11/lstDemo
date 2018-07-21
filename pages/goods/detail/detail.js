@@ -213,10 +213,18 @@ Page({
       that.getuser_id().then(user_id => {
         console.log(goods)
         console.log(goods_num)
+        var goodsID = goods.goods_id
+        if (goodsID)
+        {
+          wx.navigateTo({
+            url: '/pages/order/ordersubmit/index?origin=detail' + "&goodsID=" + goodsID + "&goods_num=" + goods_num
+          });
+        }
+        
       })
     }
- return;
-    
+    return;
+  
     // 商品规格
     // var spec = ""
     // if (goods.goods.goods_spec_list != null)
