@@ -5,12 +5,10 @@ var fixAmount = function(amount) {
   return amount.toFixed(2);
 }
 
-var isEnough = function(inputAmount, balance) {
-  if (inputAmount <= balance) {
-    console.log(true);
+var isEnough = function(inputAmount,balance) {
+  if (inputAmount <= balance && balance != 0) {
     return true;
   } else {
-    console.log(false);
     return false;
   }
 }

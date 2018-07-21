@@ -1,7 +1,6 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
 <!--保留几位小数方法  -->
 <wxs module="filters" src="common.wxs"></wxs>
-
 <view class="parent">
 <!--区域范围判断废弃  -->
   <view class='outRangeTip' wx:if='{{outRange}}'>

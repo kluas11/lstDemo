@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 13,
 			"list": [
 				{
 					"id": 0,
@@ -115,6 +115,12 @@
 					"name": "编辑地址",
 					"pathName": "pages/address/edit/index",
 					"query": "objectId=45"
+				},
+				{
+					"id": -1,
+					"name": "扫码",
+					"pathName": "pages/payment/payment",
+					"query": "store_id=26"
 				}
 			]
 		}

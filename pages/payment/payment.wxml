@@ -11,8 +11,9 @@
       <text>￥</text>
       <input type="digit" value='{{WXSPayment.fixAmount(fixedAmount)}}' bindinput='amountInput' bindblur='amountBlur'></input>
     </view>
-    <view class='diviLine' />
-    <view class='myBalance'>当前可用余额:￥{{WXSPayment.fixAmount(myInfo.balance)}}</view>
+    <view class='diviLine'/>
+    <view class='myBalance' wx:if="{{myInfo.balance}}">当前可用余额:￥{{WXSPayment.fixAmount(myInfo.balance)}}</view>
+    <view class='myBalance' wx:else>当前可用余额:￥0.00</view>
     <button class='payByBalance' bindtap='payByBalance' disabled='{{!WXSPayment.isEnough(inputAmount,myInfo.balance) || disable.balance}}'>会员余额支付</button>
     <button class='payByWXPay' disabled='{{disable.WXPay}}' bindtap='payByWXPay'>微信支付</button>
   </view>
