@@ -10,7 +10,7 @@
 <swiper indicator-dots="true" autoplay="true" interval="5000" duration="1000" style="height:290rpx;">
   <block wx:for="{{banner}}" wx:key="">
     <swiper-item>
-      <image src="{{item.image_url+banner_oss}}" data-goods-id="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
+      <image src="{{item.image_url+banner_oss}}" data-link="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
     </swiper-item>
   </block>
 </swiper>

@@ -1,7 +1,6 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
 
 <view class="parent">
-
   <view class="view-order">
     <view class="view-orderstatus">
       <image src="/images/oorder.png"></image>
@@ -15,8 +14,8 @@
 
 
 
-  <view class="view-address" style="background:#ffffff">
-    <view class="view-addressleft">
+  <view class="view-address" style="background:#ffffff;">
+    <view class="view-addressleft" style='width:100%;'>
       <image src="/images/payicon.png"></image>
       <view class="view-addressleft-info">
         <text class="text-name">下单时间 : {{result.add_time}}</text>
@@ -75,7 +74,7 @@
         </view>
       </view>
       <view class="carts-right">
-        <text class="text-red">￥{{item.member_goods_price}}</text>
+        <text class="text-red">￥{{item.price}}</text>
         <text class="text-price">x{{item.goods_num}}</text>
       </view>
     </view>
@@ -97,11 +96,5 @@
       <text class="text-price1">应付总金额:</text>
       <text class="text-red">￥{{result.order_amount}}元</text>
     </view>
-
-
   </view>
-
-
-
-
 </view>

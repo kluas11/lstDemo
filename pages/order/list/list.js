@@ -1,7 +1,12 @@
 var server = require('../../../utils/server');
 const App = getApp();
-var cPage = 0;
-var ctype = "NO";
+var cPage = 1;//页码  从一开始
+var ctype = "0";
+// 当为全部订单时候，不传status
+// 当为待付款, status=1
+// 当为已付款待发货status=2
+// 当为已发货待收获status=3
+// 当为已完成status=4
 Page({
   data: {
     active_index: 0,
@@ -10,24 +15,25 @@ Page({
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index
-    var types = ["NO", "WAITPAY", "WAITSEND", "WAITRECEIVE", "FINISH"]
     this.setData({
       tab: index,
-      active_index:index
+      active_index: index
     })
-    cPage = 0;
-    ctype = types[index];
+    cPage = 1;
+    ctype = index;
     this.data.orders = [];
-    this.getOrderLists(types[index], cPage);
+    this.getOrderLists(index, cPage);
   },
+  // 支付
   pay: function(e) {
     var index = e.currentTarget.dataset.index;
     var order = this.data.orders[index];
-    App.globalData.order = order
+    App.globalData.order = order;
     wx.navigateTo({
       url: '../orderpay/payment?order_id=' + 1
     });
   },
+  // 取消订单
   cancel: function(e) {
     var index = e.currentTarget.dataset.index;
     var order = this.data.orders[index];
@@ -47,12 +53,13 @@ Page({
             })
             cPage = 0;
             that.data.orders = [];
-            that.getOrderLists(ctype, 0);
+            that.getOrderLists(ctype, 1);
           });
         }
       }
     })
   },
+  // 确定收货
   confirm: function(e) {
     var index = e.currentTarget.dataset.index;
     var order = this.data.orders[index];
@@ -70,14 +77,15 @@ Page({
               icon: 'success',
               duration: 2000
             })
-            cPage = 0;
+            cPage = 1;
             that.data.orders = [];
-            that.getOrderLists(ctype, 0);
+            that.getOrderLists(ctype, 1);
           });
         }
       }
     })
   },
+  // 详情
   details: function(e) {
     var index = e.currentTarget.dataset.index;
     var goods = this.data.orders[index];
@@ -88,31 +96,37 @@ Page({
   //获取订单列表
   getOrderLists: function(ctype, page) {
     var that = this;
-    var user_id =  wx.getStorageSync("user_id");
-    server.getJSON('/User/getOrderList/user_id/' + user_id + "/type/" + ctype + "/page/" + page, function(res) {
-      var datas = res.data.result;
-      var ms = that.data.orders
-      for (var i in datas) {
-        ms.push(datas[i]);
-      }
-      wx.stopPullDownRefresh();
-      that.setData({
-        orders: ms,
-        user_id:user_id
+    var user_id = wx.getStorageSync("user_id");
+    server.getJSON('/Order/getOrderList', {
+        user_id,
+        p: page,
+        status: ctype ? ctype : ''
+      },
+      function(res) {
+        console.log(res)
+        var datas = res.data;
+        var ms = that.data.orders
+        for (var i in datas) {
+          ms.push(datas[i]);
+        }
+        wx.stopPullDownRefresh();
+        that.setData({
+          orders: ms,
+          user_id: user_id
+        });
       });
-    });
   },
   onShow: function() {
-    cPage = 0;
+    cPage = 1;
     this.data.orders = [];
     this.getOrderLists(ctype, cPage);
   },
   onLoad: function(option) {
     // 页面显示
     if (option.cid == "WAITSEND") {
-      
+
       this.setData({
-        active_index:2
+        active_index: 2
       });
     }
     if (option.cid == "FINISH") {
@@ -124,16 +138,16 @@ Page({
     ctype = option.cid;
     this.data.orders = [];
   },
-  onReachBottom: function () {
+  onReachBottom: function() {
     this.getOrderLists(ctype, ++cPage);
     wx.showToast({
       title: '加载中',
       icon: 'loading'
     })
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     cPage = 0;
     this.data.orders = [];
-    this.getOrderLists(ctype, 0);
+    this.getOrderLists(ctype, 1);
   }
 });

@@ -11,7 +11,7 @@ Page({
     shopName: '',
     navArray: [],
     imageErr: "../../images/failImg.png",
-    lists_oss: App.image_oss+'72_72',
+    lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
     banner_oss: App.image_oss + '750_290'
   },
@@ -169,29 +169,29 @@ Page({
     var lngs = App.globalData.lng
     // 获取最近门店
     // if (typeof options == 'number') {
-      return new Promise((resolve, reject) => {
-        try {
-          server.getJSON('/Index/getNearStore', {
-            log: lngs,
-            lat: lats
-          }, function(res) {
-            // console.log(res)
-            App.globalData.store_id = res.data.store_id;
-            // console.log(res.data.store_id.store_id)
-            App.globalData.store_name = res.data.store_name;
-            that.setData({
-              shopName: res.data.store_name
-            })
-            // console.log(App.globalData.store_id)
-            resolve({
-              state: "success"
-            })
+    return new Promise((resolve, reject) => {
+      try {
+        server.getJSON('/Index/getNearStore', {
+          log: lngs,
+          lat: lats
+        }, function(res) {
+          // console.log(res)
+          App.globalData.store_id = res.data.store_id;
+          // console.log(res.data.store_id.store_id)
+          App.globalData.store_name = res.data.store_name;
+          that.setData({
+            shopName: res.data.store_name
           })
-        } catch (e) {
-          reject(e)
-        }
+          // console.log(App.globalData.store_id)
+          resolve({
+            state: "success"
+          })
+        })
+      } catch (e) {
+        reject(e)
+      }
 
-      })
+    })
     // }
   },
   loadBanner: function(shopId) {
@@ -269,17 +269,11 @@ Page({
   },
   // 点击banner图
   clickBanner: function(e) {
-    var goodsId = e.currentTarget.dataset.goodsId;
-    var linktype = e.currentTarget.dataset.linktype;
-    console.log(linktype)
-    console.log(linktype == 'website')
-    if (linktype == 'website') {
+    var link = e.currentTarget.dataset.link;
+    // var linktype = e.currentTarget.dataset.linktype;
+    if (link) {
       wx.navigateTo({
-        url: "/pages/web-view/web-view?url=" + goodsId
-      });
-    } else {
-      wx.navigateTo({
-        url: "/pages/goods/detail/detail?objectId=" + goodsId
+        url: link
       });
     }
   },

@@ -16,7 +16,6 @@ Page({
 	},
 	pay: function () {
 		var app = getApp();
-		
 		var wxdata = app.globalData.wxdata.wdata
     console.log(wxdata);
 		var timeStamp = wxdata.timeStamp + "";
@@ -28,7 +27,6 @@ Page({
     console.log(package1)
     console.log(sign)
 			 wx.requestPayment({
-			    
 			    'nonceStr': nonceStr,
 		       'package': package1,
 			    'signType': 'MD5',
@@ -56,7 +54,5 @@ Page({
 			})
 			    }
 			 })
-
-			
 	}
 })

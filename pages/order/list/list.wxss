@@ -1,10 +1,10 @@
 page {
-	background: #ffffff;
+	background: #eeeeee;
 }
 
 .order-item {
 	margin-bottom: 10px;
-	background: #fff;
+	background: #ffffff;
 }
 
 .order-item:last-child {
@@ -16,7 +16,7 @@ page {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	margin-right: 20rpx;
+	padding-right: 20rpx;
 	border-bottom: 1px solid #eee;
 	height: 60rpx;
 	align-items: center;
@@ -24,8 +24,6 @@ page {
 
 .order-footer text {
 	font-size: 28rpx;
-	
-	
 }
 
 /*每行单元格*/
