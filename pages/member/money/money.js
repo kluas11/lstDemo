@@ -44,6 +44,9 @@ Page({
     server.getJSON('/Walletpay/getWalletPaylog', winRecord, function (res) {
       // success
       console.log(res);
+      that.setData({
+        accounts: that.data.accounts.concat(res.data)
+      })
         wx.stopPullDownRefresh();
       // var datas = res.data.result;
       // var ms = that.data.accounts

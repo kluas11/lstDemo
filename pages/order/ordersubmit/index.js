@@ -529,7 +529,10 @@ Page({
   },
   // 发送支付
   sendpayment: function (postUrl, port, winrecord, payway){
+    console.log(postUrl)
+    console.log(port)
     console.log(payway)
+    console.log(winrecord)
     var that = this;
     wx.showLoading({
       title: '加载中',
