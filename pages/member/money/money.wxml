@@ -1,8 +1,15 @@
 <view class="view-head">
   <view class="view-moneyinfo">
-    <text class="text-money-prefix">账户余额</text>
+  <view style='width:100%;padding:15rpx;'>
+   <text class="text-money-prefix">账户余额</text>
     <text class="text-money">￥{{moneys}}</text>
+    
     <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
+  </view>
+   <view style='width:100%;padding:15rpx;'>
+   <text class="text-money-prefix">账户积分</text>
+       <text class="text-money">{{pay_point}}</text>
+   </view>
   </view>
 </view>
 

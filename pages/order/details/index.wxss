@@ -6,7 +6,7 @@ page{
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: #cccccc;
+  background:#eeeeee;
 }
 .view-order {
   display: flex;
@@ -103,7 +103,14 @@ page{
   width: 50rpx;
   height: 50rpx;
 }
-
+.shipping_btn{
+  background: #d94612;
+  font-size: 28rpx;
+  color: #ffffff;
+}
+.shipping_btn::after{
+  border: none;
+}
 .view-title {
   display: flex;
   flex-direction: row;

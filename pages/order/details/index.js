@@ -9,7 +9,7 @@ Page({
     var that = this;
     var app = getApp();
     var order_id = options.order_id;
-    var user_id =wx.getStorageSync("user_id");
+    var user_id = wx.getStorageSync("user_id");
     server.getJSON('/order/orderDetails', {
         order_id
       },
@@ -20,7 +20,15 @@ Page({
           result: result
         });
       });
-
+  },
+  getshipping(shipping_code) {
+    server.getJSON('/Order/getShippingMsg', {
+        shipping_code
+      },
+      function(res) {
+        var result = res.data;
+        console.log(result)
+      });
   },
   details: function(e) {
     var no = e.currentTarget.dataset.no;

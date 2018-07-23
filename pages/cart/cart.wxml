@@ -6,13 +6,7 @@
 <view wx:else>
   <scroll-view scroll-y="true" style="width:100%;height:{{height}}px">
     <view wx:for="{{carts}}" wx:key="index" class="container carts-list">
-      <view class="carts-item-title">
-        <image src="/images/icon_store.png"></image>
-        <text wx:if="{{!item.store_name}}">供应商:直营</text>
-        <!-- <text wx:else>供应商:{{item.store_name}}</text> -->
-      </view>
       <view class="carts-item">
-
         <!-- 复选框图标 -->
          <icon wx:if="{{item.selected}}" type="success_circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" />
         <icon wx:else type="circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" /> 

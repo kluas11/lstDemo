@@ -15,6 +15,7 @@ Page({
     textStates: ["view-btns-text-normal", "view-btns-text-select"],
     goods_oss: App.image_oss + '750_750'
   },
+  // 未知
   propClick: function(e) {
     var pos = e.currentTarget.dataset.pos;
     var index = e.currentTarget.dataset.index;
@@ -31,6 +32,7 @@ Page({
 
     this.checkPrice();
   },
+  // 加入收藏
   addCollect: function(e) {
     var that = this;
     if (e.detail.errMsg === "getUserInfo:ok") {
@@ -51,6 +53,7 @@ Page({
       })
     }
   },
+  // 获取用户信息
   getuser_id() {
     return new Promise((request, reject) => {
       var user_id = wx.getStorageSync("user_id");
@@ -79,6 +82,7 @@ Page({
       }
     })
   },
+  // ++
   bindMinus: function(e) {
     var num = this.data.goods_num;
     if (num > 1) {
@@ -88,6 +92,7 @@ Page({
       goods_num: num
     });
   },
+  // 数值绑定
   bindManual: function(e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var num = e.detail.value;
@@ -95,6 +100,7 @@ Page({
       goods_num: num
     });
   },
+  //--
   bindPlus: function(e) {
     var num = this.data.goods_num;
     num++;
@@ -102,7 +108,9 @@ Page({
       goods_num: num
     });
   },
+  // 
   onLoad: function(options) {
+    // 获取到商品ID
     var goodsId = options.objectId;
     objectId = goodsId;
     // 获取到分享商品
@@ -128,9 +136,7 @@ Page({
       }
     )
   },
-  getScopes() {
-    // console.log(1111111111)
-  },
+  // 未知
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
@@ -244,6 +250,7 @@ Page({
     });
 
   },
+  // 预览图片
   previewImage: function(e) {
     var that = this
     wx.previewImage({
@@ -252,6 +259,7 @@ Page({
       urls: [that.data.goods.original_img] // 需要预览的图片http链接列表
     })
   },
+  // 分享
   onShareAppMessage: function() {
     var path = '/pages/goods/detail/detail?objectId=' + objectId
     console.log(path);

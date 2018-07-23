@@ -6,8 +6,6 @@ var pay_points;
 var points_rate;
 const app = getApp();
 Page({
-
-  
   data: {
     goodsID:"",
     goodsNum:"",
@@ -49,6 +47,7 @@ Page({
     selected_distribution: 0,
     outRange: false,
   },
+  // 切换地址
   switchaddress:function(e){
     wx.showLoading({
       title: '加载中',
@@ -78,6 +77,7 @@ Page({
     })
     
   },
+  // 切换配送方式
   distributionChange:function(e){
     console.log(e.detail.value)
     var that=this
@@ -103,6 +103,7 @@ Page({
     })
 
   },
+  //  支付方式启用
   paymentChange:function(e){
     this.setData({
       paymentIndex: e.detail.value
@@ -117,15 +118,16 @@ Page({
     //   url: '../../address/select/index'
     // });
   },
-  bindChange: function(e) {
-    var use_money = e.detail.value;
-    if (isNaN(new Number(use_money))) {
-      use_money = 0;
-    }
-    this.setData({
-      _use_money: use_money,
-    });
-  },
+  // 优惠券切换弃用
+  // bindChange: function(e) {
+  //   var use_money = e.detail.value;
+  //   if (isNaN(new Number(use_money))) {
+  //     use_money = 0;
+  //   }
+  //   this.setData({
+  //     _use_money: use_money,
+  //   });
+  // },
   bindChangeOfcoupon: function(e) {
     var couponCode = e.detail.value;
 
@@ -133,78 +135,81 @@ Page({
       couponCode: couponCode,
     });
   },
-  bindChangeOfPoint: function(e) {
-    var use_point = e.detail.value;
-    this.setData({
-      use_point: use_point,
-    });
-  },
-  bindPickerChange: function(e) {
-    var value = e.detail.value;
-    var cv = this.data.coupon[value];
-    this.setData({
-      cv: cv,
-      cpos: value
-    });
+  // 积分启用
+  // bindChangeOfPoint: function(e) {
+  //   var use_point = e.detail.value;
+  //   this.setData({
+  //     use_point: use_point,
+  //   });
+  // },
+  // 优惠券选择吧
+  // bindPickerChange: function(e) {
+  //   var value = e.detail.value;
+  //   var cv = this.data.coupon[value];
+  //   this.setData({
+  //     cv: cv,
+  //     cpos: value
+  //   });
 
 
 
-    this.useCoupon();
+  //   this.useCoupon();
 
-  },
-  useCoupon: function() {
-    if (this.data.cpos == -1)
-      return;
+  // },
+  // 使用优惠券
+  // useCoupon: function() {
+  //   if (this.data.cpos == -1)
+  //     return;
 
-    var use_money = this.data.use_money;
-    use_money = parseInt(use_money);
-    if (use_money < 0) {
-      use_money = 0;
-    }
-    if (isNaN(use_money)) {
-      use_money = 0;
-    }
-    var user_money = getApp().globalData.userInfo.user_money;
-    if (user_money < use_money) {
-      use_money = 0;
-    }
-
-
-    var use_point = this.data.use_point;
-    use_point = parseInt(use_point)
-
-    if (use_point < 0) {
-      use_point = 0;
-    }
-    if (isNaN(use_point)) {
-      use_point = 0;
-    }
-
-    use_point = use_point - use_point % parseInt(points_rate);
-    var user_point = pay_points;
-    if (parseInt(user_point) < use_point) {
-      use_point = 0;
-    }
-    use_point = use_point - use_point % parseInt(points_rate);
+  //   var use_money = this.data.use_money;
+  //   use_money = parseInt(use_money);
+  //   if (use_money < 0) {
+  //     use_money = 0;
+  //   }
+  //   if (isNaN(use_money)) {
+  //     use_money = 0;
+  //   }
+  //   var user_money = getApp().globalData.userInfo.user_money;
+  //   if (user_money < use_money) {
+  //     use_money = 0;
+  //   }
 
 
+  //   var use_point = this.data.use_point;
+  //   use_point = parseInt(use_point)
 
-    var money = this.data.couponList[this.data.cpos].money;
-    var totalObj = this.data.totalPrice;
-    //totalObj.total_fee = totalObj.total_fee - money
+  //   if (use_point < 0) {
+  //     use_point = 0;
+  //   }
+  //   if (isNaN(use_point)) {
+  //     use_point = 0;
+  //   }
 
-    var m = tp - use_money;
-    m = m - use_point / parseInt(points_rate);
-    m = m - money;
-    totalObj.total_fee = m
+  //   use_point = use_point - use_point % parseInt(points_rate);
+  //   var user_point = pay_points;
+  //   if (parseInt(user_point) < use_point) {
+  //     use_point = 0;
+  //   }
+  //   use_point = use_point - use_point % parseInt(points_rate);
 
-    if (totalObj.total_fee < 0)
-      totalObj.total_fee = 0;
-    this.setData({
-      totalPrice: totalObj
-    });
-  },
 
+
+  //   var money = this.data.couponList[this.data.cpos].money;
+  //   var totalObj = this.data.totalPrice;
+  //   //totalObj.total_fee = totalObj.total_fee - money
+
+  //   var m = tp - use_money;
+  //   m = m - use_point / parseInt(points_rate);
+  //   m = m - money;
+  //   totalObj.total_fee = m
+
+  //   if (totalObj.total_fee < 0)
+  //     totalObj.total_fee = 0;
+  //   this.setData({
+  //     totalPrice: totalObj
+  //   });
+  // },
+// 使用不知道什么
   use: function() {
     //totalPrice:
     var user_money = getApp().globalData.userInfo.user_money;
@@ -300,7 +305,7 @@ Page({
 
     this.useCoupon();
   },
-
+  // 使用积分
   use_point: function() {
     //totalPrice:
     var user_point = pay_points;
@@ -380,6 +385,7 @@ Page({
     this.useCoupon();
   },
   onLoad: function (options){
+    console.log(options)
     this.setData({
       goodsID: options.goodsID,
       orginPage: options.origin,
@@ -387,9 +393,10 @@ Page({
     })
   },
   onShow: function () {
+    
     if (!this.data.goodsID){
       wx.showToast({
-        title: '订单有误',
+        title: '订单已关闭',
         image: '../../../images/about.png',
         duration: 2000,
         complete: function () {
@@ -403,22 +410,10 @@ Page({
       })
       return;
     }
-    // console.log(options)
-    // wx.showLoading({
-    //   title: '加载中',
-    // })
-    // 获取到传过来的值
-    // var cartIds = app.globalData.cart_ids;
-    // var amount = app.globalData.amount;
-    // var goodsId = options.
-
-    // this.setData({
-    //   // cartIds: cartIds,
-    //   // amount: amount
-    // });
     this.getCarts();
     // 页面初始化 options为页面跳转所带来的参数
   },
+  // 初始化数据
   initData: function() {
     pay_points = app.globalData.userInfo.pay_points;  //
     var user_money = app.globalData.userInfo.user_money;   //余额
@@ -484,11 +479,16 @@ Page({
         user_id: user_id,
         order_id: order_id
       }
-      
+      var total=0;
+      if (that.data.distributionIndex==1){
+        total = that.data.totalPrice + that.data.expressFee
+      }else{
+        total = that.data.totalPrice
+      }
     
       wx.showModal({
         title:"交易提示",
-        content: "此次付款金额为" + (that.data.totalPrice + that.data.expressFee)+"元",
+        content: "此次付款金额为" + total+"元",
         success:function(res){
           if (res.confirm) {
             that.sendpayment(postUrl, port, winrecord, payway)
@@ -512,7 +512,9 @@ Page({
     // console.log(winrecord)
 
   },
+  // 发送支付
   sendpayment: function (postUrl, port, winrecord, payway){
+    console.log(payway)
     var that = this;
     wx.showLoading({
       title: '加载中',
@@ -547,6 +549,9 @@ Page({
                 icon: "success",
                 duration: 2000,
                 complete: function () {
+                  that.setData({
+                    goodsID: ""
+                  })
                   setTimeout(function () {
                     wx.navigateTo({
                       url: '../../order/list/list'
@@ -577,6 +582,9 @@ Page({
         } else {
           // 余额支付
           if (res.data.status) {
+            that.setData({
+              goodsID: ""
+            })
             wx.showToast({
               title: "支付成功",
               icon: "success",
@@ -632,6 +640,7 @@ Page({
       }
     })
   },
+  // 提交订单
   formSubmit: function(e) {
     wx.showLoading({
       title: '加载中',
@@ -669,6 +678,7 @@ Page({
       address_id: addressID,
       is_express: that.data.distributionIndex
     }
+    console.log(winrecord)
     // console.log(user_id)
     // console.log(store_id)
     // console.log(goodsID)
@@ -786,8 +796,11 @@ Page({
     //   // }
     // });
   },
-
+//  获取订单所有信息
   getCarts: function() {
+   
+    // console.log("123")
+    console.log("++++123123")
     var user_id = wx.getStorageSync("user_id")
     // cosnole.log(user_id)
     var that = this
@@ -965,6 +978,7 @@ Page({
       // that.initData();
     // })
   },
+  // 获取地址信息
   getAddress: function (user_id){
     console.log(user_id)
     return new Promise(function (resolve, reject){
@@ -981,6 +995,7 @@ Page({
     }
     })
   },
+  // 获取用户余额现在弃用
   getUserMonder: function (user_id){
     console.log(user_id)
     return new Promise(function (resolve, reject) {
@@ -997,16 +1012,17 @@ Page({
       }
     })
   },
-  check1: function() {
-    this.setData({
-      check: ['true', '']
-    });
-  },
-  check2: function() {
-    this.setData({
-      check: ['', 'true']
-    });
-  },
+  // 不知道什么选择
+  // check1: function() {
+  //   this.setData({
+  //     check: ['true', '']
+  //   });
+  // },
+  // check2: function() {
+  //   this.setData({
+  //     check: ['', 'true']
+  //   });
+  // },
   onReady: function() {
     // 页面渲染完成
   },
@@ -1025,6 +1041,7 @@ Page({
       dtb_show: true
     })
   },
+  // 选择地区
   slectDistribution: function(e) {
     var that = this
     let selected_distribution = e.target.dataset.distribution_status;
@@ -1067,12 +1084,13 @@ Page({
       })
     }
   },
-
-  gotoAddAddr: function() {
-    wx.navigateTo({
-      url: '/pages/address/add/add?order=1',
-    })
-  },
+  //  切换地址  弃用
+  // gotoAddAddr: function() {
+  //   wx.navigateTo({
+  //     url: '/pages/address/add/add?order=1',
+  //   })
+  // },
+  // 是否数值判断 
   isRealNum: function(val){
     // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
     if(val === "" || val ==null){

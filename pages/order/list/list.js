@@ -1,6 +1,7 @@
 var server = require('../../../utils/server');
 const App = getApp();
-var cPage = 1;//页码  从一开始
+const postUrl = App.postUrl;
+var cPage = 1; //页码  从一开始
 var ctype = "0";
 // 当为全部订单时候，不传status
 // 当为待付款, status=1
@@ -44,17 +45,42 @@ Page({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          var user_id = that.data.user_id;
-          server.getJSON('/User/cancelOrder/user_id/' + user_id + "/order_id/" + order['order_id'], function(res) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
-            cPage = 0;
-            that.data.orders = [];
-            that.getOrderLists(ctype, 1);
-          });
+          wx.request({
+            url: postUrl + '/Dopay/cancleOrder',
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            data: {
+              order_id: order['order_id']
+            },
+            method: 'POST',
+            success: function(res) {
+              console.log(res)
+              if (res.data.status) {
+                wx.showToast({
+                  title: "订单取消成功",
+                  icon: 'success',
+                  duration: 2000
+                })
+                cPage = 0;
+                that.data.orders = [];
+                that.getOrderLists(ctype, 1);
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'clear',
+                  duration: 2000
+                })
+              }
+            },
+            fail: function(res) {
+              wx.showToast({
+                title: "订单取消失败",
+                icon: 'clear',
+                duration: 2000
+              })
+            }
+          })
         }
       }
     })
@@ -71,16 +97,50 @@ Page({
       success: function(res) {
         if (res.confirm) {
           var user_id = that.data.user_id;
-          server.getJSON('/User/orderConfirm/user_id/' + user_id + "/order_id/" + order['order_id'], function(res) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
-            cPage = 1;
-            that.data.orders = [];
-            that.getOrderLists(ctype, 1);
-          });
+          var order_id = order['order_id'];
+          wx.request({
+            url: postUrl + "/Dopay/completeOrder",
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            data: {
+              user_id,
+              order_id
+            },
+            method: 'POST',
+            success(res) {
+              if (res.data.status) {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'success',
+                  duration: 2000
+                })
+                cPage = 1;
+                that.data.orders = [];
+                that.getOrderLists(ctype, 1);
+              } else {
+                wx.showToast({
+                  title: res.data.msg,
+                  icon: 'clear',
+                  duration: 2000
+                })
+              }
+            }
+          })
+          // server.postJSON('/Dopay/completeOrder',{
+          //   user_id,
+          //   order_id
+          // } ,function(res) {
+          //   console.log(res)
+          //   wx.showToast({
+          //     title: res.data.msg,
+          //     icon: 'success',
+          //     duration: 2000
+          //   })
+          //   cPage = 1;
+          //   that.data.orders = [];
+          //   that.getOrderLists(ctype, 1);
+          // });
         }
       }
     })
@@ -103,7 +163,7 @@ Page({
         status: ctype ? ctype : ''
       },
       function(res) {
-        console.log(res)
+        // console.log(res)
         var datas = res.data;
         var ms = that.data.orders
         for (var i in datas) {
@@ -117,26 +177,13 @@ Page({
       });
   },
   onShow: function() {
-    cPage = 1;
-    this.data.orders = [];
-    this.getOrderLists(ctype, cPage);
+
   },
   onLoad: function(option) {
     // 页面显示
-    if (option.cid == "WAITSEND") {
-
-      this.setData({
-        active_index: 2
-      });
-    }
-    if (option.cid == "FINISH") {
-      this.setData({
-        active_index: 4
-      });
-    }
-    cPage = 0;
-    ctype = option.cid;
+    cPage = 1;
     this.data.orders = [];
+    this.getOrderLists(ctype, cPage);
   },
   onReachBottom: function() {
     this.getOrderLists(ctype, ++cPage);
