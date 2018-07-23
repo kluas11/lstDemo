@@ -9,8 +9,7 @@ Page({
     var that = this;
     var app = getApp();
     var order_id = options.order_id;
-    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
-    var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
+    var user_id =wx.getStorageSync("user_id");
     server.getJSON('/order/orderDetails', {
         order_id
       },
@@ -26,7 +25,7 @@ Page({
   details: function(e) {
     var no = e.currentTarget.dataset.no;
     wx.navigateTo({
-      url: '../../details/details?no=' + no,
+      url: '/pages/details/details?no=' + no,
       success: function(res) {
         // success
       },

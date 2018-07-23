@@ -1,5 +1,11 @@
 /* pages/order/ordersubmit/index.wxss */
 page{
+  
+}
+.parent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background: #cccccc;
 }
 .view-order {
@@ -26,10 +32,15 @@ page{
   color: #969696;
 }
 .order_time{
+  display: flex;
+  flex-direction:column;
   border-bottom: 1px solid #eee;
   padding:20rpx 10rpx;
   font-size: 28rpx;
    color: #444;
+}
+.order_time .time{
+  padding: 10rpx 0;
 }
 .view-address {
   display: flex;
@@ -37,7 +48,7 @@ page{
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 150rpx;
+  padding: 20rpx 0;
   background: #3aa0b7;
   border-bottom: 1px solid #eee;
 }
@@ -63,7 +74,6 @@ page{
   margin-left: 10rpx;
   justify-content: space-around;
   align-items: flex-start;
-  height: 85rpx;
 }
 
 .text-name {
@@ -383,8 +393,3 @@ page{
   line-height: 70rpx;
 }
 
-.parent {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}

@@ -16,7 +16,7 @@
   <view wx:for="{{item.orders}}" wx:for-item="mapping" wx:key="" class="carts-item" bindtap="details" data-index="{{index}}">
     <view>
       <!-- 缩略图 -->
-      <image class="carts-image" src="{{mapping.originnal_img+goods_oss}}" mode="aspectFill" />
+      <image class="carts-image" src="{{mapping.original_img+goods_oss}}" mode="aspectFill" />
     </view>
     <view class="carts-text">
       <!-- 商品标题 -->
@@ -42,15 +42,6 @@
     <text wx:if="{{item.status == 1}}" class="btn-pay" data-index="{{index}}" bindtap="pay">立即付款</text>
     <text wx:if="{{item.status == 3}}" class="btn-pay" data-index="{{index}}" bindtap="confirm">收货确认</text>
   </view>
-  <!-- <view wx:elif="{{item.order_status == 1}}" class="order-footer">
-    <text class="btn-pay" data-index="{{index}}" bindtap="confirm">收货确认</text>
-    <text class="btn-pay" bindtap="details" data-index="{{index}}">查看订单</text>
-  </view>
-  <view wx:elif="{{item.order_status == 4}}" class="order-footer">
-    <text class="btn-pay" bindtap="details" data-index="{{index}}">查看订单</text>
-  </view> -->
-  <!-- <view wx:else class="order-footer"> -->
-<!-- </view> -->
 </view>
 <view wx:if="{{orders.length == 0}}" class="view-tint">
   <image src="/images/icon_empty.png"></image>

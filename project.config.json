@@ -102,7 +102,7 @@
 					"id": 10,
 					"name": "订单详情",
 					"pathName": "pages/order/details/index",
-					"query": "order_id=597"
+					"query": "order_id=669"
 				},
 				{
 					"id": -1,
