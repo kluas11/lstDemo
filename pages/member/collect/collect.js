@@ -67,18 +67,15 @@ wx.showToast({ title: res.data.msg, icon: 'success', duration: 2000 })
 		var user_id = getApp().globalData.userInfo.user_id
 	
 
-    server.getJSON('/User/getGoodsCollect/user_id/' + user_id +"/page/" + page,function(res){
-			var datas = res.data.result;
-            var ms = that.data.collects
-            for(var i in datas){
-               ms.push(datas[i]);
-            }
-
+    server.getJSON('/User/getGoodsCollect' ,{
+      user_id: user_id,
+      p: page
+    },function(res){
+      console.log(res)
+      that.setData({
+        collects: that.data.collects.concat(res.data)
+      });
       wx.stopPullDownRefresh();
-			that.setData({
-						collects: ms
-					});
-
 		});
 	},
 	onLoad: function () {

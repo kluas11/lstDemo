@@ -3,7 +3,7 @@
 	<view class="carts-item">
 		<view>
 			<!-- 缩略图 -->
-			<image class="carts-image" src="{{item.image}}" mode="aspectFill"/>
+			<image class="carts-image" src="{{item.original_img}}" mode="aspectFill"/>
 		</view>
 		
 		<view class="carts-text">

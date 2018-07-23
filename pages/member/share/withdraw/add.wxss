@@ -7,7 +7,12 @@
   align-items: center;
   background: #312e43;
 }
-
+.text-record{
+  text-align:right;
+  color:#666;
+  font-size:35rpx;
+  padding:15rpx;
+}
 .view-moneyinfo {
   display: flex;
   flex-direction: row;

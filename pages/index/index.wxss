@@ -147,6 +147,7 @@ line-height:50rpx;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
+  border-bottom: 1px solid #EEEEEE;
 }
 
 .container-goods .caption {
@@ -178,7 +179,7 @@ line-height:50rpx;
   display: inline-block;
   width: 30%;
   text-align: center;
-
+  background:#fff;
 }
 
 .main-goods image {
