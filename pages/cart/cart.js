@@ -21,14 +21,13 @@ Page({
         that.setData({ height: height })
       }
     })
-
   },
-
-  // see: function (e) {
-  //   wx.switchTab({
-  //     url: "../category/category"
-  //   });
-  // },
+  // 马上去逛逛
+  see: function (e) {
+    wx.switchTab({
+      url: "../category/category"
+    });
+  },
 // 自减
   bindMinus: function (e) {
     var index = parseInt(e.currentTarget.dataset.index);

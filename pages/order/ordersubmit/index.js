@@ -493,6 +493,7 @@ Page({
         user_id: user_id,
         order_id: order_id
       }
+      console.log(winrecord)
       var total=0;
       if (that.data.distributionIndex==1){
         total = that.data.totalPrice + that.data.expressFee
@@ -528,6 +529,7 @@ Page({
   },
   // 发送支付
   sendpayment: function (postUrl, port, winrecord, payway){
+    console.log(payway)
     var that = this;
     wx.showLoading({
       title: '加载中',
@@ -595,7 +597,7 @@ Page({
         } else {
           // 余额支付
           if (res.data.status) {
-            this.setData({
+            that.setData({
               goodsID: ""
             })
             wx.showToast({
@@ -691,6 +693,7 @@ Page({
       address_id: addressID,
       is_express: that.data.distributionIndex
     }
+    console.log(winrecord)
     // console.log(user_id)
     // console.log(store_id)
     // console.log(goodsID)

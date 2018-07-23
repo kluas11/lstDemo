@@ -47,8 +47,9 @@
 
 .view-moneyinfo {
   display: flex;
-  flex-direction: row;
-  height: 60rpx;
+  flex-direction: column;
+  height: 100%;
+  justify-content:center;
   align-items: flex-end;
 }
 
@@ -61,7 +62,6 @@
 .text-money {
   margin-left: 10rpx;
   font-size: 60rpx;
-  line-height: 60rpx;
   color: orangered;
 }
 

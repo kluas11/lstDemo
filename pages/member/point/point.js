@@ -56,7 +56,6 @@ Page({
     cPage = 0;
     this.getMoneyInfoList(0);
 
-    return;
     var user = AV.User.current();
     var query = new AV.Query('Order');
     query.include('buys');

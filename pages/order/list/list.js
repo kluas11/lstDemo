@@ -1,4 +1,5 @@
 var server = require('../../../utils/server');
+const postUrl = "https://tlst.paycore.cc/index.php/WXAPI"
 const App = getApp();
 var cPage = 1;//页码  从一开始
 var ctype = "0";
@@ -8,7 +9,7 @@ var ctype = "0";
 // 当为已发货待收获status=3
 // 当为已完成status=4
 Page({
-  data: {
+  data:{
     active_index: 0,
     orders: [],
     goods_oss: App.image_oss + '150_150'
@@ -44,17 +45,43 @@ Page({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          var user_id = that.data.user_id;
-          server.getJSON('/User/cancelOrder/user_id/' + user_id + "/order_id/" + order['order_id'], function(res) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'success',
-              duration: 2000
-            })
-            cPage = 0;
-            that.data.orders = [];
-            that.getOrderLists(ctype, 1);
-          });
+          wx.request({
+            url: postUrl + '/Dopay/cancleOrder',
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            data: {
+              order_id: order['order_id']
+            },
+            method: 'POST',
+            success: function (res) {
+              console.log(res)
+              if(res.data==1){
+                wx.showToast({
+                  title: "订单取消成功",
+                  icon: 'success',
+                  duration: 2000
+                })
+                cPage = 0;
+                that.data.orders = [];
+                that.getOrderLists(ctype, 1);
+              }else{
+                wx.showToast({
+                  title: "订单取消失败",
+                  icon: 'clear',
+                  duration: 2000
+                })
+              }
+             
+            },
+            fail: function (res) {
+              wx.showToast({
+                title: "订单取消失败",
+                icon: 'clear',
+                duration: 2000
+              })
+            }
+          })
         }
       }
     })

@@ -1,7 +1,7 @@
 var server = require('../../../utils/server');
 var barQRCode = require('../../../utils/Bar-QR-code');
 var app = getApp();
-var cPage = 0;
+var cPage = 1;
 var myVar = null;
 
 Page({
@@ -14,6 +14,8 @@ Page({
   },
 
   data: {
+    moneys:0,
+    pay_point:0,
     accounts:[],
     orders: [],
     tabClasss: ["text-select", "text-normal", "text-normal", "text-normal", "text-normal"],
@@ -21,7 +23,7 @@ Page({
   },
 
   onReachBottom: function () {
-    this.getMoneyInfoList(++cPage);
+    this.getMoneyInfodetail(++cPage);
     wx.showToast({
       title: '加载中',
       icon: 'loading'
@@ -31,22 +33,44 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
-  getMoneyInfoList(page) {
-    var that = this;
+  getMoneyInfodetail:function(page){
+    var that= this;
     var user_id = getApp().globalData.userInfo.user_id
-
-    server.getJSON('/User/account/user_id/' + user_id + "/page/" + page, function (res) {
+  
+    var winRecord = { user_id: user_id}
+    if(page>1){
+      winRecord['p'] =  page
+    }
+    server.getJSON('/Walletpay/getWalletPaylog', winRecord, function (res) {
       // success
       console.log(res);
-      var datas = res.data.result;
-      var ms = that.data.accounts
-      for (var i in datas) {
-        ms.push(datas[i]);
-      }
-      wx.stopPullDownRefresh();
+        wx.stopPullDownRefresh();
+      // var datas = res.data.result;
+      // var ms = that.data.accounts
+      // for (var i in datas) {
+      //   ms.push(datas[i]);
+      // }
+    });
+  },
+  getMoneyInfoList() {
+    var that = this;
+    var user_id = getApp().globalData.userInfo.user_id
+    console.log(user_id)
+    server.getJSON('/Walletpay/getUsermoneyPoints',{
+      user_id: user_id
+    }, function (res) {
+      // success
+      console.log(res);
+      // var datas = res.data.result;
+      // var ms = that.data.accounts
+      // for (var i in datas) {
+      //   ms.push(datas[i]);
+      // }
+ 
       that.setData({
-        accounts: ms,
+        // accounts: ms,
+        pay_point: res.data.pay_points ||0,
+        moneys: res.data.user_money ||0
       });
     });
   },
@@ -58,13 +82,13 @@ Page({
   },
 
   onLoad: function () {
-    cPage = 0;
-    this.getMoneyInfoList(0);
     let context = this;
+    cPage = 1;
+    this.getMoneyInfodetail(cPage)
     getCodeTimer(context);
     myVar = setInterval(function () { getCodeTimer(context) }, 2 * 60 * 1000);
 
-    return;
+    return; 
     // 功能未知
     
     // var user = AV.User.current();
@@ -117,18 +141,15 @@ Page({
 
   onShow: function () {
     let that = this;
-    app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
-      that.setData({
-        moneys: userBalance
-      });
-    });
+    
+    this.getMoneyInfoList();
   },
 
   onUnload: function () {
     clearInterval(myVar);
   }
 });
-
+// 获取条形码
 function getCodeTimer(context) {
   var user_id = getApp().globalData.userInfo.user_id
   wx.request({
