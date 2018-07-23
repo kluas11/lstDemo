@@ -1,3 +1,4 @@
+<wxs src="../../order/details/index.wxs" module="tools" />
 <view class="view-head">
   <view class="view-moneyinfo">
   <view style='width:100%;padding:15rpx;'>
@@ -38,10 +39,11 @@
     <view class="info-right">
       <view class="info-first">
         <text>金额:</text>
-        <text style="color:red">{{item.user_money}}</text>
+        <text style="color:red">{{item.pay_money}}</text>
       </view>
-      <text>{{item.change_time}}</text>
-      <text>{{item.desc}}</text>
+      <text>支付时间:{{tools.timestampToTime(item.pay_time)}}</text>
+       <text wx:if="{{item.payway=='Wxpay'}}">支付方式:微信支付</text> 
+       <text wx:else>支付方式:余额支付</text> 
     </view>
 
   </view>
