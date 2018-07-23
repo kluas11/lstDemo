@@ -132,5 +132,6 @@ App({
     'login': false,
     'shopName': ''
   },
-  image_oss: '?x-oss-process=style/fixed_'
+  image_oss: '?x-oss-process=style/fixed_',
+  postUrl:"https://tlst.paycore.cc/index.php/WXAPI"
 })

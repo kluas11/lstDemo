@@ -52,9 +52,8 @@ Page({
   },
   // 我的订单
   navigateToOrder: function(e) {
-    var cid = e.currentTarget.dataset.cid;
     wx.navigateTo({
-      url: '/pages/order/list/list?cid=' + cid
+      url: '/pages/order/list/list'
     });
   },
   // 地址管理

@@ -1,12 +1,19 @@
 var timestampToTime = function(timestamp) {
-  var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-  var Y = date.getFullYear() + '-';
-  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-  var D = date.getDate() + ' ';
-  var h = date.getHours() + ':';
-  var m = date.getMinutes() + ':';
-  var s = date.getSeconds();
-  return Y + M + D + h + m + s;
+  if (timestamp!=='0'){
+    var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = fileter(date.getDate()) + ' ';
+    var h = fileter(date.getHours()) + ':';
+    var m = fileter(date.getMinutes()) + ':';
+    var s = fileter(date.getSeconds());
+    return Y + M + D + h + m + s;
+  }else{
+    return;
+  }
+}
+var fileter  =function(data){
+    return data<10?"0"+data:data
 }
 module.exports = {
   timestampToTime:timestampToTime

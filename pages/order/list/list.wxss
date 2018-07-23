@@ -73,7 +73,6 @@ page {
 	height: 50rpx;
 	padding-left: 30rpx;
 	padding-right: 30rpx;
-	font-size: 27rpx;
 	line-height: 50rpx;
 	color: gray;
 	border-color: gray;
@@ -82,8 +81,8 @@ page {
 	background: #ffffff;
 	align-self: flex-end;
 	border-radius: 6rpx;
+  margin-left:20rpx
 }
-
 
 /*右上部分标题*/
 .carts-title {

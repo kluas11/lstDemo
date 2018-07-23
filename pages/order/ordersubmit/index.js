@@ -393,7 +393,7 @@ Page({
     })
   },
   onShow: function () {
-    console.log(this.data.goodsID)
+    
     if (!this.data.goodsID){
       wx.showToast({
         title: '订单已关闭',
@@ -410,20 +410,6 @@ Page({
       })
       return;
     }
-    // console.log(options)
-    // wx.showLoading({
-    //   title: '加载中',
-    // })
-    // 获取到传过来的值
-    // var cartIds = app.globalData.cart_ids;
-    // var amount = app.globalData.amount;
-    // var goodsId = options.
-
-    // this.setData({
-    //   // cartIds: cartIds,
-    //   // amount: amount
-    // });
-    console.log(this.data.goodsID)
     this.getCarts();
     // 页面初始化 options为页面跳转所带来的参数
   },
@@ -493,7 +479,6 @@ Page({
         user_id: user_id,
         order_id: order_id
       }
-      console.log(winrecord)
       var total=0;
       if (that.data.distributionIndex==1){
         total = that.data.totalPrice + that.data.expressFee

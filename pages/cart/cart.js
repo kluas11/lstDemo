@@ -9,7 +9,7 @@ Page({
     minusStatuses: ['disabled', 'disabled', 'normal', 'normal', 'disabled'],
     selectedAllStatus: true,
     total: '',
-    goods_oss: app.image_oss+'135_150'
+    goods_oss: app.image_oss+'130_150'
   },
 
   onLoad: function (option) {

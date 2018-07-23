@@ -42,15 +42,6 @@
     <text wx:if="{{item.status == 1}}" class="btn-pay" data-index="{{index}}" bindtap="pay">立即付款</text>
     <text wx:if="{{item.status == 3}}" class="btn-pay" data-index="{{index}}" bindtap="confirm">收货确认</text>
   </view>
-  <!-- <view wx:elif="{{item.order_status == 1}}" class="order-footer">
-    <text class="btn-pay" data-index="{{index}}" bindtap="confirm">收货确认</text>
-    <text class="btn-pay" bindtap="details" data-index="{{index}}">查看订单</text>
-  </view>
-  <view wx:elif="{{item.order_status == 4}}" class="order-footer">
-    <text class="btn-pay" bindtap="details" data-index="{{index}}">查看订单</text>
-  </view> -->
-  <!-- <view wx:else class="order-footer"> -->
-<!-- </view> -->
 </view>
 <view wx:if="{{orders.length == 0}}" class="view-tint">
   <image src="/images/icon_empty.png"></image>
