@@ -21,8 +21,12 @@ Page({
     }
     var user_id = wx.getStorageSync("user_id");
     var address_id = addressObjects[index].address_id;
-    server.getJSON('/User/setDefaultAddress/user_id/' + user_id + "/address_id/" + address_id, function(res) {
-      if (res.data.status == 1) {
+    server.newpostJSON('/User/setDefaultAddress',{
+      user_id,
+      address_id
+    },
+     function(res) {
+      if (res.data == 1) {
         that.setData({
           addressObjects: addressObjects
         });
@@ -53,7 +57,11 @@ Page({
       content: '要删除这个地址吗？',
       success: function(res) {
         if (res.confirm) {
-          server.getJSON('/User/del_address/user_id/' + user_id + "/id/" + address_id, function(res) {
+          server.newpostJSON('/User/delAddress',{
+            user_id,
+            address_id
+          },
+           function(res) {
             wx.showToast({
               title: res.data.msg,
               icon: 'success',
