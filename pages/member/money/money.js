@@ -73,7 +73,8 @@ Page({
     })
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
+    // console.log(options)
     let context = this;
     cPage = 1;
     this.getMoneyInfodetail(cPage)
@@ -131,7 +132,8 @@ Page({
     // });
   },
 
-  onShow: function () {
+  onShow: function (options) {
+    // console.log(options)
     let that = this;
     
     this.getMoneyInfoList();

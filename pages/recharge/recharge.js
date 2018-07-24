@@ -1,12 +1,12 @@
 let server = require('../../utils/server');
-
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    formatedNum: 0
+    formatedNum: ""
   },
 
   /**
@@ -20,34 +20,21 @@ Page({
    * 余额充值
    */
   count: function (e) {
-    let context = this;
+    let that = this;
     let count = e.detail.value;
+
     if (/^[0-9]+(.[0-9]{1,2})?$/.exec(count)) {
       if (!(parseFloat(count) >= 1)) {
         wx.showToast({
           title: '充值金额需要大于1元',
           icon: 'none'
         });
-      } else {
-        let openId = getApp().globalData.userInfo;
-        count = parseFloat(count);
-        wx.request({
-          url: 'https://shop.poopg.com/index.php/WXAPI/Recharge/prepare_pay',
-          method: 'POST',
-          data: { openid: openId.open_id, user_id: openId.user_id, total_amount: count },
-          header: { 'content-type': 'application/x-www-form-urlencoded' },// 将数据转化为query string
-          success: res => {
-            console.log(res)
-            wx.requestPayment({
-              'timeStamp': res.data.data.timeStamp,
-              'nonceStr': res.data.data.nonceStr,
-              'package': res.data.data.package,
-              'signType': res.data.data.signType,
-              'paySign': res.data.data.paySign,
-              'success': function (res) { },
-              'fail': function (res) { }
-            })
-          }
+        that.setData({
+          formatedNum: ""
+        })
+      }else{
+        that.setData({
+          formatedNum: count
         })
       }
     } else {
@@ -56,9 +43,62 @@ Page({
         icon: 'none'
       });
     }
+  },
+  wxRecharge: function () {
+    var that = this;
+    let rechargeAmount = this.data.formatedNum;
+    if (rechargeAmount == "" || rechargeAmount == 0 || !rechargeAmount) {
+      wx.showToast({
+        title: '请输入正确的金额',
+        icon: 'none'
+      });
+      return;
+    }
+    let open_id = app.globalData.openid;
+    let user_id = wx.getStorageSync("user_id");
+    wx.request({
+      url: app.postUrl + '/Recharge/prepare_pay',
+      method: 'POST',
+      data: {
+        openid: open_id,
+        user_id: user_id,
+        total_amount: rechargeAmount
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },// 将数据转化为query strings
+      success: res => {
+        console.log(res)
+        wx.requestPayment({
+          'timeStamp': res.data.data.timeStamp,
+          'nonceStr': res.data.data.nonceStr,
+          'package': res.data.data.package,
+          'signType': res.data.data.signType,
+          'paySign': res.data.data.paySign,
+          'success': function (res) { 
+            wx.showToast({
+              title: '充值成功',
+              icon: 'success',
+              duration: 2000,
+              complete:function(){
+                setTimeout(function(){
+                  wx.navigateBack()
+                },1500)
+              }
+            })
+     
+          },
+          'fail': function (res) { 
+            wx.showToast({
+              title: '充值失败',
+              image:'../../images/about.png',
+              duration:2000,
+            })
+
+          }
+        })
+      }
+    })
   }
 })
 
-function wxPay(context) {
-
-}
