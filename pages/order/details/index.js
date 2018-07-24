@@ -16,19 +16,31 @@ Page({
       function(res) {
         var result = res.data;
         console.log(result)
+        that.getshipping(result.status)
         that.setData({
           result: result
         });
       });
   },
   getshipping(shipping_code) {
+    var that = this;
     server.getJSON('/Order/getShippingMsg', {
         shipping_code
       },
       function(res) {
         var result = res.data;
-        console.log(result)
+        that.setData({
+          disabled: !result.status,
+          shipping_status: result.shipping_status ? result.shipping_status:''
+        })
       });
+  },
+  // 配送信息
+  shippingTap(){
+    wx.showModal({
+      content: this.data.shipping_status,
+      showCancel:false
+    })
   },
   details: function(e) {
     var no = e.currentTarget.dataset.no;

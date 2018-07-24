@@ -1,23 +1,19 @@
-const AV = require('../../../../utils/av-weapp.js');
 var server = require('../../../../utils/server');
 var app = getApp();
-var maxTime = 60;
-var interval = null;
-var currentTime = -1; //倒计时的事件（单位：s）  
 
 Page({
 
   data: {
     login: false,
-    time: '获取验证码',
     registerStatus: 0,
-    result: ''
+    result: '',
+    disabled:true
   },
 
   onLoad: function(options) {
     var login = app.globalData.login;
     var that = this;
-    var user_id = getApp().globalData.userInfo.user_id
+    var user_id = wx.getStorageSync("user_id");
     wx.getSystemInfo({
       success: function(res) {
         that.setData({
@@ -26,7 +22,6 @@ Page({
       }
     });
   },
-
   navigateToMember: function() {
     wx.navigateTo({
       url: '../member/list',
@@ -57,10 +52,9 @@ Page({
     var that = this;
     var login = app.globalData.login;
     var that = this;
-    var user_id = getApp().globalData.userInfo.user_id;
-    var level = app.globalData.userInfo.level;
-    var seller_id = app.globalData.userInfo.seller_id;
-
+    var user_id = wx.getStorageSync('user_id');
+    // var level = app.globalData.userInfo.level;
+    // var seller_id = app.globalData.userInfo.seller_id;
     this.setData({
       login: login
     });
@@ -75,47 +69,67 @@ Page({
         app.globalData.nickName = userInfo.nickName;
       }
     });
-
-    app.getUserBalance(app.globalData.userInfo.user_id, that, function(that, userBalance) {
+    app.getUserBalance(user_id, that, function(that, userBalance) {
       that.setData({
         moneys: userBalance
       });
     });
 
-    server.getJSON('/User/createrweima?user_id=' + user_id, function(res) {
+    server.getJSON('/User/createShareQRCode', {
+      user_id
+    }, function(res) {
       console.log(res)
-      if (level == 3 && (seller_id == undefined || seller_id == '' || seller_id == null)) {
-        // 一级会员需通过输入店员账号绑定的页面
-        that.setData({
-          registerStatus: 1
-        })
-      } else {
-        var result = res.data
-        console.log(result)
-        that.setData({
-          result: result,
-          registerStatus: 2
-        });
-      }
+      that.setData({
+        result: res.data.qrcode
+      })
+      //   if (level == 3 && (seller_id == undefined || seller_id == '' || seller_id == null)) {
+      //     // 一级会员需通过输入店员账号绑定的页面
+      //     that.setData({
+      //       registerStatus: 1
+      //     })
+      //   } else {
+      //     var result = res.data
+      //     console.log(result)
+      //     that.setData({
+      //       result: result,
+      //       registerStatus: 2
+      //     });
+      // }
     });
   },
 
   saveQRCode: function() {
     let ctx = this;
-
+    this.setData({
+      disabled:false
+    })
     wx.getSetting({
       success(res) {
+        console.log(res)
         if (!res.authSetting['scope.writePhotosAlbum']) {
           wx.authorize({
             scope: 'scope.writePhotosAlbum',
             success() {
-              console.log('授权成功')
+              ctx.downloadimg()
+            },
+            fail() {
+              wx.openSetting({
+                success() {
+                  ctx.downloadimg()
+                }
+              });
+              return;
             }
           })
+        }else{
+          ctx.downloadimg()
         }
       }
     })
-
+  },
+  // 保存图片
+  downloadimg() {
+    let ctx = this;
     wx.downloadFile({
       url: ctx.data.result,
       success: function(res) {
@@ -132,6 +146,10 @@ Page({
               title: '保存失败',
               icon: 'none'
             })
+          },complete(){
+            ctx.setData({
+              disabled: true
+            })
           }
         })
       },
@@ -140,9 +158,10 @@ Page({
           title: '保存失败',
           icon: 'none'
         })
+        ctx.setData({
+          disabled: true
+        })
       }
     })
-
   }
-
 })
