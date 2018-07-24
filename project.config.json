@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -111,10 +111,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "编辑地址",
 					"pathName": "pages/address/edit/index",
-					"query": "objectId=45"
+					"query": "objectId=67"
 				},
 				{
 					"id": -1,
@@ -149,7 +149,14 @@
 				{
 					"id": -1,
 					"name": "地址管理",
-					"pathName": "pages/address/list/list"
+					"pathName": "pages/address/list/list",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/order/ordersubmit/index",
+					"query": "origin=detail&goodsID=3000&goods_num=1"
 				}
 			]
 		}

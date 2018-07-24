@@ -40,11 +40,11 @@ App({
   },
   // 注册用户
   register: function(cb) {
-    var first_leader = 0;
+    var first_leader;
     wx.getStorage({
       key: 'scene',
       success: function(res) {
-        first_leader = res.data;
+        first_leader = res.data ? res.data:"";
         // console.log(res.data);
       }
     })
@@ -53,22 +53,18 @@ App({
       // 获取授权
       var open_id = app.globalData.openid;
       var userInfo = res;
-      var country = userInfo.country; //国家
-      var city = userInfo.city; //城市
-      var gender = userInfo.gender; //性别
-      var nick_name = userInfo.nickName; //昵称
-      var province = userInfo.province; //省份
-      server.getJSON(
+      // var country = userInfo.country; //国家
+      // var city = userInfo.city; //城市
+      // var gender = userInfo.gender; //性别
+      // var nick_name = userInfo.nickName; //昵称
+      // var province = userInfo.province; //省份
+      server.newpostJSON(
         '/User/register', {
           open_id,
-          country,
-          gender,
-          nick_name,
-          province,
-          city,
           first_leader
         },
         function(res) {
+          console.log(res)
           app.globalData.userInfo = res.data.res
           typeof cb == "function" && cb()
         });

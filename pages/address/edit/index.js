@@ -12,10 +12,8 @@ Page({
     var consignee = this.data.consignee;
     // mobile
     var address = this.data.address;
-    var is_default = 1;
-    var user_id =this.data.user_id;
-    var country = 1;
-    var twon = 0;
+    var is_default = this.data.is_default;
+    var user_id = this.data.user_id;
     var province;
     var city;
     var district;
@@ -29,20 +27,17 @@ Page({
       district = this.data.regionObjects[this.data.regionIndex].id;
     }
     var that = this;
-
-    server.postJSON('/User/editAddress/user_id/' + user_id + "/address_id/" + address_id, {
-      user_id: user_id,
-      mobile: mobile,
-      zipcode: zipcode,
-      consignee: consignee,
-      address: address,
-      is_default: is_default,
-      country: country,
-      twon: twon,
-      province: province,
-      city: city,
-      district: district,
-      address_id: address_id
+    server.newpostJSON('/User/editAddress', {
+      user_id,
+      mobile,
+      zipcode,
+      consignee,
+      address,
+      is_default,
+      province,
+      city,
+      district,
+      address_id
     }, function(res) {
       if (res.data.status == 1) {
         wx.showToast({
@@ -107,7 +102,7 @@ Page({
 
   },
   onLoad: function(options) {
-    var returnTo = options.returnTo ? options.returnTo:'';
+    var returnTo = options.returnTo ? options.returnTo : '';
     this.setData({
       returnTo: returnTo
     });
@@ -123,46 +118,34 @@ Page({
         provinceObjects: area
       });
     });
-    // if isDefault, address is empty
-    // this.setDefault();
-    // this.cascadePopup();
     this.loadAddress(options);
-    // TODO:load default city...
   },
   loadAddress: function(options) {
     var that = this;
-    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
-    var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
+    var user_id = wx.getStorageSync("user_id");
     if (options.objectId != undefined) {
       address_id = options.objectId;
-      server.getJSON('/User/get_address/user_id/' + user_id + "/id/" + options.objectId, function(res) {
-        var address = res.data.result;
+      server.getJSON('/User/getOneAddress', {
+        user_id,
+        address_id
+      }, function(res) {
+        console.log(res.data);
+        var address = res.data;
         that.setData({
-          areaSelectedStr: address.city,
+          areaSelectedStr: address.province + address.city + address.district,
           mobile: address.mobile,
           zipcode: address.zipcode,
           address: address.address,
           consignee: address.consignee,
-          district: address.district,
-          cityvalue: address.cityvalue,
-          provincev: address.province,
-          user_id:user_id
+          district: address.district_id,
+          cityvalue: address.city_id,
+          provincev: address.province_id,
+          user_id: user_id,
+          is_default: address.is_default
         });
       });
     }
   },
-  // setDefault: function() {
-  //   var that = this;
-  //   var user = AV.User.current();
-  //   // if user has no address, set the address for default
-  //   var query = new AV.Query('Address');
-  //   query.equalTo('user', user);
-  //   query.count().then(function(count) {
-  //     if (count <= 0) {
-  //       that.isDefault = true;
-  //     }
-  //   });
-  // },
   cascadePopup: function() {
     var animation = wx.createAnimation({
       duration: 500,
@@ -266,31 +249,39 @@ Page({
     var that = this;
     //townObjects是一个LeanCloud对象，通过遍历得到纯字符串数组
     // getArea方法是访问网络请求数据，网络访问正常则一个回调function(area){}
-    this.getArea(this.data.regionObjects[index].id, function(area) {
-      // 假如没有镇一级了，关闭悬浮框，并显示地址
-      if (area.length == 0) {
-        var areaSelectedStr = that.data.provinceName + that.data.cityName + that.data.regionName;
-        that.setData({
-          areaSelectedStr: areaSelectedStr
-        });
-        that.cascadeDismiss();
-        return;
-      }
-      var array = [];
-      for (var i = 0; i < area.length; i++) {
-        array[i] = area[i].name;
-      }
-      // region就是wxml中渲染要用到的县级数据，regionObjects是LeanCloud对象，用于县级标识取值
-      that.setData({
-        townName: '请选择',
-        town: array,
-        townObjects: area
-      });
-      // 确保生成了数组数据再移动swiper
-      that.setData({
-        current: 3
-      });
+    var areaSelectedStr = that.data.provinceName + that.data.cityName + that.data.regionName;
+    that.setData({
+      areaSelectedStr: areaSelectedStr
     });
+    that.cascadeDismiss();
+
+    // 7/24  暂时只做三级省市区
+
+    // this.getArea(this.data.regionObjects[index].id, function(area) {
+    //   // 假如没有镇一级了，关闭悬浮框，并显示地址
+    //   if (area.length == 0) {
+    //     var areaSelectedStr = that.data.provinceName + that.data.cityName + that.data.regionName;
+    //     that.setData({
+    //       areaSelectedStr: areaSelectedStr
+    //     });
+    //     that.cascadeDismiss();
+    //     return;
+    //   }
+    //   var array = [];
+    //   for (var i = 0; i < area.length; i++) {
+    //     array[i] = area[i].name;
+    //   }
+    //   // region就是wxml中渲染要用到的县级数据，regionObjects是LeanCloud对象，用于县级标识取值
+    //   that.setData({
+    //     townName: '请选择',
+    //     town: array,
+    //     townObjects: area
+    //   });
+    //   // 确保生成了数组数据再移动swiper
+    //   that.setData({
+    //     current: 3
+    //   });
+    // });
   },
   townTapped: function(e) {
     // 标识当前点击镇级，记录其名称与主键id都依赖它

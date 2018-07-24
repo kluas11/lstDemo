@@ -817,8 +817,6 @@ Page({
     }
     // 判断是否有地址;
      that.getAddress(user_id).then(res =>{
-       console.log(res)
-       
        if(res.data.status){
          that.setData({
           //  默认地址
@@ -830,7 +828,6 @@ Page({
            address_id: res.data.address[0].address_id
            // distribution_status: that.data.distribution_status
          }, function (res) {
-           console.log(res)
            if(res.data.status){
              that.setData({
                expressFee:res.data.fee
@@ -867,14 +864,14 @@ Page({
          })
        }else{
          wx.hideLoading();
-         console.log("数值youwu")
+        //  console.log("数值youwu")
        }
      }).catch(e => {
        console.log(e)
      })
-     console.log(user_id)
-     console.log(that.data.goodsID)
-     console.log(that.data.goodsNum)
+    //  console.log(user_id)
+    //  console.log(that.data.goodsID)
+    //  console.log(that.data.goodsNum)
      var winrecord = {
        user_id: user_id,
        goods_ids: that.data.goodsID
@@ -983,7 +980,7 @@ Page({
   },
   // 获取地址信息
   getAddress: function (user_id){
-    console.log(user_id)
+    // console.log(user_id)
     return new Promise(function (resolve, reject){
       try{
         server.getJSON('/Dopay/getAddress', {
@@ -1000,7 +997,7 @@ Page({
   },
   // 获取用户余额现在弃用
   getUserMonder: function (user_id){
-    console.log(user_id)
+    // console.log(user_id)
     return new Promise(function (resolve, reject) {
       try {
         server.getJSON('/Dopay/getUserMoney', {
