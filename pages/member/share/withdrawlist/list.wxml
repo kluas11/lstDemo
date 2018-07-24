@@ -1,37 +1,37 @@
 <wxs src="../../../order/details/index.wxs" module="tools"></wxs>
 <view class="view-head">
-<view class="view-moneyinfo">
-<text class="text-money-prefix">账户余额</text>
-<text class="text-money">￥{{moneys}}</text>
-<text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
-</view>
+  <view class="view-moneyinfo">
+    <text class="text-money-prefix">账户余额</text>
+    <text class="text-money">￥{{moneys}}</text>
+    <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
+  </view>
 </view>
 
 <view class="account-item" wx:for="{{accounts}}" wx:key="">
-<view class="info-item">
-<view class="info-left">
-<view style="position: relative;">
-  <view style="position: absolute;">
-    <view class="lline"/> 
-  </view>  
+  <view class="info-item">
+    <view class="info-left">
+      <view style="position: relative;">
+        <view style="position: absolute;">
+          <view class="lline" />
+        </view>
 
 
-  <view wx:if="{{index == 0}}"style="position:relative;top:90rpx;left:-8rpx" class="yuan"/> 
-  <view wx:else style="position:relative;top:90rpx;left:-8rpx" class="yuan1"/> 
-</view> 
+        <view wx:if="{{index == 0}}" style="position:relative;top:90rpx;left:-8rpx" class="yuan" />
+        <view wx:else style="position:relative;top:90rpx;left:-8rpx" class="yuan1" />
+      </view>
 
-</view>
+    </view>
 
-<view class="info-right">
+    <view class="info-right">
 
-<view class="info-first">
-<text>金额:</text>
-<text style="color:red">{{item.money}}</text>
-</view>
-<text>提现状态:{{item.status=="FAIL"?"失败":"成功"}}</text>
-<text>操作时间:{{tools.timestampToTime(item.add_time)}}</text>
-<text>手续费: {{item.service_fee}}</text>
-<text>户主姓名: {{item.account_username}}</text>
-</view>
-</view>
+      <view class="info-first">
+        <text>金额:</text>
+        <text style="color:red">{{item.money}}</text>
+      </view>
+      <text>提现状态:{{item.status=="FAIL"?"失败":"成功"}}</text>
+      <text>操作时间:{{tools.timestampToTime(item.add_time)}}</text>
+      <text>手续费: {{item.service_fee}}</text>
+      <text>户主姓名: {{item.account_username}}</text>
+    </view>
+  </view>
 </view>
