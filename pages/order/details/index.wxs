@@ -1,4 +1,4 @@
-var timestampToTime = function(timestamp) {
+var timestampToTime = function(timestamp,bool) {
   if (timestamp!=='0'){
     var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
     var Y = date.getFullYear() + '-';
@@ -7,13 +7,42 @@ var timestampToTime = function(timestamp) {
     var h = fileter(date.getHours()) + ':';
     var m = fileter(date.getMinutes()) + ':';
     var s = fileter(date.getSeconds());
-    return Y + M + D + h + m + s;
+    if (bool){
+      return Y + M + D;
+    }else{
+      return Y + M + D + h + m + s;
+    }
+    
   }else{
     return;
   }
 }
 var fileter  =function(data){
     return data<10?"0"+data:data
+}
+var  formatDate = function (date, fmt) {
+  var yyy = getRegExp("/(y+)/");
+  console.log(yyy.source)
+  // if (yyy.test(fmt)) {
+  //   fmt = fmt.replace(getRegExp.$1, (date.getFullYear() + '').substr(4 - getRegExp.$1.length))
+  // }
+  // let o = {
+  //   'M+': date.getMonth() + 1,
+  //   'd+': date.getDate(),
+  //   'h+': date.getHours(),
+  //   'm+': date.getMinutes(),
+  //   's+': date.getSeconds()
+  // }
+  // function padLeftZero(str) {
+  //   return ('00' + str).substr(str.length)
+  // }
+  // for (let k in o) {
+  //   if (new RegExp(`(${k})`).test(fmt)) {
+  //     let str = o[k] + ''
+  //     fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str))
+  //   }
+  // }
+  return fmt
 }
 module.exports = {
   timestampToTime:timestampToTime

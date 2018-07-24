@@ -1,3 +1,4 @@
+<wxs src="../../../order/details/index.wxs" module="tools"></wxs>
 <view class="view-head">
   <view class="view-moneyinfo">
     <text class="text-money-prefix">账户余额</text>
@@ -13,17 +14,24 @@
         <view style="position: absolute;">
           <view class="lline" />
         </view>
+
+
         <view wx:if="{{index == 0}}" style="position:relative;top:90rpx;left:-8rpx" class="yuan" />
         <view wx:else style="position:relative;top:90rpx;left:-8rpx" class="yuan1" />
       </view>
+
     </view>
+
     <view class="info-right">
+
       <view class="info-first">
         <text>金额:</text>
-        <text style="color:red">{{item.user_money}}</text>
+        <text style="color:red">{{item.money}}</text>
       </view>
-      <text>{{item.change_time}}</text>
-      <text>{{item.desc}}</text>
+      <text>提现状态:{{item.status=="FAIL"?"失败":"成功"}}</text>
+      <text>操作时间:{{tools.timestampToTime(item.add_time)}}</text>
+      <text>手续费: {{item.service_fee}}</text>
+      <text>户主姓名: {{item.account_username}}</text>
     </view>
   </view>
 </view>

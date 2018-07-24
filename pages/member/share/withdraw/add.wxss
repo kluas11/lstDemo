@@ -12,6 +12,7 @@
   color:#666;
   font-size:35rpx;
   padding:15rpx;
+  display: block;
 }
 .view-moneyinfo {
   display: flex;
@@ -74,8 +75,9 @@ page {
 .text-save {
   width: 680rpx;
   align-self: center;
+  display: block;
   font-size: 32rpx;
-  margin-top: 30rpx;
+  margin: 15rpx auto;
   color: #fff;
   text-align: center;
   height: 70rpx;

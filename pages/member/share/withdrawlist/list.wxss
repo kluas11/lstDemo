@@ -68,7 +68,7 @@
 
 .info-right{
     margin-left: 10rpx;
-    height: 200rpx;
+    height: 250rpx;
     width: 670rpx;
     display: flex;
     flex-direction: column;
