@@ -55,6 +55,13 @@ Page({
   getMoneyInfoList() {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
+    if (!user_id){
+      wx.showToast({
+        title: '用户获取失败',
+        image:"../../../images/about.png",
+        duration:2000
+      })
+    }
     server.getJSON('/Walletpay/getUsermoneyPoints',{
       user_id: user_id
     }, function (res) {
@@ -149,6 +156,7 @@ Page({
 // 获取条形码
 function getCodeTimer(context) {
   var user_id = wx.getStorageSync("user_id");
+  console.log(user_id)
   wx.request({
     url: app.postUrl+'/Walletpay/getcode',
     data: { user_id: user_id },
