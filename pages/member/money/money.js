@@ -5,7 +5,6 @@ var cPage = 1;
 var myVar = null;
 
 Page({
-
   tabClick: function (e) {
     var index = e.currentTarget.dataset.index
     var classs = ["text-normal", "text-normal", "text-normal", "text-normal", "text-normal", "text-normal"]

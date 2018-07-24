@@ -108,6 +108,10 @@ page{
   font-size: 28rpx;
   color: #ffffff;
 }
+.disabled_btn{
+  background: #eeeeee;
+  border: 1px solid #969696;
+}
 .shipping_btn::after{
   border: none;
 }

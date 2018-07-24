@@ -44,7 +44,7 @@
         <text class="text-address">物流公司:{{result.shipping_name}}</text>
       </view>
     </view>
-      <button class='shipping_btn'>配送信息</button>
+      <button class='shipping_btn {{disabled?"disabled_btn":""}}' bindtap='shippingTap' disabled="{{disabled}}">配送信息</button>
     <view>
     </view>
   </view>

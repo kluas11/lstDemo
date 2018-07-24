@@ -1,5 +1,5 @@
 page {
-  background: #eee;
+  background: #ffffff;
   height: 100%;
   box-sizing: border-box;
 }
@@ -16,7 +16,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #312e43;
+  background: #d94612;
 }
 
 .view-moneyinfo {
@@ -28,7 +28,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
 
 .text-money-prefix {
   font-size: 32rpx;
-  color: orangered;
+  color: #ffffff;
   margin-bottom: 10rpx;
 }
 
@@ -36,7 +36,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
   margin-left: 10rpx;
   font-size: 60rpx;
   line-height: 60rpx;
-  color: orangered;
+  color: #ffffff;
 }
 
 .userinfo {

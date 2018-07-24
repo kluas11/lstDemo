@@ -17,6 +17,11 @@ Page({
   },
   onLoad: function(options) {
     var that = this;
+    wx.showToast({
+      title: 'loading...',
+      icon:"loading",
+      duration:99999
+    })
     this.setData({
       options: options
     })
@@ -237,35 +242,8 @@ Page({
       that.setData({
         banner: banner,
       });
+      wx.hideToast();
     });
-
-    // 获取到
-    // 已废弃
-    // server.getJSON("/Index/home", {
-    //   city: that.data.address,
-    //   stroe_id: storesId,
-    //   lat: App.globalData.lat,
-    //   lon: App.globalData.lng
-    // }, function (res) {
-    //   console.log(res)
-    //   var data = res.data.result;
-    //   var banner =data.ad;
-    //   // var goods = data.goods;
-    //   var ad = res.data.ad;
-    //   // console.log(goods)
-    //   console.log(banner)
-    //   console.log("+++")
-    //   console.log(ad)
-    //   // App.globalData.store_id = res.data.store_id.store_id;
-    //   // console.log(res.data.store_id.store_id)
-    //   // App.globalData.store_name = res.data.store_id.store_name;
-    //   that.setData({
-    //     // shopName: res.data.store_id.store_name,
-    //     banner: banner,
-    //     // goods: goods,
-    //     ad: ad
-    //   });
-    // });
   },
   // 点击banner图
   clickBanner: function(e) {
@@ -277,48 +255,12 @@ Page({
       });
     }
   },
-  // 优惠券
-  // showCoupon: function (e) {
-  //   wx.navigateTo({
-  //     url: '/pages/member/coupon/index'
-  //   })
-  // },
-  // 我的订单
-  // showOrder: function (e) {
-  //   wx.navigateTo({
-  //     url: '../order/list/list',
-  //   })
-  // },
-  // 我的积分
-  // showPoint: function (e) {
-  //   wx.navigateTo({
-  //     url: '../member/point/point'
-  //   })
-  // },
-  // 我的付款码
-  // showMine: function (e) {
-  //   wx.navigateTo({
-  //     url: "../member/money/money"
-  //   });
-  // },
-  // 附近门店
-  // showSeller: function (e) {
-  //   wx.navigateTo({
-  //     url: '../seller/index'
-  //   })
-  // },
   // 搜索
   search: function(e) {
     wx.navigateTo({
       url: "../goods/list/list"
     });
   },
-  // 会员充值
-  // showCarts: function (e) {
-  //   wx.navigateTo({
-  //     url: '../recharge/recharge'
-  //   });
-  // },
   // 商品详情
   showDetail: function(e) {
     var goodsId = e.currentTarget.dataset.goodsId;
@@ -352,12 +294,6 @@ Page({
     }
 
   },
-  //团购
-  // showGroupList: function () {
-  //   wx.navigateTo({
-  //     url: "../goods/grouplist/list"
-  //   });
-  // },
   onShareAppMessage: function() {
     var user_id = App.globalData.userInfo.user_id
     console.log(user_id);
