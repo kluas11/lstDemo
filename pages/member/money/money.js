@@ -11,7 +11,6 @@ Page({
     classs[index] = "text-select"
     this.setData({ tabClasss: classs, tab: index })
   },
-
   data: {
     moneys:0,
     pay_point:0,
@@ -39,41 +38,26 @@ Page({
   },
   getMoneyInfodetail:function(page){
     var that= this;
-    var user_id = getApp().globalData.userInfo.user_id
-  
+    var user_id = wx.getStorageSync('user_id');
     var winRecord = { user_id: user_id}
     if(page>1){
       winRecord['p'] =  page
     }
     server.getJSON('/Walletpay/getWalletPaylog', winRecord, function (res) {
       // success
-      console.log(res);
       that.setData({
         accounts: that.data.accounts.concat(res.data)
       })
         wx.stopPullDownRefresh();
-      // var datas = res.data.result;
-      // var ms = that.data.accounts
-      // for (var i in datas) {
-      //   ms.push(datas[i]);
-      // }
     });
   },
   getMoneyInfoList() {
     var that = this;
-    var user_id = getApp().globalData.userInfo.user_id
-    console.log(user_id)
+    var user_id = wx.getStorageSync('user_id');
     server.getJSON('/Walletpay/getUsermoneyPoints',{
       user_id: user_id
     }, function (res) {
       // success
-      console.log(res);
-      // var datas = res.data.result;
-      // var ms = that.data.accounts
-      // for (var i in datas) {
-      //   ms.push(datas[i]);
-      // }
- 
       that.setData({
         // accounts: ms,
         pay_point: res.data.pay_points ||0,
@@ -158,7 +142,7 @@ Page({
 });
 // 获取条形码
 function getCodeTimer(context) {
-  var user_id = getApp().globalData.userInfo.user_id
+  var user_id = wx.getStorageSync("user_id");
   wx.request({
     url: 'https://shop.poopg.com/index.php/WXAPI/Walletpay/getcode',
     data: { user_id: user_id },

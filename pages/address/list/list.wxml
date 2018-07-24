@@ -6,7 +6,7 @@
 			<text style="margin-left:40rpx" class="mobile">电话:{{item.mobile}}</text>
 		</view>
 		<!-- second row -->
-		<view class="summary">{{item.address}}</view>
+		<view class="summary">{{item.province+item.city+item.district+item.address}}</view>
 		<!-- third row -->
 		<view class="footer">
 			<!-- is default switch -->

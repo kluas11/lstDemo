@@ -130,10 +130,10 @@ Page({
   // 保存图片
   downloadimg() {
     let ctx = this;
+    wx.showLoading()
     wx.downloadFile({
       url: ctx.data.result,
       success: function(res) {
-        console.log(res)
         wx.saveImageToPhotosAlbum({
           filePath: res.tempFilePath,
           success: function(res) {
@@ -147,6 +147,7 @@ Page({
               icon: 'none'
             })
           },complete(){
+            wx.hideLoading();
             ctx.setData({
               disabled: true
             })
@@ -158,6 +159,7 @@ Page({
           title: '保存失败',
           icon: 'none'
         })
+        wx.hideLoading();
         ctx.setData({
           disabled: true
         })

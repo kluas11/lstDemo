@@ -1,4 +1,4 @@
-var server = require('../../../utils/server');
+    var server = require('../../../utils/server');
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.min');
 const App = getApp();
 Page({
@@ -27,29 +27,23 @@ Page({
     var address = this.data.address;
 
     var is_default = 1;
-    var glo_userid = App.globalData.userInfo && App.globalData.userInfo.user_id;
-    var user_id = glo_userid ? glo_userid : wx.getStorageSync("user_id");
-    var country = 1;
+    var user_id =wx.getStorageSync("user_id");
     var twon = 0;
     var province_id = this.data.province_id;
     var city_id = this.data.city_id;
     var district_id = this.data.district_id;
     console.log('省市区地址ID', province_id, city_id, district_id)
     var that = this;
-    server.postJSON('/User/addAddress/user_id/' + user_id, {
+    server.newpostJSON('/User/addAddress', {
       user_id: user_id,
       mobile: mobile,
       zipcode: zipcode,
       consignee: consignee,
       address: address,
       is_default: is_default,
-      country: country,
-      twon: twon,
       province: province_id,
       city: city_id,
-      district: district_id,
-      lat: that.data.latitude,
-      lng: that.data.longitude,
+      district: district_id
     }, function(res) {
       console.log(res)
       if (res.data.status == 1) {

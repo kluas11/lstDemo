@@ -74,7 +74,7 @@ Page({
                 openid: openId
               },
               function(res) {
-                console.log(res)
+                // console.log(res)
                 if (res.data.status) {
                   App.globalData.userInfo = {
                     user_id: res.data.user_id
@@ -118,7 +118,7 @@ Page({
         }
       },
       fail: function(res) {
-        console.log(res)
+        // console.log(res)
       },
       complete: function(res) {
         self.gainStore().then((res) => {
@@ -271,7 +271,7 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    console.log(links)
+    // console.log(links)
     switch (links) {
       case "/pages/category/category":
         wx.switchTab({
@@ -289,7 +289,7 @@ Page({
         });
         break;
       default:
-        console.log("123")
+        // console.log("123")
         break;
     }
 

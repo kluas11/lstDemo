@@ -1,10 +1,10 @@
 // pages/order/ordersubmit/index.js
 var server = require('../../../utils/server');
-const postUrl = "https://tlst.paycore.cc/index.php/WXAPI"
 var tp;
 var pay_points;
 var points_rate;
 const app = getApp();
+const postUrl = app.postUrl;
 Page({
   data: {
     goodsID:"",

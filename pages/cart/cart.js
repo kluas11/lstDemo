@@ -1,6 +1,6 @@
 var server = require('../../utils/server');
 var app = getApp()
-const postUrl ="https://tlst.paycore.cc/index.php/WXAPI"
+const postUrl = app.postUrl;
 Page({
   data: {
     carts: [],
