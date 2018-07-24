@@ -63,7 +63,11 @@ Page({
       account_name: val
     })
   },
-
+  navigateToWithdrawList: function (e) {
+    wx.navigateTo({
+      url: '../withdrawlist/list'
+    });
+  },
   bankNameInput: function (e) {
     const val = e.detail.value;
     this.setData({

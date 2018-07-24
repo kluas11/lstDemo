@@ -75,32 +75,28 @@ page {
 }
 
 .btn-pay{
-	margin-top: 10rpx;
-	margin-bottom: 10rpx;
+
 	height: 50rpx;
-	padding-left: 14rpx;
-	padding-right: 14rpx;
+  padding:10rpx;
 	font-size: 25rpx;
 	line-height: 50rpx;
 	color: #fff;
 	background: red;
 	align-self: flex-end;
-	border-radius: 22rpx;
+	border-radius: 15rpx;
 }
 
 .btn-delete{
-	margin-top: 10rpx;
-	margin-bottom: 10rpx;
+  padding:10rpx;
 	height: 50rpx;
-	padding-left: 10rpx;
-	padding-right: 10rpx;
+
 	font-size: 25rpx;
 	line-height: 50rpx;
 	color: #fff;
 	margin-left: 20rpx;
 	background: #999999;
 	align-self: flex-end;
-	border-radius: 22rpx;
+	border-radius: 15rpx;
 }
 /*右上部分标题*/
 .carts-title {

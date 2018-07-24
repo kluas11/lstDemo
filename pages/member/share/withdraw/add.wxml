@@ -36,5 +36,6 @@
   <view class="class-line"></view>
 
   <text bindtap="formSubmit" class="text-save">提交申请</text>
-
+  
+  <text bindtap='navigateToWithdrawList' class='text-record'>提现记录</text>
 </view>

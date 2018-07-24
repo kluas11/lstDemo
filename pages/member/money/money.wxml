@@ -22,7 +22,9 @@
 <view class='recharge'>
   <button class='recharge-btn' bindtap='tapRecharge'>充值</button>
 </view>
-
+<view class='recharge'>
+  <button class='recharge-btn' bindtap='navigateToWithdraw'>我要提现</button>
+</view>
 <view class="account-item" wx:for="{{accounts}}" wx:key="">
   <view class="info-item">
 

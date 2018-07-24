@@ -1,4 +1,4 @@
-<view style='height:100%;'>
+<view style='height:100%; background:#fff;'>
 
   <view class="view-head">
     <view class="view-moneyinfo">
@@ -19,12 +19,12 @@
   <!-- <view bindtap="navigateToCoupon" class="tableviewcell">
     <text>分销二维码</text>
   </view> -->
-  <view bindtap="navigateToWithdraw" class="tableviewcell">
+  <!-- <view bindtap="navigateToWithdraw" class="tableviewcell">
     <text>我要提现</text>
   </view>
   <view bindtap="navigateToWithdrawList" class="tableviewcell">
     <text>提现记录</text>
-  </view>
+  </view> -->
 
   <view wx:if='{{registerStatus == 1}}' bindtap="navigateToFenxiao" class="tableviewcell1">
     <text>成為推荐人</text>

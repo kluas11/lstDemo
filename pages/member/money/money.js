@@ -32,6 +32,11 @@ Page({
   onPullDownRefresh: function () {
 
   },
+  navigateToWithdraw: function (e) {
+    wx.navigateTo({
+      url: '../../member/share/withdraw/add'
+    });
+  },
   getMoneyInfodetail:function(page){
     var that= this;
     var user_id = getApp().globalData.userInfo.user_id
