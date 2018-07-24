@@ -1,3 +1,14 @@
+<view wx:if="{{orderState}}"class='addressmark' style='z-index:200'>
+  <view class="orderpaybox">
+  <view style='text-align:center;padding:30rpx;height:50rpx;background:#c1c1c1'>选择支付方式</view>
+  <view  class="payment" >
+  <block wx:for="{{paymentArray}}" wx:key="index"   >
+   <button   class='{{item.class}}'  bindtap="paymentBtn" data-way="{{item.way}}" >{{item.name}}</button > 
+  </block>
+  </view>
+    
+  </view>
+</view>
 <view class="class-tab">
   <text bindtap="tabClick" data-index="0" class="{{active_index==0?'text-select':'text-normal'}}">全部</text>
   <text bindtap="tabClick" data-index="1" class="{{active_index==1?'text-select':'text-normal'}}">待付款</text>
@@ -43,6 +54,7 @@
     <text wx:if="{{item.status == 3}}" class="btn-pay" data-index="{{index}}" bindtap="confirm">收货确认</text>
   </view>
 </view>
+
 <view wx:if="{{orders.length == 0}}" class="view-tint">
   <image src="/images/icon_empty.png"></image>
   <text>亲,没有数据</text>
