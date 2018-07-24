@@ -9,9 +9,11 @@ Page({
     login: false,
     time: '获取验证码',
     birthday: '',
+    mobile:'',
+    real_name:'',
+    sex:'0',
     gender: {
-      sel: 2,
-      list: ['男', '女', '其他'],
+      list: ['其他','男', '女', ],
       list_en: ['male', 'female', 'other']
     },
   },
@@ -20,32 +22,30 @@ Page({
     currentTime = -1;
     var login = app.globalData.login;
     var that = this;
-    this.setData({
-      login: login
-    });
-    wx.getSystemInfo({
-      success: function(res) {
-        that.setData({
-          height: res.windowHeight
-        })
-        var nickname = app.globalData.userInfo.nickname;
-        var mobile = app.globalData.userInfo.mobile;
-        var email = app.globalData.userInfo.email;
-        that.setData({
-          phoneNum: mobile,
-          pass: nickname,
-          remindpass: email
-        });
-      }
-    })
+    // this.setData({
+    //   login: login
+    // });
+    // wx.getSystemInfo({
+    //   success: function(res) {
+    //     that.setData({
+    //       height: res.windowHeight
+    //     })
+    //     var nickname = app.globalData.userInfo.nickname;
+    //     var mobile = app.globalData.userInfo.mobile;
+    //     var email = app.globalData.userInfo.email;
+    //     that.setData({
+    //       phoneNum: mobile,
+    //       pass: nickname,
+    //       remindpass: email
+    //     });
+    //   }
+    // })
   },
-
   navigateToAddress: function() {
     wx.navigateTo({
       url: '../../address/list/list'
     });
   },
-
   logout: function() {
     if (AV.User.current()) {
       AV.User.logOut();
@@ -61,8 +61,150 @@ Page({
 
   onShow: function() {
     var that = this;
+    this.getUserInfo()
   },
+  // 真实姓名
+  inputPass: function (e) {
+    this.setData({
+      real_name: e.detail.value,
+    });
+  },
+  // 获取生日
+  bindDateChange: function (e) {
+    console.log((new Date(e.detail.value).getTime() )/ 1000)
+    this.setData({
+      birthday: (new Date(e.detail.value).getTime())/1000
+    })
+  },
+  // 获取手机号码
+  getPhoneNum: function (e) {
+    this.setData({
+      mobile: e.detail.value,
+    });
+  },
+  // 性别
+  bindGenderChange: function (e) {
+    this.setData({
+      'sex': e.detail.value,
+    });
+  },
+  getUserInfo:function(){
+    var that=this;
+    var user_id=app.globalData.userInfo.user_id
+    if (!user_id){
+      wx.showToast({
+        title: '用户信息有误',
+        duration:2000,
+        icon:'clear'
+      })
+      return;
+    }
+    server.getJSON("/User/getUserDetails", {
+      user_id: user_id,
+    }, function (res) {
+      var data = res.data;
+      console.log(data)
+      that.setData({
+        birthday: data.birthday == "0" ? "" : data.birthday,
+        mobile: data.mobile,
+        real_name: data.real_name,
+        sex: data.sex
+      })
+    });
+  },
+  // 提交信息
+  quick_register_phone: function (e) {
+    var that=this;
+    var user_Id = app.globalData.userInfo.user_id
+    var real_name = that.data.real_name;
+    var mobile = that.data.mobile;
+    var sex = that.data.sex;
+   
+    var PhoneRegex = RegExp('^1[34578]\\d{9}$', 'g');
+    var winrecord={
+      user_id: user_Id,
+      real_name: real_name == null ? "" : real_name,
+      sex:sex
+    }
+    if (that.data.birthday && that.data.birthday!="0"){
+      var bir = (that.data.birthday) * 1000
+      var birthday = new Date(bir)
+      birthday.setHours(0)
+      birthday.setMinutes(0)
+      birthday.setSeconds(0)
+      birthday = (new Date(birthday).getTime())
+      winrecord['birthday'] = birthday/1000
+    }
+    if (!PhoneRegex.test(mobile)){
+      wx.showToast({
+        title: '输入正确号码',
+        icon:"clear",
+        duration:2000,
+      })
+      return
+    }else{
+      winrecord['mobile'] = mobile
+    }
+    console.log(winrecord)
+    wx.request({
+      url: app.postUrl +"/User/setUserDetails",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      data: winrecord,
+      method: 'POST',
+      success:function(res){
+        console.log(res)
+        if(res.data==1){
+          wx.showToast({
+            title: '绑定成功',
+            icon:'success',
+            duration:2000,
+            complete:function(){
+              setTimeout(function(){
+                wx.navigateBack({
+                })
+              },1500)
+            }
+          })
+        }else{
+          wx.showToast({
+            title: '绑定失败',
+            icon: 'clear',
+            duration: 2000
+          })
+        }
+      }
+    })
+    // /User/setUserDetails
+    // var that = this;
+    // server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&birthday=" + this.data.birthday + "&gender=" + this.data.gender.list_en[this.data.gender.sel] + "&nickName=" + app.globalData.nickName, function (res) {
+    //   if (res.data.code == 200) {
+    //     app.globalData.login = true;
+    //     app.globalData.userInfo.nickname = res.data.res.nickname;
+    //     app.globalData.userInfo.email = res.data.res.email;
+    //     app.globalData.userInfo.mobile = res.data.res.mobile;
+    //     that.setData({
+    //       login: true
+    //     });
 
+    //     wx.showToast({
+    //       title: res.data.msg,
+    //       icon: 'success',
+    //     });
+
+    //     var timeout = setTimeout(function doHandler() {
+    //       wx.switchTab({
+    //         url: '/pages/member/index/index'
+    //       });
+    //     }, 2000);
+    //   } else
+    //     wx.showToast({
+    //       title: res.data.msg,
+    //       icon: 'error',
+    //     });
+    // });
+  },
   chooseImage: function() {
     var that = this;
     wx.chooseImage({
@@ -351,35 +493,7 @@ Page({
     this.data.num = e.detail.value;
   },
 
-  quick_register_phone: function(e) {
-    var that = this;
-    server.getJSON('/User/register1?phone=' + this.data.phoneNum + "&user_id=" + app.globalData.userInfo.user_id + "&pass=" + this.data.pass + "&birthday=" + this.data.birthday + "&gender=" + this.data.gender.list_en[this.data.gender.sel] + "&nickName=" + app.globalData.nickName, function(res) {
-      if (res.data.code == 200) {
-        app.globalData.login = true;
-        app.globalData.userInfo.nickname = res.data.res.nickname;
-        app.globalData.userInfo.email = res.data.res.email;
-        app.globalData.userInfo.mobile = res.data.res.mobile;
-        that.setData({
-          login: true
-        });
 
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'success',
-        });
-
-        var timeout = setTimeout(function doHandler() {
-          wx.switchTab({
-            url: '/pages/member/index/index'
-          });
-        }, 2000);
-      } else
-        wx.showToast({
-          title: res.data.msg,
-          icon: 'error',
-        });
-    });
-  },
 
   //短信验证码验证
   quick_login_phone: function(e) {
@@ -455,43 +569,16 @@ Page({
       },
     });
   },
-
-  getPhoneNum: function(e) {
-    this.setData({
-      phoneNum: e.detail.value,
-    });
-  },
-
   // inputBirthday: function(e) {
   //   this.setData({
   //     birthday: e.detail.value,
   //   });
   // },
-
-  bindDateChange: function(e) {
-    this.setData({
-      birthday: e.detail.value
-    })
-  },
-
-  bindGenderChange: function(e) {
-    this.setData({
-      'gender.sel': e.detail.value,
-    });
-  },
-
   // inputGender: function(e) {
   //   this.setData({
   //     gender: e.detail.value,
   //   });
   // },
-
-  inputPass: function(e) {
-    this.setData({
-      pass: e.detail.value,
-    });
-  },
-
   input_num: function(e) {
     this.data.num = e.detail.value;
   },

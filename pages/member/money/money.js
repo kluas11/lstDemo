@@ -34,6 +34,7 @@ Page({
 
   },
   navigateToWithdraw: function (e) {
+
     wx.navigateTo({
       url: '../../member/share/withdraw/add'
     });
@@ -155,13 +156,16 @@ Page({
 
   onUnload: function () {
     clearInterval(myVar);
+  },
+  onHide:function(){
+    clearInterval(myVar);     
   }
 });
 // 获取条形码
 function getCodeTimer(context) {
   var user_id = getApp().globalData.userInfo.user_id
   wx.request({
-    url: 'https://shop.poopg.com/index.php/WXAPI/Walletpay/getcode',
+    url: app.postUrl+'/Walletpay/getcode',
     data: { user_id: user_id },
     method: 'POST',
     header: { 'content-type': 'application/x-www-form-urlencoded' },// 将数据转化为query string
