@@ -19,8 +19,8 @@ Page({
     var that = this;
     wx.showToast({
       title: 'loading...',
-      icon:"loading",
-      duration:99999
+      icon: "loading",
+      duration: 99999
     })
     this.setData({
       options: options
@@ -249,10 +249,31 @@ Page({
   clickBanner: function(e) {
     var link = e.currentTarget.dataset.link;
     // var linktype = e.currentTarget.dataset.linktype;
+    wx.showLoading()
     if (link) {
-      wx.navigateTo({
-        url: link
-      });
+      switch (link.slice(0, 5)) {
+        case "https":
+          wx.navigateTo({
+            url: "/pages/web-view/web-view?url=" + link,
+            success() {
+              wx.hideLoading()
+            }
+          });
+          break;
+        case "/page":
+          wx.navigateTo({
+            url: link,
+            success() {
+              wx.hideLoading()
+            }
+          });
+          break;
+        default:
+          wx.hideLoading();
+          break;
+      }
+    } else {
+      return;
     }
   },
   // 搜索
