@@ -20,14 +20,17 @@ Page({
     // var lat;
     // var lon;
     var that = this;
+    // 
+    // /Store/getStores 以前
     wx.getLocation({
       type: 'wgs84',
       success: function(res2) {
-        server.getJSON("/Store/getStores", {
+        server.getJSON("/Store/getNearStores", {
           cid: sc_id,
           lat: res2.latitude,
           lon: res2.longitude
         }, function(res) {
+          console.log(res.data)
           var stores = res.data;
           that.setData({
             stores: stores

@@ -10,18 +10,18 @@
 
 <view class="seller-item" wx:for="{{stores}}" wx:key='unique'>
   <view class="seller-info">
-    <image mode="aspectFill" src="{{item.store_logo}}"></image>
-    <view class="seller-info-right">
+    <image mode="aspectFit" src="{{item.store_logo}}"></image>
+    <view class="seller-info-right" style='width:65%'>
       <text>店铺:{{item.store_name}}</text>
-      <text style="color:#666;">地址:{{item.store_address}}</text>
+      <text style="color:#666;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;" >地址:{{item.store_address}}</text>
     </view>
-    <view class="seller-info-right dist">
+    <view class="seller-info-right" style='width:20%;text-align:center;'>
       <text>距离</text>
-      <text>{{item.km}}</text>
+      <text>{{item.distance}}米</text>
     </view>
   </view>
 
-  <view class="seller-mark">
+  <!-- <view class="seller-mark">
     <view class="seller-mark-item">
       <text class="text-marktitle">宝贝描述</text>
       <text class="text-mark">{{item.store_desccredit}}</text>
@@ -34,9 +34,9 @@
       <text class="text-marktitle">物流服务</text>
       <text class="text-mark">{{item.store_deliverycredit}}</text>
     </view>
-  </view>
+  </view> -->
 
-  <text class="text-title">共有宝贝{{item.goods_num}}件</text>
+  <!-- <text class="text-title">共有宝贝{{item.goods_num}}件</text> -->
 
   <view class="seller-goods">
     <view class="seller-goods-item" wx:for="{{item.goods}}" wx:for-item="good" wx:key='unique'>

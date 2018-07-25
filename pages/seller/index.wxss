@@ -54,7 +54,7 @@ page{
 }
 
 .seller-info-right{
-    height: 110rpx;
+    height: 120rpx;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -62,7 +62,7 @@ page{
 .seller-info-right text{
     font-size: 30rpx;
     color: #444;
-    margin-left: 20rpx;
+    margin-left: 10rpx;
 }
 
 .seller-mark{
