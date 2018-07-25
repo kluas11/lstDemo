@@ -313,7 +313,9 @@ Page({
         });
         break;
       default:
-        // console.log("123")
+       wx.navigateTo({
+         url: links,
+       })
         break;
     }
 
