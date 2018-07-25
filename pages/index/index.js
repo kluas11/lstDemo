@@ -295,7 +295,7 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    // console.log(links)
+    console.log(links)
     switch (links) {
       case "/pages/category/category":
         wx.switchTab({
@@ -311,6 +311,12 @@ Page({
         wx.switchTab({
           url: "pages/member/index/index"
         });
+        break;
+      case "":
+        wx.showToast({
+          title: '功能维护中',
+          icon:"success"
+        })
         break;
       default:
        wx.navigateTo({
