@@ -102,7 +102,6 @@ Page({
     var map = new QQMapWX({
       key: '2NTBZ-BK3W5-NGVIZ-Q5ZZP-L7G5K-GVBFQ' // 必填
     });
-    // address: res.result.address_component.city
     // 调用接口
     map.reverseGeocoder({
       location: {
@@ -292,7 +291,7 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    console.log(links)
+    // console.log(links)
     switch (links) {
       case "/pages/category/category":
         wx.switchTab({
@@ -309,17 +308,8 @@ Page({
           url: "pages/member/index/index"
         });
         break;
-      case "":
-         wx.showToast({
-           title: '功能维护中',
-           icon:'success'
-         })  
-        break;
       default:
-        console.log(links)
-        wx.navigateTo({
-          url: links,
-        })
+        // console.log("123")
         break;
     }
 

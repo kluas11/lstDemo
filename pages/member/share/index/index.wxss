@@ -337,7 +337,6 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
 .QRCodeBg {
   background: #fff;
   padding-top: 50rpx;
-  padding-bottom: 50rpx;
 }
 
 .QRCodeBg image {
@@ -349,7 +348,7 @@ background-image: url('http://shop.wudhl.com/Template/mobile/new/Static/images/u
 .btn {
   height: 80rpx;
   width: 400rpx;
-  margin: 60rpx auto auto auto;
+  margin-top: 40rpx;
   line-height: 80rpx;
   color: #fff;
   background: #2ba246;

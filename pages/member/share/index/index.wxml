@@ -1,12 +1,12 @@
 <view style='height:100%; background:#fff;'>
 
-  <view class="view-head">
+  <!-- <view class="view-head">
     <view class="view-moneyinfo">
       <text class="text-money-prefix">账户余额</text>
       <text class="text-money">￥{{moneys}}</text>
       <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
     </view>
-  </view>
+  </view> -->
   <!-- <view bindtap="navigateToOrder" class="tableviewcell">
     <text>分销订单</text>
   </view> -->
@@ -26,12 +26,11 @@
     <text>提现记录</text>
   </view> -->
 
-  <view wx:if='{{registerStatus == 1}}' bindtap="navigateToFenxiao" class="tableviewcell1">
-    <text>成為推荐人</text>
+  <view class='QRCodeBg'>
+    <image src='{{result}}' mode='widthFix'></image>
+    <button class='btn' bindtap='saveQRCode' disabled='{{!disabled}}'>保存二维码到相册</button>
   </view>
-
-  <view  class='QRCodeBg'>
-     <image src='{{result}}' mode='widthFix'></image> 
-     <button class='btn' bindtap='saveQRCode' disabled='{{!disabled}}'>保存二维码到相册</button>
+  <view bindtap="navigateToFenxiao">
+    <button class='btn'>申请会员</button>
   </view>
 </view>

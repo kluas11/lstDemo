@@ -2,7 +2,6 @@ var server = require('../../../../utils/server');
 var app = getApp();
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -18,9 +17,7 @@ Page({
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
-    var app = getApp();
-    var user_id = app.globalData.userInfo.user_id
-    console.log(user_id)
+    var user_id = wx.getStorageSync("user_id");
   },
 
   accountInput: function(e) {
@@ -38,19 +35,16 @@ Page({
   },
 
   formSubmit: function() {
-    wx.request({
-      url: 'https://shop.poopg.com/index.php/WXAPI/User/apply_user_level',
-      method: 'POST',
-      data: {
-        user_id: app.globalData.userInfo.user_id,
-        seller_id: this.data.staffAccount,
-        seller_name: this.data.staffName
+    let user_id = wx.getStorageSync("user_id"),
+      seller_id = this.data.staffAccount,
+      seller_name = this.data.staffName
+    server.newpostJSON("/User/apply_user_level", {
+        user_id,
+        seller_id,
+        seller_name
       },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      success: res => {
-        if (res.data.status == true) {
+      function(res) {
+        if (res.data.status) {
           wx.showToast({
             title: '申请成功，请等待审核',
             icon: 'none',
@@ -64,18 +58,16 @@ Page({
           })
         }
       }
-    });
+    )
   },
-
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    var user_id = getApp().globalData.userInfo.user_id
-    console.log(user_id);
+    var user_id = wx.getStorageSync("user_id");
     return {
-      title: '颐正养生',
-      desc: '颐正养生',
+      title: '乐善亭',
+      desc: '乐善亭',
       path: '/pages/index/index?uid=' + user_id
     }
   },

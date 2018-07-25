@@ -59,21 +59,21 @@ Page({
       login: login
     });
     // 调用小程序 API，得到用户信息
-    wx.getUserInfo({
-      success: ({
-        userInfo
-      }) => {
-        that.setData({
-          userInfo: userInfo
-        });
-        app.globalData.nickName = userInfo.nickName;
-      }
-    });
-    app.getUserBalance(user_id, that, function(that, userBalance) {
-      that.setData({
-        moneys: userBalance
-      });
-    });
+    // wx.getUserInfo({
+    //   success: ({
+    //     userInfo
+    //   }) => {
+    //     that.setData({
+    //       userInfo: userInfo
+    //     });
+    //     app.globalData.nickName = userInfo.nickName;
+    //   }
+    // });
+    // app.getUserBalance(user_id, that, function(that, userBalance) {
+    //   that.setData({
+    //     moneys: userBalance
+    //   });
+    // });
 
     server.getJSON('/User/createShareQRCode', {
       user_id

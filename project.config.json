@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 20,
 			"list": [
 				{
 					"id": 0,
@@ -157,6 +157,11 @@
 					"name": "确认订单",
 					"pathName": "pages/order/ordersubmit/index",
 					"query": "origin=detail&goodsID=3000&goods_num=1"
+				},
+				{
+					"id": -1,
+					"name": "申请会员",
+					"pathName": "pages/member/share/erweima/index"
 				}
 			]
 		}
