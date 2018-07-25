@@ -16,6 +16,7 @@ Page({
     banner_oss: App.image_oss + '750_290'
   },
   onLoad: function(options) {
+    console.log(options)
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -118,15 +119,19 @@ Page({
         }
       },
       fail: function(res) {
-        // console.log(res)
       },
       complete: function(res) {
-        self.gainStore().then((res) => {
-          // console.log(res)
+        console.log(self.data.options)
+        if (JSON.stringify(self.data.options)!="{}"){
           self.loadBanner(self.data.options);
-        }, (err) => {
-          console.log(err)
-        })
+        }else{
+          self.gainStore().then((res) => {
+            self.loadBanner(self.data.options);
+          }, (err) => {
+            console.log(err)
+          })
+        }
+       
       }
     });
   },
@@ -180,7 +185,6 @@ Page({
           log: lngs,
           lat: lats
         }, function(res) {
-          // console.log(res)
           App.globalData.store_id = res.data.store_id;
           // console.log(res.data.store_id.store_id)
           App.globalData.store_name = res.data.store_name;

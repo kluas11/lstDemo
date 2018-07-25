@@ -817,10 +817,11 @@ Page({
     }
     // 判断是否有地址;
      that.getAddress(user_id).then(res =>{
-       if(res.data.status){
+    
+       if (res.data.length!=0){
          that.setData({
           //  默认地址
-           addressList: res.data.address
+           addressList: res.data
          })
         //  /Dopay/queryShippingPrice
          server.getJSON('/Dopay/queryShippingPrice', {
@@ -853,8 +854,7 @@ Page({
            }
          })
        }
-     }).catch(e =>{
-       console.log(e)
+     }).catch((err) =>{
      })
      that.getUserMonder(user_id).then(res => {
        var money = res.data
@@ -980,10 +980,10 @@ Page({
   },
   // 获取地址信息
   getAddress: function (user_id){
-    // console.log(user_id)
+    console.log(user_id)
     return new Promise(function (resolve, reject){
       try{
-        server.getJSON('/Dopay/getAddress', {
+        server.getJSON('/User/getAddressList', {
           user_id: user_id,
           // distribution_status: that.data.distribution_status
         }, function (res) {
