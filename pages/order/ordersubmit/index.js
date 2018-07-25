@@ -817,7 +817,6 @@ Page({
     }
     // 判断是否有地址;
      that.getAddress(user_id).then(res =>{
-    
        if (res.data.length!=0){
          that.setData({
           //  默认地址
@@ -826,7 +825,7 @@ Page({
         //  /Dopay/queryShippingPrice
          server.getJSON('/Dopay/queryShippingPrice', {
            store_id: stroe_id,
-           address_id: res.data.address[0].address_id
+           address_id: res.data[0].address_id
            // distribution_status: that.data.distribution_status
          }, function (res) {
            if(res.data.status){
