@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/payment/payment",
+    "pages/payment/complete/complete",
     "pages/member/share/erweima/index",
     "pages/getUser/getUser",
     "pages/seller/add",

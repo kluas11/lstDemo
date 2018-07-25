@@ -5,5 +5,5 @@
     <input type='digit' bindblur='count' value="{{formatedNum}}"></input>
   </view>
   <view class='dLine'></view>
-  <button class='btnNext' bindtap="wxRecharge" >微信充值</button>
+  <button class='btnNext' type='number' bindtap="wxRecharge" >微信充值</button>
 </view>

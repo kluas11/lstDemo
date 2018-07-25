@@ -37,7 +37,7 @@
   <block >
      <swiper-item>
      <view class="func-area" style='margin-top:20rpx'>
-     <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key=""  >
+     <navigator  wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key=""  >
       <image src="{{item.logo+lists_oss}}" mode="aspectFill"  />
       <text>{{item.name}}</text>
     </navigator>

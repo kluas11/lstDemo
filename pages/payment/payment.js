@@ -32,8 +32,10 @@ Page({
     let ctx = this;
     console.log(options)
     getStoreInfo(ctx, options.store_id);
+    this.setData({
+      store_id: options.store_id
+    })
     this.load();
-
   },
   onShow() {
     if (this.data.register) {
@@ -138,18 +140,21 @@ Page({
         content: '确认支付' + ctx.data.fixedAmount + '元',
         success: function(res) {
           if (res.confirm) {
-            doPay('walletpay', ctx.data.fixedAmount, app.globalData.store_id, wx.getStorageSync("user_id"), function(res) {
+            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
               if (res.data.status == 1 && res.data.payway == 'walletpay') {
                 wx.showToast({
                   title: '支付成功',
                 });
-                getCustomerInfo(ctx, wx.getStorageSync("user_id"));
-                // getCustomerInfo(ctx, 137);
-                ctx.setData({
-                  inputAmount: 0,
-                  fixedAmount: 0,
-                  'disable.balance': false
-                });
+                wx.redirectTo({
+                  url: '/pages/payment/complete/complete?type=walletpay&complete=success&money=' + ctx.data.fixedAmount,
+                })
+                // getCustomerInfo(ctx, wx.getStorageSync("user_id"));
+                // // getCustomerInfo(ctx, 137);
+                // ctx.setData({
+                //   inputAmount: 0,
+                //   fixedAmount: 0,
+                //   'disable.balance': false
+                // });
               } else if (res.data.status == 1) {
                 wx.showToast({
                   title: '金额输入错误',
@@ -159,7 +164,9 @@ Page({
                 });
               }
             });
-          } else if (res.cancel) {}
+          } else if (res.cancel) {
+            
+          }
           ctx.setData({
             inputAmount: 0,
             fixedAmount: 0,
@@ -180,7 +187,7 @@ Page({
     });
 
     setTimeout(function() {
-      doPay('wxpay', ctx.data.fixedAmount, app.globalData.store_id, wx.getStorageSync("user_id"), function(res) {
+      doPay('wxpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
         if (res.data.status == 1 && res.data.payway == 'wxpay') {
           wx.requestPayment({
             'timeStamp': res.data.data.timeStamp,
@@ -189,17 +196,21 @@ Page({
             'signType': res.data.data.signType,
             'paySign': res.data.data.paySign,
             'success': function(res) {
-
+              wx.redirectTo({
+                url: '/pages/payment/complete/complete?type=wxpay&complete=success&money=' + ctx.data.fixedAmount,
+                })
             },
             'fail': function(res) {
-
+              wx.redirectTo({
+                url: '/pages/payment/complete/complete?type=wxpay&complete=faile',
+              })
             }
           });
-          getCustomerInfo(ctx, wx.getStorageSync("user_id"));
-          // getCustomerInfo(ctx, 137);
-          ctx.setData({
-            'disable.WXPay': false
-          });
+          // getCustomerInfo(ctx, wx.getStorageSync("user_id"));
+          // // getCustomerInfo(ctx, 137);
+          // ctx.setData({
+          //   'disable.WXPay': false
+          // });
         } else if (res.data.status == 1) {
           wx.showToast({
             title: '金额输入错误',
@@ -219,12 +230,6 @@ Page({
         }
       });
     }, 200);
-  },
-
-  onUnload: function() {
-    wx.switchTab({
-      url: '../index/index'
-    })
   }
 })
 

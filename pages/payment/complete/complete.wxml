@@ -1,0 +1,15 @@
+<!--pages/payment/complete/complete.wxml-->
+<view class='layout' wx:if="{{complete == 'success'}}">
+  <image class='img' src='/images/payment_succ.png'></image>
+  <view class='text_view'>
+    <view class='complete'>支付成功</view>
+    <view wx:if="{{type == 'wxpay'}}" class='price'>微信支付:{{money}}</view>
+    <view wx:else class='price'>余额支付:{{money}}</view>
+  </view>
+</view>
+<view class='layout' wx:else>
+  <image class='img' src='/images/payment_fail.png'></image>
+  <view class='text_view'>
+    <view class='complete2'>支付失败</view>
+  </view>
+</view>

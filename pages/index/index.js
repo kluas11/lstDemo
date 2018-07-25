@@ -318,7 +318,6 @@ Page({
        })
         break;
     }
-
   },
   onShareAppMessage: function() {
     var user_id = App.globalData.userInfo.user_id
