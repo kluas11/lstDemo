@@ -16,7 +16,7 @@ Page({
     banner_oss: App.image_oss + '750_290'
   },
   onLoad: function(options) {
-    console.log(options)
+    // console.log(options)
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -120,7 +120,7 @@ Page({
       fail: function(res) {
       },
       complete: function(res) {
-        console.log(self.data.options)
+        // console.log(self.data.options)
         if (JSON.stringify(self.data.options)!="{}"){
           self.loadBanner(self.data.options);
         }else{
