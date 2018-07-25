@@ -102,6 +102,7 @@ Page({
     server.getJSON("/User/getUserDetails", {
       user_id: user_id,
     }, function (res) {
+      
       var data = res.data;
       console.log(data)
       that.setData({
@@ -134,6 +135,8 @@ Page({
       birthday.setSeconds(0)
       birthday = (new Date(birthday).getTime())
       winrecord['birthday'] = birthday/1000
+    }else{
+      winrecord['birthday'] =0
     }
     if (!PhoneRegex.test(mobile)){
       wx.showToast({

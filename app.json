@@ -5,6 +5,7 @@
     "pages/member/share/erweima/index",
     "pages/getUser/getUser",
     "pages/seller/add",
+    "pages/member/point/point",
     "pages/details/details",
     "pages/address/list/list",
     "pages/address/add/add",
