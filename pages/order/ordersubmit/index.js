@@ -879,8 +879,10 @@ Page({
        winrecord["goods_num"] = parseInt(that.data.goodsNum)
      }
     // 获取商品 库存 交易金额
+    console.log(winrecord)
      server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
       var result=res.data
+       console.log(res)
       if (result.status==false){
        wx.hideLoading()
        app.globalData.cart_ids=""
@@ -888,6 +890,7 @@ Page({
          title:"消息提示",
          content:"商品库存不足,请检查商品",
          success:function(res){
+           
            if (res.confirm) {
              wx.switchTab({
                url: '../../cart/cart'

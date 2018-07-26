@@ -2,7 +2,7 @@
 	<view class="carts-item">
 		<view>
 			<!-- 缩略图 -->
-			<image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill"/>
+			<image class="carts-image" src="{{item.original_img}}" mode="aspectFill"/>
 		</view>
 		<view class="carts-text">
 			<!-- 商品标题 -->
@@ -12,7 +12,7 @@
 				<text>￥{{item.shop_price}}</text>
 			</view>
             <view class="order-footer">
-		<text data-goods-id = "{{item.goods_id}}" bindtap="details" class="btn-pay">加入购物车</text>
+		<text data-goods-id = "{{item.goods_id}}" bindtap="details" class="btn-pay">查看商品</text>
 		<text data-goods-id = "{{item.goods_id}}" bindtap="deleteGoods" class="btn-delete">删除</text>
 </view>
 		</view>
