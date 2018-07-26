@@ -10,7 +10,7 @@ Page({
     var app = getApp();
     var order_id = options.order_id;
     var user_id = wx.getStorageSync("user_id");
-    server.getJSON('/order/orderDetails', {
+    server.getJSON('/Order/orderDetails', {
         order_id
       },
       function(res) {
