@@ -66,7 +66,6 @@ Page({
     var sortArray = sort.split('-');
     gsort = sortArray[0];
     asc = sortArray[1];
-
     server.getJSON('/Goods/search/keywords/' + keywords + "/p/" + page + "/sort/" + gsort + "/sort_asc/" + asc, function(res) {
       var newgoods = res.data.result.goods_list
       var ms = that.data.goods

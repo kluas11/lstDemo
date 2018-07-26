@@ -10,7 +10,7 @@ Page({
     goods: [],
     shopName: '',
     navArray: [],
-    imageErr: "../../images/icon_empty.png",
+    imageErr: "./images/icon_empty.png",
     lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
     banner_oss: App.image_oss + '750_290'
@@ -296,30 +296,22 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    console.log(links)
     switch (links) {
-      case "/pages/category/category":
+      case "/pages/category/category" || "/pages/cart/cart" || "/pages/member/index/index":
+      // 转到底部导航页面
         wx.switchTab({
           url: links
         });
         break;
-      case "pages/cart/cart":
-        wx.switchTab({
-          url: "pages/cart/cart"
-        });
-        break;
-      case "pages/member/index/index":
-        wx.switchTab({
-          url: "pages/member/index/index"
-        });
-        break;
-      case "":
+      case "" || "/pages/goods/grouplist/list":
+      // 还在开发页面
         wx.showToast({
           title: '功能维护中',
           icon:"success"
         })
         break;
       default:
+      // 普通页面
        wx.navigateTo({
          url: links,
        })

@@ -15,7 +15,7 @@
       <image src="/images/white_loc.png"></image>
       <view class="view-addressleft-info">
         <text class="text-name">收货人:{{addressList[addressIndex].consignee}}</text>
-        <text class="text-address">收货地址:{{addressList[addressIndex].address}}</text>
+        <text class="text-address">收货地址:{{addressList[addressIndex].province+addressList[addressIndex].city+addressList[addressIndex].district+addressList[addressIndex].address}}</text>
       </view>
     </view>
     <view class="view-addressright">
