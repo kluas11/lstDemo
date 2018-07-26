@@ -24,11 +24,11 @@ Page({
     firstindex:0,
     sencondindex:0,
     firstate: [
-      { id: "0", name: "全部分类", image: "", level: "1" }], 
-    sencondstate: [{ id: "0", name: "全部分类", image: "", level: "1" }],
+      { class_id: "0", name: "全部分类", image: "", level: "1" }], 
+    sencondstate: [{ class_id: "0", name: "全部分类", image: "", level: "1" }],
     subMenuDisplay: initSubMenuDisplay(),
     subMenuHighLight: initSubMenuHighLight,
-    sort: [['shop_price-desc', 'shop_price-asc'], ['sales_sum-desc', 'sales_sum-asc'], ['comment_count-asc']],
+    sort: [['shop_price-desc', 'shop_price-asc'], ['sales_count-desc', 'sales_count-asc'], ['comment_count-asc']],
     goods: [],
     empty: false,
     list_oss: app.image_oss+'150_150'
@@ -60,7 +60,7 @@ Page({
         // console.log(res.data.result)
         var categorys = res.data.result
         // console.log(categorys)
-        categorys.unshift({ id: "0", name: "全部分类", image: "", level: "1" })
+        categorys.unshift({ class_id: "0", name: "全部分类", image: "", level: "1" })
         // console.log(categorys)
         that.setData({
           sencondstate: categorys,
@@ -71,7 +71,7 @@ Page({
     }else{
       that.setData({
         firstindex: 0,
-        sencondstate: [{ id: "0", name: "全部分类", image: "", level: "1" }],
+        sencondstate: [{ class_id: "0", name: "全部分类", image: "", level: "1" }],
         sencondindex:0
       })
     }
@@ -101,10 +101,10 @@ Page({
     //  获取到首页点击跳转全部分类
      parentId = options.parentId||"";
      categoryId = options.categoryId||"";
+    console.log(parentId)
+    console.log(categoryId)
     //  console.log(parentId)
     //  console.log(categoryId)
-    var storeids = app.globalData.store_id;
-
     var firstArray = that.data.firstate
     // categoryId = options.categoryId;
     // keywords = options.keywords;
@@ -115,15 +115,19 @@ Page({
     var firstArr= server.getJSON("/Goods/goodsCategoryList", {
       store_id: storeids
     }, function (res) {
+      console.log(res)
       var firstcategorys = res.data.result;
       that.setData({
-        firstate: firstArray.concat(firstcategorys),
+        firstate: that.data.firstate.concat(firstcategorys),
       });
+      console.log(that.data.firstate)
+      console.log(parentId, categoryId)
       if (parentId != "" && categoryId != "") {
         var secondArr = server.getJSON('/Goods/goodsCategoryList', {
           store_id: storeids,
           parent_id: parentId
         }, function (res) {
+          console.log
           var categorys = res.data.result;
           var sencondArr = that.data.sencondstate
           sencondArr = sencondArr.concat(categorys)
@@ -132,6 +136,7 @@ Page({
             sencondindex: that.selectIndex(sencondArr, categoryId) || 0,
             firstindex: that.selectIndex(that.data.firstate, parentId) || 0
           });
+          console.log(sencondArr)
           // console.log(that.selectIndex(categorys, categoryId))
           // console.log(that.selectIndex(that.data.firstate, parentId))
           if (!keywords)
@@ -153,7 +158,7 @@ Page({
   selectIndex:function(arr,indexID){
    return  arr.findIndex((value, index, arr) => {
       // console.log(value)
-      return value.id == indexID
+     return value.class_id == indexID
     })
   },
   getGoodsByKeywords: function (keyword, pageIndex, sort) {
@@ -165,8 +170,7 @@ Page({
     // asc = sortArray[1];
     var winrecords = {
       store_id: storeid,
-      p: pageIndex || 0,
-      cat_id3: 0,
+      p: pageIndex || 0
     }
     var shopname = keyword || "";
 
@@ -181,8 +185,9 @@ Page({
       winrecords['sort_name'] = gsort
       winrecords['sort'] = asc
     }
-    var firstateID = that.data.firstate[that.data.firstindex].id || 0
-    var secondID = that.data.sencondstate[that.data.sencondindex].id || 0
+
+    var firstateID = that.data.firstate[that.data.firstindex].class_id || 0
+    var secondID = that.data.sencondstate[that.data.sencondindex].class_id || 0
     // var threeID = 0;
     winrecords['cat_id1'] = firstateID
     winrecords['cat_id2'] = secondID
@@ -235,7 +240,6 @@ Page({
     var winrecord = { 
       store_id: storeid,
       p: pageIndex || 0,
-      cat_id3:0,
       }
   
     if (sort == "" || sort==null){
@@ -254,27 +258,16 @@ Page({
       winrecord['goods_name'] = shopname
     }
     //  一级分类，二级分类
-    var firstateID = that.data.firstate[that.data.firstindex].id || 0
-    var secondID = that.data.sencondstate[that.data.sencondindex].id|| 0
+    var firstateID = that.data.firstate[that.data.firstindex].class_id || 0
+    var secondID = that.data.sencondstate[that.data.sencondindex].class_id|| 0
     var threeID=0;
     winrecord['cat_id1'] = firstateID
     winrecord['cat_id2'] = secondID
-
-    // console.log(firstateID)
-    // console.log(secondID)
-    // console.log(storeid)
-    // console.log(gsort)
-    // console.log(asc)
-    // console.log(pageIndex)
     server.getJSON('/Goods/goodsSearch', winrecord, function (res) {
-        // console.log(res)
-    //   // success
+
       var newgoods = res.data
       var ms = that.data.goods.concat(newgoods)
-      // for (var i in newgoods) {
-      //   ms.push(newgoods[i]);
-      // }
-
+      console.log(ms)
       if (ms.length == 0) {
         that.setData({
           empty: true

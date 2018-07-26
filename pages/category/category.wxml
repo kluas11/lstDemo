@@ -1,7 +1,7 @@
 <view class="container">
   <!-- 侧边栏 -->
   <scroll-view class="sidebar" scroll-y="false" scroll-x="true" style="height:{{wh}}">
-    <view wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
+    <view wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.class_id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
       <view class="{{nav_avtive==index?'active':'actives'}}"></view>
       <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.name}}</view>
     </view>
@@ -21,8 +21,8 @@
     <view class="gridview">
       <block wx:for="{{subCategories}}" wx:key="id">
         <view class='gridview_list'>
-          <image src="{{item.image+list_oss}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />
-          <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}">{{item.name}}</text>
+          <image src="{{item.image+list_oss}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}" />
+          <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}">{{item.name}}</text>
         </view>
       </block>
     </view>

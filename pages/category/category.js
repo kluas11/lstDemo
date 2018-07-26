@@ -69,14 +69,13 @@ Page({
       that.setData({
         topCategories: categorys,
       });
-      that.getCategory(categorys[0].id);
+      that.getCategory(categorys[0].class_id);
       // console.log(categorys[0].name)
       that.getBanner(categorys[0].name);
     });
   },
   getCategory: function(parent_id) {
     var that = this;
-    console.log(parent_id)
     stopgetCategory = server.getJSON('/Goods/goodsCategoryList', {
       parent_id,
       store_id:getApp().globalData.store_id
