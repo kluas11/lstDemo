@@ -39,7 +39,7 @@ Page({
       district,
       address_id
     }, function(res) {
-      if (res.data.status == 1) {
+      if (res.data == 1) {
         wx.showToast({
           title: '保存成功',
           duration: 1000
@@ -96,7 +96,10 @@ Page({
   },
   getArea: function(pid, cb) {
     var that = this;
-    server.getJSON('/User/getArea/parent_id/' + pid, function(res) {
+    server.getJSON('/User/getArea',{
+      parent_id:pid
+    }
+    , function(res) {
       cb(res.data.result);
     });
 

@@ -111,7 +111,8 @@
       },
       getArea: function(pid, cb) {
         var that = this;
-        server.getJSON('/User/getArea/parent_id/' + pid, {
+        server.getJSON('/User/getArea', {
+          parent_id:pid,
           store_id: App.globalData.store_id
         }, function(res) {
           cb(res.data.result);
