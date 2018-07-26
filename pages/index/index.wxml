@@ -107,7 +107,7 @@
       <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
         <text class="title">{{item.goods_name}}</text>
         <text class="source improt_color">￥{{item.shop_price}}</text>
-        <image class="avatar" src="{{item.original_img==null?'../../images/failImg.png':item.original_img+goods_oss}}"binderror="{{imageErr}}"mode="aspectFill" />
+        <image class="avatar" src="{{item.original_img==null?imageErr:item.original_img+goods_oss}}"mode="aspectFill" />
       </view>
     </scroll-view>
   </view>

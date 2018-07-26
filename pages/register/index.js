@@ -90,7 +90,7 @@ Page({
   },
   getUserInfo:function(){
     var that=this;
-    var user_id=app.globalData.userInfo.user_id
+    var user_id=wx.getStorageSync("user_id");
     if (!user_id){
       wx.showToast({
         title: '用户信息有误',
@@ -116,11 +116,10 @@ Page({
   // 提交信息
   quick_register_phone: function (e) {
     var that=this;
-    var user_Id = app.globalData.userInfo.user_id
+    var user_Id = wx.getStorageSync("user_id");
     var real_name = that.data.real_name;
     var mobile = that.data.mobile;
     var sex = that.data.sex;
-   
     var PhoneRegex = RegExp('^1[34578]\\d{9}$', 'g');
     var winrecord={
       user_id: user_Id,

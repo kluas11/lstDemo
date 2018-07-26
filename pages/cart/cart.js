@@ -190,11 +190,6 @@ Page({
     }
 
     // return;
-  
-
-
-    // app.globalData.cart_ids = cartIds;
- 
     // 需要获取出地址 
     wx.navigateTo({
       url: '/pages/order/ordersubmit/index?origin=cart' + "&goodsID=" + goodsID 

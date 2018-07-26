@@ -10,7 +10,7 @@ Page({
     goods: [],
     shopName: '',
     navArray: [],
-    imageErr: "../../images/failImg.png",
+    imageErr: "../../images/icon_empty.png",
     lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
     banner_oss: App.image_oss + '750_290'

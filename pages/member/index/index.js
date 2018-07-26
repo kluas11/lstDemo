@@ -53,7 +53,7 @@ Page({
   // 我的订单
   navigateToOrder: function(e) {
     wx.navigateTo({
-      url: '/pages/order/list/list'
+      url: '/pages/order/list/list?type=' + e.currentTarget.dataset.cid
     });
   },
   // 地址管理

@@ -167,11 +167,11 @@ Page({
           } else if (res.cancel) {
             
           }
-          ctx.setData({
-            inputAmount: 0,
-            fixedAmount: 0,
-            'disable.balance': false
-          });
+          // ctx.setData({
+          //   inputAmount: 0,
+          //   fixedAmount: 0,
+          //   'disable.balance': false
+          // });
         }
       })
     }, 200);
@@ -232,8 +232,6 @@ Page({
     }, 200);
   }
 })
-
-
 /*******************************************************************************
  * 通用方法
  *******************************************************************************/

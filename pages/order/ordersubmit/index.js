@@ -311,7 +311,6 @@ Page({
     });
 
     if (this.data.selected_distribution == 1 && this.data.totalPrice3 != undefined) {
-      console.log('in================')
       var totalPrice2 = this.data.totalPrice3 - use_money
       if (totalPrice2 < 0) totalPrice2 = 0
       this.setData({
@@ -369,7 +368,6 @@ Page({
 
 
     if (parseInt(user_point) < use_point) {
-
       var totalObj = this.data.totalPrice;
       var m = tp - use_money;
       totalObj.total_fee = m
@@ -530,10 +528,6 @@ Page({
   },
   // 发送支付
   sendpayment: function(postUrl, port, winrecord, payway) {
-    console.log(postUrl)
-    console.log(port)
-    console.log(payway)
-    console.log(winrecord)
     var that = this;
     wx.showLoading({
       title: '加载中',
@@ -628,9 +622,6 @@ Page({
                     url: '../../index/index'
                   });
                 }, 2000)
-
-
-
               }
             })
           }
@@ -895,27 +886,30 @@ Page({
       winrecord["goods_num"] = parseInt(that.data.goodsNum)
     }
     // 获取商品 库存 交易金额
-    server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
-      var result = res.data
-      if (result.status == false) {
-        wx.hideLoading()
-        app.globalData.cart_ids = ""
-        wx.showModal({
-          title: "消息提示",
-          content: "商品库存不足,请检查商品",
-          success: function(res) {
-            if (res.confirm) {
-              wx.switchTab({
-                url: '../../cart/cart'
-              });
-            } else if (res.cancel) {
-              wx.switchTab({
-                url: '../../cart/cart'
-              });
-            }
-          }
-        })
-      } else {
+    console.log(winrecord)
+     server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
+      var result=res.data
+       console.log(res)
+      if (result.status==false){
+       wx.hideLoading()
+       app.globalData.cart_ids=""
+       wx.showModal({
+         title:"消息提示",
+         content:"商品库存不足,请检查商品",
+         success:function(res){
+           
+           if (res.confirm) {
+             wx.switchTab({
+               url: '../../cart/cart'
+             });
+           } else if (res.cancel) {
+             wx.switchTab({
+               url: '../../cart/cart'
+             });
+           }
+         }
+       })
+     }else{
         wx.hideLoading();
         // 总价格
         // totalPrice

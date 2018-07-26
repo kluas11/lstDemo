@@ -407,6 +407,10 @@ Page({
   onLoad: function(option) {
     // 页面显示
     cPage = 1;
+    ctype = option.type ? option.type:ctype;
+    this.setData({
+      active_index: ctype
+    })
     this.data.orders = [];
     this.getOrderLists(ctype, cPage);
   },
