@@ -24,7 +24,7 @@ Page({
     subMenuHighLight: initSubMenuHighLight,
     sort: [
       ['shop_price-desc', 'shop_price-asc'],
-      ['sales_sum-desc', 'sales_sum-asc'],
+      ['sales_count-desc', 'sales_count-asc'],
       ['is_new-desc', 'is_new-asc'], 'comment_count-asc'
     ],
     goods: [],
