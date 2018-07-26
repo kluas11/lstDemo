@@ -50,11 +50,12 @@ Page({
     // 根据以及分类筛选二级分类
     var indexs = e.detail.value
     var that = this
-  
+    var store_id = app.globalData.store_id;
     if (e.detail.value != 0 && e.detail.value != "" && e.detail.value!="0"){
       var parent = that.data.firstate[indexs].id
-      server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
-        store_id: 30
+      server.getJSON('/Goods/goodsCategoryList', {
+        store_id: store_id,
+        parent_id: parent
       }, function (res) {
         // console.log(res.data.result)
         var categorys = res.data.result
@@ -103,22 +104,25 @@ Page({
     //  console.log(parentId)
     //  console.log(categoryId)
     var storeids = app.globalData.store_id;
+
     var firstArray = that.data.firstate
     // categoryId = options.categoryId;
     // keywords = options.keywords;
     // console.log(options)
     // console.log(storeids)
     // 获取一级分类
+    var storeids = app.globalData.store_id;
     var firstArr= server.getJSON("/Goods/goodsCategoryList", {
-      store_id: 30
+      store_id: storeids
     }, function (res) {
       var firstcategorys = res.data.result;
       that.setData({
         firstate: firstArray.concat(firstcategorys),
       });
       if (parentId != "" && categoryId != "") {
-        var secondArr = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parentId, {
-          store_id: 30
+        var secondArr = server.getJSON('/Goods/goodsCategoryList', {
+          store_id: storeids,
+          parent_id: parentId
         }, function (res) {
           var categorys = res.data.result;
           var sencondArr = that.data.sencondstate
@@ -155,7 +159,7 @@ Page({
   getGoodsByKeywords: function (keyword, pageIndex, sort) {
     var that = this;
     // 排序
-    var storeid = app.globalData.store_id || 30 //店铺ID
+    var storeid = app.globalData.store_id //店铺ID
     // var sortArray = sort.split('-');
     // gsort = sortArray[0];
     // asc = sortArray[1];
@@ -227,7 +231,7 @@ Page({
   getGoods: function (category, pageIndex, sort) {
     var that = this;
     // 排序
-    var storeid = app.globalData.store_id || 30;
+    var storeid = app.globalData.store_id;
     var winrecord = { 
       store_id: storeid,
       p: pageIndex || 0,
