@@ -276,6 +276,7 @@ Page({
           break;
       }
     } else {
+      wx.hideLoading();
       return;
     }
   },

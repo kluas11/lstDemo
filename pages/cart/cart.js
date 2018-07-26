@@ -211,14 +211,12 @@ Page({
       store_id = app.globalData.store_id;
     }
      server.getJSON('/Cart/cartList',{
-       user_id: userID||365, 
+       user_id: userID,
        store_id: store_id||30
         }, function (res) {
           console.log(res)
       var carts = res.data
       // success
-      // var goodsList = [];
-
       if (carts.length != 0)
         that.setData({ empty: false });
       else {
@@ -256,20 +254,9 @@ Page({
       // // sum
       that.sum();
     });
+    console.clear();
   },
   onShow: function () {
-    // auto login
-    // console.log(app.globalData.cart_ids)
-    // console.log(stroe_id);
-
-    // if (stroe_id == '' || stroe_id == undefined )
-    //  {
-    //   wx.redirectTo({
-    //     url: '/pages/gotoshop/gotoshop',
-    //   })
-    //   return;
-    // }
-
     this.getCarts();
     // 下面的功能未知
 
@@ -321,12 +308,6 @@ Page({
     var index = parseInt(e.currentTarget.dataset.index)
     var id = this.data.carts[index].cart_id;
     var that = this
-
-    // server.getJSON('/Cart/delCart/id/' + id, function (res) {
-
-
-    //   that.getCarts();
-    // });
     console.log(id)
     wx.request({
       url: postUrl + "/Cart/delCart",
@@ -346,9 +327,9 @@ Page({
         }
       }
     })
+    console.clear();
   },
   saveNum: function (id, num) {
-    //https://wudhl.com/index.php/Api/Cart/updateNum/id/1720/num/9
     var that = this
     console.log(id,num)
     wx.request({
@@ -368,14 +349,7 @@ Page({
         }
       }
     })
-    // server.postJSON('/Cart/updateNum',{
-      
-    // } ,function (res) {
-    //   console.log(res)
-    //   // that.getCarts();
-    // });
-
-
+    console.clear();
   },
   // 弃用
   updataSelect: function (id, selected) {

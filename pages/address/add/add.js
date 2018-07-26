@@ -119,6 +119,7 @@
         })
       },
       onLoad: function(options) {
+        console.clear()
         wx.showToast({
           title: '正在加载...',
           icon: 'loading',

@@ -29,7 +29,6 @@ Page({
     this.setData({
       goods: goods
     });
-
     this.checkPrice();
   },
   // 加入收藏
@@ -38,25 +37,25 @@ Page({
     if (e.detail.errMsg === "getUserInfo:ok") {
       var goods_id = e.currentTarget.dataset.id;
       let collectstate = this.data.collectstate;
-      var type = collectstate?1:0;
-      var msg = collectstate?'取消收藏':"成功收藏";
+      var type = collectstate ? 1 : 0;
+      var msg = collectstate ? '取消收藏' : "成功收藏";
       this.getuser_id().then(user_id => {
-        server.getJSON('/Goods/collectGoods',{
-          user_id,
-          goods_id,
-          type
-        },
-         function(res) {
-          console.log(res)
-          that.setData({
-            collectstate:!collectstate
-          })
-          wx.showToast({
-            title: msg,
-            icon: 'success',
-            duration: 2000
-          })
-        });
+        server.getJSON('/Goods/collectGoods', {
+            user_id,
+            goods_id,
+            type
+          },
+          function(res) {
+            console.log(res)
+            that.setData({
+              collectstate: !collectstate
+            })
+            wx.showToast({
+              title: msg,
+              icon: 'success',
+              duration: 2000
+            })
+          });
       })
     }
   },
@@ -170,7 +169,7 @@ Page({
         })
         return;
       }
-
+      console.clear()
       // that.checkPrice();
     });
   },
@@ -184,15 +183,14 @@ Page({
         console.log(goods)
         console.log(goods_num)
         var goodsID = goods.goods_id
-        if (goodsID)
-        {
+        if (goodsID) {
           wx.navigateTo({
             url: '/pages/order/ordersubmit/index?origin=detail' + "&goodsID=" + goodsID + "&goods_num=" + goods_num
           });
         }
-        
       })
     }
+    console.clear()
     return;
   },
   //  
@@ -244,6 +242,7 @@ Page({
         })
       })
     }
+    console.clear();
     return;
   },
   showCartToast: function() {
@@ -255,7 +254,6 @@ Page({
     wx.navigateTo({
       url: '/pages/cart/cart'
     });
-
   },
   // 预览图片
   previewImage: function(e) {
@@ -283,6 +281,7 @@ Page({
     if (!store_id) {
       App.get_getLocation(that.getstore_id)
     }
+    console.clear();
   },
   // 首次加入获取最近门店
   gainStore() {
@@ -355,5 +354,6 @@ Page({
         })
       }
     });
+    console.clear();
   },
 });
