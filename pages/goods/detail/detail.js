@@ -37,15 +37,22 @@ Page({
     var that = this;
     if (e.detail.errMsg === "getUserInfo:ok") {
       var goods_id = e.currentTarget.dataset.id;
-      var ctype = 0;
+      let collectstate = this.data.collectstate;
+      var type = collectstate?1:0;
+      var msg = collectstate?'取消收藏':"成功收藏";
       this.getuser_id().then(user_id => {
-        server.getJSON('/Goods/collectGoods/user_id/' + user_id + "/goods_id/" + goods_id + "/type/" + ctype, function(res) {
+        server.getJSON('/Goods/collectGoods',{
+          user_id,
+          goods_id,
+          type
+        },
+         function(res) {
           console.log(res)
           that.setData({
-            collectstate: true
+            collectstate:!collectstate
           })
           wx.showToast({
-            title: res.data.msg,
+            title: msg,
             icon: 'success',
             duration: 2000
           })

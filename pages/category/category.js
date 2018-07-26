@@ -60,7 +60,6 @@ Page({
   getTopCategory: function(parent) {
     var that = this;
     var storeid = app.globalData.store_id;
-  
     server.getJSON("/Goods/goodsCategoryList", {
       store_id: storeid
     }, function(res) {
@@ -75,18 +74,18 @@ Page({
       that.getBanner(categorys[0].name);
     });
   },
-  getCategory: function(parent) {
+  getCategory: function(parent_id) {
     var that = this;
-    console.log(parent)
-    stopgetCategory = server.getJSON('/Goods/goodsCategoryList/parent_id/' + parent, {
-      
+    console.log(parent_id)
+    stopgetCategory = server.getJSON('/Goods/goodsCategoryList', {
+      parent_id,
       store_id:getApp().globalData.store_id
     }, function(res) {
       console.log(res)
       var categorys = res.data.result;
       that.setData({
         subCategories: categorys,
-        stairId: parent,
+        stairId: parent_id,
         loadings: false
       });
     });
