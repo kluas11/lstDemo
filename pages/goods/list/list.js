@@ -52,7 +52,7 @@ Page({
     var that = this
     var store_id = app.globalData.store_id;
     if (e.detail.value != 0 && e.detail.value != "" && e.detail.value!="0"){
-      var parent = that.data.firstate[indexs].id
+      var parent = that.data.firstate[indexs].class_id
       server.getJSON('/Goods/goodsCategoryList', {
         store_id: store_id,
         parent_id: parent
