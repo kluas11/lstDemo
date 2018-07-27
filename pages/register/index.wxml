@@ -24,7 +24,7 @@
       <picker mode="date"  start="1900-01-01" bindchange="bindDateChange" value="{{birthday==''?'':tools.timestampToTime(birthday,true)}}">
         <view class="picker">
           <view class="wx-view_log_item" style="border-bottom-style: none;">
-            <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="生日" bindinput="inputBirthday" value="{{birthday==''?'':tools.timestampToTime(birthday,true)}}" />
+            <input placeholder-style="color:#999999" disabled class="c-block c-fullwidth wx_input" placeholder="生日" bindinput="inputBirthday" value="{{birthday==''?'':tools.timestampToTime(birthday,true)}}" />
           </view>
         </view>
       </picker>

@@ -207,7 +207,7 @@ Page({
     }
      server.getJSON('/Cart/cartList',{
        user_id: userID,
-       store_id: store_id||30
+       store_id: store_id
         }, function (res) {
           console.log(res)
       var carts = res.data
