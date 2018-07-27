@@ -101,8 +101,6 @@ Page({
     //  获取到首页点击跳转全部分类
      parentId = options.parentId||"";
      categoryId = options.categoryId||"";
-    console.log(parentId)
-    console.log(categoryId)
     //  console.log(parentId)
     //  console.log(categoryId)
     var firstArray = that.data.firstate
@@ -115,19 +113,15 @@ Page({
     var firstArr= server.getJSON("/Goods/goodsCategoryList", {
       store_id: storeids
     }, function (res) {
-      console.log(res)
       var firstcategorys = res.data.result;
       that.setData({
         firstate: that.data.firstate.concat(firstcategorys),
       });
-      console.log(that.data.firstate)
-      console.log(parentId, categoryId)
       if (parentId != "" && categoryId != "") {
         var secondArr = server.getJSON('/Goods/goodsCategoryList', {
           store_id: storeids,
           parent_id: parentId
         }, function (res) {
-          console.log
           var categorys = res.data.result;
           var sencondArr = that.data.sencondstate
           sencondArr = sencondArr.concat(categorys)
@@ -136,7 +130,7 @@ Page({
             sencondindex: that.selectIndex(sencondArr, categoryId) || 0,
             firstindex: that.selectIndex(that.data.firstate, parentId) || 0
           });
-          console.log(sencondArr)
+          // console.log(sencondArr)
           // console.log(that.selectIndex(categorys, categoryId))
           // console.log(that.selectIndex(that.data.firstate, parentId))
           if (!keywords)
@@ -267,7 +261,6 @@ Page({
 
       var newgoods = res.data
       var ms = that.data.goods.concat(newgoods)
-      console.log(ms)
       if (ms.length == 0) {
         that.setData({
           empty: true

@@ -7,6 +7,7 @@ const app = getApp();
 const postUrl = app.postUrl;
 Page({
   data: {
+    image_oss:app.image_oss+"130_150",
     goodsID: "",
     goodsNum: "",
     orginPage: "",
@@ -407,7 +408,6 @@ Page({
     })
   },
   onShow: function() {
-
     if (!this.data.goodsID) {
       wx.showToast({
         title: '订单已关闭',
@@ -448,7 +448,6 @@ Page({
         image: '../../../images/about.png',
         duration: 2000,
         complete: function() {
-
           setTimeout(function() {
             wx.switchTab({
               url: '../../index/index'
@@ -514,17 +513,8 @@ Page({
           wx.hideLoading()
           return;
         }
-
       })
-
     }
-    // console.log(winrecord)
-    // console.log(postUrl + port)
-    // console.log(user_id)
-    // console.log(open_id)
-    // console.log(order_id)
-    // console.log(winrecord)
-
   },
   // 发送支付
   sendpayment: function(postUrl, port, winrecord, payway) {
@@ -656,22 +646,6 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    // user 
-    // var selected_distribution = this.data.selected_distribution
-    // 地址ID
-    // var address_id = this.data.address.address_id
-    // 获取到用户余额
-    // var use_money = this.data.use_money
-    // 不明
-    // var pay_points = this.data.use_point
-
-    // 优惠券判断
-    // var couponTypeSelect = this.data.check[0] == "true" ? 1 : 2;
-    // var coupon_id = 0;
-    // if (this.data.cpos != -1) {
-    //   coupon_id = this.data.couponList[this.data.cpos].id;
-    // }
-    // var couponCode = this.data.couponCode;
     var that = this;
     // 获取需要买的商品 
     var goodsID = this.data.goodsID
@@ -689,12 +663,6 @@ Page({
       address_id: addressID,
       is_express: that.data.distributionIndex
     }
-    console.log(winrecord)
-    // console.log(user_id)
-    // console.log(store_id)
-    // console.log(goodsID)
-    // console.log(addressID)
-    // console.log(that.data.distributionIndex)
     if (that.data.goodsNum > 0) {
       winrecord["goods_num"] = that.data.goodsNum
     }
@@ -746,83 +714,17 @@ Page({
         })
       }
     })
-    // server.getJSON('/Dopay/createOrder', {
-    //   user_id: user_id,
-    //   store_id: stroe_id,
-    //   cart_ids: cart_id,
-    //   address_id: addressID,
-    //   is_express: that.data.distributionIndex
-    // }, function(res) {
-    //   console.log(res)
-    //   return;
-    //   // if (res.data.status != 1 && res.data.status != 2) {
-    //   //   wx.showToast({
-    //   //     title: res.data.msg,
-    //   //     duration: 2000,
-    //   //     icon: 'none'
-    //   //   });
-    //   //   return;
-    //   // }
-
-    //   // if (res.data.status == 2) {
-    //   //   wx.showModal({
-    //   //     title: '支付成功',
-    //   //     content: '跳转到订单详情？',
-    //   //     success: function(res) {
-    //   //       if (res.confirm) {
-    //   //         console.log('用户点击确定')
-    //   //         wx.redirectTo({
-    //   //           url: '/pages/order/list/list',
-    //   //         })
-    //   //       } else if (res.cancel) {
-    //   //         console.log('用户点击取消')
-    //   //         wx.navigateBack({
-    //   //           delta: 999
-    //   //         })
-    //   //       }
-    //   //     }
-    //   //   });
-    //   //   return;
-    //   // }
-
-    //   // var result = res.data.result
-    //   // app.globalData.wxdata = res.data.data
-    //   // app.globalData.order = res.data.order
-    //   // if (res.data.status == 1) {
-    //   //   wx.showToast({
-    //   //     title: '提交成功',
-    //   //     duration: 2000
-    //   //   });
-    //   //   setTimeout(function() {
-    //   //     if (res.data.order.pay_status == 1) {
-    //   //       wx.switchTab({
-    //   //         url: "../../member/index/index"
-    //   //       });
-    //   //       return;
-    //   //     }
-    //   //     wx.navigateTo({
-    //   //       url: '../payment/payment?order_id=' + result
-    //   //     });
-    //   //   }, 2000);
-    //   // }
-    // });
   },
   //  获取订单所有信息
   getCarts: function() {
-
-    // console.log("123")
-    console.log("++++123123")
-    var user_id = wx.getStorageSync("user_id")
-    // cosnole.log(user_id)
+    var user_id = wx.getStorageSync("user_id");
     var that = this
     var stroe_id = app.globalData.store_id;
-    // console.log(cartIds)
-    // console.log(stroe_id)
-    if (!stroe_id || !user_id) {
-      wx.switchTab({
-        url: '../../index/index'
-      });
-    }
+    // if (!stroe_id || !user_id) {
+    //   wx.switchTab({
+    //     url: '../../index/index'
+    //   });
+    // }
     // 判断是否有地址;
     that.getAddress(user_id).then(res => {
       if (res.data.length != 0) {
@@ -875,9 +777,6 @@ Page({
     }).catch(e => {
       console.log(e)
     })
-    //  console.log(user_id)
-    //  console.log(that.data.goodsID)
-    //  console.log(that.data.goodsNum)
     var winrecord = {
       user_id: user_id,
       goods_ids: that.data.goodsID
@@ -897,7 +796,6 @@ Page({
          title:"消息提示",
          content:"商品库存不足,请检查商品",
          success:function(res){
-           
            if (res.confirm) {
              wx.switchTab({
                url: '../../cart/cart'

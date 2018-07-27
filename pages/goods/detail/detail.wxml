@@ -1,6 +1,5 @@
 <view class="class-tab">
   <text bindtap="tabClick" data-index="0" class="{{active_index == 0?'text-select':'text-normal'}}">商品</text>
-  <!-- <text bindtap="tabClick" data-index="1" class="{{active_index == 1?'text-select':'text-normal'}}">详情</text> -->
   <text bindtap="tabClick" data-index="2" class="{{active_index == 2?'text-select':'text-normal'}}">评价</text>
 </view>
 <view class="parent" wx:if="{{tab == 0}}">
@@ -18,8 +17,7 @@
     <view class="class-line">
     </view>
     <button bindgetuserinfo="addCollect" open-type='getUserInfo' data-id="{{goods.goods_id}}" class="class-collect">
-      <image src="/images/yetenshrine.png" wx:if="{{collectstate}}"></image>
-      <image src="/images/enshrine1.png" wx:else></image>
+      <text class='iconfont icon-shoucang {{collectstate?"select":""}}'></text>
     </button>
   </view>
 

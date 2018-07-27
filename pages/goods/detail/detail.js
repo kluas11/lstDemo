@@ -152,12 +152,10 @@ Page({
   },
   getGoodsById: function(goodsId) {
     var that = this
-
     server.getJSON('/Goods/goodsInfo', {
       goods_id: goodsId
     }, function(res) {
       var goodsInfo = res.data;
-      console.log(res)
       if (res.statusCode == 200) {
         that.setData({
           goods: goodsInfo
@@ -169,8 +167,6 @@ Page({
         })
         return;
       }
-      console.clear()
-      // that.checkPrice();
     });
   },
   //  立即购买了解一下
@@ -180,8 +176,6 @@ Page({
     var goods_num = that.data.goods_num;
     if (e.detail.errMsg === "getUserInfo:ok") {
       that.getuser_id().then(user_id => {
-        console.log(goods)
-        console.log(goods_num)
         var goodsID = goods.goods_id
         if (goodsID) {
           wx.navigateTo({
@@ -190,7 +184,6 @@ Page({
         }
       })
     }
-    console.clear()
     return;
   },
   //  

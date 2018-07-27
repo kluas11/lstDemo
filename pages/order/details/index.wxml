@@ -18,7 +18,7 @@
   <!-- 收货地址 -->
   <view class="view-address" style="background:#ffffff" wx:if="{{result.province}}">
     <view class="view-addressleft">
-      <image src="/images/icon_address.png"></image>
+      <text class='iconfont icon-dizhi2'></text>
       <view class="view-addressleft-info">
         <text class="text-name">收货人:{{result.consignee}}</text>
         <text class="text-address">收货地址:{{result.province+result.city+result.district+result.address}}</text>
@@ -30,7 +30,7 @@
   </view>
   <view wx:else class="view-address" style="background:#ffffff">
       <view class="view-addressleft">
-      <image src="/images/icon_address.png"></image>
+      <text class='iconfont icon-dizhi2'></text>
       <view class="view-addressleft-info">
         <text class="text-name">门店自取</text>
       </view>
@@ -49,7 +49,7 @@
     </view>
   </view>
   <view class="view-title">
-    <image src="/images/icon_order.png"></image>
+    <text class='iconfont icon-gouwudai'></text>
     <text>网站自营</text>
   </view>
 

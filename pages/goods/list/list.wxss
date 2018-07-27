@@ -33,13 +33,10 @@ page{
 	flex-direction: row;
 	align-items: center;
 }
-
-.search-content image{
-	width: 44rpx;
-	height: 44rpx;
-	margin-left: 20rpx;
+.search .icon-sousuo1{
+  font-size: 40rpx;
+  margin-left: 20rpx;
 }
-
 .input_search{
 	flex-grow: 2;
 	margin-left: 15rpx;
@@ -48,8 +45,6 @@ page{
 	line-height: 28rpx;
 	
 }
-
-
 .search text{
     font-size: 28rpx;
 	color: #5a5a5a;

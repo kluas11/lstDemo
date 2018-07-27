@@ -117,20 +117,19 @@ Page({
           App.globalData.city = res.result.ad_info.city;
         }
       },
-      fail: function(res) {
-      },
+      fail: function(res) {},
       complete: function(res) {
         // console.log(self.data.options)
-        if (JSON.stringify(self.data.options)!="{}"){
+        if (JSON.stringify(self.data.options) != "{}") {
           self.loadBanner(self.data.options);
-        }else{
+        } else {
           self.gainStore().then((res) => {
             self.loadBanner(self.data.options);
           }, (err) => {
             console.log(err)
           })
         }
-       
+
       }
     });
   },
@@ -271,9 +270,6 @@ Page({
             }
           });
           break;
-        default:
-          wx.hideLoading();
-          break;
       }
     } else {
       wx.hideLoading();
@@ -296,26 +292,23 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    switch (links) {
-      case "/pages/category/category" || "/pages/cart/cart" || "/pages/member/index/index":
+    console.log(!links)
+    if (links == ("/pages/category/category" || "/pages/cart/cart" || "/pages/member/index/index")) {
       // 转到底部导航页面
-        wx.switchTab({
-          url: links
-        });
-        break;
-      case "" || "/pages/goods/grouplist/list":
-      // 还在开发页面
-        wx.showToast({
-          title: '功能维护中',
-          icon:"success"
-        })
-        break;
-      default:
-      // 普通页面
-       wx.navigateTo({
+      wx.switchTab({
+        url: links
+      });
+    } else if (!links || links == "/pages/goods/grouplist/list") {
+      //   // 还在开发页面
+      wx.showToast({
+        title: '功能维护中',
+        icon: "success"
+      })
+    }else{
+      // 转到普通页面
+      wx.navigateTo({
          url: links,
        })
-        break;
     }
   },
   onShareAppMessage: function() {

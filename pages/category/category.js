@@ -65,7 +65,7 @@ Page({
     }, function(res) {
       // console.log(res)
       var categorys = res.data.result;
-      console.log(categorys)
+      // console.log(categorys)
       that.setData({
         topCategories: categorys,
       });
@@ -80,7 +80,7 @@ Page({
       parent_id,
       store_id:getApp().globalData.store_id
     }, function(res) {
-      console.log(res)
+      // console.log(res)
       var categorys = res.data.result;
       that.setData({
         subCategories: categorys,

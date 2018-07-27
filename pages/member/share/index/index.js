@@ -147,7 +147,6 @@ Page({
               icon: 'none'
             })
           },complete(){
-            wx.hideLoading();
             ctx.setData({
               disabled: true
             })
@@ -159,7 +158,6 @@ Page({
           title: '保存失败',
           icon: 'none'
         })
-        wx.hideLoading();
         ctx.setData({
           disabled: true
         })

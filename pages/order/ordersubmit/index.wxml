@@ -12,7 +12,7 @@
   </view>
   <view class="view-address" wx:else bindtap="addressSelect">
     <view class="view-addressleft">
-      <image src="/images/white_loc.png"></image>
+      <text class='iconfont icon-dizhi'></text>
       <view class="view-addressleft-info">
         <text class="text-name">收货人:{{addressList[addressIndex].consignee}}</text>
         <text class="text-address">收货地址:{{addressList[addressIndex].province+addressList[addressIndex].city+addressList[addressIndex].district+addressList[addressIndex].address}}</text>
@@ -20,12 +20,10 @@
     </view>
     <view class="view-addressright">
       <text class="text-mobile">{{addressList[addressIndex].mobile}}</text>
-      <image src="/images/white_hint.png"></image>
+      <text class='iconfont icon-gengduo'></text>
     </view>
   </view>
   <view wx:if="{{addressToggle}}" class='addressmark'>
-
-
     <scroll-view scroll-y class='addressbox'>
       <view bindtap="switchaddress" wx:for="{{addressList}}" wx:key="address_id" data-index="{{index}}" style='height:100rpx;padding:10rpx 0 10rpx 10rpx;box-sizing:border-box;width:100%;border-bottom:1px solid #F7F7F7;display:flex;flex-direction: row; align-items: center'>
         <view style='flex:18;display:flex;flex-direction: column; overflow: hidden;flex-wrap:nowrap;font-size:30rpx;'>
@@ -35,37 +33,22 @@
 
         <icon style="flex:2;padding-right:15rpx" type="{{addressIndex == index ? 'success_circle' : 'circle'}}" />
       </view>
-
-
     </scroll-view>
   </view>
   <!-- 订单列表  -->
   <view wx:for="{{shopList}}" wx:key="index" class="container carts-list">
 
-    <!-- <view wx:if="{{item.show == 1}}" class="view-title">
-      <image src="/images/icon_order.png"></image>
-      <text>供应商:{{item.store_name}}</text>
-    </view> -->
-
     <view wx:if="{{item.show == 1}}" class="class-line"></view>
     <view class="carts-item">
       <view>
         <!-- 缩略图 -->
-        <image class="carts-image" src="{{item.original_img}}" mode="aspectFill" />
+        <image class="carts-image" src="{{item.original_img+image_oss}}" mode="aspectFill" />
       </view>
       <view class="carts-text">
-
         <!-- 商品标题 -->
         <text class="carts-title">{{item.goods_name}}</text>
         <text class="carts-key-name">{{item.spec_key_name}}</text>
         <view class="carts-subtitle">
-
-          <!-- 价格 -->
-
-          <!--<text class="carts-price">{{item.goods_price}}</text>-->
-
-          <!-- 数量加减 -->
-
         </view>
       </view>
       <view class="carts-right">
@@ -82,68 +65,11 @@
       <text style='float:left ;padding-left:30rpx;'>配送方式</text>
       <view style='float:right'>
         <text style='width:30rpx;height:30rpx'>{{distributionArray[distributionIndex].name}}</text>
-        <image src='/images/rightrow.png'></image>
+        <text class='iconfont icon-gengduo' style='color:#969696;'></text>
       </view>
     </picker>
-    <!-- <button class='distribution' bindtap='distribution'>配送方式</button>
-    <text>{{distribution_status[selected_distribution].name}}</text> -->
-    <!-- <picker class='distrbox' range-key="name" bindchange="paymentChange" value="{{paymentIndex}}" range="{{paymentArray}}">
-       <text style='float:left  ;padding-left:30rpx;'>支付方式</text>
-       <view style='float:right'>
-       <text style='width:30rpx;height:30rpx'>{{paymentArray[paymentIndex].name}}</text>
-       <image src='/images/rightrow.png' ></image>
-       </view>
-  
-       
-  </picker> -->
-    <!-- <view  style="font-size:30rpx;" class="distrbox" style='   padding-left:30rpx;' wx:if="{{paymentIndex == 1}}">剩余余额 :<text style="padding:10rpx;color:red">{{use_money<=0?"余额不足,请及时充值":use_money}}</text></view> -->
   </view>
-
-  <!-- <view class="view-freemoney"> -->
-
-  <!-- <text class="text-hint">优   惠   劵:</text>
-    <input bindchange="bindChange" placeholder-style="color:#999999" class="input-money" placeholder="输入余额" /> -->
-
-
-  <!-- <radio bindtap="check1" color="red" class="radio-style" value="0" checked="{{check[0]}}" />
-
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{coupon}}">
-      <view class="view-picker">
-
-        {{cv}}
-
-      </view>
-    </picker> -->
-
-
-
-  <!-- <text class="text-hint">或者</text>
-
-    <radio bindtap="check2" color="red" class="radio-style" value="1" checked="{{check[1]}}" />
-    <input bindchange="bindChangeOfcoupon" placeholder-style="color:#999999" class="input-money" placeholder="直接输入优惠劵" style="width:200rpx" /> -->
-
-  <!-- </view> -->
-
-
-  <!-- <view class="view-freemoney">
-    <text class="text-hint">使用余额:</text>
-
-    <input bindchange="bindChange" placeholder-style="color:#999999" class="input-money" placeholder="输入余额" />
-    <text bindtap="use" class="btn-use">使用</text>
-    <text class="text-hint1">您的可用余额{{freemoney}}</text>
-  </view> -->
-
-  <!-- <view class="view-freemoney">
-    <text class="text-hint">使用积分:</text>
-    <input bindchange="bindChangeOfPoint" placeholder-style="color:#999999" class="input-money" placeholder="输入积分" />
-    <text bindtap="use_point" class="btn-use">使用</text>
-    <text class="text-hint1">您的可用积分{{pay_points}}</text>
-  </view> -->
-
   <view class="class-line1"></view>
-
-
-
   <view class="view-price">
     <view class="view-price1">
       <text class="text-price1 ">商品总额:</text>
@@ -153,16 +79,7 @@
       <text class="text-price1">邮费:</text>
       <text class="text-red improt_color">￥{{expressFee}}元</text>
     </view>
-
-    <!-- <view class="view-price1">
-      <text class="text-price1">应付总金额:</text>
-      <text class="text-red">￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元</text>
-
-    </view> -->
-
-
   </view>
-
   <view style="position:fixed;display:flex; bottom:0;line-height:120rpx;width:100%;height:120rpx;background:#F4F4F4">
     <view wx:if="{{distributionIndex==0}}" style='width:75%;padding-left:3%'>应付总金额: {{totalPrice
       <=0? "金额有误,请勿下单":totalPrice}}元 </view>
@@ -178,7 +95,6 @@
             <button class='{{item.class}}' bindtap="paymentBtn" data-way="{{item.way}}">{{item.name}}</button>
           </block>
         </view>
-
       </view>
     </view>
   </view>

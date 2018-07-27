@@ -1,54 +1,62 @@
 /* pages/order/ordersubmit/index.wxss */
-.addressbox{
- width:70%;
- height:70%;
-background: #fff;
-margin-left: auto;
-margin-right: auto;
-margin-top:100rpx;
-display: flex;
-flex-direction: column
+
+.addressbox {
+  width: 70%;
+  height: 70%;
+  background: #fff;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100rpx;
+  display: flex;
+  flex-direction: column;
 }
-.improt_color{
+
+.improt_color {
   color: #d94612;
 }
-.payByBalance {
-  background:#38A4F0;
 
+.payByBalance {
+  background: #38a4f0;
 }
-.orderpaybox{
+
+.orderpaybox {
   position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%); 
-  width:600rpx;height:300rpx;
-   background:#fff;
-   border-radius:10px
-}
-.payment{
-  display:flex;
-  box-sizing:border-box;
-  flex-direction:row;
-  flex-wrap:wap; 
-  justify-content:center ;
-  margin-top:20rpx;
-}
-.payment button{
-   color:#fff;
-   margin-top:20rpx;
-}
-.payByWXPay   {
-background-color:#1AAD19;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  height: 300rpx;
+  background: #fff;
+  border-radius: 10px;
 }
 
-.addressmark{
+.payment {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  flex-wrap: wap;
+  justify-content: center;
+  margin-top: 20rpx;
+}
+
+.payment button {
+  color: #fff;
+  margin-top: 20rpx;
+}
+
+.payByWXPay {
+  background-color: #1aad19;
+}
+
+.addressmark {
   width: 100%;
-  height:100%;
+  height: 100%;
   position: fixed;
   background: #000;
-background: rgba(0, 0, 0, 0.5);
-  z-index: 100
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 }
+
 .view-address {
   display: flex;
   flex-direction: row;
@@ -68,9 +76,9 @@ background: rgba(0, 0, 0, 0.5);
   width: 450rpx;
 }
 
-.view-addressleft image {
-  width: 50rpx;
-  height: 50rpx;
+.icon-dizhi {
+  color: #fff;
+  font-size: 40rpx;
 }
 
 .view-addressleft-info {
@@ -105,10 +113,10 @@ background: rgba(0, 0, 0, 0.5);
   color: #fff;
 }
 
-.view-addressright image {
-  width: 30rpx;
-  height: 30rpx;
-  margin-left: 15rpx;
+.icon-gengduo {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
 }
 
 .view-title {
@@ -384,8 +392,8 @@ background: rgba(0, 0, 0, 0.5);
 }
 
 .text-save {
-  width:25%;
-  height:100%;
+  width: 25%;
+  height: 100%;
   align-self: center;
   font-size: 32rpx;
   color: #fff;
@@ -531,45 +539,36 @@ background: rgba(0, 0, 0, 0.5);
 .distr {
   display: flex;
   flex-direction: column;
-   /* align-items: center;  */
+  /* align-items: center;  */
 }
-.distrbox{
+
+.distrbox {
   width: 100%;
- /* float: left; */
-  font-size:30rpx;
-  height:100rpx;
-   line-height: 100rpx;
-   border-bottom: 1px solid #F4F4F4;
+  font-size: 30rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1px solid #f4f4f4;
+  padding-right:20rpx;
+box-sizing:border-box;
 
- 
 }
 
-.distrbox image{
-  width:30rpx;height:30rpx;padding-left:20rpx; vertical-align: auto
-}
-.distr text {
-  /* color: orange; */
-  /* margin-left: 64rpx; */
-  /* font-size: 36rpx; */
-}
-
-.outRangeTip{
+.outRangeTip {
   padding: 32rpx;
   background: #3aa0b7;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.outRangeTip > view{
-  line-height:48rpx;
+.outRangeTip > view {
+  line-height: 48rpx;
   font-size: 32rpx;
-  color: #ffffff;
+  color: #fff;
   text-align: left;
 }
 
-.outRangeTip image{
+.outRangeTip image {
   width: 32rpx;
 }

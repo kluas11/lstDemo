@@ -8,15 +8,12 @@
     <view wx:for="{{carts}}" wx:key="index" class="container carts-list">
       <view class="carts-item">
         <!-- 复选框图标 -->
-         <icon wx:if="{{item.selected}}" type="success_circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" />
-        <icon wx:else type="circle" size="20" bindtap="bindCheckbox" data-index="{{index}}" /> 
+         <icon  type="{{item.selected?'success_circle':'circle'}}" size="20" bindtap="bindCheckbox" data-index="{{index}}" />
         <view>
-
           <!-- 缩略图 -->
           <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" />
         </view>
         <view class="carts-text">
-
           <!-- 商品标题 -->
           <text class="carts-title">{{item.goods_name}}</text>
           <view class="carts-subtitle">
@@ -34,7 +31,7 @@
         </view>
         <view class="carts-right">
           <text class="text-red">￥{{item.shop_price}}</text>
-          <image bindtap="deleteCart" data-index="{{index}}" class="image-delete" src="/images/delete.png"></image>
+          <view class='iconfont icon-shanchu'></view>
         </view>
       </view>
     </view>
@@ -42,8 +39,7 @@
   </scroll-view>
   <view class="carts-footer">
     <view class="carts-footer-left" bindtap="bindSelectAll">
-      <icon wx:if="{{selectedAllStatus}}" type="success_circle" size="20" />
-      <icon wx:else type="circle" size="20" />
+      <icon  type="{{selectedAllStatus?'success_circle':'circle'}}" size="20" />
        <text>全选</text> 
       <text style="color:red;">￥: {{total}}(不含运费)</text>
     </view>

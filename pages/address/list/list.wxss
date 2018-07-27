@@ -55,6 +55,7 @@ page {
 .item .footer .operation {
 	width: 280rpx;
 	display: flex;
+  justify-content: space-around;
 }
 
 .item .footer .operation .container {
@@ -62,16 +63,14 @@ page {
 	align-items: center;
 }
 
-.item .footer .operation .container image {
-	width: 60rpx;
-	height: 60rpx;
+.item .footer .operation .container .iconfont {
+	font-size: 40rpx;
 }
 
 .item .footer .operation .container text {
 	margin-left: 6rpx;
 	font-size: 27rpx;
 }
-
 /*地址列表包装容器*/
 .address-list {
 	margin-bottom: 56px;

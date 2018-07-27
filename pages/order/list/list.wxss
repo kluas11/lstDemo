@@ -170,12 +170,10 @@ background-color:#1AAD19;
 	border-bottom: 1px solid #eee;
 }
 
-.view-title image {
-	margin-left: 20rpx;
-	width: 40rpx;
-	height:40rpx;
+.view-title .icon-ziyuan{
+  font-size: 32rpx;
+  color: #969696;
 }
-
 .view-title text {
 	font-size: 28rpx;
 	color: #383838;
