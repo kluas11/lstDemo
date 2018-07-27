@@ -29,7 +29,7 @@ Page({
   },
 
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh()
   },
   navigateToWithdraw: function (e) {
 
