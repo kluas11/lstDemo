@@ -6,7 +6,7 @@
     <view class="wx-view_log_item">
   
     <text class="log_label">手机号码:</text>
-     <input placeholder-style="color:#999999" class="c-block wx_input" placeholder="请输入11位手机号" type="number" bindinput="getPhoneNum" value="{{mobile}}" style='width:330rpx'/>
+     <input placeholder-style="color:#999999" class="c-block wx_input" placeholder="请输入11位手机号" type="number" bindblur="unfocused" value="{{mobile}}" style='width:330rpx'/>
       <button  wx:if="{{!mobile}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style='padding:0 5px;font-size:20rpx;'>获取手机号码</button>
   
      
@@ -59,7 +59,7 @@
         </view>
       </picker>
     </view>
-    <view style='color:red' wx:if="{{storeState}}">已绑定过门店,无法修改</view>
+    <view style='color:red;padding:5px;' wx:if="{{storeState}}">已绑定过门店,无法修改</view>
   </view>
   <button class="wx-button_logup" bindtap="quick_register_phone" data-id="{{phoneNum}}" hover-class="button-hover" size="default" type="warn">
     提交绑定

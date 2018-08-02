@@ -32,7 +32,7 @@
   
   <view bindtap="navigateToEdit" class="tableviewcell">
     <image src="../../../images/ws.png" />
-    <text>完善信息</text>
+    <text>个人信息</text>
   </view>
   <!-- <view bindtap="navigateToCoupon" class="tableviewcell">
     <image src="../../../images/yhj.png" />
