@@ -36,8 +36,6 @@ Page({
     this.setData({wWidth: wWidth, wHeight: wHeight, scale: scale, obj});
 
     this.getUserInfo();
-    
-
     }
   })
 

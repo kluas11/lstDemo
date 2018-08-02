@@ -31,7 +31,7 @@
         </view>
         <view class="carts-right">
           <text class="text-red">￥{{item.shop_price}}</text>
-          <view class='iconfont icon-shanchu'></view>
+          <view bindtap='deleteCart'data-index='{{index}}' class='iconfont icon-shanchu'></view>
         </view>
       </view>
     </view>

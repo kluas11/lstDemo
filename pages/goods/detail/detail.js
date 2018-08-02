@@ -34,55 +34,37 @@ Page({
   // 加入收藏
   addCollect: function(e) {
     var that = this;
-    if (e.detail.errMsg === "getUserInfo:ok") {
-      var goods_id = e.currentTarget.dataset.id;
-      let collectstate = this.data.collectstate;
-      var type = collectstate ? 1 : 0;
-      var msg = collectstate ? '取消收藏' : "成功收藏";
-      this.getuser_id().then(user_id => {
-        server.getJSON('/Goods/collectGoods', {
-            user_id,
-            goods_id,
-            type
-          },
-          function(res) {
-            console.log(res)
-            that.setData({
-              collectstate: !collectstate
-            })
-            wx.showToast({
-              title: msg,
-              icon: 'success',
-              duration: 2000
-            })
-          });
-      })
-    }
+    var goods_id = e.currentTarget.dataset.id;
+    let collectstate = this.data.collectstate;
+    var type = collectstate ? 1 : 0;
+    var msg = collectstate ? '取消收藏' : "成功收藏";
+    this.getuser_id().then(user_id => {
+      server.getJSON('/Goods/collectGoods', {
+        user_id,
+        goods_id,
+        type
+      },
+        function (res) {
+          console.log(res)
+          that.setData({
+            collectstate: !collectstate
+          })
+          wx.showToast({
+            title: msg,
+            icon: 'success',
+            duration: 2000
+          })
+        });
+    })
   },
   // 获取用户信息
   getuser_id() {
     return new Promise((request, reject) => {
       var user_id = wx.getStorageSync("user_id");
       if (!user_id) {
-        App.getOpenId(App.register(function() {
-          server.getJSON(
-            "/User/validateOpenid", {
-              openid: App.globalData.openid
-            },
-            function(res) {
-              if (res.data.status) {
-                var user_id = res.data.user_id;
-
-                App.globalData.userInfo = {
-                  user_id
-                };
-                request(user_id)
-                //本地缓存
-                wx.setStorageSync("user_id", user_id)
-                App.globalData.login = true;
-              }
-            });
-        }))
+       App.getlogin().then(res=>{
+         request(res);
+       })
       } else {
         request(user_id)
       }
@@ -174,16 +156,14 @@ Page({
     var that = this
     var goods = this.data.goods;
     var goods_num = that.data.goods_num;
-    if (e.detail.errMsg === "getUserInfo:ok") {
-      that.getuser_id().then(user_id => {
-        var goodsID = goods.goods_id
-        if (goodsID) {
-          wx.navigateTo({
-            url: '/pages/order/ordersubmit/index?origin=detail' + "&goodsID=" + goodsID + "&goods_num=" + goods_num
-          });
-        }
-      })
-    }
+    that.getuser_id().then(user_id => {
+      var goodsID = goods.goods_id
+      if (goodsID) {
+        wx.navigateTo({
+          url: '/pages/order/ordersubmit/index?origin=detail' + "&goodsID=" + goodsID + "&goods_num=" + goods_num
+        });
+      }
+    })
     return;
   },
   //  
@@ -196,46 +176,43 @@ Page({
     var goodsId = this.data.goods.goods_id;
     // console.log()
     var goodsNum = this.data.goods_num;
-    if (e.detail.errMsg === "getUserInfo:ok") {
-      that.getuser_id().then(user_id => {
-        wx.request({
-          url: postUrl + '/Cart/addCart',
-          header: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          data: {
-            goods_id: goodsId,
-            goods_num: goodsNum,
-            user_id: user_id
-          },
-          method: "POST",
-          success: function(res) {
-            // return 1/0 字符类型 是否加入成功; 
-            console.log(res)
-            if (res.data == "1")
-              wx.showToast({
-                title: '已加入购物车',
-                icon: 'success',
-                duration: 1000
-              });
-            else
-              wx.showToast({
-                title: "加入购物车失败",
-                icon: 'error',
-                duration: 1000
-              });
-          },
-          'fail': function(res) {
+    that.getuser_id().then(user_id => {
+      wx.request({
+        url: postUrl + '/Cart/addCart',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {
+          goods_id: goodsId,
+          goods_num: goodsNum,
+          user_id: user_id
+        },
+        method: "POST",
+        success: function (res) {
+          // return 1/0 字符类型 是否加入成功; 
+          console.log(res)
+          if (res.data == "1")
+            wx.showToast({
+              title: '已加入购物车',
+              icon: 'success',
+              duration: 1000
+            });
+          else
             wx.showToast({
               title: "加入购物车失败",
               icon: 'error',
               duration: 1000
             });
-          }
-        })
+        },
+        'fail': function (res) {
+          wx.showToast({
+            title: "加入购物车失败",
+            icon: 'error',
+            duration: 1000
+          });
+        }
       })
-    }
-    console.clear();
+    })
     return;
   },
   showCartToast: function() {
@@ -270,17 +247,16 @@ Page({
   onShow: function() {
     var that = this;
     var store_id = App.globalData.store_id
-    console.log(store_id)
     if (!store_id) {
       App.get_getLocation(that.getstore_id)
     }
-    console.clear();
   },
   // 首次加入获取最近门店
   gainStore() {
     var that = this;
     var lats = App.globalData.lat
     var lngs = App.globalData.lng
+    console.log(lats, lngs)
     // 获取最近门店
     // if (typeof options == 'number') {
     return new Promise((resolve, reject) => {
@@ -289,10 +265,7 @@ Page({
           log: lngs,
           lat: lats
         }, function(res) {
-          // console.log(res)
           App.globalData.store_id = res.data.store_id;
-          console.log(res.data.store_id)
-          // console.log(res.data.store_id.store_id)
           App.globalData.store_name = res.data.store_name;
           that.setData({
             shopName: res.data.store_name
@@ -347,6 +320,6 @@ Page({
         })
       }
     });
-    console.clear();
+   
   },
 });

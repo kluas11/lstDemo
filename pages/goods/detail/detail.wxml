@@ -16,7 +16,7 @@
     </view>
     <view class="class-line">
     </view>
-    <button bindgetuserinfo="addCollect" open-type='getUserInfo' data-id="{{goods.goods_id}}" class="class-collect">
+    <button bindtap="addCollect"  data-id="{{goods.goods_id}}" class="class-collect">
       <text class='iconfont icon-shoucang {{collectstate?"select":""}}'></text>
     </button>
   </view>
@@ -81,6 +81,6 @@
   </view>
 </view>
 <view class="footer">
-  <button class="btn-bug" bindgetuserinfo="immediatelyBuy" open-type='getUserInfo'>立即购买</button>
-  <button class="add-cart"  bindgetuserinfo="addCart" open-type='getUserInfo'>加入购物车</button>
+  <button class="btn-bug" bindtap="immediatelyBuy">立即购买</button>
+  <button class="add-cart"  bindtap="addCart">加入购物车</button>
 </view>

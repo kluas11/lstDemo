@@ -10,7 +10,7 @@ page {
   display: flex;
   align-items: center;
   height: 90rpx;
-  padding: 0 40rpx;
+  padding-left:20rpx;
   position: fixed;
   top: 0;
   left: 0;
@@ -41,15 +41,42 @@ page {
   height: 50rpx;
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
   padding-right: 10rpx;
   border-radius: 10rpx;
 }
-
+.keyword{
+  font-size: 24rpx;
+  color: #969696;
+}
 .icon-sousuo {
   font-size: 40rpx;
 }
-
+.coupon_box{
+  padding:20rpx 20rpx 20rpx 40rpx;
+}
+.get_coupon{
+  background: #ff4747;
+  color: #ffffff;
+  font-size: 28rpx;
+  padding: 0rpx 10rpx;
+  position: relative;
+}
+.get_coupon::after,.get_coupon::before{
+  content: "";
+  position: absolute;
+  width: 14rpx;
+  height: 14rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.get_coupon::after{
+  left: -7rpx;
+}
+.get_coupon::before{
+  right: -7rpx;
+}
 .video {
   position: fixed;
   z-index: 99;

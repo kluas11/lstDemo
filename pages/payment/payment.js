@@ -45,44 +45,8 @@ Page({
   },
   load() {
     var that = this;
-    wx.getSetting({
-      //判断用户是否已经授权注册
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          // 没有授权，跳到授权注册
-          wx.navigateTo({
-            url: '/pages/getUser/getUser',
-          })
-          that.setData({
-            register: true
-          })
-          return;
-        } else {
-          //已授权
-          app.getOpenId(function() {
-            var openId = app.globalData.openid;
-            // 获取openID
-            server.getJSON(
-              "/User/validateOpenid", {
-                openid: openId
-              },
-              function(res) {
-                if (res.data.status) {
-                  var user_id = res.data.user_id;
-                  getCustomerInfo(that, user_id);
-                  app.globalData.userInfo = {
-                    user_id
-                  };
-                  // 全局app变量
-                  var user = app.globalData.userInfo;
-                  //本地缓存
-                  wx.setStorageSync("user_id", user_id)
-                  app.globalData.login = true;
-                }
-              });
-          });
-        }
-      }
+    app.getlogin().then(user_id => {
+      getCustomerInfo(that, user_id);
     })
   },
   /*******************************************************************************
@@ -132,7 +96,6 @@ Page({
     ctx.setData({
       'disable.balance': true
     });
-
     setTimeout(function() {
       // 为什么有这个timeout呢？那是因为如果输入金额后，不先让input失焦就点击button的话，就会先触发bindTap再触发BindBlur，这样来不及读取input的内容就访问接口了，以下同理
       wx.showModal({
@@ -140,21 +103,15 @@ Page({
         content: '确认支付' + ctx.data.fixedAmount + '元',
         success: function(res) {
           if (res.confirm) {
-            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
-              if (res.data.status == 1 && res.data.payway == 'walletpay') {
+            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function (res) {
+              console.log(res.data.payway)
+              if (res.data.status == 1 && res.data.payway == 'Walletpay') {
                 wx.showToast({
                   title: '支付成功',
                 });
                 wx.redirectTo({
                   url: '/pages/payment/complete/complete?type=walletpay&complete=success&money=' + ctx.data.fixedAmount,
                 })
-                // getCustomerInfo(ctx, wx.getStorageSync("user_id"));
-                // // getCustomerInfo(ctx, 137);
-                // ctx.setData({
-                //   inputAmount: 0,
-                //   fixedAmount: 0,
-                //   'disable.balance': false
-                // });
               } else if (res.data.status == 1) {
                 wx.showToast({
                   title: '金额输入错误',
@@ -165,7 +122,7 @@ Page({
               }
             });
           } else if (res.cancel) {
-            
+
           }
           // ctx.setData({
           //   inputAmount: 0,
@@ -198,7 +155,7 @@ Page({
             'success': function(res) {
               wx.redirectTo({
                 url: '/pages/payment/complete/complete?type=wxpay&complete=success&money=' + ctx.data.fixedAmount,
-                })
+              })
             },
             'fail': function(res) {
               wx.redirectTo({
@@ -206,11 +163,6 @@ Page({
               })
             }
           });
-          // getCustomerInfo(ctx, wx.getStorageSync("user_id"));
-          // // getCustomerInfo(ctx, 137);
-          // ctx.setData({
-          //   'disable.WXPay': false
-          // });
         } else if (res.data.status == 1) {
           wx.showToast({
             title: '金额输入错误',
@@ -236,24 +188,14 @@ Page({
  * 通用方法
  *******************************************************************************/
 function doPay(payway, total_amount, store_id, user_id, func) {
-  console.log(payway + '   ' + total_amount + '   ' + store_id + '   ' + user_id)
-  wx.request({
-    url: 'https://shop.poopg.com/index.php/WXAPI/Scanpay/dopay',
-    method: 'POST',
-    data: {
-      payway: payway,
-      total_amount: total_amount,
-      store_id: store_id,
-      user_id: user_id
-    },
-    header: {
-      'content-type': 'application/x-www-form-urlencoded'
-    }, // 将数据转化为query string
-    success: func,
-    complete: res => {}
-  });
+  console.log(payway + '   ' + total_amount + '   ' + store_id + '   ' + user_id);
+  server.newpostJSON('/Scanpay/dopay', {
+    payway: payway,
+    total_amount: total_amount,
+    store_id: store_id,
+    user_id: user_id
+  }, func)
 }
-
 function getStoreInfo(ctx, store_id) {
   server.getJSON("/Scanpay/get_storeInfo", {
     store_id: store_id

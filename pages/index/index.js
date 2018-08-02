@@ -17,7 +17,6 @@ Page({
   },
   onLoad: function(options) {
     // console.log(options)
-    App.getlogin();
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -56,7 +55,7 @@ Page({
   },
   getstore_id(res) {
     var self = this;
-    // console.log(res)
+    // console.log("用户位置",res)
     var latitude = res.latitude || "";
     var longitude = res.longitude || "";
     App.globalData.lat = latitude;
@@ -108,15 +107,7 @@ Page({
   },
   // 页面显示
   onShow: function() {
-    let shopname = App.globalData.store_name;
-    const that = this;
-    this.setData({
-      shopName: shopname ? shopname : ""
-    })
-    if (this.data.register) {
-      // 首页加载
-      this.load();
-    }
+    
   },
   getInviteCode: function(options) {
     //用户是否通过分享进入，缓存分享者 uidhge 
@@ -151,7 +142,7 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-          // console.log(App.globalData.store_id)
+          console.log("门店ID",App.globalData.store_id)
           resolve({
             state: "success"
           })
@@ -243,6 +234,10 @@ Page({
     wx.navigateTo({
       url: "../goods/list/list"
     });
+  },
+  // 获取优惠券
+  getcouponTap(){
+    
   },
   // 商品详情
   showDetail: function(e) {

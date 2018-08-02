@@ -68,7 +68,10 @@ page {
   width: 450rpx;
   margin-left: 30rpx;
 }
-
+.view-addressleft image{
+  width: 40rpx;
+  height: 40rpx;
+}
 .icon-dizhi2 {
   font-size: 50rpx;
   color: #969696;

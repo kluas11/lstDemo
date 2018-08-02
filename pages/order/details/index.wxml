@@ -39,7 +39,7 @@
   <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
     <view class="view-addressleft">
       <image src="/images/wl.png"></image>
-      <view bindtap="details" data-no="{{result.invoice_no}}" class="view-addressleft-info">
+      <view  data-no="{{result.invoice_no}}" class="view-addressleft-info">
         <text class="text-name">快递单号:{{result.shipping_code}}</text>
         <text class="text-address">物流公司:{{result.shipping_name}}</text>
       </view>
