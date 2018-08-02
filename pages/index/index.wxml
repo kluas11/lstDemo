@@ -1,57 +1,104 @@
-<view class='shopNameTip' wx:if='{{shopName != ""}}'>
-  <view class='address'>
-    <view class='iconfont icon-dizhi1'></view>
-    {{shopName}}
+<wxs module='time' src='./index.wxs' />
+<view class='layout'>
+  <view class='shopNameTip' wx:if='{{shopName != ""}}'>
+    <view class='address'>
+      <view class='iconfont icon-dizhi1'></view>
+      {{shopName}}
+    </view>
+    <view bindtap="search" class='search'>
+      <text class='iconfont icon-sousuo'></text>
+      <text class='keyword'>输入搜索商品名称</text>
+    </view>
+    <view class='coupon_box' bindtap='getcouponTap'>
+      <text class='get_coupon'>领券</text>
+    </view>
   </view>
-  <view bindtap="search" class='search'>
-    <text class='iconfont icon-sousuo'></text>
-    <text class='keyword'>输入搜索商品名称</text>
-  </view>
-  <view class='coupon_box' bindtap='getcouponTap'>
-    <text class='get_coupon'>领券</text>
+  <!-- 轮播 -->
+  <swiper indicator-dots="true" autoplay="true" interval="5000" circular="true" duration="500" style="height:290rpx;">
+    <block wx:for="{{banner}}" wx:key="">
+      <swiper-item>
+        <image src="{{item.image_url+banner_oss}}" data-link="{{item.link}}" lazy-load="true" data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 商品分类 -->
+  <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff;height:350rpx" circular="true">
+    <block>
+      <swiper-item>
+        <view class="func-area" style='margin-top:20rpx'>
+          <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}" wx:key="">
+            <image src="{{item.logo+lists_oss}}" mode="aspectFill" />
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+      </swiper-item>
+      <swiper-item wx:if="{{navArray.length>8}}">
+        <view class="func-area">
+          <navigator wx:for="{{navArray}}" wx:if="{{index>7}}" data-url="{{item.link}}" wx:key="" bindtap="showtabs">
+            <image src="{{item.logo+lists_oss}}" mode="aspectFill" lazy-load="true" />
+            <text>{{item.name}}</text>
+          </navigator>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- 门店商品列表 -->
+  <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
+    <view class='container-goods'>
+      <view class="category_title">
+        <text class="caption improt_color">{{item.name}}</text>
+      </view>
+      <scroll-view scroll-x class="main-goods">
+        <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
+          <text class="title">{{item.goods_name}}</text>
+          <text class="source improt_color">￥{{item.shop_price}}</text>
+          <image class="avatar" src="{{item.original_img==null?imageErr:item.original_img+goods_oss}}" mode="aspectFill" />
+        </view>
+      </scroll-view>
+    </view>
   </view>
 </view>
-<!-- 轮播 -->
-<swiper indicator-dots="true" autoplay="true" interval="5000" circular="true" duration="500" style="height:290rpx;">
-  <block wx:for="{{banner}}" wx:key="">
-    <swiper-item>
-      <image src="{{item.image_url+banner_oss}}" data-link="{{item.link}}" lazy-load="true"data-name='{{item.name}}' mode="aspectFill" class="swiper-image" bindtap="clickBanner" />
-    </swiper-item>
-  </block>
-</swiper>
-  <!-- 商品分类 -->
-  <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff;height:350rpx"circular="true">
-  <block >
-     <swiper-item>
-     <view class="func-area" style='margin-top:20rpx'>
-     <navigator  wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}"wx:key=""  >
-      <image src="{{item.logo+lists_oss}}" mode="aspectFill"  />
-      <text>{{item.name}}</text>
-    </navigator>
-     </view>
-    </swiper-item> 
-     <swiper-item wx:if="{{navArray.length>8}}">
-     <view   class="func-area">
-     <navigator wx:for="{{navArray}}" wx:if="{{index>7}}"  data-url="{{item.link}}"wx:key="" bindtap="showtabs">
-      <image src="{{item.logo+lists_oss}}" mode="aspectFill" lazy-load="true" />
-      <text>{{item.name}}</text>
-    </navigator>
-     </view>
-    </swiper-item> 
-  </block>
-</swiper>  
-<!-- 门店商品列表 -->
-<view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
-  <view class='container-goods'>
-    <view class="category_title">
-      <text class="caption improt_color">{{item.name}}</text>
+<view class='cuopon_info' wx:if='{{cuoponhidden}}'>
+  <view class='cuopon_content'>
+    <view class='cuopon_title'>
+      领取优惠券
     </view>
-    <scroll-view scroll-x class="main-goods">
-      <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
-        <text class="title">{{item.goods_name}}</text>
-        <text class="source improt_color">￥{{item.shop_price}}</text>
-        <image class="avatar" src="{{item.original_img==null?imageErr:item.original_img+goods_oss}}"mode="aspectFill" />
-      </view>
+    <scroll-view scroll-y="true" class='cuopon_lists'>
+      <scroll-view class='list_out' wx:for="{{cuoponlist}}" wx:key="{{key}}">
+        <view class='cuopon_list'>
+          <view class='list_left'>
+            <!-- 满减多少钱  SUBTRAC-->
+            <view class='cuopon_price' wx:if='{{item.coupon_type == "SUBTRAC"}}'>
+              <text class='num'>{{time.parseFloat(item.subtrac_money)}}</text>
+              <text>元</text>
+            </view>
+            <!-- 满减折扣  PERCENT-->
+            <view class='cuopon_price' wx:elif='{{item.coupon_type == "PERCENT"}}'>
+              <text class='num'>{{time.parseFloat(item.subtrac_percent)}}</text>
+              <text>折</text>
+            </view>
+            <!-- 一口价 BUYOUT -->
+            <view class='cuopon_price' wx:elif='{{item.coupon_type == "BUYOUT"}}'>
+              <text class='num'>{{time.parseFloat(item.buyout_price)}}</text>
+              <text>元</text>
+            </view>
+            <view class='center'>
+            <!-- 中间的标题 详情 时间 -->
+              <text wx:if='{{item.coupon_type == "BUYOUT"}}' class='title'>{{item.name}}</text>
+              <!-- 满减+满打折 和 一口价的标题不同 -->
+              <text wx:else class='title'>满{{time.parseFloat(item.subtrac_price)}}元可用</text>
+              <text style='margin:4rpx 0'>{{item.details}}</text>
+              <view>
+                <text>{{time.timestampToTime(item.start_time,true)}}-</text>
+                <text>{{time.timestampToTime(item.end_time,true)}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='list_right'>
+            <button bindtap='receivetap' data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
+          </view>
+        </view>
+      </scroll-view>
     </scroll-view>
   </view>
 </view>

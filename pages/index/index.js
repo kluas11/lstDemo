@@ -13,9 +13,11 @@ Page({
     imageErr: "./images/icon_empty.png",
     lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
-    banner_oss: App.image_oss + '750_290'
+    banner_oss: App.image_oss + '750_290',
+    cuoponhidden:false
   },
   onLoad: function(options) {
+    // this.getcouponTap();
     // console.log(options)
     var that = this;
     wx.showToast({
@@ -237,7 +239,22 @@ Page({
   },
   // 获取优惠券
   getcouponTap(){
-    
+    let that = this;
+    this.setData({
+      cuoponhidden:true
+    })
+    server.getJSON("/Index/getCouponList", {
+      store_id: 26
+    }, function (res) {
+      console.log(res)
+      that.setData({
+          cuoponlist:res.data
+        })
+    });
+  },
+  // 去领取优惠券
+  receivetap(e){
+    console.log(e)
   },
   // 商品详情
   showDetail: function(e) {

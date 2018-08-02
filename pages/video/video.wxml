@@ -1,4 +1,0 @@
-<!--pages/video/video.wxml-->
-<view class='video'>
-   <video src="https://pinshang.poopg.com/video/pinshangvideo.mp4"  controls autoplay></video>
-</view>

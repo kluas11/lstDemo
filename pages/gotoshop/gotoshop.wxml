@@ -1,5 +1,0 @@
-<view class='container'>
-  <text>您未浏览任何商店</text>
-  <button bindtap='gotoshop' class='btn'>浏览附近商店</button>
-  <button bindtap='gotoindex' class='btn btn2'>返回首页</button>
-</view>

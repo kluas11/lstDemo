@@ -1,9 +1,0 @@
-/* pages/video/video.wxss */
-page{
-  width: 100%;
-}
-.video{
-  margin-top: 50rpx;
-  display: flex;
-  justify-content: center;
-}

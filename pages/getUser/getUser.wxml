@@ -1,7 +1,0 @@
-<!--pages/getUser/getUser.wxml-->
-<view class='UserOut' >
-  <view class='UserBox'>
-    <text>获取用户信息</text>
-    <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" >确定</button>
-  </view>
-</view>
