@@ -12,10 +12,15 @@ Page({
     mobile:'',
     real_name:'',
     sex:'0',
+    storeIndex:0,
+    storeList:[],
     gender: {
-      list: ['其他','男', '女', ],
+      list: ['保密','男', '女', ],
       list_en: ['male', 'female', 'other']
     },
+    storeState:false,
+    store_id:"",
+    color:'#f3f3f3'
   },
 
   onLoad: function(options) {
@@ -40,6 +45,31 @@ Page({
     //     });
     //   }
     // })
+  },
+  storeChoice:function(index){
+    this.setData({
+      storeIndex: index
+    })
+  },
+  getPhoneNumber:function(e){
+    console.log(e)
+    wx.checkSession({
+      success: function () {
+      },
+      fail: function () {
+        console.log("fail")
+        // wx.login() //重新登录
+
+  }
+})
+    let userID = wx.getStorageSync("user_id");
+    server.getJSON("/User/getDecryptData",{
+      user_id: userID,
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    },function(res){
+      console.log(res)
+    })
   },
   navigateToAddress: function() {
     wx.navigateTo({
@@ -89,8 +119,10 @@ Page({
     });
   },
   getUserInfo:function(){
+    console.log(this.data.mobile)
     var that=this;
     var user_id=wx.getStorageSync("user_id");
+    console.log(user_id)
     if (!user_id){
       wx.showToast({
         title: '用户信息有误',
@@ -105,13 +137,34 @@ Page({
       
       var data = res.data;
       console.log(data)
-      that.setData({
+      let winRecord={
         birthday: data.birthday == "0" ? "" : data.birthday,
         mobile: data.mobile,
         real_name: data.real_name,
-        sex: data.sex
-      })
+        sex: data.sex,
+      };
+      if (data.store_id != "" && data.store_id){
+        winRecord["storeState"]=true
+        winRecord["store_id"] = data.store_id
+      }
+      that.setData(winRecord)
     });
+    server.getJSON("/User/getUserDetailsStores",function(res){
+      console.log(res)
+      let storeID=app.globalData.store_id;
+      let result = res.data;
+      if (that.data.storeState){
+        storeID=that.data.store_id
+      }
+      let indexs=result.filter(function(item,index){
+        return item.store_id == storeID?index:0
+      })
+      console.log(indexs)
+      that.setData({
+        storeList:res.data
+      })
+    })
+    
   },
   // 提交信息
   quick_register_phone: function (e) {
@@ -121,10 +174,12 @@ Page({
     var mobile = that.data.mobile;
     var sex = that.data.sex;
     var PhoneRegex = RegExp('^1[34578]\\d{9}$', 'g');
+    let store_id = that.data.storeList[that.data.storeIndex].store_id;
     var winrecord={
       user_id: user_Id,
       real_name: real_name == null ? "" : real_name,
-      sex:sex
+      sex:sex,
+      store_id: store_id
     }
     if (that.data.birthday && that.data.birthday!="0"){
       var bir = (that.data.birthday) * 1000

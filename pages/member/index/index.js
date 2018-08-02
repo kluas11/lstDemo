@@ -19,6 +19,9 @@ Page({
       url: '/pages/member/coupon/index'
     });
   },
+  getPhoneNumber:function(e){
+    console.log(e)
+  },
   // 推荐中心
   navigateToShare: function() {
     wx.navigateTo({
