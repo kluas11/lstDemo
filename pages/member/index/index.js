@@ -2,7 +2,7 @@
 var app = getApp();
 Page({
   data: {
-    
+    mobile:"123"
   },
   onLoad: function(options) {
 
@@ -10,7 +10,7 @@ Page({
   //完善信息
   navigateToEdit: function() {
     wx.navigateTo({
-      url: '/pages/register/index',
+      url: '/pages/personalInformation/personalInformation',
     })
   },
   //我的优惠券
@@ -18,6 +18,9 @@ Page({
     wx.navigateTo({
       url: '/pages/member/coupon/index'
     });
+  },
+  getPhoneNumber:function(e){
+    console.log(e)
   },
   // 推荐中心
   navigateToShare: function() {

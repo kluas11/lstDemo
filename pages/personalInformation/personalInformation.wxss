@@ -1,0 +1,21 @@
+.Main {
+  height: 100%;
+padding:30rpx 50rpx;
+}
+.Main .Main_box{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  border-bottom: 1px solid #f3f3f3;
+  height:120rpx;
+  line-height: 120rpx;
+
+}
+.Main_box .label_left{
+  flex:5;
+  text-align: center
+}
+.Main_box .label_right{
+  flex:15;
+}

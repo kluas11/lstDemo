@@ -4,7 +4,12 @@
 
   <view class="view_logup_form">
     <view class="wx-view_log_item">
-      <input placeholder-style="color:#999999" class="c-block wx_input" placeholder="请输入11位手机号" type="number" bindinput="getPhoneNum" value="{{mobile}}" />
+  
+    <text class="log_label">手机号码:</text>
+     <input placeholder-style="color:#999999" class="c-block wx_input" placeholder="请输入11位手机号" type="number" bindblur="unfocused" value="{{mobile}}" style='width:330rpx'/>
+      <button  wx:if="{{!mobile}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style='padding:0 5px;font-size:20rpx;'>获取手机号码</button>
+  
+     
       <!-- <view class="btn_getnum" catchtap="getnum">
         {{time}}
       </view> -->
@@ -14,9 +19,10 @@
       <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="请输入验证码" type="number" bindinput="inputNum" />
     </view>
     <view class="line"></view> -->
-
     <view class="wx-view_log_item" style="border-bottom-style: none;">
-      <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="真实姓名" bindinput="inputPass" value="{{real_name}}" />
+     <text class="log_label">昵称:</text>
+    <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="真实姓名" bindinput="inputPass" value="{{real_name}}" />
+     
     </view>
     <view class="line"></view>
 
@@ -24,6 +30,7 @@
       <picker mode="date"  start="1900-01-01" bindchange="bindDateChange" value="{{birthday==''?'':tools.timestampToTime(birthday,true)}}">
         <view class="picker">
           <view class="wx-view_log_item" style="border-bottom-style: none;">
+            <text class="log_label">生日:</text>
             <input placeholder-style="color:#999999" disabled class="c-block c-fullwidth wx_input" placeholder="生日" bindinput="inputBirthday" value="{{birthday==''?'':tools.timestampToTime(birthday,true)}}" />
           </view>
         </view>
@@ -35,13 +42,25 @@
       <picker bindchange="bindGenderChange" value="{{sex}}" range="{{gender.list}}">
         <view class="picker">
           <view class="wx-view_log_item" style="border-bottom-style: none;">
+            <text class="log_label">性别:</text>
             <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="性别" bindinput="inputGender" value="{{gender.list[sex]}}" />
           </view>
         </view>
       </picker>
     </view>
+     <view class="line"></view>
+     <view class="section"  style="{{storeState==true?'background:#f3f3f3':''}};" >
+      <picker  :disabled="{{storeState}}" bindchange="storeChoice" value="{{storeIndex}}" range-key="store_name" range="{{storeList}}">
+        <view class="picker">
+          <view class="wx-view_log_item" style="border-bottom-style: none;">
+            <text class="log_label">所属门店:</text>
+            <input placeholder-style="color:#999999" class="c-block c-fullwidth wx_input" placeholder="所属门店" bindinput="storeChoice" disabled="true" value="{{storeList[storeIndex].store_name}}" />
+          </view>
+        </view>
+      </picker>
+    </view>
+    <view style='color:red;padding:5px;' wx:if="{{storeState}}">已绑定过门店,无法修改</view>
   </view>
-
   <button class="wx-button_logup" bindtap="quick_register_phone" data-id="{{phoneNum}}" hover-class="button-hover" size="default" type="warn">
     提交绑定
   </button>
