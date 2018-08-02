@@ -5,7 +5,7 @@ Page({
     
   },
   onLoad: function(options) {
-    
+
   },
   //完善信息
   navigateToEdit: function() {

@@ -14,6 +14,37 @@ App({
       }
     });
   },
+  // 登录注册
+  getlogin() {
+    return new Promise((request, rej) => {
+      const that =this;
+      wx.login({
+        success(data) {
+          if (data.code) {
+            server.newpostJSON(
+              "/User/login", {
+                code: data.code
+              },
+              function (data) {
+                console.log(data)
+                if (data.data.status) {
+                  that.globalData.userInfo = {
+                    user_id: data.data.user_id
+                  };
+                  // 全局app变量
+                  var user = that.globalData.userInfo;
+                  //本地缓存
+                  wx.setStorageSync("user_id", user.user_id)
+                  that.globalData.login = true;
+                } 
+                // 登录
+              });
+            //发起网络请求
+          }
+        }
+      })
+    })
+  },
   // 获取用户的openid 用作用户的注册和登录用
   getOpenId: function(cb) {
     var that = this;
@@ -27,11 +58,29 @@ App({
             function(res) {
               // 获取openId
               var openId = res.data.openid;
-              console.log(res);
-              // TODO 缓存 openId
               that.globalData.openid = openId;
-              //验证是否关联openid
-              typeof cb == "function" && cb()
+              console.log(res)
+              // 登录
+              server.getJSON(
+                "/User/validateOpenid", {
+                  openid: openId,
+                  sessionkey: res.data.session_key
+                },
+                function(res) {
+                  console.log(res)
+                  if (res.data.status) {
+                    App.globalData.userInfo = {
+                      user_id: res.data.user_id
+                    };
+                    // 全局app变量
+                    var user = App.globalData.userInfo;
+                    //本地缓存
+                    wx.setStorageSync("user_id", user.user_id)
+                    App.globalData.login = true;
+                  } else {
+                    that.register();
+                  }
+                });
             });
           //发起网络请求
         }
@@ -44,7 +93,7 @@ App({
     wx.getStorage({
       key: 'scene',
       success: function(res) {
-        first_leader = res.data ? res.data:"";
+        first_leader = res.data ? res.data : "";
         // console.log(res.data);
       }
     })
@@ -53,11 +102,6 @@ App({
       // 获取授权
       var open_id = app.globalData.openid;
       var userInfo = res;
-      // var country = userInfo.country; //国家
-      // var city = userInfo.city; //城市
-      // var gender = userInfo.gender; //性别
-      // var nick_name = userInfo.nickName; //昵称
-      // var province = userInfo.province; //省份
       server.newpostJSON(
         '/User/register', {
           open_id,
@@ -129,6 +173,6 @@ App({
     'shopName': ''
   },
   image_oss: '?x-oss-process=style/fixed_',
-  postUrl:"https://tlst.paycore.cc/index.php/WXAPI"
+  postUrl: "https://tlst.paycore.cc/index.php/WXAPI"
   // posturl: 'https://lstmall.paycore.cc/index.php/WXAPI'
 })

@@ -1,0 +1,22 @@
+<!--pages/member/money/integral/integral.wxml-->
+<wxs module='time' src='./intergral.wxs' />
+<view class='layout'>
+  <view class='top'>积分：{{pay_point}}</view>
+  <view wx:for="{{lists}}" wx:key="index">
+    <ul class="ul_lists">
+      <li class="li_list">
+        <text class='title'>变动时间:</text>
+        <text>{{time.timestampToTime(item.time)}}</text>
+      </li>
+      <li class="li_list">
+        <text class='title'>获得积分/消费积分:</text>
+        <text>{{item.pay_points}}</text>
+      </li>
+      <li class="li_list">
+        <text class='title'>详细信息</text>
+        <text>{{item.details}}</text>
+      </li>
+    </ul>
+  </view>
+  <view class='foot' wx:if="{{show}}">{{loadtext}}</view>
+</view>
