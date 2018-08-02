@@ -1,5 +1,5 @@
-var timestampToTime = function(timestamp,bool) {
-  if (timestamp!=='0'){
+var timestampToTime = function (timestamp, bool) {
+  if (timestamp !== '0') {
     var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
@@ -7,19 +7,20 @@ var timestampToTime = function(timestamp,bool) {
     var h = fileter(date.getHours()) + ':';
     var m = fileter(date.getMinutes()) + ':';
     var s = fileter(date.getSeconds());
-    if (bool){
+    if (bool) {
       return Y + M + D;
-    }else{
+    } else {
       return Y + M + D + h + m + s;
     }
-    
-  }else{
+
+  } else {
     return;
   }
 }
-var fileter  =function(data){
-    return data<10?"0"+data:data
+
+var fileter = function (data) {
+  return data < 10 ? "0" + data : data
 }
 module.exports = {
-  timestampToTime:timestampToTime
+  timestampToTime: timestampToTime
 };

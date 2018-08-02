@@ -79,7 +79,11 @@ Page({
       url: '/pages/recharge/recharge',
     })
   },
-
+  jifenTap(){
+    wx.navigateTo({
+      url: '/pages/member/money/integral/integral',
+    })
+  },
   onLoad: function (options) {
     // console.log(options)
     let context = this;

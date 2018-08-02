@@ -17,6 +17,7 @@ Page({
   },
   onLoad: function(options) {
     // console.log(options)
+    App.getlogin();
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -50,47 +51,8 @@ Page({
     })
   },
   load() {
-    var that = this;
-    wx.getSetting({
-      //判断用户是否已经授权注册
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          // 没有授权，跳到授权注册
-          wx.navigateTo({
-            url: '/pages/getUser/getUser',
-          })
-          that.setData({
-            register: true
-          })
-          return;
-        } else {
-          //已授权
-          // console.log("onload")
-          App.get_getLocation(that.getstore_id);
-          App.getOpenId(function() {
-            var openId = App.globalData.openid;
-            // 获取openID
-            server.getJSON(
-              "/User/validateOpenid", {
-                openid: openId
-              },
-              function(res) {
-                // console.log(res)
-                if (res.data.status) {
-                  App.globalData.userInfo = {
-                    user_id: res.data.user_id
-                  };
-                  // 全局app变量
-                  var user = App.globalData.userInfo;
-                  //本地缓存
-                  wx.setStorageSync("user_id", user.user_id)
-                  App.globalData.login = true;
-                }
-              });
-          });
-        }
-      }
-    })
+    App.get_getLocation(this.getstore_id);
+    App.getlogin();
   },
   getstore_id(res) {
     var self = this;

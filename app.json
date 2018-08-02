@@ -25,6 +25,7 @@
     "pages/goods/groupDetail/detail",
     "pages/order/checkout/checkout",
     "pages/member/money/money",
+    "pages/member/money/integral/integral",
     "pages/order/list/list",
     "pages/order/details/index",
     "pages/order/orderpay/payment",

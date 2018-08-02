@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 22,
 			"list": [
 				{
 					"id": 0,
@@ -168,6 +168,12 @@
 					"id": 21,
 					"name": "扫码支付结果",
 					"pathName": "pages/payment/complete/complete",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "积分详情",
+					"pathName": "pages/member/money/integral/integral",
 					"query": ""
 				}
 			]
