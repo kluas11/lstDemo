@@ -1,0 +1,36 @@
+<view class='list_out' wx:for="{{cuoponlist}}" wx:key="{{key}}">
+        <view class='{{cuopon.isoverdue(item.end_time)?"disabled":"cuopon_list"}}'>
+          <view class='list_left'>
+            <!-- 满减多少钱  SUBTRAC-->
+            <view class='cuopon_price' wx:if='{{item.coupon_type == "SUBTRAC"}}'>
+              <text class='num'>{{cuopon.parseFloat(item.subtrac_money)}}</text>
+              <text>元</text>
+            </view>
+            <!-- 满减折扣  PERCENT-->
+            <view class='cuopon_price' wx:elif='{{item.coupon_type == "PERCENT"}}'>
+              <text class='num'>{{cuopon.toFloat(item.subtrac_percent)}}</text>
+              <text>折</text>
+            </view>
+            <!-- 一口价 BUYOUT -->
+            <view class='cuopon_price' wx:elif='{{item.coupon_type == "BUYOUT"}}'>
+              <text class='num'>{{cuopon.parseFloat(item.buyout_price)}}</text>
+              <text>元</text>
+            </view>
+            <view class='center'>
+            <!-- 中间的标题 详情 时间 -->
+              <text wx:if='{{item.coupon_type == "BUYOUT"}}' class='title'>{{item.name}}</text>
+              <!-- 满减+满打折 和 一口价的标题不同 -->
+              <text wx:else class='title'>满{{cuopon.parseFloat(item.subtrac_price)}}元可用</text>
+              <text style='margin:4rpx 0'>{{item.details}}</text>
+              <view>
+                <text>{{cuopon.timestampToTime(item.start_time,true)}}-</text>
+                <text>{{cuopon.timestampToTime(item.end_time,true)}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='list_right'>
+            <button bindtap='receivetap' wx:if="{{!cuopon_cart}}" data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
+            <button bindtap='receivetap' wx:else data-coupon_id='{{item.coupon_id}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(item.end_time)}}'>使用</button>
+          </view>
+        </view>
+      </view>

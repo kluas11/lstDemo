@@ -1,0 +1,130 @@
+.list_out {
+  margin: 16rpx 0;
+  position: relative;
+  overflow: hidden;
+}
+/* 可以使用的优惠券样式 */
+.cuopon_list {
+  display: flex;
+  border: 2rpx solid #ff9d9d;
+  border-radius: 10rpx;
+  border-left: 6rpx solid #ff5757;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cuopon_list::after, .cuopon_list::before {
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border: 2rpx solid #ff9d9d;
+  border-radius: 50%;
+  position: absolute;
+  left: 466rpx;
+  transform: translateX(-25%);
+  background: #fff;
+  z-index: 9;
+}
+
+.cuopon_list::after {
+  bottom: -6rpx;
+}
+
+.cuopon_list::before {
+  top: -6rpx;
+}
+
+.cuopon_list .list_left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 466rpx;
+  padding: 20rpx 0;
+  border-right: 1px dashed #ff9d9d;
+  justify-content: space-around;
+}
+.cuopon_list .cuopon_price {
+  color: #ff5757;
+  font-size: 24rpx;
+  margin: 0rpx 20rpx;
+}
+/* 过期得优惠券样式 */
+.disabled {
+  display: flex;
+  border: 2rpx solid #ccc;
+  border-left: 6rpx solid #969696;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  border-radius: 10rpx;
+}
+
+.disabled::after, .disabled::before {
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 50%;
+  position: absolute;
+  left: 466rpx;
+  transform: translateX(-25%);
+  background: #fff;
+  z-index: 9;
+}
+
+.disabled::after {
+  bottom: -6rpx;
+}
+
+.disabled::before {
+  top: -6rpx;
+}
+
+.disabled .list_left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 466rpx;
+  padding: 20rpx 0;
+  border-right: 1px dashed #ccc;
+  justify-content: space-around;
+}
+.disabled .cuopon_price {
+  color: #cccccc;
+  font-size: 24rpx;
+  margin: 0rpx 20rpx;
+}
+/*  */
+
+.cuopon_price .num {
+  font-size: 48rpx;
+}
+
+.list_left .center .title {
+  color: #000;
+  font-size: 30rpx;
+}
+
+.list_right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.list_right .cuopon_btn {
+  width: 124rpx;
+  font-size: 22rpx;
+  color: #fff;
+  background: #ff5757;
+  height: 43rpx;
+  line-height: 43rpx;
+}
+
+.cuopon_list .center, .disabled .center {
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #b7b6b6;
+}

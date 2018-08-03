@@ -1,4 +1,4 @@
-<wxs module='time' src='./index.wxs' />
+<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
 <view class='layout'>
   <view class='shopNameTip' wx:if='{{shopName != ""}}'>
     <view class='address'>
@@ -58,47 +58,14 @@
     </view>
   </view>
 </view>
-<view class='cuopon_info' wx:if='{{cuoponhidden}}'>
+<view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
   <view class='cuopon_content'>
     <view class='cuopon_title'>
       领取优惠券
     </view>
     <scroll-view scroll-y="true" class='cuopon_lists'>
-      <scroll-view class='list_out' wx:for="{{cuoponlist}}" wx:key="{{key}}">
-        <view class='cuopon_list'>
-          <view class='list_left'>
-            <!-- 满减多少钱  SUBTRAC-->
-            <view class='cuopon_price' wx:if='{{item.coupon_type == "SUBTRAC"}}'>
-              <text class='num'>{{time.parseFloat(item.subtrac_money)}}</text>
-              <text>元</text>
-            </view>
-            <!-- 满减折扣  PERCENT-->
-            <view class='cuopon_price' wx:elif='{{item.coupon_type == "PERCENT"}}'>
-              <text class='num'>{{time.parseFloat(item.subtrac_percent)}}</text>
-              <text>折</text>
-            </view>
-            <!-- 一口价 BUYOUT -->
-            <view class='cuopon_price' wx:elif='{{item.coupon_type == "BUYOUT"}}'>
-              <text class='num'>{{time.parseFloat(item.buyout_price)}}</text>
-              <text>元</text>
-            </view>
-            <view class='center'>
-            <!-- 中间的标题 详情 时间 -->
-              <text wx:if='{{item.coupon_type == "BUYOUT"}}' class='title'>{{item.name}}</text>
-              <!-- 满减+满打折 和 一口价的标题不同 -->
-              <text wx:else class='title'>满{{time.parseFloat(item.subtrac_price)}}元可用</text>
-              <text style='margin:4rpx 0'>{{item.details}}</text>
-              <view>
-                <text>{{time.timestampToTime(item.start_time,true)}}-</text>
-                <text>{{time.timestampToTime(item.end_time,true)}}</text>
-              </view>
-            </view>
-          </view>
-          <view class='list_right'>
-            <button bindtap='receivetap' data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
-          </view>
-        </view>
-      </scroll-view>
+    <!-- 自己写的模板  优惠券页面也有用到 -->
+      <include src="../../template/cuopon_cart/cuopon_cart.wxml"/>
     </scroll-view>
   </view>
 </view>

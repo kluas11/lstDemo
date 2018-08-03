@@ -5,6 +5,7 @@
     "pages/payment/complete/complete",
     "pages/member/share/erweima/index",
     "pages/seller/add",
+    "pages/recharge/recharge",
     "pages/member/point/point",
     "pages/address/list/list",
     "pages/address/add/add",
@@ -20,7 +21,6 @@
     "pages/goods/detail/detail",
     "pages/goods/grouplist/list",
     "pages/goods/groupDetail/detail",
-    "pages/order/checkout/checkout",
     "pages/member/money/money",
     "pages/member/money/integral/integral",
     "pages/order/list/list",
@@ -40,7 +40,7 @@
     "pages/member/share/withdraw/add",
     "pages/member/share/withdrawlist/list",
     "pages/member/share/member/list",
-    "pages/recharge/recharge",
+    "pages/member/recharge/recharge",
     "pages/web-view/web-view"
   ],
   "window": {

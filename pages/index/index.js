@@ -144,7 +144,7 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-          console.log("门店ID",App.globalData.store_id)
+          // console.log("门店ID",App.globalData.store_id)
           resolve({
             state: "success"
           })
@@ -254,7 +254,33 @@ Page({
   },
   // 去领取优惠券
   receivetap(e){
-    console.log(e)
+    let coupon_id = e.currentTarget.dataset.coupon_id;
+    server.newpostJSON("/Index/receiveCoupon", {
+      coupon_id,
+      user_id:wx.getStorageSync("user_id")
+    }, function (res) {
+      if (res.data.status){
+          wx.showToast({
+            title: '领取成功',
+            icon:"success"
+          })
+      }else{
+        wx.showToast({
+          title: '领取失败',
+          icon: "cancel"
+        })
+      }
+    });
+  },
+  // 关闭领券
+  hidetap(e){
+    if (e.target.id === 'cuopon_info'){
+      this.setData({
+        cuoponhidden:false
+      })
+    }else{
+      return;
+    }
   },
   // 商品详情
   showDetail: function(e) {

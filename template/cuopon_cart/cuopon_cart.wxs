@@ -1,3 +1,4 @@
+// 转化时间格式
 var timestampToTime = function (timestamp, bool) {
   if (timestamp !== '0') {
     var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -20,7 +21,17 @@ var timestampToTime = function (timestamp, bool) {
 var fileter = function (data) {
   return data < 10 ? "0" + data : data
 }
+// 判断优惠券是否过期
+var isoverdue = function(end){
+  return getDate().getTime() > end * 1000;
+}
+// 折扣处理
+var toFloat = function(num){
+    return num/10
+}
 module.exports = {
   timestampToTime: timestampToTime,
-  parseFloat: parseFloat
+  parseFloat: parseFloat,
+  isoverdue:isoverdue,
+  toFloat: toFloat
 };
