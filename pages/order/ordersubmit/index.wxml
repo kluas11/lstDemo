@@ -68,6 +68,13 @@
         <text class='iconfont icon-gengduo' style='color:#969696;'></text>
       </view>
     </picker>
+    <view class='distrbox' bindtap='getcuoponlist'> 
+      <text style='float:left ;padding-left:30rpx;'>选择优惠券</text>
+      <view style='float:right'>
+        <text style='width:30rpx;height:30rpx'>{{coupontext}}</text>
+        <text class='iconfont icon-gengduo' style='color:#969696;'></text>
+      </view>
+    </view>
   </view>
   <view class="class-line1"></view>
   <view class="view-price">
@@ -75,16 +82,20 @@
       <text class="text-price1 ">商品总额:</text>
       <text class="text-red improt_color">￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元</text>
     </view>
+    <view class="view-price1" wx:if="{{discount_coupon_money}}">
+      <text class="text-price1 ">优惠金额:</text>
+      <text class="text-red improt_color">-{{discount_coupon_money}}元</text>
+    </view>
     <view wx:if="{{distributionIndex==1}}" class="view-price1">
       <text class="text-price1">邮费:</text>
       <text class="text-red improt_color">￥{{expressFee}}元</text>
     </view>
   </view>
   <view style="position:fixed;display:flex; bottom:0;line-height:120rpx;width:100%;height:120rpx;background:#F4F4F4">
-    <view wx:if="{{distributionIndex==0}}" style='width:75%;padding-left:3%'>应付总金额: {{totalPrice
-      <=0? "金额有误,请勿下单":totalPrice}}元 </view>
+    <view wx:if="{{distributionIndex==0}}" style='width:75%;padding-left:3%'>应付总金额: {{goodsAmount
+      <=0? "金额有误,请勿下单":goodsAmount}}元 </view>
         <view wx:else style='width:75%;padding-left:3%'>应付总金额:
-          <text class='improt_color'>  ￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice+expressFee}}元 </text> </view>
+          <text class='improt_color'>  ￥{{goodsAmount<=0?"金额有误,请勿下单":goodsAmount+expressFee}}元 </text> </view>
         <text bindtap="formSubmit" class="text-save">提交订单</text>
     </view>
     <view wx:if="{{orderState}}" class='addressmark' style='z-index:200'>
@@ -99,14 +110,13 @@
     </view>
   </view>
   <!--支付方式选择  -->
-
-  <!--配送选择  -->
-  <block wx:if='{{dtb_show}}'>
-    <view class='drawer_screen'></view>
-    <view class='drawer_content'>
-      <!--门店自取-->
-      <button class='slectDistribution' bindtap='slectDistribution' data-distribution_status='{{distribution_status[0].id}}'>{{distribution_status[0].name}}</button>
-      <!--物流配送  -->
-      <button class='slectDistribution' bindtap='slectDistribution' data-distribution_status='{{distribution_status[1].id}}'>{{distribution_status[1].name}}</button>
-    </view>
-  </block>
+<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<!-- 数据过滤 -->
+<view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
+  <view class='cuopon_content'>
+    <scroll-view scroll-y="true" class='cuopon_lists'>
+    <!-- 自己写的模板  优惠券页面也有用到 -->
+      <include src="../../../template/cuopon_cart/cuopon_cart.wxml"/>
+    </scroll-view>
+  </view>
+</view>

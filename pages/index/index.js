@@ -14,7 +14,8 @@ Page({
     lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
     banner_oss: App.image_oss + '750_290',
-    cuoponhidden:false
+    cuoponhidden:false,
+    homeIndex:true//优惠券按钮判断
   },
   onLoad: function(options) {
     // this.getcouponTap();
@@ -39,6 +40,7 @@ Page({
     //判断用户来源
     this.getInviteCode(options);
     // 首页加载
+    console.log(options)
     this.load();
     // 获取后台设置全部分类
     server.getJSON("/Index/getIndexNav", {}, function(res) {
@@ -83,11 +85,11 @@ Page({
       fail: function(res) {},
       complete: function(res) {
         // console.log(self.data.options)
-        if (JSON.stringify(self.data.options) != "{}") {
-          self.loadBanner(self.data.options);
+        if (self.data.options.store_id) {
+          self.loadBanner(self.data.options.store_id);
         } else {
           self.gainStore().then((res) => {
-            self.loadBanner(self.data.options);
+            self.loadBanner(self.data.options.store_id);
           }, (err) => {
             console.log(err)
           })
@@ -131,15 +133,13 @@ Page({
     var lats = App.globalData.lat
     var lngs = App.globalData.lng
     // 获取最近门店
-    // if (typeof options == 'number') {
     return new Promise((resolve, reject) => {
       try {
         server.getJSON('/Index/getNearStore', {
           log: lngs,
           lat: lats
         }, function(res) {
-          App.globalData.store_id = res.data.store_id;
-          // console.log(res.data.store_id.store_id)
+          App.globalData.store_id = res.data.store_id
           App.globalData.store_name = res.data.store_name;
           that.setData({
             shopName: res.data.store_name
@@ -154,7 +154,6 @@ Page({
       }
 
     })
-    // }
   },
   loadBanner: function(shopId) {
     // console.log(shopId)
@@ -166,15 +165,14 @@ Page({
       // console.log('首次进来');
       storesId = App.globalData.store_id;
     } else {
-      //console.log('店铺进来');
+      // console.log('店铺进来');
       storesId = shopId;
+      that.setData({
+        shopName: App.globalData.store_name
+      })
     }
-    // console.log(storesId);
-    // console.log(shopId)
+   
     App.globalData.store_id = storesId;
-    // console.log(stroe_id);
-    // console.log(getApp().globalData.lat)
-    // console.log(getApp().globalData.lng)
     // 获取底部good列表
     server.getJSON("/Index/getColumnGoodlist", {
       store_id: storesId
@@ -244,7 +242,7 @@ Page({
       cuoponhidden:true
     })
     server.getJSON("/Index/getCouponList", {
-      store_id: 26
+      store_id: App.globalData.store_id
     }, function (res) {
       console.log(res)
       that.setData({
@@ -267,7 +265,7 @@ Page({
       }else{
         wx.showToast({
           title: '领取失败',
-          icon: "cancel"
+          image: '../../images/about.png',
         })
       }
     });

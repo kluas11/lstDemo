@@ -61,14 +61,15 @@ Page({
     console.log(e.currentTarget);
     var id = e.currentTarget.dataset.id;
     getApp().globalData.store_name = e.currentTarget.dataset.store_name;
-
     wx.switchTab({
       url: '/pages/index/index',
       success: function(res) {
         // success
         var page = getCurrentPages().pop();
         if (page == undefined || page == null) return;
-        page.onLoad(id);
+        page.onLoad({
+          store_id:id
+        });
       },
       fail: function() {
         // fail

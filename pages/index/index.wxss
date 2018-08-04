@@ -374,3 +374,8 @@ page {
   background: #ffffff;
   height: 520rpx;
 }
+.no_cuopon{
+  text-align: center;
+  padding-top: 100rpx;
+  color: #969696;
+}

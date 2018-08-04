@@ -21,9 +21,17 @@ var timestampToTime = function (timestamp, bool) {
 var fileter = function (data) {
   return data < 10 ? "0" + data : data
 }
-// 判断优惠券是否过期
-var isoverdue = function(end){
-  return getDate().getTime() > end * 1000;
+// 判断优惠券是否过期  或者被选择
+var isoverdue = function(end,index,select){
+  if (arguments.length == 3){
+    if (index == select){
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+    return getDate().getTime() > end * 1000;
+  }
 }
 // 折扣处理
 var toFloat = function(num){
