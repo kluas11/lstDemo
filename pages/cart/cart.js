@@ -249,7 +249,7 @@ Page({
       // // sum
       that.sum();
     });
-    console.clear();
+  
   },
   onShow: function () {
     this.getCarts();
@@ -322,7 +322,6 @@ Page({
         }
       }
     })
-    console.clear();
   },
   saveNum: function (id, num) {
     var that = this
@@ -344,7 +343,7 @@ Page({
         }
       }
     })
-    console.clear();
+
   },
   // 弃用
   updataSelect: function (id, selected) {

@@ -200,6 +200,7 @@ Page({
         }
       })
     }
+    console.log(open_id)
     if (open_id == "" || !open_id || open_id == null) {
       wx.hideLoading()
       wx.showModal({
@@ -208,16 +209,17 @@ Page({
         showCancel: false,
         success: function(res) {
           if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/address/add/add?order=1',
-            })
+            wx.switchTab({
+              url: '../../index/index'
+            });
           } else if (res.cancel) {
-            wx.navigateTo({
-              url: '/pages/address/add/add?order=1',
-            })
+            wx.switchTab({
+              url: '../../index/index'
+            });
           }
         }
       })
+      return false;
     }
     var payway = e.currentTarget.dataset.way
     var port = ""
@@ -402,7 +404,7 @@ Page({
     var coupong_id = that.data.coupon_id || '';
     var winrecord = {
       user_id: user_id,
-      store_id: stroe_id,
+      store_id: store_id,
       goods_ids: goodsID,
       address_id: addressID,
       is_express: that.data.distributionIndex,
