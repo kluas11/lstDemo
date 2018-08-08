@@ -30,11 +30,13 @@ Page({
    *******************************************************************************/
   onLoad: function(options) {
     let ctx = this;
-    console.log(options)
-    getStoreInfo(ctx, options.store_id);
-    this.setData({
-      store_id: options.store_id
-    })
+    let scan_url = decodeURIComponent();
+    console.log(scan_url);
+    // let store_id = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length);
+    // getStoreInfo(ctx, options.store_id);
+    // this.setData({
+    //   store_id: options.store_id
+    // })
     this.load();
   },
   onShow() {
@@ -44,7 +46,7 @@ Page({
     }
   },
   load() {
-    var that = this;
+    let that = this;
     app.getlogin().then(user_id => {
       getCustomerInfo(that, user_id);
     })
@@ -103,7 +105,7 @@ Page({
         content: '确认支付' + ctx.data.fixedAmount + '元',
         success: function(res) {
           if (res.confirm) {
-            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function (res) {
+            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
               console.log(res.data.payway)
               if (res.data.status == 1 && res.data.payway == 'Walletpay') {
                 wx.showToast({
@@ -196,6 +198,7 @@ function doPay(payway, total_amount, store_id, user_id, func) {
     user_id: user_id
   }, func)
 }
+
 function getStoreInfo(ctx, store_id) {
   server.getJSON("/Scanpay/get_storeInfo", {
     store_id: store_id

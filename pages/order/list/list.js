@@ -59,12 +59,6 @@ Page({
         duration: 2000,
         showCancel: false,
         complete: function () {
-
-          // setTimeout(function () {
-          //   wx.switchTab({
-          //     url: '../../index/index'
-          //   });
-          // }, 2000);
         }
       })
       return;
@@ -76,15 +70,6 @@ Page({
         content: "获取个人信息有误,请后台关闭小程序再使用",
         showCancel: false,
         success: function (res) {
-          // if (res.confirm) {
-          //   wx.navigateTo({
-          //     url: '/pages/address/add/add?order=1',
-          //   })
-          // } else if (res.cancel) {
-          //   wx.navigateTo({
-          //     url: '/pages/address/add/add?order=1',
-          //   })
-          // }
         }
       })
       return;
@@ -123,15 +108,7 @@ Page({
         }
 
       })
-
     }
-    // console.log(winrecord)
-    // console.log(postUrl + port)
-    // console.log(user_id)
-    // console.log(open_id)
-    // console.log(order_id)
-    // console.log(winrecord)
-
   },
   // 发送支付
   sendpayment: function (postUrl, port, winrecord, payway) {

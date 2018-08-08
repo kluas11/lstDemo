@@ -40,6 +40,7 @@ App({
                   that.globalData.userInfo = {
                     user_id: data.data.user_id
                   };
+                  that.globalData.openid = data.data.openid
                   // 全局app变量
                   var user = that.globalData.userInfo;
                   //本地缓存

@@ -98,7 +98,7 @@ Page({
       store_id: stroe_id,
       address_id: address_id
     }, function(res) {
-      console.log(res)
+      // console.log(res)
       if (res.data.status) {
         that.setData({
           expressFee: res.data.fee,
@@ -111,7 +111,7 @@ Page({
   },
   // 切换配送方式
   distributionChange: function(e) {
-    console.log(e.detail.value)
+    // console.log(e.detail.value)
     var that = this
     var addressIndex = that.data.addressIndex
     var address_id = that.data.addressList[addressIndex].address_id
@@ -122,7 +122,7 @@ Page({
         store_id: stroe_id,
         address_id: address_id
       }, function(res) {
-        console.log(res)
+        // console.log(res)
         if (res.data.status) {
           that.setData({
             expressFee: res.data.fee
@@ -277,9 +277,8 @@ Page({
       success: function(res) {
 
         wx.hideLoading()
-        console.log(res)
+        // console.log(res)
         // 微信支付
-
         if (payway == "wxPreparePay") {
           var result = res.data.data
           wx.requestPayment({
@@ -290,7 +289,7 @@ Page({
             'paySign': result.paySign,
             'success': function(res) {
               wx.hideLoading()
-              console.log(res)
+              // console.log(res)
               wx.showToast({
                 title: "支付成功",
                 icon: "success",
@@ -397,7 +396,7 @@ Page({
     // 获取到user_id
     var user_id = wx.getStorageSync("user_id")
     // store_id 获取到storeID
-    var store_id = app.globalData.store_id;
+    var stroe_id = app.globalData.store_id;
     var addressIndex = that.data.addressIndex;
     var addressID = that.data.addressList[addressIndex].address_id;
     var coupong_id = that.data.coupon_id || '';
@@ -412,7 +411,7 @@ Page({
     if (that.data.goodsNum > 0) {
       winrecord["goods_num"] = that.data.goodsNum
     }
-    console.log(winrecord)
+    // console.log(winrecord)
     wx.request({
       url: postUrl + "/Dopay/createOrder",
       header: {
@@ -421,7 +420,7 @@ Page({
       data: winrecord,
       method: 'POST',
       success: function(res) {
-        console.log(res)
+        // console.log(res)
         wx.hideLoading();
         var result = res.data
         if (result.status) {

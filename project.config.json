@@ -36,13 +36,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "11",
 					"pathName": "pages/index/index",
-					"query": "q=29"
+					"query": "q=26"
 				},
 				{
 					"id": 1,
@@ -102,7 +102,7 @@
 					"id": 10,
 					"name": "订单详情",
 					"pathName": "pages/order/details/index",
-					"query": "order_id=718"
+					"query": "order_id=732"
 				},
 				{
 					"id": -1,
@@ -180,6 +180,18 @@
 					"id": -1,
 					"name": "优惠券",
 					"pathName": "pages/member/coupon/index",
+					"query": ""
+				},
+				{
+					"id": 24,
+					"name": "华夏店  26号店",
+					"pathName": "pages/index/index",
+					"query": "store_id=26"
+				},
+				{
+					"id": -1,
+					"name": "绑定修改个人信息",
+					"pathName": "pages/register/index",
 					"query": ""
 				}
 			]

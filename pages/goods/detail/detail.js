@@ -12,24 +12,7 @@ Page({
     tab: 0,
     collectstate: false,
     goods_num: 1,
-    textStates: ["view-btns-text-normal", "view-btns-text-select"],
     goods_oss: App.image_oss + '750_750'
-  },
-  // 未知
-  propClick: function(e) {
-    var pos = e.currentTarget.dataset.pos;
-    var index = e.currentTarget.dataset.index;
-    var goods = this.data.goods
-    for (var i = 0; i < goods.goods.goods_spec_list[index].length; i++) {
-      if (i == pos)
-        goods.goods.goods_spec_list[index][pos].isClick = 1;
-      else
-        goods.goods.goods_spec_list[index][i].isClick = 0;
-    }
-    this.setData({
-      goods: goods
-    });
-    this.checkPrice();
   },
   // 加入收藏
   addCollect: function(e) {
@@ -124,7 +107,7 @@ Page({
       }
     )
   },
-  // 未知
+  // 顶部导航
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
@@ -214,16 +197,6 @@ Page({
       })
     })
     return;
-  },
-  showCartToast: function() {
-    wx.showToast({
-      title: '已加入购物车',
-      icon: 'success',
-      duration: 1000
-    });
-    wx.navigateTo({
-      url: '/pages/cart/cart'
-    });
   },
   // 预览图片
   previewImage: function(e) {
@@ -320,6 +293,5 @@ Page({
         })
       }
     });
-   
   },
 });

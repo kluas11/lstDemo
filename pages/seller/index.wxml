@@ -7,7 +7,6 @@
 
   </view>
 </scroll-view>
-
 <view class="seller-item" wx:for="{{stores}}" wx:key='unique'>
   <view class="seller-info">
     <image mode="aspectFit" src="{{item.store_logo}}"></image>
@@ -20,24 +19,6 @@
       <text>{{item.distance}}米</text>
     </view>
   </view>
-
-  <!-- <view class="seller-mark">
-    <view class="seller-mark-item">
-      <text class="text-marktitle">宝贝描述</text>
-      <text class="text-mark">{{item.store_desccredit}}</text>
-    </view>
-    <view class="seller-mark-item">
-      <text class="text-marktitle">卖家服务</text>
-      <text class="text-mark">{{item.store_servicecredit}}</text>
-    </view>
-    <view class="seller-mark-item">
-      <text class="text-marktitle">物流服务</text>
-      <text class="text-mark">{{item.store_deliverycredit}}</text>
-    </view>
-  </view> -->
-
-  <!-- <text class="text-title">共有宝贝{{item.goods_num}}件</text> -->
-
   <view class="seller-goods">
     <view class="seller-goods-item" wx:for="{{item.goods}}" wx:for-item="good" wx:key='unique'>
       <image src="{{good.original_img+goods_oss}}"></image>

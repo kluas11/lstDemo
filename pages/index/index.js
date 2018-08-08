@@ -1,8 +1,6 @@
 var server = require('../../utils/server');
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var App = getApp();
-var q;
-
 Page({
   data: {
     "address": "定位中",
@@ -19,7 +17,7 @@ Page({
   },
   onLoad: function(options) {
     // this.getcouponTap();
-    // console.log(options)
+    console.log(options)
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -29,18 +27,16 @@ Page({
     this.setData({
       options: options
     })
-    if (options.q !== undefined) {
-      q = options.q;
-    }
-    var scene = decodeURIComponent(options.scene);
-    wx.setStorage({
-      key: "scene",
-      data: scene
-    })
+    // var scene = decodeURIComponent(options.scene);
+    // console.log(scene)
+    // wx.setStorage({
+    //   key: "scene",
+    //   data: scene
+    // })
     //判断用户来源
     this.getInviteCode(options);
     // 首页加载
-    console.log(options)
+    // console.log(options)
     this.load();
     // 获取后台设置全部分类
     server.getJSON("/Index/getIndexNav", {}, function(res) {
@@ -97,17 +93,6 @@ Page({
 
       }
     });
-  },
-  onReady: function() {
-    if (q !== undefined) {
-      var scan_url = decodeURIComponent(q);
-      console.log(scan_url);
-      var store_id = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length);
-      wx.navigateTo({
-        url: '/pages/payment/payment' + '?' + store_id,
-      })
-      return;
-    } else {}
   },
   // 页面显示
   onShow: function() {

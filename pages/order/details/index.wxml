@@ -1,6 +1,7 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
+<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
 <wxs module='time' src='./index.wxs' />
-<view class="parent">
+<view class="parent" wx:if="{{result}}">
   <!-- 订单状态 -->
   <view class='order_top'>
     <view class='order_num'>订单号:
@@ -8,54 +9,53 @@
     </view>
     <view class='order_status improt_color'>{{result.status_msg}}</view>
   </view>
-  <!-- 订单时间 -->
-  <view class="order_time" style="background:#ffffff;">
-    <text class="time">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
-    <text class="time" wx:if="{{result.pay_time!=='0'}}">支付时间 : {{time.timestampToTime(result.pay_time)}}</text>
-    <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间 : {{time.timestampToTime(result.shipping_time)}}</text>
-    <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间 : {{time.timestampToTime(result.confirm_time)}}</text>
-  </view>
-  <!-- 收货地址 -->
-  <view class="view-address" style="background:#ffffff" wx:if="{{result.province}}">
-    <view class="view-addressleft">
-      <text class='iconfont icon-dizhi2'></text>
-      <view class="view-addressleft-info">
-        <text class="text-name">收货人:{{result.consignee}}</text>
-        <text class="text-address">收货地址:{{result.province+result.city+result.district+result.address}}</text>
-      </view>
+  <view class='order_msg'>
+    <!-- 订单时间 -->
+    <view class="order_time" style="background:#ffffff;">
+      <text class="time">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
+      <text class="time" wx:if="{{result.pay_time!=='0'}}">支付时间 : {{time.timestampToTime(result.pay_time)}}</text>
+      <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间 : {{time.timestampToTime(result.shipping_time)}}</text>
+      <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间 : {{time.timestampToTime(result.confirm_time)}}</text>
     </view>
-    <view class="view-addressright">
-      <text class="text-mobile">{{result.mobile}}</text>
-    </view>
-  </view>
-  <view wx:else class="view-address" style="background:#ffffff">
+    <!-- 收货地址 -->
+    <view class="view-address" style="background:#ffffff" wx:if="{{result.province}}">
       <view class="view-addressleft">
-      <text class='iconfont icon-dizhi2'></text>
-      <view class="view-addressleft-info">
-        <text class="text-name">门店自取</text>
+        <text class='iconfont icon-dizhi2'></text>
+        <view class="view-addressleft-info">
+          <text class="text-name">收货人:{{result.consignee}}</text>
+          <text class="text-address">收货地址:{{result.province+result.city+result.district+result.address}}</text>
+        </view>
+      </view>
+      <view class="view-addressright">
+        <text class="text-mobile">{{result.mobile}}</text>
       </view>
     </view>
-  </view>
-  <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
-    <view class="view-addressleft">
-      <image src="/images/wl.png"></image>
-      <view  data-no="{{result.invoice_no}}" class="view-addressleft-info">
-        <text class="text-name">快递单号:{{result.shipping_code}}</text>
-        <text class="text-address">物流公司:{{result.shipping_name}}</text>
+    <view wx:else class="view-address" style="background:#ffffff">
+      <view class="view-addressleft">
+        <text class='iconfont icon-dizhi2'></text>
+        <view class="view-addressleft-info">
+          <text class="text-name">门店自取</text>
+        </view>
       </view>
     </view>
+    <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
+      <view class="view-addressleft">
+        <image src="/images/wl.png"></image>
+        <view data-no="{{result.invoice_no}}" class="view-addressleft-info">
+          <text class="text-name">快递单号:{{result.shipping_code}}</text>
+          <text class="text-address">物流公司:{{result.shipping_name}}</text>
+        </view>
+      </view>
       <button class='shipping_btn {{disabled?"disabled_btn":""}}' bindtap='shippingTap' disabled="{{disabled}}">配送信息</button>
-    <view>
+      <view>
+      </view>
     </view>
   </view>
-  <view class="view-title">
+  <!-- <view class="view-title">
     <text class='iconfont icon-gouwudai'></text>
     <text>网站自营</text>
-  </view>
-
-
-  <view class="container carts-list">
-    <view class="class-line"></view>
+  </view> -->
+  <view class="carts-list">
     <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
       <!-- -->
       <view>
@@ -65,14 +65,11 @@
       <view class="carts-text">
         <!-- 商品标题 -->
         <text class="carts-title">{{item.goods_name}}</text>
-        <text class="carts-key-name">{{item.spec_key_name}}</text>
+        <!-- <text class="carts-key-name">{{item.spec_key_name}}</text> -->
         <view class="carts-subtitle">
-          <!-- 价格 -->
+          <text class="text-red improt_color">￥{{item.price}}</text>
+          <text class="text-price"> x{{item.goods_num}}</text>
         </view>
-      </view>
-      <view class="carts-right">
-        <text class="text-red improt_color">￥{{item.price}}</text>
-        <text class="text-price">x{{item.goods_num}}</text>
       </view>
     </view>
   </view>
@@ -84,6 +81,21 @@
     <view class="view-price1">
       <text class="text-price1">邮费:</text>
       <text class="text-red improt_color">￥{{result.shipping_price}}元</text>
+    </view>
+    <view class="cuopon_info" wx:if="{{CouponAmount}}">
+      <view>
+        <text class="text-price1">优惠券:{{couponInfo.name}}</text>
+        <!-- 满打折 -->
+        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'PERCENT'}}">{{cuopon.toFloat(couponInfo.subtrac_percent)}}折</text>
+        <!-- 满减 -->
+        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'SUBTRAC'}}">{{cuopon.parseFloat(couponInfo.subtrac_money)}}元</text>
+        <!-- 一口价 -->
+        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}元</text>
+      </view>
+      <view>
+        <text class="text-price1" style='color:#d94612;'>优惠:</text>
+        <text class="text-red improt_color">-{{result.discount_coupon_amount}}元</text>
+      </view>
     </view>
     <view class="view-price1">
       <text class="text-price1">应付总金额:</text>

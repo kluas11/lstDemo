@@ -35,6 +35,10 @@ page {
   color: #969696;
 }
 
+.order_msg {
+  margin-bottom: 20rpx;
+}
+
 .order_time {
   display: flex;
   flex-direction: column;
@@ -68,10 +72,12 @@ page {
   width: 450rpx;
   margin-left: 30rpx;
 }
-.view-addressleft image{
+
+.view-addressleft image {
   width: 40rpx;
   height: 40rpx;
 }
+
 .icon-dizhi2 {
   font-size: 50rpx;
   color: #969696;
@@ -141,11 +147,13 @@ page {
   width: 50rpx;
   height: 50rpx;
 }
-.view-title  .icon-gouwudai{
+
+.view-title  .icon-gouwudai {
   font-size: 50rpx;
   color: #969696;
   font-weight: 600;
 }
+
 .view-title text {
   font-size: 29rpx;
   color: black;
@@ -174,21 +182,15 @@ page {
   background: #fff;
   display: flex;
   flex-direction: column;
-  padding: 0 40rpx;
-  margin-bottom: 20rpx;
 }
 
 /*每行单元格*/
 
 .carts-item {
   display: flex;
-  flex-direction: row;
   height: 150rpx;
-  /*width属性解决标题文字太短而缩略图偏移*/
-  width: 100%;
   border-bottom: 1px solid #eee;
-  padding: 30rpx 0;
-  justify-content: space-between;
+  padding: 30rpx 40rpx;
 }
 
 /*左部图片*/
@@ -204,11 +206,11 @@ page {
 /*右部描述*/
 
 .carts-text {
-  margin-left: 10rpx;
-  width: 370rpx;
+  margin-left: 20rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 }
 
 .carts-right {
@@ -243,10 +245,10 @@ page {
 .carts-subtitle {
   font-size: 25rpx;
   color: darkgray;
-  padding: 0 20rpx;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
 }
 
 /*价格*/
@@ -387,25 +389,35 @@ page {
 }
 
 .view-price {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
   background: #fff;
 }
 
 .view-price1 {
-  margin-top: 30rpx;
-  margin-right: 20rpx;
+  padding-right: 20rpx;
+  height: 68rpx;
   display: flex;
+  flex: 1;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.c_price{
+  font-size: 26rpx;
+  margin-left: 20rpx;
+}
+.cuopon_info {
+  padding:0 20rpx;
+  height: 68rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  justify-content: space-between;
 }
 
 .text-price1 {
-  font-size: 29rpx;
-  color: grey;
+  font-size: 26rpx;
+  color: #000;
 }
 
 .text-save {

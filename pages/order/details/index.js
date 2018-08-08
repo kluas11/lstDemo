@@ -18,7 +18,9 @@ Page({
         console.log(result)
         that.getshipping(result.status)
         that.setData({
-          result: result
+          result: result,
+          CouponAmount:result.discount_coupon_amount,
+          couponInfo: result.couponInfo
         });
       });
   },
@@ -31,7 +33,7 @@ Page({
         var result = res.data;
         that.setData({
           disabled: !result.status,
-          shipping_status: result.shipping_status ? result.shipping_status:''
+          shipping_status: result.shipping_status ? result.shipping_status:'',
         })
       });
   },
