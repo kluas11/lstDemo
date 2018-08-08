@@ -16,8 +16,10 @@ Page({
     homeIndex: true //优惠券按钮判断
   },
   onLoad: function(options) {
-    // this.getcouponTap();
-    console.log(options)
+    // console.log("1111111",options)
+    if (options.q){
+      var obj = decodeURIComponent(options.q);
+    }
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -90,7 +92,7 @@ Page({
   },
   // 页面显示
   onShow: function() {
- 
+    
   },
   getInviteCode: function(options) {
     //用户是否通过首页分享进入，缓存分享者 uidhge 
