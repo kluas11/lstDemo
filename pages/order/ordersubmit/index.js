@@ -63,18 +63,18 @@ Page({
   // 页面显示
   onShow: function() {
     if (!this.data.goodsID) {
-      wx.showToast({
-        title: '订单已关闭',
-        image: '../../../images/about.png',
-        duration: 1000,
-        complete: function() {
-          setTimeout(function() {
-            wx.switchTab({
-              url: '../../cart/cart'
-            });
-          }, 1000)
-        }
-      })
+    //   wx.showToast({
+    //     title: '订单已关闭',
+    //     image: '../../../images/about.png',
+    //     duration: 1000,
+    //     complete: function() {
+    //       setTimeout(function() {
+    //         wx.switchTab({
+    //           url: '../../cart/cart'
+    //         });
+    //       }, 1000)
+    //     }
+    //   })
       return;
     }
     this.getCarts();

@@ -402,5 +402,18 @@ Page({
     cPage = 0;
     this.data.orders = [];
     this.getOrderLists(ctype, 1);
+  },
+  onHide:function(){
+    console.log(getCurrentPages())
+  },
+  onUnload:function (){
+    var pages = getCurrentPages()
+    var prevPage = pages[pages.length - 2].route;
+    console.log(prevPage)   
+     if (prevPage == "pages/order/ordersubmit/index"){
+      wx.switchTab({
+        url: '../../cart/cart',
+      })
+    }
   }
 });
