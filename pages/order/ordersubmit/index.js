@@ -66,13 +66,13 @@ Page({
       wx.showToast({
         title: '订单已关闭',
         image: '../../../images/about.png',
-        duration: 2000,
+        duration: 1000,
         complete: function() {
           setTimeout(function() {
             wx.switchTab({
               url: '../../cart/cart'
             });
-          }, 2000)
+          }, 1000)
         }
       })
       return;
@@ -404,7 +404,7 @@ Page({
     var coupong_id = that.data.coupon_id || '';
     var winrecord = {
       user_id: user_id,
-      store_id: store_id,
+      store_id: stroe_id,
       goods_ids: goodsID,
       address_id: addressID,
       is_express: that.data.distributionIndex,
