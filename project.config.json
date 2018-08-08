@@ -36,14 +36,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 23,
 			"list": [
-				{
-					"id": 0,
-					"name": "11",
-					"pathName": "pages/index/index",
-					"query": "q=26"
-				},
 				{
 					"id": 1,
 					"name": "商品详情",
@@ -117,10 +111,11 @@
 					"query": "objectId=81"
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "扫码",
 					"pathName": "pages/payment/payment",
-					"query": "store_id=26"
+					"query": "q=https%3A%2F%2Fshop.poopg.com%2Findex.php%2FWXAPI%2FScanpay%2Fredirect%3Fstore_id%3D26",
+					"scene": "1011"
 				},
 				{
 					"id": -1,
@@ -183,10 +178,11 @@
 					"query": ""
 				},
 				{
-					"id": 24,
+					"id": 23,
 					"name": "华夏店  26号店",
 					"pathName": "pages/index/index",
-					"query": "store_id=26"
+					"query": "store_id=26",
+					"scene": "1005"
 				},
 				{
 					"id": -1,

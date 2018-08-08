@@ -12,12 +12,14 @@ Page({
     lists_oss: App.image_oss + '72_72',
     goods_oss: App.image_oss + '224_280',
     banner_oss: App.image_oss + '750_290',
-    cuoponhidden:false,
-    homeIndex:true//优惠券按钮判断
+    cuoponhidden: false,
+    homeIndex: true //优惠券按钮判断
   },
   onLoad: function(options) {
-    // this.getcouponTap();
-    console.log(options)
+    // console.log("1111111",options)
+    if (options.q){
+      var obj = decodeURIComponent(options.q);
+    }
     var that = this;
     wx.showToast({
       title: 'loading...',
@@ -27,12 +29,6 @@ Page({
     this.setData({
       options: options
     })
-    // var scene = decodeURIComponent(options.scene);
-    // console.log(scene)
-    // wx.setStorage({
-    //   key: "scene",
-    //   data: scene
-    // })
     //判断用户来源
     this.getInviteCode(options);
     // 首页加载
@@ -99,16 +95,17 @@ Page({
     
   },
   getInviteCode: function(options) {
-    //用户是否通过分享进入，缓存分享者 uidhge 
-    if (options.uid != undefined) {
+    //用户是否通过首页分享进入，缓存分享者 uidhge 
+    if (options.uid != undefined || options.scene) {
+      let uid = options.uid ? options.uid : options.scene;
       wx.setStorage({
         key: "scene",
-        data: data.uid
+        data: uid
       })
       wx.showToast({
-        title: '来自用户:' + data.uid + '的分享',
+        title: '来自用户:' + uid + '的分享',
         icon: 'success',
-        duration: 2000
+        duration: 3000
       })
     }
   },
@@ -156,7 +153,7 @@ Page({
         shopName: App.globalData.store_name
       })
     }
-   
+
     App.globalData.store_id = storesId;
     // 获取底部good列表
     server.getJSON("/Index/getColumnGoodlist", {
@@ -221,33 +218,33 @@ Page({
     });
   },
   // 获取优惠券
-  getcouponTap(){
+  getcouponTap() {
     let that = this;
     this.setData({
-      cuoponhidden:true
+      cuoponhidden: true
     })
     server.getJSON("/Index/getCouponList", {
       store_id: App.globalData.store_id
-    }, function (res) {
+    }, function(res) {
       console.log(res)
       that.setData({
-          cuoponlist:res.data
-        })
+        cuoponlist: res.data
+      })
     });
   },
   // 去领取优惠券
-  receivetap(e){
+  receivetap(e) {
     let coupon_id = e.currentTarget.dataset.coupon_id;
     server.newpostJSON("/Index/receiveCoupon", {
       coupon_id,
-      user_id:wx.getStorageSync("user_id")
-    }, function (res) {
-      if (res.data.status){
-          wx.showToast({
-            title: '领取成功',
-            icon:"success"
-          })
-      }else{
+      user_id: wx.getStorageSync("user_id")
+    }, function(res) {
+      if (res.data.status) {
+        wx.showToast({
+          title: '领取成功',
+          icon: "success"
+        })
+      } else {
         wx.showToast({
           title: '领取失败',
           image: '../../images/about.png',
@@ -256,12 +253,12 @@ Page({
     });
   },
   // 关闭领券
-  hidetap(e){
-    if (e.target.id === 'cuopon_info'){
+  hidetap(e) {
+    if (e.target.id === 'cuopon_info') {
       this.setData({
-        cuoponhidden:false
+        cuoponhidden: false
       })
-    }else{
+    } else {
       return;
     }
   },
@@ -287,11 +284,11 @@ Page({
         title: '功能维护中',
         icon: "success"
       })
-    }else{
+    } else {
       // 转到普通页面
       wx.navigateTo({
-         url: links,
-       })
+        url: links,
+      })
     }
   },
   onShareAppMessage: function() {
