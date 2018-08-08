@@ -36,14 +36,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
-				{
-					"id": 0,
-					"name": "11",
-					"pathName": "pages/index/index",
-					"query": "q=26"
-				},
 				{
 					"id": 1,
 					"name": "商品详情",
@@ -117,10 +111,10 @@
 					"query": "objectId=81"
 				},
 				{
-					"id": -1,
+					"id": 13,
 					"name": "扫码",
 					"pathName": "pages/payment/payment",
-					"query": "store_id=26"
+					"query": "scene=store_id%3d26"
 				},
 				{
 					"id": -1,

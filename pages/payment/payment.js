@@ -30,13 +30,15 @@ Page({
    *******************************************************************************/
   onLoad: function(options) {
     let ctx = this;
-    let scan_url = decodeURIComponent();
-    console.log(scan_url);
-    // let store_id = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length);
-    // getStoreInfo(ctx, options.store_id);
-    // this.setData({
-    //   store_id: options.store_id
-    // })
+    // options.scene 调试使用
+    let scan_url = decodeURIComponent(options.scene); //公众号设置的二维码链接，需要使用 decodeURIComponent 解析获取参数
+    let str = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length); //"store_id = 26"
+    let store_id = str.split("=")[1];
+ 
+    getStoreInfo(ctx, store_id);
+    this.setData({
+      store_id: store_id
+    })
     this.load();
   },
   onShow() {
