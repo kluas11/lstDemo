@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 25,
 			"list": [
 				{
 					"id": 1,
@@ -63,10 +63,10 @@
 					"query": "returnTo=1"
 				},
 				{
-					"id": -1,
-					"name": "提交订单",
+					"id": 4,
+					"name": "购物车确认订单",
 					"pathName": "pages/order/ordersubmit/index",
-					"query": ""
+					"query": "origin=cart&goodsID=2272,2273,2274"
 				},
 				{
 					"id": 6,
@@ -148,10 +148,10 @@
 					"query": ""
 				},
 				{
-					"id": 19,
-					"name": "确认订单",
+					"id": 18,
+					"name": "商品确认订单",
 					"pathName": "pages/order/ordersubmit/index",
-					"query": "origin=detail&goodsID=2330&goods_num=5"
+					"query": "origin=detail&goodsID=2272&goods_num=3"
 				},
 				{
 					"id": -1,
@@ -189,6 +189,12 @@
 					"name": "绑定修改个人信息",
 					"pathName": "pages/register/index",
 					"query": ""
+				},
+				{
+					"id": 25,
+					"name": "维达130抽纸  活动测试",
+					"pathName": "pages/order/ordersubmit/index",
+					"query": "origin=detail&goodsID=2272&goods_num=3"
 				}
 			]
 		}

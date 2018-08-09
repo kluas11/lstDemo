@@ -2,15 +2,7 @@
 <!--保留几位小数方法  -->
 <wxs module="filters" src="common.wxs"></wxs>
 <view class="parent" style='margin-bottom:200rpx'>
-  <!--区域范围判断废弃  -->
-  <view class='outRangeTip' wx:if='{{outRange}}'>
-    <view>
-      <view>您所在位置超出配送范围！</view>
-      <view>如需物流配送请添加新地址。</view>
-    </view>
-    <image src='/images/white_hint.png' mode='widthFix' bindtap='gotoAddAddr'></image>
-  </view>
-  <view class="view-address" wx:else bindtap="addressSelect">
+  <view class="view-address" bindtap="addressSelect">
     <view class="view-addressleft">
       <text class='iconfont icon-dizhi'></text>
       <view class="view-addressleft-info">
@@ -47,12 +39,19 @@
       <view class="carts-text">
         <!-- 商品标题 -->
         <text class="carts-title">{{item.goods_name}}</text>
-        <text class="carts-key-name">{{item.spec_key_name}}</text>
-        <view class="carts-subtitle">
+        <text class="carts-key-name" wx:if="{{item.spec_key_name}}">{{item.spec_key_name}}</text>
+        <view class='acitve_goods' wx:if="{{item.activityInfo}}">
+          <view>
+            <text>活动优惠：</text>
+            <text class='acitve_goods_num'>￥{{item.activityInfo.discount_money}}</text>
+          </view>
+          <view>
+            <text>参与活动商品数：</text>
+            <text class='acitve_goods_num'>x{{item.activityInfo.activity_goods_num}}</text>
+          </view>
         </view>
       </view>
       <view class="carts-right">
-
         <text class="text-red improt_color">￥{{item.shop_price}}</text>
         <text class="text-price">x{{item.goods_num}}</text>
       </view>
@@ -68,7 +67,7 @@
         <text class='iconfont icon-gengduo' style='color:#969696;'></text>
       </view>
     </picker>
-    <view class='distrbox' bindtap='getcuoponlist'> 
+    <view class='distrbox' bindtap='getcuoponlist'>
       <text style='float:left ;padding-left:30rpx;'>选择优惠券</text>
       <view style='float:right'>
         <text style='width:30rpx;height:30rpx'>{{coupontext}}</text>
@@ -80,11 +79,15 @@
   <view class="view-price">
     <view class="view-price1">
       <text class="text-price1 ">商品总额:</text>
-      <text class="text-red improt_color">￥{{totalPrice<=0?"金额有误,请勿下单":totalPrice}}元</text>
+      <text class="text-red improt_color">￥{{goodsAmount}}元</text>
     </view>
     <view class="view-price1" wx:if="{{discount_coupon_money}}">
-      <text class="text-price1 ">优惠金额:</text>
-      <text class="text-red improt_color">-{{discount_coupon_money}}元</text>
+      <text class="text-price1 ">优惠券:</text>
+      <text class="text-red" style='color:#00b26a;'>-{{discount_coupon_money}}元</text>
+    </view>
+    <view class="view-price1" wx:if="{{discount_activity_money>0}}">
+      <text class="text-price1 ">总活动优惠:</text>
+      <text class="text-red" style='color:#00b26a;'>-{{discount_activity_money}}元</text>
     </view>
     <view wx:if="{{distributionIndex==1}}" class="view-price1">
       <text class="text-price1">邮费:</text>
@@ -92,31 +95,30 @@
     </view>
   </view>
   <view style="position:fixed;display:flex; bottom:0;line-height:120rpx;width:100%;height:120rpx;background:#F4F4F4">
-    <view wx:if="{{distributionIndex==0}}" style='width:75%;padding-left:3%'>应付总金额: {{goodsAmount
-      <=0? "金额有误,请勿下单":goodsAmount}}元 </view>
-        <view wx:else style='width:75%;padding-left:3%'>应付总金额:
-          <text class='improt_color'>  ￥{{goodsAmount<=0?"金额有误,请勿下单":goodsAmount+expressFee}}元 </text> </view>
-        <text bindtap="formSubmit" class="text-save">提交订单</text>
-    </view>
-    <view wx:if="{{orderState}}" class='addressmark' style='z-index:200'>
-      <view class="orderpaybox">
-        <view style='text-align:center;padding:30rpx;height:50rpx;background:#c1c1c1'>选择支付方式</view>
-        <view class="payment">
-          <block wx:for="{{paymentArray}}" wx:key="index">
-            <button class='{{item.class}}' bindtap="paymentBtn" data-way="{{item.way}}">{{item.name}}</button>
-          </block>
+    <view style='width:75%;padding-left:3%'>应付总金额:
+      <text class='improt_color'>  ￥{{totalPrice}}元 </text> </view>
+    <text bindtap="formSubmit" class="text-save">提交订单</text>
+  </view>
+  <view wx:if="{{orderState}}" class='addressmark' id='paybox' style='z-index:200' bindtap='hidden_paybox'>
+    <view class="orderpaybox">
+      <view style='text-align:center;padding:20rpx;background:#d94612;color:#ffffff;'>选择支付方式</view>
+      <view class="payment">
+        <view class='payment_price'><text>需要支付金额为{{total_amount}}元</text></view>
+        <view wx:for="{{paymentArray}}" wx:key="index">
+          <button class='{{item.class}}' bindtap="paymentBtn" data-way="{{item.way}}">{{item.name}}</button>
         </view>
       </view>
     </view>
   </view>
-  <!--支付方式选择  -->
+</view>
+<!--支付方式选择  -->
 <wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
 <!-- 数据过滤 -->
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
   <view class='cuopon_content'>
     <scroll-view scroll-y="true" class='cuopon_lists'>
-    <!-- 自己写的模板  优惠券页面也有用到 -->
-      <include src="../../../template/cuopon_cart/cuopon_cart.wxml"/>
+      <!-- 自己写的模板  优惠券页面也有用到 -->
+      <include src="../../../template/cuopon_cart/cuopon_cart.wxml" />
     </scroll-view>
   </view>
 </view>

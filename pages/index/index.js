@@ -126,7 +126,7 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-          // console.log("门店ID",App.globalData.store_id)
+          
           resolve({
             state: "success"
           })

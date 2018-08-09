@@ -1,5 +1,6 @@
 /* pages/order/ordersubmit/index.wxss */
 @import '../../../template/cuopon_cart/cuopon_cart.wxss';
+
 .addressbox {
   width: 70%;
   height: 70%;
@@ -25,20 +26,18 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 600rpx;
-  height: 300rpx;
   background: #fff;
-  border-radius: 10px;
 }
 
 .payment {
   display: flex;
-  box-sizing: border-box;
-  flex-direction: row;
-  flex-wrap: wap;
-  justify-content: center;
-  margin-top: 20rpx;
+ flex-direction: column;
+ padding:20rpx 20rpx;
 }
-
+.payment_price{
+  font-size: 30rpx;
+  text-align: center;
+}
 .payment button {
   color: #fff;
   margin-top: 20rpx;
@@ -213,6 +212,17 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.acitve_goods {
+  display: flex;
+  flex-direction: column;
+  font-size: 26rpx;
+  color: #d94612;
+}
+
+.acitve_goods_num {
+  color: #00b26a;
 }
 
 .carts-key-name {
@@ -548,9 +558,8 @@
   height: 100rpx;
   line-height: 100rpx;
   border-bottom: 1px solid #f4f4f4;
-  padding-right:20rpx;
-box-sizing:border-box;
-
+  padding-right: 20rpx;
+  box-sizing: border-box;
 }
 
 .outRangeTip {
@@ -572,6 +581,7 @@ box-sizing:border-box;
 .outRangeTip image {
   width: 32rpx;
 }
+
 .cuopon_info {
   position: fixed;
   height: 100%;
@@ -596,10 +606,12 @@ box-sizing:border-box;
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
-  background: #ffffff;
+  background: #fff;
   height: 640rpx;
 }
+
 /* 选择的优惠券 */
+
 .disabled {
   display: flex;
   border: 2rpx solid #4ab760;
@@ -640,11 +652,13 @@ box-sizing:border-box;
   border-right: 1px dashed #4ab760;
   justify-content: space-around;
 }
+
 .disabled .cuopon_price {
   color: #4ab760;
   font-size: 24rpx;
   margin: 0rpx 20rpx;
 }
-.disabled  .cuopon_btn{
+
+.disabled  .cuopon_btn {
   background: #4ab760;
 }
