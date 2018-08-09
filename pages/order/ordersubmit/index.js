@@ -62,18 +62,18 @@ Page({
   // 页面显示
   onShow: function() {
     if (!this.data.goodsID) {
-      wx.showToast({
-        title: '订单已关闭',
-        image: '../../../images/about.png',
-        duration: 2000,
-        complete: function() {
-          setTimeout(function() {
-            wx.switchTab({
-              url: '../../cart/cart'
-            });
-          }, 2000)
-        }
-      })
+    //   wx.showToast({
+    //     title: '订单已关闭',
+    //     image: '../../../images/about.png',
+    //     duration: 1000,
+    //     complete: function() {
+    //       setTimeout(function() {
+    //         wx.switchTab({
+    //           url: '../../cart/cart'
+    //         });
+    //       }, 1000)
+    //     }
+    //   })
       return;
     }
     this.getCarts();
@@ -94,7 +94,7 @@ Page({
     var address_id = that.data.addressList[Index].address_id;
     var stroe_id = app.globalData.store_id;
     server.getJSON('/Dopay/queryShippingPrice', {
-      store_id: 26,
+      store_id: stroe_id,
       address_id: address_id
     }, function(res) {
       if (res.data.status) {
@@ -120,7 +120,7 @@ Page({
       if (e.detail.value == 1) {
         // 选择物流配送  获取运费
         server.getJSON('/Dopay/queryShippingPrice', {
-          store_id: 26,
+          store_id: stroe_id,
           address_id: address_id
         }, function(res) {
           if (res.data.status) {
@@ -389,7 +389,7 @@ Page({
     var coupong_id = that.data.coupon_id || '';
     var winrecord = {
       user_id: user_id,
-      store_id: 26,
+      store_id: stroe_id,
       goods_ids: goodsID,
       address_id: addressID,
       is_express: that.data.distributionIndex,
@@ -485,7 +485,7 @@ Page({
           addressList: res.data
         })
         server.getJSON('/Dopay/queryShippingPrice', {
-          store_id: 26,
+          store_id: stroe_id,
           address_id: res.data[0].address_id
         }, function(res) {
           if (res.data.status) {
