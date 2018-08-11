@@ -51,10 +51,6 @@
       </view>
     </view>
   </view>
-  <!-- <view class="view-title">
-    <text class='iconfont icon-gouwudai'></text>
-    <text>网站自营</text>
-  </view> -->
   <view class="carts-list">
     <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
       <!-- -->
@@ -78,10 +74,6 @@
       <text class="text-price1">商品总额:</text>
       <text class="text-red improt_color">￥{{result.goods_price}}元</text>
     </view>
-    <view class="view-price1">
-      <text class="text-price1">邮费:</text>
-      <text class="text-red improt_color">￥{{result.shipping_price}}元</text>
-    </view>
     <view class="cuopon_info" wx:if="{{CouponAmount}}">
       <view>
         <text class="text-price1">优惠券:{{couponInfo.name}}</text>
@@ -93,9 +85,21 @@
         <text class="c_price" wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}元</text>
       </view>
       <view>
-        <text class="text-price1" style='color:#d94612;'>优惠:</text>
+        <text class="text-price1" style='color:#d94612;'>优惠券:</text>
         <text class="text-red improt_color">-{{result.discount_coupon_amount}}元</text>
       </view>
+    </view>
+    <view class="view-price1 improt_color" wx:if="{{result.discount_activity_amount}}">
+      <text class='c_price'>活动优惠:</text>
+      <text class="text-red improt_color">￥{{result.discount_activity_amount}}元</text>
+    </view>
+     <view class="view-price1 improt_color" wx:if="{{result.discount_activity_amount}}">
+      <text class='c_price'>实际总优惠:</text>
+      <text class="text-red improt_color">￥{{result.total_discount_amount}}元</text>
+    </view>
+    <view class="view-price1">
+      <text class="text-price1">邮费:</text>
+      <text class="text-red improt_color">￥{{result.shipping_price}}元</text>
     </view>
     <view class="view-price1">
       <text class="text-price1">应付总金额:</text>

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login",
     "pages/payment/payment",
     "pages/payment/complete/complete",
     "pages/member/share/erweima/index",

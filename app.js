@@ -14,6 +14,25 @@ App({
       }
     });
   },
+  getsetting(pages,options) {
+    return new Promise((reslove, reject) => {
+      wx.getSetting({
+        success: (res) => {
+          if (!res.authSetting["scope.userInfo"]) {
+            var url = pages[pages.length - 1].route;
+            if (options){
+              url = url + "&id=" + options
+            }
+            wx.redirectTo({
+              url: '/pages/login/login?url='+url,
+            })
+          } else {
+            reslove();
+          }
+        }
+      })
+    })
+  },
   // 登录注册
   getlogin() {
     var leader;
@@ -29,49 +48,43 @@ App({
       wx.login({
         success(data) {
           if (data.code) {
-            server.newpostJSON(
-              "/User/login", {
-                code: data.code,
-                leader
-              },
-              function(data) {
-                console.log(data)
-                if (data.data.status) {
-                  that.globalData.userInfo = {
-                    user_id: data.data.user_id
-                  };
-                  that.globalData.openid = data.data.openid
-                  // 全局app变量
-                  var user = that.globalData.userInfo;
-                  //本地缓存
-                  wx.setStorageSync("user_id", user.user_id)
-                  that.globalData.login = true;
-                  request(user.user_id)
-                }
-              });
+            that.getuser().then((wx_name) => {
+              server.newpostJSON(
+                "/User/login", {
+                  code: data.code,
+                  wx_name,
+                  leader
+                },
+                function(data) {
+                  console.log(data.data)
+                  if (data.data.status) {
+                    that.globalData.userInfo = {
+                      user_id: data.data.user_id
+                    };
+                    that.globalData.openid = data.data.openid
+                    // 全局app变量
+                    var user = that.globalData.userInfo;
+                    //本地缓存
+                    wx.setStorageSync("user_id", user.user_id)
+                    that.globalData.login = true;
+                    request(user.user_id)
+                  }
+                });
+            })
+
           }
         }
       })
     })
   },
- 
-  getUserInfo: function(cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        success: function() {
-          wx.getUserInfo({
-            success: function(res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
+  getuser() {
+    return new Promise((reslove, reject) => {
+      wx.getUserInfo({
+        success: function(res) {
+          reslove(res.userInfo.nickName)
         }
       })
-    }
+    })
   },
   // 获取用户地址信息
   get_getLocation(cb) {

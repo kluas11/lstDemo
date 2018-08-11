@@ -1,0 +1,33 @@
+<view class='active_list' bindtap='showDetail'wx:if="{{index<2}}" wx:for="{{active_list.admin}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
+  <view class='list_left'>
+    <view class='list_img'>
+      <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>
+    </view>
+    <view class='content'>
+      <text>{{item.goods_name}}</text>
+      <view class='time'>
+        <image class='time_img' src='/images/time.svg'></image>
+        <text>剩余:{{time.timestampToTime(item.end_time)}}</text>
+      </view>
+      <view class='ac_price'>
+        <view class="improt_color">
+          <text class='str'>￥</text>
+          <text wx:if="{{item.activity_type === 'SUBTRAC'}}" class='ac_num'>{{time.parseprice(item.shop_price,item.subtrac_money)}}</text>
+          <text wx:elif="{{item.activity_type === 'PERCENT'}}" class='ac_num'>{{time.percent(item.shop_price,item.subtrac_percent)}}</text>
+        </view>
+        <text class='del'>￥{{item.shop_price}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='ac_list_right'>
+    <view class='limit'>
+      <view class='improt_color'>活动限量{{item.limit_total}}件</view>
+      <view class='improt_color'>每人限购{{item.limit_user}}件</view>
+    </view>
+    <view class='buy_now'>
+      <text class='buy_text1'>已售{{time.buypercent(item.limit_total,item.store_count)}}</text>
+      <text class='buy_text2'>马上抢</text>
+      <text class='percent' style='width:{{time.buypercent(item.limit_total,item.store_count)}};'></text>
+    </view>
+  </view>
+</view>

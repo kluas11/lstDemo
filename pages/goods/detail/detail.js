@@ -23,11 +23,11 @@ Page({
     var msg = collectstate ? '取消收藏' : "成功收藏";
     this.getuser_id().then(user_id => {
       server.getJSON('/Goods/collectGoods', {
-        user_id,
-        goods_id,
-        type
-      },
-        function (res) {
+          user_id,
+          goods_id,
+          type
+        },
+        function(res) {
           console.log(res)
           that.setData({
             collectstate: !collectstate
@@ -45,9 +45,9 @@ Page({
     return new Promise((request, reject) => {
       var user_id = wx.getStorageSync("user_id");
       if (!user_id) {
-       App.getlogin().then(res=>{
-         request(res);
-       })
+        App.getlogin().then(res => {
+          request(res);
+        })
       } else {
         request(user_id)
       }
@@ -81,16 +81,23 @@ Page({
   },
   // 
   onLoad: function(options) {
-    // 获取到商品ID
-    var goodsId = options.objectId;
-    objectId = goodsId;
-    // 获取到分享商品
-    //获取商品详情
-    this.getGoodsById(goodsId);
-    // 用户是否收藏该商品
-    if (wx.getStorageSync('user_id')) {
-      this.iscollect();
-    }
+    let pages = getCurrentPages();
+    App.getsetting(pages, options.objectId).then(() => {
+      // 获取到商品ID
+      var goodsId = options.objectId;
+      objectId = goodsId;
+      // 获取到分享商品
+      //获取商品详情
+      this.getGoodsById(goodsId);
+      // 用户是否收藏该商品
+      if (wx.getStorageSync('user_id')) {
+        this.iscollect();
+      }
+      //获取附近店铺
+      if (!App.globalData.store_id) {
+        App.get_getLocation(this.getstore_id)
+      }
+    })
   },
   iscollect() {
     let that = this;
@@ -171,7 +178,7 @@ Page({
           user_id: user_id
         },
         method: "POST",
-        success: function (res) {
+        success: function(res) {
           // return 1/0 字符类型 是否加入成功; 
           console.log(res)
           if (res.data == "1")
@@ -187,7 +194,7 @@ Page({
               duration: 1000
             });
         },
-        'fail': function (res) {
+        'fail': function(res) {
           wx.showToast({
             title: "加入购物车失败",
             icon: 'error',
@@ -218,11 +225,7 @@ Page({
     }
   },
   onShow: function() {
-    var that = this;
-    var store_id = App.globalData.store_id
-    if (!store_id) {
-      App.get_getLocation(that.getstore_id)
-    }
+    
   },
   // 首次加入获取最近门店
   gainStore() {

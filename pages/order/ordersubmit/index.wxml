@@ -42,11 +42,11 @@
         <text class="carts-key-name" wx:if="{{item.spec_key_name}}">{{item.spec_key_name}}</text>
         <view class='acitve_goods' wx:if="{{item.activityInfo}}">
           <view>
-            <text>活动优惠：</text>
+            <text>参与活动优惠：</text>
             <text class='acitve_goods_num'>￥{{item.activityInfo.discount_money}}</text>
           </view>
           <view>
-            <text>参与活动商品数：</text>
+            <text>参与活动商品：</text>
             <text class='acitve_goods_num'>x{{item.activityInfo.activity_goods_num}}</text>
           </view>
         </view>
@@ -86,8 +86,12 @@
       <text class="text-red" style='color:#00b26a;'>-{{discount_coupon_money}}元</text>
     </view>
     <view class="view-price1" wx:if="{{discount_activity_money>0}}">
-      <text class="text-price1 ">总活动优惠:</text>
+      <text class="text-price1 ">活动优惠:</text>
       <text class="text-red" style='color:#00b26a;'>-{{discount_activity_money}}元</text>
+    </view>
+    <view class="view-price1" wx:if="{{active_total>0}}">
+      <text class="text-price1 ">实际总优惠:</text>
+      <text class="text-red" style='color:#00b26a;'>-{{active_total}}元</text>
     </view>
     <view wx:if="{{distributionIndex==1}}" class="view-price1">
       <text class="text-price1">邮费:</text>

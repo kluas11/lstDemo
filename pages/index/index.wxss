@@ -1,7 +1,14 @@
 @import '../../template/cuopon_cart/cuopon_cart.wxss';
+@import '../../template/active_admin/active_admin.wxss';
+@import '../../template/active_store/active_store.wxss';
+
 page {
   background: #eee;
   padding-top: 90rpx;
+  height: 100%;
+}
+
+.layout {
   height: 100%;
 }
 
@@ -146,9 +153,6 @@ page {
   flex-direction: column;
 }
 
-.navslide navigator {
-}
-
 .navslide navigator image {
   width: 72rpx;
   height: 72rpx;
@@ -203,17 +207,9 @@ page {
 }
 
 .main-goods {
-  /* display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between; */
   white-space: nowrap;
   display: flex;
   background-color: #fafafa;
-}
-
-.main-goods>view {
-  /* margin: 20rpx 0; */
 }
 
 .main-goods .single-goods {
@@ -371,11 +367,29 @@ page {
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
-  background: #ffffff;
+  background: #fff;
   height: 520rpx;
 }
-.no_cuopon{
+
+.no_cuopon {
   text-align: center;
   padding-top: 100rpx;
   color: #969696;
 }
+
+/* 活动商品 */
+
+.admin {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.admin .active_title {
+  padding: 16rpx;
+}
+
+.admin .active_title image {
+  width: 130rpx;
+  height: 56rpx;
+}
+

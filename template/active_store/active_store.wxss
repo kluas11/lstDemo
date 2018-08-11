@@ -1,0 +1,60 @@
+.admin .store_active_list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 17rpx 20rpx 25rpx;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.admin .store_list_left {
+  display: flex;
+  font-size: 28rpx;
+  flex: 1
+}
+
+.admin .store_content {
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #666;
+  flex: 1;
+}
+
+.admin .store_content .time {
+  font-size: 24rpx;
+  color: #999;
+  margin: 10rpx 0;
+}
+
+.store_content .content_foot {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content_foot .cart {
+  width: 68rpx;
+  height: 68rpx;
+  background: #d94612;
+  border-radius: 50%;
+  line-height: 68rpx;
+  text-align: center;
+}
+.icon-ziyuan{
+  font-size: 30rpx;
+  color: #ffffff;
+}
+.content_foot .price {
+  font-size: 36rpx;
+  color: #d94612;
+}
+
+.admin .store_list_img {
+  display: flex;
+}
+
+.admin .store_list_img image {
+  width: 225rpx;
+  height: 250rpx;
+}

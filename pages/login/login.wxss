@@ -1,0 +1,38 @@
+/* pages/login/login.wxss */
+
+page {
+  height: 100%;
+}
+
+.user_box {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_info {
+  border-width: 0px;
+  position: absolute;
+  width: 700rpx;
+  height: 500rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  text-align: center;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+
+.btn {
+  background: #d94612;
+  color: #fff;
+  width: 600rpx;
+}
+
+button::after {
+  border: none;
+}

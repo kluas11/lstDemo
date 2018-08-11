@@ -62,18 +62,18 @@ Page({
   // 页面显示
   onShow: function() {
     if (!this.data.goodsID) {
-    //   wx.showToast({
-    //     title: '订单已关闭',
-    //     image: '../../../images/about.png',
-    //     duration: 1000,
-    //     complete: function() {
-    //       setTimeout(function() {
-    //         wx.switchTab({
-    //           url: '../../cart/cart'
-    //         });
-    //       }, 1000)
-    //     }
-    //   })
+      //   wx.showToast({
+      //     title: '订单已关闭',
+      //     image: '../../../images/about.png',
+      //     duration: 1000,
+      //     complete: function() {
+      //       setTimeout(function() {
+      //         wx.switchTab({
+      //           url: '../../cart/cart'
+      //         });
+      //       }, 1000)
+      //     }
+      //   })
       return;
     }
     this.getCarts();
@@ -94,7 +94,7 @@ Page({
     var address_id = that.data.addressList[Index].address_id;
     var stroe_id = app.globalData.store_id;
     server.getJSON('/Dopay/queryShippingPrice', {
-      store_id: stroe_id,
+      store_id: store_id,
       address_id: address_id
     }, function(res) {
       if (res.data.status) {
@@ -120,7 +120,7 @@ Page({
       if (e.detail.value == 1) {
         // 选择物流配送  获取运费
         server.getJSON('/Dopay/queryShippingPrice', {
-          store_id: stroe_id,
+          store_id: store_id,
           address_id: address_id
         }, function(res) {
           if (res.data.status) {
@@ -144,7 +144,7 @@ Page({
     })
 
   },
-  // 获取优惠券
+  // 获取优惠券列表
   getcuoponlist() {
     if (this.data.cuoponlist.length > 0) {
       this.setData({
@@ -171,6 +171,7 @@ Page({
     this.setData({
       cuoponhidden: false,
       coupon_id: coupon.id,
+      card_id: coupon.coupon_id,
       discount_coupon_money: coupon.discount_coupon_money,
       select_index: index
     })
@@ -389,7 +390,7 @@ Page({
     var coupong_id = that.data.coupon_id || '';
     var winrecord = {
       user_id: user_id,
-      store_id: stroe_id,
+      store_id: store_id,
       goods_ids: goodsID,
       address_id: addressID,
       is_express: that.data.distributionIndex,
@@ -449,10 +450,10 @@ Page({
     })
   },
   //关闭支付窗口
-  hidden_paybox(e){
-    if(e.target.id === 'paybox'){
+  hidden_paybox(e) {
+    if (e.target.id === 'paybox') {
       this.setData({
-        orderState:false
+        orderState: false
       })
     }
   },
@@ -485,7 +486,7 @@ Page({
           addressList: res.data
         })
         server.getJSON('/Dopay/queryShippingPrice', {
-          store_id: stroe_id,
+          store_id: store_id,
           address_id: res.data[0].address_id
         }, function(res) {
           if (res.data.status) {
@@ -566,6 +567,7 @@ Page({
         var goodsAmount = result.goodsAmount;
         var cuoponlist = result.couponList;
         var discount_activity_money = result.discount_activity_money;
+        var discount_coupon_details = result.discount_coupon_details;
 
         if (shopList.length == 0) {
           wx.showToast({
@@ -585,6 +587,7 @@ Page({
           var coupon = cuoponlist[0];
           that.setData({
             coupon_id: coupon.id,
+            card_id: coupon.coupon_id,
             discount_coupon_money: coupon.discount_coupon_money,
             coupontext: "可用优惠券",
             select_index: 0
@@ -594,14 +597,19 @@ Page({
           shopList,
           cuoponlist,
           goodsAmount,
-          discount_activity_money
+          discount_activity_money,
+          discount_coupon_details
         })
         that.sum();
       }
     })
   },
+  parse(num){
+    return parseInt(num * 100)
+  },
   // 计算应付的总金额
   sum() {
+    var parse = this.parse;
     // discount_activity_money 活动优惠价格  discount_coupon_money 优惠券价格  
     //  goodsAmount 商品总价      expressFee  运费 totalPrice 应付金额
     let data = this.data;
@@ -611,20 +619,50 @@ Page({
     let goodsAmount = isnum(data.goodsAmount);
     let expressFee = isnum(data.expressFee) || 0;
     let totalPrice = 0;
+    if (discount_coupon_money) {
+      this.coupon_spread();
+    } else {
+      this.setData({
+        active_total: discount_activity_money
+      })
+    }
     // console.log("活动金额", discount_activity_money)
     // console.log("优惠金额", discount_coupon_money)
     // console.log("商品金额", goodsAmount)
     // console.log("邮费金额", expressFee)
     // console.log("应付金额", totalPrice)
-    let total = (goodsAmount * 100 - discount_activity_money * 100 - discount_coupon_money * 100 );
+
+    let total = (parse(goodsAmount) - parse(this.data.active_total));
     total = total < 0 ? 0 : total;
-    totalPrice = (total+ expressFee * 100) / 100
-    console.log(totalPrice)
+    totalPrice = (total + parse(expressFee)) / 100;
+    
     this.setData({
       totalPrice
     })
   },
-  //
+  //优惠券优惠价格平摊
+  coupon_spread() {
+    var parse = this.parse;    
+    let data = this.data;
+    let discount_coupon_details = data.discount_coupon_details;
+    let card_id = data.card_id;
+    let shopList = data.shopList;
+    let active_total = 0;
+    shopList.forEach((val, index) => {
+      let differ = discount_coupon_details[val.goods_id][card_id]; //单个商品平摊优惠券的金额
+      let goods_sum = val.shop_price * val.goods_num; //单个商品的总价
+      let cou = val.activityInfo.discount_money||0; //活动优惠价
+      if ((parse(differ) + parse(cou)) / 100 > goods_sum) {
+        var coupon_price = goods_sum;
+      } else {
+        var coupon_price = (parse(differ) + parse(cou)) / 100;
+      }
+      active_total = (parse(active_total) + parse(coupon_price)) / 100
+    })
+    this.setData({
+      active_total
+    })
+  },
   isNumber(num) {
     if (!isNaN(parseFloat(num))) {
       return num;

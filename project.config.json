@@ -93,10 +93,10 @@
 					"query": ""
 				},
 				{
-					"id": 10,
+					"id": 9,
 					"name": "订单详情",
 					"pathName": "pages/order/details/index",
-					"query": "order_id=732"
+					"query": "order_id=845"
 				},
 				{
 					"id": -1,
@@ -195,6 +195,12 @@
 					"name": "维达130抽纸  活动测试",
 					"pathName": "pages/order/ordersubmit/index",
 					"query": "origin=detail&goodsID=2272&goods_num=3"
+				},
+				{
+					"id": -1,
+					"name": "用户登录",
+					"pathName": "pages/login/login",
+					"query": ""
 				}
 			]
 		}

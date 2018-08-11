@@ -16,34 +16,36 @@ Page({
     homeIndex: true //优惠券按钮判断
   },
   onLoad: function(options) {
-    // console.log("1111111",options)
-    if (options.q){
-      var obj = decodeURIComponent(options.q);
-    }
-    var that = this;
-    wx.showToast({
-      title: 'loading...',
-      icon: "loading",
-      duration: 99999
-    })
-    this.setData({
-      options: options
-    })
-    //判断用户来源
-    this.getInviteCode(options);
-    // 首页加载
-    // console.log(options)
-    this.load();
-    // 获取后台设置全部分类
-    server.getJSON("/Index/getIndexNav", {}, function(res) {
-      if (res.statusCode == 200) {
-        that.setData({
-          navArray: res.data
-        })
-      } else {
-        console.log(res.errMsg)
+    let pages = getCurrentPages();
+    App.getsetting(pages).then(() => {
+      if (options.q) {
+        var obj = decodeURIComponent(options.q);
       }
-    })
+      var that = this;
+      wx.showToast({
+        title: 'loading...',
+        icon: "loading",
+        duration: 99999
+      })
+      this.setData({
+        options: options
+      })
+      //判断用户来源
+      this.getInviteCode(options);
+      // 首页加载
+      // console.log(options)
+      this.load();
+      // 获取后台设置全部分类
+      server.getJSON("/Index/getIndexNav", {}, function(res) {
+        if (res.statusCode == 200) {
+          that.setData({
+            navArray: res.data
+          })
+        } else {
+          console.log(res.errMsg)
+        }
+      })
+    });
   },
   load() {
     App.get_getLocation(this.getstore_id);
@@ -92,7 +94,7 @@ Page({
   },
   // 页面显示
   onShow: function() {
-    
+
   },
   getInviteCode: function(options) {
     //用户是否通过首页分享进入，缓存分享者 uidhge 
@@ -126,7 +128,7 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-          
+
           resolve({
             state: "success"
           })
@@ -156,17 +158,31 @@ Page({
 
     App.globalData.store_id = storesId;
     // 获取底部good列表
-    server.getJSON("/Index/getColumnGoodlist", {
+    // server.getJSON("/Index/getColumnGoodlist", {
+    //   store_id: storesId
+    // }, function(res) {
+    //   if (res.statusCode == 200) {
+    //     // console.log(res)
+    //     that.setData({
+    //       goods: res.data
+    //     });
+    //   } else {
+    //     that.setData({
+    //       goods: [],
+    //     });
+    //   }
+    // })
+    server.getJSON("/Index/getActivityGoodsList", {
       store_id: storesId
     }, function(res) {
       if (res.statusCode == 200) {
-        // console.log(res)
+        console.log(res)
         that.setData({
-          goods: res.data
+          active_list: res.data
         });
       } else {
         that.setData({
-          goods: [],
+          active_list: [],
         });
       }
     })
@@ -272,7 +288,6 @@ Page({
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;
-    console.log(!links)
     if (links == ("/pages/category/category" || "/pages/cart/cart" || "/pages/member/index/index")) {
       // 转到底部导航页面
       wx.switchTab({

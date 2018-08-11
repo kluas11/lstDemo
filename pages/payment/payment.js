@@ -29,26 +29,27 @@ Page({
    * 生命周期函数
    *******************************************************************************/
   onLoad: function(options) {
-    let ctx = this;
-    let store_id;
-    // options.q 扫公众号二维码进入   options会有有个key为q
-    if (options.q) {
-      //公众号设置的二维码链接，需要使用 decodeURIComponent 解析获取参数
-      var scan_url = decodeURIComponent(options.q);
-      let str = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length); //"store_id = 26"
-      store_id = str.split("=")[1];
-    }
-    getStoreInfo(ctx, store_id);
-    this.setData({
-      store_id: store_id
+    console.log(options)
+    let pages = getCurrentPages(); 
+    app.getsetting(pages,options.q).then(() => {
+      let ctx = this;
+      let store_id;
+      // options.q 扫公众号二维码进入   options会有有个key为q
+      if (options.q) {
+        //公众号设置的二维码链接，需要使用 decodeURIComponent 解析获取参数
+        var scan_url = decodeURIComponent(options.q);
+        let str = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length); //"store_id = 26"
+        store_id = str.split("=")[1];
+      }
+      getStoreInfo(ctx, store_id);
+      this.setData({
+        store_id: store_id
+      })
+      this.load();
     })
-    this.load();
   },
   onShow() {
-    if (this.data.register) {
-      console.log('onShow')
-      this.load();
-    }
+    
   },
   load() {
     let that = this;

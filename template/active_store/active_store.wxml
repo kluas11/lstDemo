@@ -1,0 +1,25 @@
+<view class='store_active_list' wx:for="{{active_list.store}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
+  <view class='store_list_left'>
+    <view class='store_list_img'>
+      <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>
+    </view>
+    <view class='store_content'>
+      <view>
+        <text>{{item.goods_name}}</text>
+        <view class='time'>
+          <text>{{item.details}}</text>
+        </view>
+      </view>
+      <view class='content_foot' bindtap='cartTap'>
+        <view class='price'>
+          <text style='font-size: 28rpx;'>￥</text>
+          <text wx:if="{{item.activity_type === 'SUBTRAC'}}" class='ac_num'>{{time.parseprice(item.shop_price,item.subtrac_money)}}</text>
+          <text wx:elif="{{item.activity_type === 'PERCENT'}}" class='ac_num'>{{time.percent(item.shop_price,item.subtrac_percent)}}</text>
+        </view>
+        <view class='cart'>
+          <text class='iconfont icon-ziyuan'></text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

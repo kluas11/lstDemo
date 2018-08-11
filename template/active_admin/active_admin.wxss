@@ -1,0 +1,109 @@
+.admin .active_list {
+  border: 1px solid #c9c9c9;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 17rpx 20rpx 25rpx;
+  margin:0 16rpx  14rpx 16rpx;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.349019607843137);
+}
+
+.admin .list_left {
+  display: flex;
+  font-size: 28rpx;
+}
+
+.admin .content {
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 320rpx;
+}
+
+.admin .content .time {
+  font-size: 24rpx;
+  color: #9fa19f;
+  display: flex;
+  align-items: center;
+}
+
+.admin .time_img {
+  width: 27rpx;
+  height: 30rpx;
+  margin-right: 6rpx;
+}
+
+.admin .ac_price {
+  display: flex;
+  align-items: flex-end;
+}
+
+.admin .ac_price .ac_num {
+  font-size: 36rpx;
+}
+
+.admin .ac_price .del {
+  color: #9fa19f;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  margin-left: 20rpx;
+}
+
+.admin .list_img {
+  display: flex;
+}
+
+.admin .list_img image {
+  width: 154rpx;
+  height: 180rpx;
+}
+.admin .limit{
+  font-size: 20rpx;
+  margin-top: 40rpx;
+}
+.admin .ac_list_right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.admin .buy_now {
+  font-size: 18rpx;
+  border: 1px solid #78b948;
+  border-radius: 6rpx;
+  width: 104rpx;
+  height: 58rpx;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+.admin .buy_text1{
+  flex: 1;
+  font-size: 16rpx;
+  color: #999999;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  position: relative;
+  z-index: 9;
+}
+.admin .buy_text2{
+  flex: 1;
+  background: #78b948;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin .percent{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  background: #cde5bc;
+  z-index: 0;
+}

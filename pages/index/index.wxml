@@ -1,5 +1,6 @@
 <wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
-<view class='layout'>
+<wxs module='time' src='./index.wxs' />
+<scroll-view scroll-y="{{!cuoponhidden}}" class='layout' >
   <view class='shopNameTip' wx:if='{{shopName != ""}}'>
     <view class='address'>
       <view class='iconfont icon-dizhi1'></view>
@@ -43,7 +44,7 @@
     </block>
   </swiper>
   <!-- 门店商品列表 -->
-  <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
+  <!-- <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
     <view class='container-goods'>
       <view class="category_title">
         <text class="caption improt_color">{{item.name}}</text>
@@ -56,8 +57,22 @@
         </view>
       </scroll-view>
     </view>
+  </view> -->
+  <view class='active'>
+    <scroll-view class='admin'  wx:for="{{active_list}}" wx:if="{{item.length>0}}" wx:key="{{index}}">
+      <view class='active_title'>
+        <image src='/images/timeActive.jpg'></image>
+      </view>
+      <view class='active_info'>
+        <view class='active_lsits'>
+        <!-- 总店商品模板 -->
+          <include wx:if="{{index === 'admin'}}" src="../../template/active_admin/active_admin.wxml" />
+          <include wx:if="{{index === 'store'}}" src="../../template/active_store/active_store.wxml" />
+        </view>
+      </view>
+    </scroll-view>
   </view>
-</view>
+</scroll-view>
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
   <view class='cuopon_content'>
     <view class='cuopon_title'>
@@ -65,8 +80,8 @@
     </view>
     <view class='no_cuopon' wx:if="{{cuoponlist.length ==0}}">暂时没有可用的优惠券</view>
     <scroll-view scroll-y="true" class='cuopon_lists'>
-    <!-- 自己写的模板  优惠券页面也有用到 -->
-      <include src="../../template/cuopon_cart/cuopon_cart.wxml"/>
+      <!-- 自己写的模板  优惠券页面也有用到 -->
+      <include src="../../template/cuopon_cart/cuopon_cart.wxml" />
     </scroll-view>
   </view>
 </view>

@@ -1,0 +1,7 @@
+<!--pages/login/login.wxml-->
+<view class='user_box'>
+  <view class='user_info'>
+    <view class='title'>小程序登录</view>
+    <button class='btn' open-type="getUserInfo" bindgetuserinfo="getuserTap">授权登录</button>
+  </view>
+</view>

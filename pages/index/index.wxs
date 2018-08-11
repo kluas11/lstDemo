@@ -1,0 +1,49 @@
+var timestampToTime = function (end) {
+  console.log(getDate(end))
+  if (((end * 1000) - (getDate()))) {
+    var leftTime = ((end * 1000) - (getDate())); //计算剩余的毫秒数 
+    var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+    var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+    var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
+    var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
+    days = fileter(days);
+    hours = fileter(hours);
+    minutes = fileter(minutes);
+    seconds = fileter(seconds);
+    var str = days + "天" + hours + "小时" + minutes + "分";
+    return str;
+  } else {
+    return '活动已结束';
+  }
+}
+var fileter = function (data) {
+  return data < 10 ? "0" + data : data
+}
+// 限时减免价格
+var parseprice =function(a,b){
+  var price;
+  if (((a * 100 - b * 100) / 100)<0){
+    price = 0;
+  }else{
+    price = parseInt((a * 100 - b * 100) / 100);
+  }
+
+  return price.toFixed(2)
+}
+// 限时打折
+var percent =function(a,b){
+  var price = a*b/100;
+  return price.toFixed(2);
+
+}
+// 已售百分比
+var buypercent = function (a, b) {
+  var percent = (a/b)*100;
+  return percent.toFixed(0)+'%';
+}
+module.exports = {
+  timestampToTime: timestampToTime,
+  parseprice: parseprice,
+  percent: percent,
+  buypercent: buypercent
+};
