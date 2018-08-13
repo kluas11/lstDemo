@@ -56,7 +56,6 @@ App({
                   leader
                 },
                 function(data) {
-                  console.log(data.data)
                   if (data.data.status) {
                     that.globalData.userInfo = {
                       user_id: data.data.user_id

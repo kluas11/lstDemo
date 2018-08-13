@@ -92,7 +92,7 @@ Page({
     var that = this
     var Index = e.currentTarget.dataset.index;
     var address_id = that.data.addressList[Index].address_id;
-    var stroe_id = app.globalData.store_id;
+    var store_id = app.globalData.store_id;
     server.getJSON('/Dopay/queryShippingPrice', {
       store_id: store_id,
       address_id: address_id
@@ -115,7 +115,7 @@ Page({
     var that = this
     var addressIndex = that.data.addressIndex
     var address_id = that.data.addressList[addressIndex].address_id
-    var stroe_id = getApp().globalData.stroe_id;
+    var store_id = getApp().globalData.store_id;
     new Promise((resolve, reject) => {
       if (e.detail.value == 1) {
         // 选择物流配送  获取运费
@@ -384,7 +384,7 @@ Page({
     // 获取到user_id
     var user_id = wx.getStorageSync("user_id")
     // store_id 获取到storeID
-    var stroe_id = app.globalData.store_id;
+    var store_id = app.globalData.store_id;
     var addressIndex = that.data.addressIndex;
     var addressID = that.data.addressList[addressIndex].address_id;
     var coupong_id = that.data.coupon_id || '';
@@ -478,7 +478,7 @@ Page({
   getCarts: function() {
     var user_id = wx.getStorageSync("user_id");
     var that = this
-    var stroe_id = app.globalData.store_id;
+    var store_id = app.globalData.store_id;
     that.getAddress(user_id).then(res => {
       if (res.data.length != 0) {
         that.setData({

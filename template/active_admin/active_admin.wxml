@@ -1,4 +1,4 @@
-<view class='active_list' bindtap='showDetail'wx:if="{{index<2}}" wx:for="{{active_list.admin}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
+<view class='active_list' bindtap='showDetail' wx:for="{{active_list.admin}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
   <view class='list_left'>
     <view class='list_img'>
       <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>

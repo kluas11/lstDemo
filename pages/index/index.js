@@ -285,6 +285,29 @@ Page({
       url: "../goods/detail/detail?objectId=" + goodsId
     });
   },
+  cartTap(e) {
+    var goodsId = e.currentTarget.dataset.goodsId;
+    server.newpostJSON('/Cart/addCart', {
+      goods_id: goodsId,
+      goods_num: 1,
+      user_id: wx.getStorageSync("user_id")
+    }, function(res) {
+      // return 1/0 字符类型 是否加入成功; 
+      console.log(res)
+      if (res.data == "1")
+        wx.showToast({
+          title: '已加入购物车',
+          icon: 'success',
+          duration: 1000
+        });
+      else
+        wx.showToast({
+          title: "加入购物车失败",
+          icon: 'error',
+          duration: 1000
+        });
+    })
+  },
   // 全部分类
   showtabs: function(e) {
     var links = e.currentTarget.dataset.url;

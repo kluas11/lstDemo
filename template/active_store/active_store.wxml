@@ -10,13 +10,13 @@
           <text>{{item.details}}</text>
         </view>
       </view>
-      <view class='content_foot' bindtap='cartTap'>
+      <view class='content_foot'>
         <view class='price'>
           <text style='font-size: 28rpx;'>￥</text>
           <text wx:if="{{item.activity_type === 'SUBTRAC'}}" class='ac_num'>{{time.parseprice(item.shop_price,item.subtrac_money)}}</text>
           <text wx:elif="{{item.activity_type === 'PERCENT'}}" class='ac_num'>{{time.percent(item.shop_price,item.subtrac_percent)}}</text>
         </view>
-        <view class='cart'>
+        <view class='cart'  bindtap='cartTap' data-goods-id="{{item.goods_id}}">
           <text class='iconfont icon-ziyuan'></text>
         </view>
       </view>
