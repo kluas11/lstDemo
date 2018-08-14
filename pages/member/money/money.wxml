@@ -30,7 +30,6 @@
 </view>
 <view class="account-item" wx:for="{{accounts}}" wx:key="">
   <view class="info-item">
-
     <view class="info-left">
       <view style="position: relative;">
         <view style="position: absolute;">
@@ -40,16 +39,14 @@
         <view wx:else style="position:relative;top:90rpx;left:-8rpx" class="yuan1" />
       </view>
     </view>
-
     <view class="info-right">
       <view class="info-first">
         <text>金额:</text>
-        <text style="color:red">{{item.pay_money}}</text>
+        <text style="color:red">{{item.money}}</text>
       </view>
-      <text>支付时间:{{tools.timestampToTime(item.pay_time)}}</text>
-       <text wx:if="{{item.payway=='Wxpay'}}">支付方式:微信支付</text> 
-       <text wx:else>支付方式:余额支付</text> 
+      <text>支付时间:{{tools.timestampToTime(item.time)}}</text>
+       <text>支付方式:{{item.way}}</text> 
     </view>
-
   </view>
 </view>
+ <view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>

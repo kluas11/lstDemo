@@ -1,42 +1,8 @@
+@import '../../../template/select_pay/select_pay.wxss';
 page {
 	background: #eeeeee;
 }
-.addressmark{
-  width: 100%;
-  height:100%;
-  position: fixed;
-  background: #000;
-background: rgba(0, 0, 0, 0.5);
-  z-index: 100
-}
-.orderpaybox{
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%); 
-  width:600rpx;height:300rpx;
-   background:#fff;
-   border-radius:10px
-}
-.payment{
-  display:flex;
-  box-sizing:border-box;
-  flex-direction:row;
-  flex-wrap:wap; 
-  justify-content:center ;
-  margin-top:20rpx;
-}
-.payment button{
-   color:#fff;
-   margin-top:20rpx;
-}
-.payByWXPay   {
-background-color:#1AAD19;
-}
-.payByBalance{
-  background:#38A4F0;
 
-}
 .order-item {
 	margin-bottom: 10px;
 	background: #ffffff;
@@ -47,7 +13,7 @@ background-color:#1AAD19;
 }
 
 .order-footer {
-	padding: 3px 0;
+	padding: 10px 0;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;

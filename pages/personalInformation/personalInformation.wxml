@@ -20,5 +20,5 @@
 <view class='label_left'>所属门店:</view>
 <view class="label_right">{{storeName}}</view>
 </view>
-<button bindtap="skipEdit">编辑</button>
+<button bindtap="skipEdit" style='margin-top:20rpx;'>编辑</button>
 </view>

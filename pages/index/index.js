@@ -22,13 +22,9 @@ Page({
         var obj = decodeURIComponent(options.q);
       }
       var that = this;
-      wx.showToast({
-        title: 'loading...',
-        icon: "loading",
-        duration: 99999
-      })
       this.setData({
-        options: options
+        options: options,
+        wx_loading:true
       })
       //判断用户来源
       this.getInviteCode(options);
@@ -194,8 +190,9 @@ Page({
       }
       that.setData({
         banner: banner,
+        wx_loading:false
       });
-      wx.hideToast();
+     
     });
   },
   // 点击banner图

@@ -73,6 +73,7 @@
     </scroll-view>
   </view>
 </scroll-view>
+<include src="../../template/loading/loading.wxml" />
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
   <view class='cuopon_content'>
     <view class='cuopon_title'>

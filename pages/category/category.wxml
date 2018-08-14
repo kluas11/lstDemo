@@ -6,10 +6,6 @@
       <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.name}}</view>
     </view>
   </scroll-view>
-  <!-- <view >
-    <text wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.id}}" data-banner="{{item.mobile_name}}" data-index="{{index}}" class="{{nav_avtive==index?'highlight':''}}">{{item.mobile_name}}</text>
-  </view> -->
-  <!-- right -->
   <scroll-view class="main" scroll-y="false" scroll-x="true" lazy-load="false" style="height:{{wh}}">
     <view class='markshade' wx:if="{{loadings}}">
       <view class="spinner">
@@ -27,17 +23,4 @@
       </block>
     </view>
   </scroll-view>
-  <!-- <view class="main"> -->
-  <!-- banner -->
-  <!-- <image data-goods-id="{{banner.ad_link}}" bindtap="clickBanner"  class="banner" src="{{banner.image}}" mode="scaleToFill" />  -->
-  <!-- GridView -->
-  <!-- <view class="gridview">
-      <block wx:for="{{subCategories}}" wx:key="id">
-        <view class='gridview_list'>
-          <image src="{{item.image}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}" />
-          <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.id}}">{{item.mobile_name}}</text>
-        </view>
-      </block>
-      </view> -->
-  <!-- </view> -->
 </view>

@@ -48,27 +48,7 @@ font-family: PingFangSC-Regular, sans-serif;
 font-size: 14px;
 color:#000
 }
-/*text块状布局独占一行*/
-/* .sidebar text {
-	display: block;
-	border: 1px solid #e5e5e5;
-	border-top: 0;
-	height: 40px;
-	line-height: 40px;
-	text-align: center;
-	color: #232626;
-	font-size: 14px;
-	background-color: #fff;
-  white-space: nowrap;
-  padding:0 10rpx;
-} */
 
-/*hight light*/
-/* .sidebar text.highlight {
-	background-color: #f3f5f7;
-	color: #f23131;
-	border-right: 0;
-} */
 
 .main {
 	display: flex;
