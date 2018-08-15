@@ -1,31 +1,13 @@
 var server = require('../../../../utils/server');
-const AV = require('../../../../utils/av-weapp.js')
 var app = getApp()
-var maxTime = 60
-var interval = null
-var currentTime = -1 //倒计时的事件（单位：s） 
-
 Page({
   data: {
     current: 0,
-    province: [],
-    city: [],
-    region: [],
-    town: [],
-    provinceObjects: [],
-    cityObjects: [],
-    regionObjects: [],
-    townObjects: [],
-    areaSelectedStr: '请选择省市区',
-    maskVisual: 'hidden',
-    provinceName: '请选择',
     money:"",
     bank_name:"",
     account_bank:"",
     account_name:""
   },
-
-  isDefault: false,
   formReset: function () {
     console.log('form发生了reset事件')
   },
@@ -50,13 +32,7 @@ Page({
       this.showToasts("请填写完整",false)
       return;
     }
-    var user_id = app.globalData.userInfo.user_id
-    console.log(user_id)
-    console.log(money)
-    console.log(bank_name)
-    console.log(account_bank)
-    console.log(account_name)
-    console.log(postUrl)
+    var user_id = wx.getStorageSync("user_id")
     wx.request({
       url: postUrl +'/User/addWithdraw', 
       data: {
@@ -85,30 +61,9 @@ Page({
         }
       },
       fail:function(res){
-    
         that.showToasts(res.data.msg || "提现失败", false)
       }
     })
-    // server.postJSON('/User/addWithdraw/', { user_id: user_id, money: money, bank_name: bank_name, account_bank: account_bank, account_name: account_name }, function (res) {
-    //   if (res.data.status == 1) {
-    //     wx.showToast({
-    //       title: '申请提现成功',
-    //       duration: 1000
-    //     });
-    //     app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
-    //       that.setData({
-    //         moneys: userBalance
-    //       });
-    //     });
-    //   } else {
-    //     console.log(res);
-    //     wx.showToast({
-    //       title: res.data.msg,
-    //       icon: 'none',
-    //       duration: 1000
-    //     });
-    //   }
-    // });
   },
   showToasts: function (content, success){
     wx.showToast({
@@ -163,29 +118,14 @@ Page({
   onLoad: function (options) {
     var login = app.globalData.login;
     var that = this;
-    // wx.getSystemInfo({
-    //   success: function (res) {
-    //     that.setData({
-    //       // returnTo: returnTo
-    //     })
-    //   }
-    // })
   },
   getMoneyInfoList() {
     var that = this;
-    var user_id = getApp().globalData.userInfo.user_id
-    console.log(user_id)
+    var user_id = wx.getStorageSync("user_id");
     server.getJSON('/Walletpay/getUsermoneyPoints', {
       user_id: user_id
     }, function (res) {
-      // success
       console.log(res)
-      // var datas = res.data.result;
-      // var ms = that.data.accounts
-      // for (var i in datas) {
-      //   ms.push(datas[i]);
-      // }
-
       that.setData({
         moneys: res.data.user_money || 0
       });
@@ -194,11 +134,5 @@ Page({
   onShow: function () {
     let that = this;
     this.getMoneyInfoList()
-    // app.getUserBalance(app.globalData.userInfo.user_id, that, function (that, userBalance) {
-    //   that.setData({
-    //     moneys: userBalance
-    //   });
-    // });
   }
-
 })

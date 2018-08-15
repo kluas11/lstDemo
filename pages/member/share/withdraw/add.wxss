@@ -1,11 +1,11 @@
 .view-head {
   width: 100%;
-  height: 220rpx;
+  height: 100rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #312e43;
+  background: #d94612;
 }
 .text-record{
   text-align:right;
@@ -22,16 +22,16 @@
 }
 
 .text-money-prefix {
-  font-size: 32rpx;
-  color: orangered;
+  font-size: 30rpx;
+  color: #ffffff;
   margin-bottom: 10rpx;
 }
 
 .text-money {
   margin-left: 10rpx;
-  font-size: 60rpx;
+  font-size: 44rpx;
   line-height: 60rpx;
-  color: orangered;
+  color: #ffffff;
 }
 
 page {

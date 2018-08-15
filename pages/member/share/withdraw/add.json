@@ -1,6 +1,4 @@
 {
     "navigationBarTitleText": "申请提现",
-      "enablePullDownRefresh": true,
-      "backgroundTextStyle": "dark",
-      "navigationBarBackgroundColor": "#312e43"
+      "backgroundTextStyle": "dark"
 }

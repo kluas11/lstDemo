@@ -24,7 +24,7 @@ Page({
       var that = this;
       this.setData({
         options: options,
-        wx_loading:true
+        wx_loading: true
       })
       //判断用户来源
       this.getInviteCode(options);
@@ -190,9 +190,9 @@ Page({
       }
       that.setData({
         banner: banner,
-        wx_loading:false
+        wx_loading: false
       });
-     
+
     });
   },
   // 点击banner图
@@ -278,9 +278,11 @@ Page({
   // 商品详情
   showDetail: function(e) {
     var goodsId = e.currentTarget.dataset.goodsId;
-    wx.navigateTo({
-      url: "../goods/detail/detail?objectId=" + goodsId
-    });
+    if (e.currentTarget.dataset.limittotal) {
+      wx.navigateTo({
+        url: "../goods/detail/detail?objectId=" + goodsId
+      });
+    }
   },
   cartTap(e) {
     var goodsId = e.currentTarget.dataset.goodsId;

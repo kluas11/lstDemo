@@ -1,4 +1,4 @@
-<view class='active_list' bindtap='showDetail' wx:for="{{active_list.admin}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
+<view class='active_list' bindtap='showDetail' wx:for="{{active_list.admin}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}" data-limittotal='{{item.limit_total}}'>
   <view class='list_left'>
     <view class='list_img'>
       <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>
@@ -24,10 +24,10 @@
       <view class='improt_color'>活动限量{{item.limit_total}}件</view>
       <view class='improt_color'>每人限购{{item.limit_user}}件</view>
     </view>
-    <view class='buy_now'>
+    <button class='{{!item.limit_total?"disabled_btn":"buy_now"}}'>
       <text class='buy_text1'>已售{{time.buypercent(item.limit_total,item.store_count)}}</text>
-      <text class='buy_text2'>马上抢</text>
+      <text class='{{!item.limit_total?"dis_text2":"buy_text2"}}'>马上抢</text>
       <text class='percent' style='width:{{time.buypercent(item.limit_total,item.store_count)}};'></text>
-    </view>
+    </button>
   </view>
 </view>

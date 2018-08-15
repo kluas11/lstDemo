@@ -6,7 +6,6 @@
     <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
   </view>
 </view>
-
 <view class="account-item" wx:for="{{accounts}}" wx:key="">
   <view class="info-item">
     <view class="info-left">
@@ -14,16 +13,11 @@
         <view style="position: absolute;">
           <view class="lline" />
         </view>
-
-
         <view wx:if="{{index == 0}}" style="position:relative;top:90rpx;left:-8rpx" class="yuan" />
         <view wx:else style="position:relative;top:90rpx;left:-8rpx" class="yuan1" />
       </view>
-
     </view>
-
     <view class="info-right">
-
       <view class="info-first">
         <text>金额:</text>
         <text style="color:red">{{item.money}}</text>

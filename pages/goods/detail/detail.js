@@ -12,7 +12,8 @@ Page({
     tab: 0,
     collectstate: false,
     goods_num: 1,
-    goods_oss: App.image_oss + '750_750'
+    goods_oss: App.image_oss + '750_750',
+    wx_loading:true
   },
   // 加入收藏
   addCollect: function(e) {
@@ -130,7 +131,8 @@ Page({
       var goodsInfo = res.data;
       if (res.statusCode == 200) {
         that.setData({
-          goods: goodsInfo
+          goods: goodsInfo,
+          wx_loading: false
         });
       } else {
         wx.showToast({

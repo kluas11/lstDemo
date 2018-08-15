@@ -1,7 +1,5 @@
 <view>
   <view class="userinfo">
-    <!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image> -->
-    <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
     <view class="userinfo-avatar">
       <open-data type="userAvatarUrl"></open-data>
     </view>
@@ -22,40 +20,66 @@
     </view>
   </view>
   <view bindtap="navigateToMoney" class="tableviewcell">
-    <image src="../../../images/qb.png" />
-    <text>我的钱包</text>
+    <view class='cell_list'>
+      <image src="../../../images/qb.png" />
+      <text>我的钱包</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
-  <!-- <view bindtap="navigateToPoint" class="tableviewcell">
-    <image src="../../../images/jf.png" />
-    <text>我的积分</text>
-  </view> -->
-  
+  <view bindtap="navigateToPoint" class="tableviewcell">
+    <view class='cell_list'>
+      <image src="../../../images/jf.png" />
+      <text>我的积分</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
+  </view>
   <view bindtap="navigateToEdit" class="tableviewcell">
-    <image src="../../../images/ws.png" />
-    <text>个人信息</text>
+    <view class='cell_list'>
+      <image src="../../../images/ws.png" />
+      <text>个人信息</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
-  <!-- <view bindtap="navigateToCoupon" class="tableviewcell">
-    <image src="../../../images/yhj.png" />
-    <text>我的优惠劵</text>
-  </view> -->
+  <view bindtap="navigateToCoupon" class="tableviewcell">
+    <view class='cell_list'>
+      <image src="../../../images/yhj.png" />
+      <text>我的优惠劵</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
+  </view>
   <view bindtap="navigateToOrder" data-cid="0" class="tableviewcell">
-    <image src="../../../images/dd.png" />
-    <text>全部订单</text>
+    <view class='cell_list'>
+      <image src="../../../images/dd.png" />
+      <text>全部订单</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
   <view bindtap="navigateToShare" class="tableviewcell">
-    <image src="../../../images/share.png" />
-    <text>推荐中心</text>
+    <view class='cell_list'>
+      <image src="../../../images/share.png" />
+      <text>推荐中心</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
   <view bindtap="navigateToEvaluate" class="tableviewcell">
-    <image src="../../../images/pj.png" />
-    <text>我的评价</text>
+    <view class='cell_list'>
+      <image src="../../../images/pj.png" />
+      <text>我的评价</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
   <view bindtap="navigateToCollect" class="tableviewcell">
-    <image src="../../../images/sc.png" />
-    <text>我的收藏</text>
+    <view class='cell_list'>
+      <image src="../../../images/sc.png" />
+      <text>我的收藏</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
   <view bindtap="navigateToAddress" class="tableviewcell">
-    <image src="../../../images/dw.png" />
-    <text>地址管理</text>
+    <view class='cell_list'>
+      <image src="../../../images/dw.png" />
+      <text>地址管理</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
   </view>
 </view>

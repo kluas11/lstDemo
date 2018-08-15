@@ -36,7 +36,7 @@ var percent =function(a,b){
 }
 // 已售百分比
 var buypercent = function (a, b) {
-  var percent = (a/b)*100;
+  var percent = ((b-a)/b)*100;
   return percent.toFixed(0)+'%';
 }
 module.exports = {

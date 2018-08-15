@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20rpx 17rpx 20rpx 25rpx;
-  margin:0 16rpx  14rpx 16rpx;
+  margin: 0 16rpx 14rpx 16rpx;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.349019607843137);
 }
 
@@ -58,15 +58,18 @@
   width: 154rpx;
   height: 180rpx;
 }
-.admin .limit{
+
+.admin .limit {
   font-size: 20rpx;
   margin-top: 40rpx;
 }
-.admin .ac_list_right{
+
+.admin .ac_list_right {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 .admin .buy_now {
   font-size: 18rpx;
   border: 1px solid #78b948;
@@ -79,11 +82,13 @@
   position: relative;
   background: transparent;
   overflow: hidden;
+  padding: 0;
 }
-.admin .buy_text1{
+
+.admin .buy_text1 {
   flex: 1;
   font-size: 16rpx;
-  color: #999999;  
+  color: #999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,19 +96,44 @@
   position: relative;
   z-index: 9;
 }
-.admin .buy_text2{
+
+.admin .buy_text2 {
   flex: 1;
   background: #78b948;
-  color: #ffffff;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.admin .percent{
+
+.admin .percent {
   position: absolute;
   top: 0;
   left: 0;
   height: 50%;
   background: #cde5bc;
   z-index: 0;
+}
+
+.admin .disabled_btn {
+  font-size: 18rpx;
+  border: 1px solid #999999;
+  border-radius: 6rpx;
+  width: 104rpx;
+  height: 58rpx;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+  padding: 0;
+}
+.admin .dis_text2 {
+  flex: 1;
+  background: #999999;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

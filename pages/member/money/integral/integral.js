@@ -1,9 +1,8 @@
 // pages/member/money/integral/integral.js
 const App = getApp();
-const user_id = wx.getStorageSync("user_id");
+let user_id = wx.getStorageSync("user_id");
 var server = require('../../../../utils/server');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -25,6 +24,7 @@ Page({
   getlist(p) {
     //获取积分消费记录
     let that = this;
+    let user_id = wx.getStorageSync("user_id");
     server.getJSON('/Walletpay/getPaypointsLog', {
       p,
       user_id
@@ -45,6 +45,7 @@ Page({
   getpay_points() {
     // 获取积分
     let that = this;
+    let user_id = wx.getStorageSync("user_id");
     server.getJSON('/Walletpay/getUsermoneyPoints', {
       user_id
     }, function(res) {

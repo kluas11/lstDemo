@@ -1,12 +1,24 @@
 <view style='height:100%; background:#fff;'>
-  <view bindtap="navigateToMember" class="tableviewcell">
+  <!-- <view bindtap="navigateToMember" class="tableviewcell">
     <text>我的团队</text>
+  </view> -->
+  <view class="userinfo">
+    <view style='display:flex;' bindtap='navigateToMember'>
+      <view class="userinfo-avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='uer_foot'>
+        <open-data class="userinfo-nickname" type="userNickName"></open-data>
+        <view class='groupbtn'>我的团队</view>
+      </view>
+    </view>
+    <view class='apply' bindtap="navigateToFenxiao">
+      <text>申请会员</text>
+      <text class='iconfont icon-gengduo'></text>
+    </view>
   </view>
   <view class='QRCodeBg'>
     <image src='{{result}}' mode='widthFix'></image>
     <button class='btn' bindtap='saveQRCode' disabled='{{!disabled}}'>保存二维码到相册</button>
-  </view>
-  <view bindtap="navigateToFenxiao">
-    <button class='btn'>申请会员</button>
   </view>
 </view>

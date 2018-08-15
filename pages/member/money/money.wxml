@@ -1,16 +1,35 @@
 <wxs src="../../order/details/index.wxs" module="tools" />
 <view class="view-head">
-  <view class="view-moneyinfo">
-  <view style='width:100%;padding:15rpx;'>
-   <text class="text-money-prefix">账户余额</text>
-    <text class="text-money">￥{{moneys}}</text>
-    
-    <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
-  </view>
-   <view style='width:100%;padding:15rpx;'>
-   <text class="text-money-prefix">账户积分</text>
-       <text class="text-money">{{pay_point}}</text>
-   </view>
+  <view class="userinfo">
+    <view style='display:flex;'>
+      <view class="userinfo-avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <view class='uer_foot'>
+        <open-data class="userinfo-nickname" type="userNickName"></open-data>
+        <view class='money_box'>
+          <view style='display:flex;'>
+            <text class="text-money-prefix">账户余额：</text>
+            <text class="text-money">{{moneys}}</text>
+            <text class="text-money-prefix">元</text>
+          </view>
+        </view>
+        <view class='money_box'>
+          <view style='display:flex;'>
+            <text class="text-money-prefix">账户积分：</text>
+            <text class="text-money">{{pay_point}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='user_right'>
+      <view>
+        <view class='money_btn' bindtap='tapRecharge'>充值</view>
+      </view>
+      <view>
+        <view class='money_btn' bindtap='jifenTap'>积分查询</view>
+      </view>
+    </view>
   </view>
 </view>
 
@@ -18,15 +37,8 @@
   <canvas canvas-id='myBarcode'></canvas>
   <text>{{myCode}}</text>
 </view>
-
-<view class='recharge'>
-  <button class='recharge-btn' bindtap='tapRecharge'>充值</button>
-</view>
 <view class='recharge'>
   <button class='recharge-btn' bindtap='navigateToWithdraw'>我要提现</button>
-</view>
-<view class='recharge'>
-  <button class='recharge-btn' bindtap='jifenTap'>积分查询</button>
 </view>
 <view class="account-item" wx:for="{{accounts}}" wx:key="">
   <view class="info-item">
@@ -45,8 +57,8 @@
         <text style="color:red">{{item.money}}</text>
       </view>
       <text>支付时间:{{tools.timestampToTime(item.time)}}</text>
-       <text>支付方式:{{item.way}}</text> 
+      <text>支付方式:{{item.way}}</text>
     </view>
   </view>
 </view>
- <view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>
+<view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>

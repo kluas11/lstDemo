@@ -19,9 +19,6 @@ Page({
       url: '/pages/member/coupon/index'
     });
   },
-  getPhoneNumber:function(e){
-    console.log(e)
-  },
   // 推荐中心
   navigateToShare: function() {
     wx.navigateTo({
@@ -37,7 +34,7 @@ Page({
   // 我的积分
   navigateToPoint: function() {
     wx.navigateTo({
-      url: '/pages/member/point/point'
+      url: '/pages/member/money/integral/integral'
     });
   },
   // 我的收藏
