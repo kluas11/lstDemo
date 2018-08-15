@@ -142,7 +142,7 @@ page {
   flex-wrap: wrap;
 }
 
-.func-area navigator {
+.func-area .nav_url {
   padding: 20rpx 0;
   width: 25%;
   text-align: center;

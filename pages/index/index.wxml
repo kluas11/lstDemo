@@ -27,18 +27,18 @@
     <block>
       <swiper-item>
         <view class="func-area" style='margin-top:20rpx'>
-          <navigator wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}" wx:key="">
+          <view  class='nav_url' wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}" wx:key="">
             <image src="{{item.logo+lists_oss}}" mode="aspectFill" />
             <text>{{item.name}}</text>
-          </navigator>
+          </view>
         </view>
       </swiper-item>
       <swiper-item wx:if="{{navArray.length>8}}">
         <view class="func-area">
-          <navigator wx:for="{{navArray}}" wx:if="{{index>7}}" data-url="{{item.link}}" wx:key="" bindtap="showtabs">
+          <view class='nav_url' wx:for="{{navArray}}" wx:if="{{index>7}}" data-url="{{item.link}}" wx:key="" bindtap="showtabs">
             <image src="{{item.logo+lists_oss}}" mode="aspectFill" lazy-load="true" />
             <text>{{item.name}}</text>
-          </navigator>
+          </view>
         </view>
       </swiper-item>
     </block>
