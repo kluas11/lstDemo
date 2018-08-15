@@ -41,14 +41,6 @@
 			<li class="{{subMenuHighLight[1][1]}}" data-index="1-1" bindtap="tapSubMenu">从少到多</li>
 		</ul>
 	</dd>
-	<!-- <dt data-index="2" bindtap="tapMainMenu" class="{{menu[2]}}">最新</dt>
-	<dd class="{{subMenuDisplay[2]}}">
-		<ul>
-			<li class="{{subMenuHighLight[2][0]}}" data-index="2-0" bindtap="tapSubMenu">最新</li>
-			<li class="{{subMenuHighLight[2][1]}}" data-index="2-1" bindtap="tapSubMenu">非最新</li>
-			
-		</ul>
-	</dd> -->
 	<dt data-index="2" bindtap="tapMainMenu" class="{{menu[2]}}">评价</dt>
 </dl>
 
@@ -70,6 +62,7 @@
 		</view>
       </view>
     </view>
+    <view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>
 </view>
 <view wx:else class="view-empty">
 <text>抱歉暂时没有相关结果,换个筛选条试试吧!</text>

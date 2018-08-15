@@ -103,19 +103,11 @@
       <text class='improt_color'>  ￥{{totalPrice}}元 </text> </view>
     <text bindtap="formSubmit" class="text-save">提交订单</text>
   </view>
-  <view wx:if="{{orderState}}" class='addressmark' id='paybox' style='z-index:200' bindtap='hidden_paybox'>
-    <view class="orderpaybox">
-      <view style='text-align:center;padding:20rpx;background:#d94612;color:#ffffff;'>选择支付方式</view>
-      <view class="payment">
-        <view class='payment_price'><text>需要支付金额为{{total_amount}}元</text></view>
-        <view wx:for="{{paymentArray}}" wx:key="index">
-          <button class='{{item.class}}' bindtap="paymentBtn" data-way="{{item.way}}">{{item.name}}</button>
-        </view>
-      </view>
-    </view>
-  </view>
+
+  <!--支付方式选择  -->
+  <include src="../../../template/select_pay/select_pay.wxml" />
+
 </view>
-<!--支付方式选择  -->
 <wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
 <!-- 数据过滤 -->
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>

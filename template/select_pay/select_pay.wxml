@@ -1,0 +1,14 @@
+<view wx:if="{{orderState}}" class='addressmark' id='paybox' style='z-index:200' bindtap='hidden_paybox'>
+  <view class="orderpaybox">
+    <view style='text-align:center;padding:20rpx;background:#d94612;color:#ffffff;'>选择支付方式</view>
+    <view class="payment">
+      <view class='payment_price' wx:if="{{total_amount||total_amount==0}}">
+        <text>需要支付金额为{{total_amount}}元</text>
+      </view>
+      <view>
+        <button class='payByBalance' bindtap="paymentBtn" data-way="wxPreparePay">微信支付</button>
+        <button class='payByWXPay button-hover' bindtap="paymentBtn" data-way="walletPay">余额支付</button>
+      </view>
+    </view>
+  </view>
+</view>

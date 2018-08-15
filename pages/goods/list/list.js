@@ -44,11 +44,12 @@ Page({
     ],
     goods: [],
     empty: false,
-    list_oss: app.image_oss + '150_150'
+    list_oss: app.image_oss + '150_150',
+    show: false,
+    loadtext: '正在加载...'
   },
   // 点击搜索执行查询
   search: function(e) {
-
     keywords = this.data.keywords;
     // 分类
     cPage = 0;
@@ -222,7 +223,6 @@ Page({
       store_id: storeid,
       p: pageIndex || 0,
     }
-
     if (sort == "" || sort == null) {
       // gsort ="shop_price"
       // asc=0
@@ -245,8 +245,12 @@ Page({
     winrecord['cat_id1'] = firstateID
     winrecord['cat_id2'] = secondID
     server.getJSON('/Goods/goodsSearch', winrecord, function(res) {
-
-      var newgoods = res.data
+      var newgoods = res.data;
+      if(res.data.length<=0){
+        that.setData({
+          loadtext: '——没有更多了——'
+        })
+      }
       var ms = that.data.goods.concat(newgoods)
       if (ms.length == 0) {
         that.setData({
@@ -257,12 +261,9 @@ Page({
           empty: false
         });
       wx.stopPullDownRefresh();
-
       that.setData({
         goods: ms
       });
-
-
     });
 
   },
@@ -345,14 +346,15 @@ Page({
     });
   },
   onReachBottom: function() {
+    this.setData({
+      show:true,
+      loadtext: '正在加载...'
+    })
     if (!keywords)
       this.getGoods(categoryId, ++cPage, gsort + "-" + asc);
     else
       this.getGoodsByKeywords(keywords, ++cPage, gsort + "-" + asc);
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
+      
   },
   onPullDownRefresh: function() {
     this.setData({

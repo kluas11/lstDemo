@@ -1,5 +1,4 @@
 {
-    "navigationBarTitleText": "钱包",
-	"enablePullDownRefresh": true,
-	"backgroundTextStyle": "dark"
+  "navigationBarTitleText": "钱包",
+  "backgroundTextStyle": "dark"
 }

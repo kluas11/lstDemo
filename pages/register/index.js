@@ -32,7 +32,6 @@ Page({
     this.getUserInfo()
   },
   storeChoice: function(index) {
-    // console.log(index.detail.value)
     this.setData({
       storeIndex: index.detail.value
     })

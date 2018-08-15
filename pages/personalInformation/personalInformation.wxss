@@ -1,21 +1,24 @@
 .Main {
   height: 100%;
-padding:30rpx 50rpx;
+  padding: 30rpx 50rpx;
+  font-size: 28rpx;
 }
-.Main .Main_box{
+
+.Main .Main_box {
   width: 100%;
   display: flex;
   flex-direction: row;
-
   border-bottom: 1px solid #f3f3f3;
-  height:120rpx;
-  line-height: 120rpx;
+  height:80rpx;
+  line-height: 80rpx;
+}
 
+.Main_box .label_left {
+  width: 130rpx;
+  text-align: justify;
+  text-align-last: justify;
+  margin-right: 15rpx;
+  color: #999999;
+  font-weight: 500;
 }
-.Main_box .label_left{
-  flex:5;
-  text-align: center
-}
-.Main_box .label_right{
-  flex:15;
-}
+

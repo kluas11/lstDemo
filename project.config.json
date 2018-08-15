@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 29,
 			"list": [
 				{
 					"id": 1,
@@ -200,6 +200,24 @@
 					"id": -1,
 					"name": "用户登录",
 					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品分类展示",
+					"pathName": "pages/goods/list/list",
+					"query": "categoryId=295&parentId=294"
+				},
+				{
+					"id": -1,
+					"name": "个人信息",
+					"pathName": "pages/personalInformation/personalInformation",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的团队",
+					"pathName": "pages/member/share/member/list",
 					"query": ""
 				}
 			]

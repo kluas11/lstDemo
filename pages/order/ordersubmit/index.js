@@ -24,17 +24,6 @@ Page({
       name: "邮寄"
     }],
     paymentIndex: 0,
-    paymentArray: [{
-      id: 0,
-      name: "微信支付",
-      way: 'wxPreparePay',
-      class: "payByBalance"
-    }, {
-      class: "payByWXPay button-hover",
-      id: 1,
-      name: "余额支付",
-      way: 'walletPay'
-    }],
     // 用户余额
     use_money: 0,
     // 总价格
@@ -247,7 +236,22 @@ Page({
         user_id: user_id,
         order_id: order_id
       }
-      that.sendpayment(postUrl, port, winrecord, payway)
+      var total = that.data.total_amount;
+      wx.showModal({
+        title: "交易提示",
+        content: "此次付款金额为" + total + "元",
+        success: function(res) {
+          if (res.confirm) {
+            that.sendpayment(postUrl, port, winrecord, payway)
+          } else if (res.cancel) {
+            return;
+          }
+        },
+        fail: function() {
+          wx.hideLoading()
+          return;
+        }
+      })
     }
   },
   // 发送支付
@@ -604,7 +608,7 @@ Page({
       }
     })
   },
-  parse(num){
+  parse(num) {
     return parseInt(num * 100)
   },
   // 计算应付的总金额
@@ -635,14 +639,14 @@ Page({
     let total = (parse(goodsAmount) - parse(this.data.active_total));
     total = total < 0 ? 0 : total;
     totalPrice = (total + parse(expressFee)) / 100;
-    
+
     this.setData({
       totalPrice
     })
   },
   //优惠券优惠价格平摊
   coupon_spread() {
-    var parse = this.parse;    
+    var parse = this.parse;
     let data = this.data;
     let discount_coupon_details = data.discount_coupon_details;
     let card_id = data.card_id;
@@ -651,7 +655,7 @@ Page({
     shopList.forEach((val, index) => {
       let differ = discount_coupon_details[val.goods_id][card_id]; //单个商品平摊优惠券的金额
       let goods_sum = val.shop_price * val.goods_num; //单个商品的总价
-      let cou = val.activityInfo.discount_money||0; //活动优惠价
+      let cou = val.activityInfo.discount_money || 0; //活动优惠价
       if ((parse(differ) + parse(cou)) / 100 > goods_sum) {
         var coupon_price = goods_sum;
       } else {

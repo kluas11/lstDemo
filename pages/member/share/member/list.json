@@ -1,5 +1,4 @@
 {
-    "navigationBarTitleText": "我的团队",
-    "enablePullDownRefresh": true,
-	"backgroundTextStyle": "dark"
+  "navigationBarTitleText": "我的团队",
+  "backgroundTextStyle": "dark"
 }

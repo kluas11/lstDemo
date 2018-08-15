@@ -17,6 +17,13 @@ image, view, text {
   height: 100%;
   width: 100%;
 }
+/* 下拉加载更多 */
+.more_foot{
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
 /* 字体图标 */
 @font-face {
   font-family: 'iconfont';

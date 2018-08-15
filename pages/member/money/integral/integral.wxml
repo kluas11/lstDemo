@@ -18,5 +18,5 @@
       </li>
     </ul>
   </view>
-  <view class='foot' wx:if="{{show}}">{{loadtext}}</view>
+  <view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>
 </view>
