@@ -232,7 +232,7 @@ Page({
         })
       } else {
         wx.showToast({
-          title: '绑定失败',
+          title: '请作出变动',
           icon: 'clear',
           duration: 2000
         })

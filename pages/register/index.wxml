@@ -38,7 +38,7 @@
     </view>
     <view class="line"></view>
     <view class="section" style="{{storeState==true?'background:#f3f3f3':''}};">
-      <picker :disabled="{{storeState}}" bindchange="storeChoice" value="{{storeIndex}}" range-key="store_name" range="{{storeList}}">
+      <picker disabled="{{storeState}}" bindchange="storeChoice" value="{{storeIndex}}" range-key="store_name" range="{{storeList}}">
         <view class="picker">
           <view class="wx-view_log_item" style="border-bottom-style: none;">
             <text class="log_label">所属门店:</text>
