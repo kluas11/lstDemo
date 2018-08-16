@@ -4,21 +4,24 @@
     <text class="text-money">￥{{moneys}}</text>
     <text style="margin-bottom:6rpx;margin-left:2rpx;" class="text-money">元</text>
   </view>
+  <view>
+    <text bindtap='navigateToWithdrawList' class='text-record'>提现记录</text>
+  </view>
 </view>
 <form bindreset="formReset" class="parent">
   <view class="view-row">
     <text>户主姓名</text>
-    <input name="account_name" bindinput='accountNameInput' placeholder-class="input-placeholder" placeholder="请输入真实户主姓名" value="{{account_name}}"/>
+    <input name="account_name" bindinput='accountNameInput' placeholder-class="input-placeholder" placeholder="请输入真实户主姓名" value="{{account_name}}" />
   </view>
   <view class="class-line"></view>
   <view class="view-row">
     <text>银行名称</text>
-    <input name="bank_name" bindinput='bankNameInput' placeholder-class="input-placeholder" placeholder="请输入银行名称" value="{{bank_name}}"/>
+    <input name="bank_name" bindinput='bankNameInput' placeholder-class="input-placeholder" placeholder="请输入银行名称" value="{{bank_name}}" />
   </view>
   <view class="class-line"></view>
   <view class="view-row">
     <text>银行卡号</text>
-    <input name="account_bank"  value="{{account_bank}}" type="number" bindinput='bankNumInput' placeholder-class="input-placeholder" placeholder="请输入银行卡号" />
+    <input name="account_bank" value="{{account_bank}}" type="number" bindinput='bankNumInput' placeholder-class="input-placeholder" placeholder="请输入银行卡号" />
   </view>
   <view class="class-line"></view>
 
@@ -29,7 +32,6 @@
 
   <view class="class-line"></view>
 
-  <button  bindtap="formSubmit" class="text-save" formType="reset">提交申请</button>
-  
-  <text bindtap='navigateToWithdrawList' class='text-record'>提现记录</text>
+  <button bindtap="formSubmit" class="text-save" formType="reset">提交申请</button>
+
 </form>

@@ -2,44 +2,31 @@ var server = require('../../utils/server');
 const App = getApp();
 Page({
   data: {
-    goods_oss:App.image_oss+'160_170'
+    goods_oss:App.image_oss+'160_170',
+    wx_loading:true
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    var that = this;
-    server.getJSON("/Store/getStoreClass", function(res) {
-      var store_class = res.data;
-      that.getStoreList(store_class[0].sc_id);
-      that.setData({
-        store_class: store_class,
-        active_index: 0
-      });
-    });
+    this.getStoreList();
   },
-  getStoreList: function(sc_id) {
-    // var lat;
-    // var lon;
+  getStoreList: function() {
     var that = this;
-    // 
-    // /Store/getStores 以前
     wx.getLocation({
       type: 'wgs84',
       success: function(res2) {
         server.getJSON("/Store/getNearStores", {
-          cid: sc_id,
           lat: res2.latitude,
           lon: res2.longitude
         }, function(res) {
           console.log(res.data)
           var stores = res.data;
           that.setData({
-            stores: stores
+            stores: stores,
+            wx_loading: false
           });
         });
       }
     })
-
-
   },
   onReady: function() {
     // 页面渲染完成
@@ -84,14 +71,5 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone //仅为示例，并非真实的电话号码
     })
-  },
-  onClickClass: function(e) {
-    var class_id = e.currentTarget.dataset.id;
-    var store_class = this.data.store_class;
-    var index = e.currentTarget.dataset.index;
-    this.getStoreList(class_id);
-    this.setData({ 
-      active_index:index
-      });
   }
 })

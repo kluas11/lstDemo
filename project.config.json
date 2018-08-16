@@ -36,7 +36,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 30,
+			"current": 18,
 			"list": [
 				{
 					"id": 1,
@@ -96,7 +96,7 @@
 					"id": 9,
 					"name": "订单详情",
 					"pathName": "pages/order/details/index",
-					"query": "order_id=845"
+					"query": "order_id=872"
 				},
 				{
 					"id": -1,
@@ -151,7 +151,7 @@
 					"id": 18,
 					"name": "商品确认订单",
 					"pathName": "pages/order/ordersubmit/index",
-					"query": "origin=detail&goodsID=2272&goods_num=3"
+					"query": "origin=detail&goodsID=4186&goods_num=1"
 				},
 				{
 					"id": -1,

@@ -17,7 +17,8 @@ Page({
     goods_oss: App.image_oss + '150_150',
     total_amount: 0,
     show: false,
-    loadtext: '正在加载...'
+    loadtext: '正在加载...',
+    wx_loading:true
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index
@@ -345,7 +346,8 @@ Page({
         wx.stopPullDownRefresh();
         that.setData({
           orders: ms,
-          user_id: user_id
+          user_id: user_id,
+          wx_loading:false
         });
       });
   },

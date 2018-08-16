@@ -1,8 +1,8 @@
 <view>
-  <view class="class-tab">
+  <!-- <view class="class-tab">
     <text bindtap="tabClick" data-index="0" class="{{active_index == 0?'text-select':'text-normal'}}">商品</text>
     <text bindtap="tabClick" data-index="2" class="{{active_index == 2?'text-select':'text-normal'}}">评价</text>
-  </view>
+  </view> -->
   <view class="parent" wx:if="{{tab == 0}}">
     <swiper class="images" indicator-dots="{{false}}" autoplay="true" interval="5000" duration="1000" style="height:{{galleryHeight}}px;">
       <!-- <block wx:for="{{goods.gallery}}" wx:key=""> -->

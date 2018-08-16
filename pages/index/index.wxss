@@ -8,6 +8,10 @@ page {
   height: 100%;
 }
 
+button::after {
+  border: none;
+}
+
 .layout {
   height: 100%;
 }
@@ -392,4 +396,3 @@ page {
   width: 130rpx;
   height: 56rpx;
 }
-

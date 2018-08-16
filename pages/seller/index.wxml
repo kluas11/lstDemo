@@ -1,12 +1,4 @@
-<scroll-view scroll-x="true" class="sc-header">
-  <view class="view-header">
-    <view wx:for="{{store_class}}" wx:key='unique'>
-      <text bindtap="onClickClass" wx:if="{{active_index == index}}" style="color:red" data-id="{{item.sc_id}}" data-index="{{index}}">{{item.sc_name}}</text>
-      <text bindtap="onClickClass" wx:else data-id="{{item.sc_id}}" data-index="{{index}}">{{item.sc_name}}</text>
-    </view>
 
-  </view>
-</scroll-view>
 <view class="seller-item" wx:for="{{stores}}" wx:key='unique'>
   <view class="seller-info">
     <image mode="aspectFit" src="{{item.store_logo}}"></image>
@@ -39,3 +31,5 @@
     <text data-id="{{item.store_id}}" data-store_name='{{item.store_name}}' bindtap="goods">进入店铺</text>
   </view>
 </view>
+<!-- 页面加载动画 -->
+<include src="/template/loading/loading.wxml" />

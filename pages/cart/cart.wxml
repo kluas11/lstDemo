@@ -46,3 +46,5 @@
     <view class="button" bindtap="bindCheckout">立即结算</view>
   </view>
 </view>
+<!-- 页面加载动画 -->
+<include src="/template/loading/loading.wxml" />

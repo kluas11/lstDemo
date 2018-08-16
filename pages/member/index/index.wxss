@@ -61,12 +61,13 @@ background: #eee;
   justify-content: space-around;
   background: white;
   margin-bottom: 20rpx;
-  padding: 30rpx;
+  padding: 10rpx 20rpx;
 }
 
 .order {
 	text-align: center;
   flex: 1;
+  padding: 10rpx;
 }
 
 .order image {

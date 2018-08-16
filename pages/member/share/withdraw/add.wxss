@@ -9,10 +9,14 @@
 }
 .text-record{
   text-align:right;
-  color:#666;
-  font-size:35rpx;
+  color:#4b88e5;
+  font-size:30rpx;
+  font-weight: 600;
+  border-bottom: 1rpx solid #4b88e5;
   padding:15rpx;
+  padding-bottom: 0;
   display: block;
+  margin-left: 20rpx;
 }
 .view-moneyinfo {
   display: flex;

@@ -9,7 +9,8 @@ Page({
     minusStatuses: ['disabled', 'disabled', 'normal', 'normal', 'disabled'],
     selectedAllStatus: true,
     total: '',
-    goods_oss: app.image_oss+'130_150'
+    goods_oss: app.image_oss+'130_150',
+    wx_loading:true
   },
 
   onLoad: function (option) {
@@ -174,8 +175,6 @@ Page({
       if (this.data.carts[i].selected) {
         console.log(this.data.carts[i])
         goodsID.push(this.data.carts[i].goods_id)
-      
-        // cartIds.push(this.data.carts[i].cart_id);
       }
     }
     console.log(goodsID)
@@ -221,30 +220,13 @@ Page({
       // 全选按钮控制 selectedAllStatus
       // var selectedAllStatus = true;
       for (var i = 0; i < carts.length; i++) {
-        // var goods = carts[i].get('goods');
-        // goodsList[i] = goods;
         carts[i].selected = true;
-        // if (carts[i].selected == 1)
-        //   carts[i].selected = true;
-        // else {
-        //   carts[i].selected = false;
-        //   selectedAllStatus = false;
-        // }
-        // if (carts[i].goods_num>1){
-        //   minusStatuses[i] = disabled
-        // }else{
         minusStatuses[i] = carts[i].goods_num > 1 ? "normal" :"disabled"
-        
-        //minusStatuses[i] = 1;//carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
-        // minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
       }
-      // console.log(carts);
-      // return;
       that.setData({
         carts: carts,
-        // selectedAllStatus: selectedAllStatus,
-        //goodsList: goodsList,
-        minusStatuses: minusStatuses
+        minusStatuses: minusStatuses,
+        wx_loading:false
       });
       // // sum
       that.sum();
@@ -253,32 +235,6 @@ Page({
   },
   onShow: function () {
     this.getCarts();
-    // 下面的功能未知
-
-    // var that = this;
-    // var user = AV.User.current();
-    // var query = new AV.Query('Cart');
-    // var minusStatuses = [];
-    // query.equalTo('user', user);
-    // query.include('goods');
-    // query.find().then(function (carts) {
-    //   // set goods data
-    //   var goodsList = [];
-    //   for (var i = 0; i < carts.length; i++) {
-    //     var goods = carts[i].get('goods');
-    //     goodsList[i] = goods;
-    //     minusStatuses[i] = carts[i].get('quantity') <= 1 ? 'disabled' : 'normal';
-    //   }
-    //   // console.log(carts);
-    //   that.setData({
-    //     carts: carts,
-    //     goodsList: goodsList,
-    //     minusStatuses: minusStatuses
-    //   });
-    //   // sum
-    //   that.sum();
-    // });
-
   },
   // 计算总和
   sum: function () {

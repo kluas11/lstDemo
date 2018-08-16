@@ -107,3 +107,5 @@
     </view>
   </view>
 </view>
+<!-- 页面加载动画 -->
+<include src="/template/loading/loading.wxml" />

@@ -37,7 +37,8 @@ Page({
     use_point: 0,
     ordersubmit: true, //优惠券按钮判断
     cuoponhidden: false,
-    coupontext: "暂无可用优惠券"
+    coupontext: "暂无可用优惠券",
+    wx_loading: true
   },
   // 页面开始加载
   onLoad: function(options) {
@@ -51,18 +52,6 @@ Page({
   // 页面显示
   onShow: function() {
     if (!this.data.goodsID) {
-      //   wx.showToast({
-      //     title: '订单已关闭',
-      //     image: '../../../images/about.png',
-      //     duration: 1000,
-      //     complete: function() {
-      //       setTimeout(function() {
-      //         wx.switchTab({
-      //           url: '../../cart/cart'
-      //         });
-      //       }, 1000)
-      //     }
-      //   })
       return;
     }
     this.getCarts();
@@ -602,7 +591,8 @@ Page({
           cuoponlist,
           goodsAmount,
           discount_activity_money,
-          discount_coupon_details
+          discount_coupon_details,
+          wx_loading: false
         })
         that.sum();
       }
@@ -655,7 +645,10 @@ Page({
     shopList.forEach((val, index) => {
       let differ = discount_coupon_details[val.goods_id][card_id]; //单个商品平摊优惠券的金额
       let goods_sum = val.shop_price * val.goods_num; //单个商品的总价
-      let cou = val.activityInfo.discount_money || 0; //活动优惠价
+      let cou = 0;
+      if (val.activityInfo) {
+         cou = val.activityInfo.discount_money || 0; //活动优惠价
+      }
       if ((parse(differ) + parse(cou)) / 100 > goods_sum) {
         var coupon_price = goods_sum;
       } else {

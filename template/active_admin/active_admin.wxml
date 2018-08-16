@@ -25,9 +25,9 @@
       <view class='improt_color'>每人限购{{item.limit_user}}件</view>
     </view>
     <button class='{{!item.limit_total?"disabled_btn":"buy_now"}}'>
-      <text class='buy_text1'>已售{{time.buypercent(item.limit_total,item.store_count)}}</text>
+      <text class='buy_text1'>已售{{time.buypercent(item.limit_total,item.limit_total_original)}}</text>
       <text class='{{!item.limit_total?"dis_text2":"buy_text2"}}'>马上抢</text>
-      <text class='percent' style='width:{{time.buypercent(item.limit_total,item.store_count)}};'></text>
+      <text class='percent' style='width:{{time.buypercent(item.limit_total,item.limit_total_original)}};'></text>
     </button>
   </view>
 </view>

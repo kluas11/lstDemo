@@ -2,7 +2,8 @@ var server = require('../../../utils/server');
 const App = getApp();
 Page({
   data: {
-    goods_oss: App.image_oss + '130_150'
+    goods_oss: App.image_oss + '130_150',
+    wx_loading:true
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -20,7 +21,8 @@ Page({
         that.setData({
           result: result,
           CouponAmount:result.discount_coupon_amount,
-          couponInfo: result.couponInfo
+          couponInfo: result.couponInfo,
+          wx_loading:false
         });
       });
   },

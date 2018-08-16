@@ -6,6 +6,10 @@
     <open-data class="userinfo-nickname" type="userNickName"></open-data>
   </view>
   <view class="order-area">
+    <view bindtap="navigateToOrder" data-cid="0" class="order" style='border-right: 1px dashed #dddddd;'>
+      <image src="../../../images/dd.png" />
+      <text>全部订单</text>
+    </view>
     <view bindtap="navigateToOrder" data-cid="1" class="order">
       <image src="../../../images/fukuan.png" />
       <text>待付款</text>
@@ -47,13 +51,13 @@
     </view>
     <text class='iconfont icon-gengduo'></text>
   </view>
-  <view bindtap="navigateToOrder" data-cid="0" class="tableviewcell">
+  <!-- <view bindtap="navigateToOrder" data-cid="0" class="tableviewcell">
     <view class='cell_list'>
       <image src="../../../images/dd.png" />
       <text>全部订单</text>
     </view>
     <text class='iconfont icon-gengduo'></text>
-  </view>
+  </view> -->
   <view bindtap="navigateToShare" class="tableviewcell">
     <view class='cell_list'>
       <image src="../../../images/share.png" />
@@ -61,13 +65,13 @@
     </view>
     <text class='iconfont icon-gengduo'></text>
   </view>
-  <view bindtap="navigateToEvaluate" class="tableviewcell">
+  <!-- <view bindtap="navigateToEvaluate" class="tableviewcell">
     <view class='cell_list'>
       <image src="../../../images/pj.png" />
       <text>我的评价</text>
     </view>
     <text class='iconfont icon-gengduo'></text>
-  </view>
+  </view> -->
   <view bindtap="navigateToCollect" class="tableviewcell">
     <view class='cell_list'>
       <image src="../../../images/sc.png" />

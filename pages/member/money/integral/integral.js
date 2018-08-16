@@ -11,7 +11,8 @@ Page({
     page:1,
     lists:[],
     loadtext:'正在加载...',
-    show:false
+    show:false,
+    wx_loading:true
   },
 
   /**
@@ -38,6 +39,7 @@ Page({
       let arr = that.data.lists.concat(res.data);
       that.setData({
         lists: arr,
+        wx_loading: false
       });
       wx.hideLoading();
     });

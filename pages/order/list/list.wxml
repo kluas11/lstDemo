@@ -46,6 +46,8 @@
   </view>
   <view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>
 </view>
+<!-- 页面加载动画 -->
+<include src="/template/loading/loading.wxml" />
 <view wx:if="{{orders.length == 0}}" class="view-tint">
   <image src="/images/icon_empty.png"></image>
   <text>亲,没有数据</text>
