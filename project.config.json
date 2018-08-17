@@ -19,6 +19,11 @@
 			}
 		]
 	},
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -36,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 31,
 			"list": [
 				{
 					"id": 1,
@@ -225,6 +230,13 @@
 					"name": "余额提现",
 					"pathName": "pages/member/share/withdraw/add",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商家活动",
+					"pathName": "pages/goods/activity/activity",
+					"query": "",
+					"scene": "1011"
 				}
 			]
 		}

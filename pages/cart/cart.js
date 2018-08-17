@@ -226,6 +226,7 @@ Page({
       that.setData({
         carts: carts,
         minusStatuses: minusStatuses,
+        selectedAllStatus:true,
         wx_loading:false
       });
       // // sum

@@ -1,4 +1,4 @@
-
+<wxs module="filters" src="index.wxs"></wxs>
 <view class="seller-item" wx:for="{{stores}}" wx:key='unique'>
   <view class="seller-info">
     <image mode="aspectFit" src="{{item.store_logo}}"></image>
@@ -8,7 +8,7 @@
     </view>
     <view class="seller-info-right" style='width:20%;text-align:center;'>
       <text>距离</text>
-      <text>{{item.distance}}米</text>
+      <text>{{filters.fixAmount(item.distance)}}米</text>
     </view>
   </view>
   <view class="seller-goods">
@@ -18,14 +18,10 @@
         <text>{{good.shop_price}}</text>
       </view>
     </view>
-
-
   </view>
-
   <view class="seller-goods-title">
     <text wx:for="{{item.goods}}" wx:for-item="good" wx:key='unique'>{{good.goods_name}}</text>
   </view>
-
   <view class="seller-btns">
     <text data-phone="{{item.store_phone}}" bindtap="take">联系客服</text>
     <text data-id="{{item.store_id}}" data-store_name='{{item.store_name}}' bindtap="goods">进入店铺</text>

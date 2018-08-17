@@ -1,6 +1,6 @@
 <wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
 <wxs module='time' src='./index.wxs' />
-<scroll-view scroll-y="{{!cuoponhidden}}" class='layout' >
+<view  class='layout'>
   <view class='shopNameTip' wx:if='{{shopName != ""}}'>
     <view class='address'>
       <view class='iconfont icon-dizhi1'></view>
@@ -22,12 +22,12 @@
       </swiper-item>
     </block>
   </swiper>
-  <!-- 商品分类 -->
+  <!-- 便捷链接 -->
   <swiper indicator-dots="{{navArray.length>8}}" style="background:#fff;height:350rpx" circular="true">
     <block>
       <swiper-item>
         <view class="func-area" style='margin-top:20rpx'>
-          <view  class='nav_url' wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}" wx:key="">
+          <view class='nav_url' wx:for="{{navArray}}" wx:if="{{index<=7}}" bindtap="showtabs" data-url="{{item.link}}" wx:key="">
             <image src="{{item.logo+lists_oss}}" mode="aspectFill" />
             <text>{{item.name}}</text>
           </view>
@@ -59,20 +59,21 @@
     </view>
   </view> -->
   <view class='active'>
-    <scroll-view class='admin'  wx:for="{{active_list}}" wx:if="{{item.length>0}}" wx:key="{{index}}">
+    <scroll-view class='admin' wx:for="{{active_list}}" wx:if="{{item.length>0}}" wx:key="{{index}}">
       <view class='active_title'>
         <image src='/images/timeActive.jpg'></image>
       </view>
       <view class='active_info'>
         <view class='active_lsits'>
-        <!-- 总店商品模板 -->
-          <include wx:if="{{index === 'admin'}}" src="../../template/active_admin/active_admin.wxml" />
-          <include wx:if="{{index === 'store'}}" src="../../template/active_store/active_store.wxml" />
+          <!-- 总店商品模板 -->
+          <include wx:if="{{index === 'admin'}}" src="/template/active_admin/active_admin.wxml" />
+          <!-- 门店商品模板 -->
+          <include wx:if="{{index === 'store'}}" src="/template/active_store/active_store.wxml" />
         </view>
       </view>
     </scroll-view>
   </view>
-</scroll-view>
+</view>
 <!-- 页面加载动画 -->
 <include src="/template/loading/loading.wxml" />
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>

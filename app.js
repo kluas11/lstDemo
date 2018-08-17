@@ -127,5 +127,5 @@ App({
   },
   image_oss: '?x-oss-process=style/fixed_',
   postUrl: "https://tlst.paycore.cc/index.php/WXAPI"
-  // posturl: 'https://lstmall.paycore.cc/index.php/WXAPI'
+  // postUrl: 'https://lstmall.paycore.cc/index.php/WXAPI'
 })

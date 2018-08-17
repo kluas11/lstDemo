@@ -18,7 +18,6 @@ Page({
           lat: res2.latitude,
           lon: res2.longitude
         }, function(res) {
-          console.log(res.data)
           var stores = res.data;
           that.setData({
             stores: stores,

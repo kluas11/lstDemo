@@ -34,7 +34,6 @@ Page({
         that.setData({
           loadtext:'——没有更多了——'
         })
-        return;
       }
       let arr = that.data.lists.concat(res.data);
       that.setData({

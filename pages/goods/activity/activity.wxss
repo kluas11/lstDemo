@@ -1,0 +1,36 @@
+/* pages/goods/activity/activity.wxss */
+@import '../../../template/active_store/active_store.wxss';
+page{
+  background: #eeeeee;
+}
+
+.header{
+  padding: 10rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  background: #ffffff;
+  position: fixed;
+  border-bottom: 2px solid #eeeeee;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.header .hea_text{
+  padding: 10rpx 0;
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  color: #999999;
+}
+.header .hea_text:first-child{
+  border-right: 2px solid #d94612;
+}
+.header .active{
+  color: #d94612;
+}
+.info_box{
+  margin-top: 100rpx;
+}
+.admin{
+  background: #ffffff;
+}

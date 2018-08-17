@@ -23,19 +23,19 @@ Page({
     let that = this;
     let count = e.detail.value;
     if (/^[0-9]+(.[0-9]{1,2})?$/.exec(count)) {
-      if (!(parseFloat(count) >= 1)) {
-        wx.showToast({
-          title: '充值金额需要大于1元',
-          icon: 'none'
-        });
-        that.setData({
-          formatedNum: ""
-        })
-      } else {
+      // if (!(parseFloat(count) >= 1)) {
+      //   wx.showToast({
+      //     title: '充值金额需要大于1元',
+      //     icon: 'none'
+      //   });
+      //   that.setData({
+      //     formatedNum: ""
+      //   })
+      // } else {
         that.setData({
           formatedNum: count
         })
-      }
+      // }
     } else {
       wx.showToast({
         title: '请输入正确的金额',
@@ -81,9 +81,9 @@ Page({
                 icon: 'success',
                 duration: 2000,
                 complete: function() {
-                  setTimeout(function() {
-                    wx.navigateBack()
-                  }, 1500)
+                    wx.navigateTo({
+                      url: '/pages/member/money/money',
+                    })
                 }
               })
 

@@ -328,7 +328,7 @@ Page({
             })
           } else {
             wx.showToast({
-              title: "余额不足",
+              title: "下单失败",
               image: '../../../images/about.png',
               duration: 2000,
               complete: function() {
@@ -445,9 +445,9 @@ Page({
   //关闭支付窗口
   hidden_paybox(e) {
     if (e.target.id === 'paybox') {
-      this.setData({
-        orderState: false
-      })
+      wx.navigateTo({
+        url: '/pages/order/list/list?type=1'
+      });
     }
   },
   //获取需要付款的金额
@@ -539,7 +539,7 @@ Page({
         app.globalData.cart_ids = ""
         wx.showModal({
           title: "消息提示",
-          content: "商品库存不足,请检查商品",
+          content: result.msg,
           success: function(res) {
             if (res.confirm) {
               wx.switchTab({
@@ -647,7 +647,7 @@ Page({
       let goods_sum = val.shop_price * val.goods_num; //单个商品的总价
       let cou = 0;
       if (val.activityInfo) {
-         cou = val.activityInfo.discount_money || 0; //活动优惠价
+        cou = val.activityInfo.discount_money || 0; //活动优惠价
       }
       if ((parse(differ) + parse(cou)) / 100 > goods_sum) {
         var coupon_price = goods_sum;
