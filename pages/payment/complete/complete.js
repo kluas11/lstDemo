@@ -1,4 +1,5 @@
 // pages/payment/complete/complete.js
+// 扫码支付结果页面
 Page({
 
   /**

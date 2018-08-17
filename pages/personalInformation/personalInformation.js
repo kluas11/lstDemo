@@ -1,4 +1,5 @@
 var server = require('../../utils/server');
+// 个人信息页面
 Page({
 
   /**

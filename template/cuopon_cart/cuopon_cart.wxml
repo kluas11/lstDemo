@@ -31,7 +31,7 @@
     <view class='list_right'>
       <button bindtap='receivetap' wx:if="{{cuopon_cart}}" data-coupon_id='{{item.coupon_id}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(item.end_time)}}'>使用</button>
       <button bindtap='receivetap' wx:if="{{ordersubmit}}" data-index='{{index}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(item.end_time)}}'>{{index==select_index?"已使用":"使用"}}</button>
-      <button bindtap='receivetap' wx:if="{{homeIndex}}" data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
+      <button bindtap='receivetap' disabled='{{item.disabled}}' wx:if="{{homeIndex}}" data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
     </view>
   </view>
 </view>

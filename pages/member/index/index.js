@@ -1,4 +1,5 @@
-// const AV = require('../../../utils/av-weapp.js')
+
+// 我的页面
 var app = getApp();
 Page({
   data: {

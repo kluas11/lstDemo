@@ -1,6 +1,6 @@
+// 扫码支付页面
 let server = require('../../utils/server');
 let app = getApp();
-
 Page({
 
   /*******************************************************************************
@@ -30,8 +30,8 @@ Page({
    *******************************************************************************/
   onLoad: function(options) {
     console.log(options)
-    let pages = getCurrentPages(); 
-    app.getsetting(pages,options.q).then(() => {
+    let pages = getCurrentPages();
+    app.getsetting(pages, options.q).then(() => {
       let ctx = this;
       let store_id;
       // options.q 扫公众号二维码进入   options会有有个key为q
@@ -49,7 +49,7 @@ Page({
     })
   },
   onShow() {
-    
+
   },
   load() {
     let that = this;
@@ -114,12 +114,10 @@ Page({
             doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
               console.log(res.data.payway)
               if (res.data.status == 1 && res.data.payway == 'Walletpay') {
-                wx.showToast({
-                  title: '支付成功',
-                });
-                wx.redirectTo({
-                  url: '/pages/payment/complete/complete?type=walletpay&complete=success&money=' + ctx.data.fixedAmount,
-                })
+                ctx.complete("支付成功", `余额成功支付${ctx.data.fixedAmount}元`)
+                // wx.navigateTo({
+                //   url: '/pages/payment/complete/complete?type=walletpay&complete=success&money=' + ctx.data.fixedAmount,
+                // })
               } else if (res.data.status == 1) {
                 wx.showToast({
                   title: '金额输入错误',
@@ -130,13 +128,13 @@ Page({
               }
             });
           } else if (res.cancel) {
-
+            ctx.setData({
+              inputAmount: 0,
+              fixedAmount: 0,
+              'disable.balance': false
+            });
           }
-          // ctx.setData({
-          //   inputAmount: 0,
-          //   fixedAmount: 0,
-          //   'disable.balance': false
-          // });
+
         }
       })
     }, 200);
@@ -150,7 +148,6 @@ Page({
     ctx.setData({
       'disable.WXPay': true
     });
-
     setTimeout(function() {
       doPay('wxpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
         if (res.data.status == 1 && res.data.payway == 'wxpay') {
@@ -161,14 +158,16 @@ Page({
             'signType': res.data.data.signType,
             'paySign': res.data.data.paySign,
             'success': function(res) {
-              wx.redirectTo({
-                url: '/pages/payment/complete/complete?type=wxpay&complete=success&money=' + ctx.data.fixedAmount,
-              })
+              ctx.complete("支付成功", `微信成功支付${ctx.data.fixedAmount}元`)              
+              // wx.navigateTo({
+              //   url: '/pages/payment/complete/complete?type=wxpay&complete=success&money=' + ctx.data.fixedAmount,
+              // })
             },
             'fail': function(res) {
-              wx.redirectTo({
-                url: '/pages/payment/complete/complete?type=wxpay&complete=faile',
-              })
+              ctx.complete("支付失败", `未能成功支付`)
+              // wx.navigateTo({
+              //   url: '/pages/payment/complete/complete?type=wxpay&complete=faile',
+              // })
             }
           });
         } else if (res.data.status == 1) {
@@ -190,6 +189,22 @@ Page({
         }
       });
     }, 200);
+  },
+  /** 
+   * 支付结果
+   */
+  complete(title, content) {
+    wx.showModal({
+      title,
+      content,
+      showCancel: false,
+      confirmText: '逛逛首页',
+      complete:function(){
+        wx.switchTab({
+          url: '/pages/index/index',
+        })
+      }
+    })
   }
 })
 /*******************************************************************************

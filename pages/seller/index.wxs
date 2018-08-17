@@ -1,0 +1,11 @@
+var fixAmount = function (amount) {
+  if (amount <= 0 ||isNaN(+amount)) {
+    return '';
+  }else{
+    amount = +amount;
+  }
+  return amount.toFixed(0);
+}
+module.exports = {
+  fixAmount: fixAmount
+}

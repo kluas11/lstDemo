@@ -16,6 +16,7 @@ Page({
     homeIndex: true //优惠券按钮判断
   },
   onLoad: function(options) {
+    // this.getcouponTap();
     let pages = getCurrentPages();
     App.getsetting(pages).then(() => {
       if (options.q) {
@@ -92,6 +93,10 @@ Page({
   onShow: function() {
 
   },
+  // 下拉刷新
+  onPullDownRefresh(){
+    this.load();
+  },
   getInviteCode: function(options) {
     //用户是否通过首页分享进入，缓存分享者 uidhge 
     if (options.uid != undefined || options.scene) {
@@ -124,7 +129,6 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-
           resolve({
             state: "success"
           })
@@ -238,6 +242,7 @@ Page({
     })
     server.getJSON("/Index/getCouponList", {
       store_id: App.globalData.store_id
+      // store_id: 26
     }, function(res) {
       console.log(res)
       that.setData({
@@ -247,7 +252,14 @@ Page({
   },
   // 去领取优惠券
   receivetap(e) {
+    let that =this;
     let coupon_id = e.currentTarget.dataset.coupon_id;
+    let cuoponlist = this.data.cuoponlist;
+    cuoponlist.forEach(function(val, index) {
+      if (val.coupon_id === coupon_id) {
+        val.disabled = true;
+      }
+    })
     server.newpostJSON("/Index/receiveCoupon", {
       coupon_id,
       user_id: wx.getStorageSync("user_id")
@@ -256,6 +268,9 @@ Page({
         wx.showToast({
           title: '领取成功',
           icon: "success"
+        })
+        that.setData({
+          cuoponlist
         })
       } else {
         wx.showToast({
