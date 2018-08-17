@@ -56,7 +56,6 @@ Page({
       }
       let open_id = app.globalData.openid;
       let user_id = wx.getStorageSync("user_id");
-<<<<<<< HEAD
       server.newpostJSON('/Recharge/prepare_pay', {
         openid: open_id,
         user_id: user_id,
@@ -79,38 +78,6 @@ Page({
                 }, 1500)
               }
             })
-=======
-      wx.request({
-        url: app.postUrl + '/Recharge/prepare_pay',
-        method: 'POST',
-        data: {
-          openid: open_id,
-          user_id: user_id,
-          total_amount: rechargeAmount
-        },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }, // 将数据转化为query strings
-        success: res => {
-          console.log(res)
-          wx.requestPayment({
-            'timeStamp': res.data.data.timeStamp,
-            'nonceStr': res.data.data.nonceStr,
-            'package': res.data.data.package,
-            'signType': res.data.data.signType,
-            'paySign': res.data.data.paySign,
-            'success': function(res) {
-              wx.showToast({
-                title: '充值成功',
-                icon: 'success',
-                duration: 2000,
-                complete: function() {
-                    wx.navigateTo({
-                      url: '/pages/member/money/money',
-                    })
-                }
-              })
->>>>>>> 59f8b902d8d3cd826c7666578914dece052fb92e
 
           },
           'fail': function (res) {
