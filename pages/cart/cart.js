@@ -260,45 +260,24 @@ Page({
     var id = this.data.carts[index].cart_id;
     var that = this
     console.log(id)
-    wx.request({
-      url: postUrl + "/Cart/delCart",
-      data: {
-        cart_id: id,
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: 'POST',
-      success: function (result) {
-        console.log(result)
-        if (result.data == 0) {
-          console.log("err")
-        }else{
-          that.getCarts();
-        }
+    server.newpostJSON("/Cart/delCart", { cart_id: id },function (result){
+      if (result.data == 0) {
+      } else {
+        that.getCarts();
       }
     })
   },
   saveNum: function (id, num) {
     var that = this
-    console.log(id,num)
-    wx.request({
-      url: postUrl+"/Cart/updateNum",
-      data: {
-        cart_id: id,
-        num: num
-        },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: 'POST',
-      success: function (result) {
-        console.log(result)
-        if (result.data == "0" || result.data==0){
-          console.log("err")
-        }
+    server.newpostJSON("/Cart/updateNum", {
+      cart_id: id,
+      num: num
+    }, function (result){
+      if (result.data == "0" || result.data == 0) {
+        console.log("err")
       }
     })
+ 
 
   },
   // 弃用

@@ -29,7 +29,7 @@ Page({
           type
         },
         function(res) {
-          console.log(res)
+
           that.setData({
             collectstate: !collectstate
           })
@@ -166,43 +166,25 @@ Page({
   addCart: function(e) {
     var that = this;
     var goodsId = this.data.goods.goods_id;
-    // console.log()
     var goodsNum = this.data.goods_num;
     that.getuser_id().then(user_id => {
-      wx.request({
-        url: postUrl + '/Cart/addCart',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        data: {
-          goods_id: goodsId,
-          goods_num: goodsNum,
-          user_id: user_id
-        },
-        method: "POST",
-        success: function(res) {
-          // return 1/0 字符类型 是否加入成功; 
-          console.log(res)
-          if (res.data == "1")
-            wx.showToast({
-              title: '已加入购物车',
-              icon: 'success',
-              duration: 1000
-            });
-          else
-            wx.showToast({
-              title: "加入购物车失败",
-              icon: 'error',
-              duration: 1000
-            });
-        },
-        'fail': function(res) {
+      server.newpostJSON('/Cart/addCart', {
+        goods_id: goodsId,
+        goods_num: goodsNum,
+        user_id: user_id
+      },function(res){
+        if (res.data == "1")
+          wx.showToast({
+            title: '已加入购物车',
+            icon: 'success',
+            duration: 1000
+          });
+        else
           wx.showToast({
             title: "加入购物车失败",
             icon: 'error',
             duration: 1000
           });
-        }
       })
     })
     return;
@@ -219,7 +201,6 @@ Page({
   // 分享
   onShareAppMessage: function() {
     var path = '/pages/goods/detail/detail?objectId=' + objectId
-    console.log(path);
     return {
       title: '吕氏电商系统',
       desc: '联系qq727186863',
@@ -234,7 +215,6 @@ Page({
     var that = this;
     var lats = App.globalData.lat
     var lngs = App.globalData.lng
-    console.log(lats, lngs)
     // 获取最近门店
     // if (typeof options == 'number') {
     return new Promise((resolve, reject) => {
@@ -248,7 +228,6 @@ Page({
           that.setData({
             shopName: res.data.store_name
           })
-          // console.log(App.globalData.store_id)
           resolve({
             state: "success"
           })
@@ -262,7 +241,6 @@ Page({
   },
   getstore_id(res) {
     var self = this;
-    // console.log(res)
     var latitude = res.latitude || "";
     var longitude = res.longitude || "";
     App.globalData.lat = latitude;
@@ -287,14 +265,13 @@ Page({
         }
       },
       fail: function(res) {
-        console.log(res)
       },
       complete: function(res) {
         self.gainStore().then((res) => {
-          // console.log(res)
+
           // self.loadBanner(self.data.options);
         }, (err) => {
-          console.log(err)
+
         })
       }
     });

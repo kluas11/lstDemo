@@ -123,64 +123,24 @@ Page({
       title: '加载中',
     })
     // 请求提交订单
-    wx.request({
-      url: postUrl + port,
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: winrecord,
-      method: 'POST',
-      success: function(res) {
-
-        wx.hideLoading()
-        console.log(res)
-        // 微信支付
-
-        if (payway == "wxPreparePay") {
-          var result = res.data.data
-          wx.requestPayment({
-            "timeStamp": result.timeStamp,
-            "nonceStr": result.nonceStr,
-            "package": result.package,
-            "signType": result.signType,
-            'paySign': result.paySign,
-            'success': function(res) {
-              wx.hideLoading()
-              console.log(res)
-              wx.showToast({
-                title: "支付成功",
-                icon: "success",
-                duration: 2000,
-                complete: function() {
-                  that.setData({
-                    orders_id: "",
-                    total_amount: 0,
-                  })
-                  cPage = 1;
-                  that.data.orders = [];
-                  that.getOrderLists(ctype, cPage);
-                }
-              })
-            },
-            'fail': function(res) {
-              wx.hideLoading()
-              console.log(res)
-              wx.showToast({
-                title: "支付失败",
-                image: '../../../images/about.png',
-                duration: 2000,
-              })
-            }
-          })
-        } else {
-          // 余额支付
-          if (res.data.status) {
-
+    server.newpostJSON(port, winrecord,function(res){
+      wx.hideLoading()
+      if (payway == "wxPreparePay") {
+        var result = res.data.data
+        wx.requestPayment({
+          "timeStamp": result.timeStamp,
+          "nonceStr": result.nonceStr,
+          "package": result.package,
+          "signType": result.signType,
+          'paySign': result.paySign,
+          'success': function (res) {
+            wx.hideLoading()
+            console.log(res)
             wx.showToast({
               title: "支付成功",
               icon: "success",
               duration: 2000,
-              complete: function() {
+              complete: function () {
                 that.setData({
                   orders_id: "",
                   total_amount: 0,
@@ -188,33 +148,46 @@ Page({
                 cPage = 1;
                 that.data.orders = [];
                 that.getOrderLists(ctype, cPage);
-
               }
             })
-          } else {
+          },
+          'fail': function (res) {
+            wx.hideLoading()
+            console.log(res)
             wx.showToast({
-              title: "余额不足",
+              title: "支付失败",
               image: '../../../images/about.png',
               duration: 2000,
-              complete: function() {}
             })
           }
-        }
+        })
+      } else {
+        // 余额支付
+        if (res.data.status) {
 
-        // return;
-      },
-      fail: function(res) {
-        wx.showToast({
-          title: '下单失败',
-          image: '../../../images/about.png',
-          duration: 2000,
-          complete: function() {}
-        })
-      },
-      complete: function() {
-        that.setData({
-          orderState: false
-        })
+          wx.showToast({
+            title: "支付成功",
+            icon: "success",
+            duration: 2000,
+            complete: function () {
+              that.setData({
+                orders_id: "",
+                total_amount: 0,
+              })
+              cPage = 1;
+              that.data.orders = [];
+              that.getOrderLists(ctype, cPage);
+
+            }
+          })
+        } else {
+          wx.showToast({
+            title: "余额不足",
+            image: '../../../images/about.png',
+            duration: 2000,
+            complete: function () { }
+          })
+        }
       }
     })
   },
@@ -229,37 +202,21 @@ Page({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          wx.request({
-            url: postUrl + '/Dopay/cancleOrder',
-            header: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            data: {
-              order_id: order['order_id']
-            },
-            method: 'POST',
-            success: function(res) {
-              console.log(res)
-              if (res.data.status) {
-                wx.showToast({
-                  title: "订单取消成功",
-                  icon: 'success',
-                  duration: 2000
-                })
-                cPage = 0;
-                that.data.orders = [];
-                that.getOrderLists(ctype, 1);
-              } else {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'clear',
-                  duration: 2000
-                })
-              }
-            },
-            fail: function(res) {
+          server.newpostJSON('/Dopay/cancleOrder', {
+            order_id: order['order_id']
+          },function(res){
+            if (res.data.status) {
               wx.showToast({
-                title: "订单取消失败",
+                title: "订单取消成功",
+                icon: 'success',
+                duration: 2000
+              })
+              cPage = 0;
+              that.data.orders = [];
+              that.getOrderLists(ctype, 1);
+            } else {
+              wx.showToast({
+                title: res.data.msg,
                 icon: 'clear',
                 duration: 2000
               })

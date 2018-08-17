@@ -56,48 +56,39 @@ Page({
       }
       let open_id = app.globalData.openid;
       let user_id = wx.getStorageSync("user_id");
-      wx.request({
-        url: app.postUrl + '/Recharge/prepare_pay',
-        method: 'POST',
-        data: {
-          openid: open_id,
-          user_id: user_id,
-          total_amount: rechargeAmount
-        },
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }, // 将数据转化为query strings
-        success: res => {
-          console.log(res)
-          wx.requestPayment({
-            'timeStamp': res.data.data.timeStamp,
-            'nonceStr': res.data.data.nonceStr,
-            'package': res.data.data.package,
-            'signType': res.data.data.signType,
-            'paySign': res.data.data.paySign,
-            'success': function(res) {
-              wx.showToast({
-                title: '充值成功',
-                icon: 'success',
-                duration: 2000,
-                complete: function() {
-                  setTimeout(function() {
-                    wx.navigateBack()
-                  }, 1500)
-                }
-              })
+      server.newpostJSON('/Recharge/prepare_pay', {
+        openid: open_id,
+        user_id: user_id,
+        total_amount: rechargeAmount
+      },function(res){
+        wx.requestPayment({
+          'timeStamp': res.data.data.timeStamp,
+          'nonceStr': res.data.data.nonceStr,
+          'package': res.data.data.package,
+          'signType': res.data.data.signType,
+          'paySign': res.data.data.paySign,
+          'success': function (res) {
+            wx.showToast({
+              title: '充值成功',
+              icon: 'success',
+              duration: 2000,
+              complete: function () {
+                setTimeout(function () {
+                  wx.navigateBack()
+                }, 1500)
+              }
+            })
 
-            },
-            'fail': function(res) {
-              wx.showToast({
-                title: '充值失败',
-                image: '../../images/about.png',
-                duration: 2000,
-              })
+          },
+          'fail': function (res) {
+            wx.showToast({
+              title: '充值失败',
+              image: '../../images/about.png',
+              duration: 2000,
+            })
 
-            }
-          })
-        }
+          }
+        })
       })
     }, 200)
   }

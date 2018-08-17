@@ -9,7 +9,7 @@ Page({
     account_name:""
   },
   formReset: function () {
-    console.log('form发生了reset事件')
+
   },
   formSubmit: function (e) {
     // user 
@@ -23,7 +23,7 @@ Page({
     var account_name = this.data.account_name;
     var postUrl = app.postUrl;
     var bankNumReg = /^([1-9]{1})(\d{15}|\d{18})$/;
-    console.log(bankNumReg.test(account_bank))
+
     if (!bankNumReg.test(account_bank)){
       this.showToasts("输入正确的卡号",false)
       return;
@@ -33,37 +33,56 @@ Page({
       return;
     }
     var user_id = wx.getStorageSync("user_id")
-    wx.request({
-      url: postUrl +'/User/addWithdraw', 
-      data: {
-        user_id: user_id,
-        money: money,
-        bank_name: bank_name,
-        account_username: account_name,
-        account_bankno: account_bank
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded" // 默认值
-      },
-      method: 'POST',
-      success: function (res) {
-        console.log(res)
-        if(res.data.status){
-          that.setData({
-            bank_name: null,
-            money: null,
-            account_username: null,
-            account_bankno: null
-          })
-          that.showToasts(res.data.msg || "提现成功",true)
-        }else{
-          that.showToasts(res.data.msg || "提现失败", false)
-        }
-      },
-      fail:function(res){
+    server.newpostJSON('/User/addWithdraw', {
+      user_id: user_id,
+      money: money,
+      bank_name: bank_name,
+      account_username: account_name,
+      account_bankno: account_bank
+    },function(res){
+      if (res.data.status) {
+        that.setData({
+          bank_name: null,
+          money: null,
+          account_username: null,
+          account_bankno: null
+        })
+        that.showToasts(res.data.msg || "提现成功", true)
+      } else {
         that.showToasts(res.data.msg || "提现失败", false)
       }
     })
+    // wx.request({
+    //   url: postUrl +'/User/addWithdraw', 
+    //   data: {
+    //     user_id: user_id,
+    //     money: money,
+    //     bank_name: bank_name,
+    //     account_username: account_name,
+    //     account_bankno: account_bank
+    //   },
+    //   header: {
+    //     "Content-Type": "application/x-www-form-urlencoded" // 默认值
+    //   },
+    //   method: 'POST',
+    //   success: function (res) {
+
+    //     if(res.data.status){
+    //       that.setData({
+    //         bank_name: null,
+    //         money: null,
+    //         account_username: null,
+    //         account_bankno: null
+    //       })
+    //       that.showToasts(res.data.msg || "提现成功",true)
+    //     }else{
+    //       that.showToasts(res.data.msg || "提现失败", false)
+    //     }
+    //   },
+    //   fail:function(res){
+    //     that.showToasts(res.data.msg || "提现失败", false)
+    //   }
+    // })
   },
   showToasts: function (content, success){
     wx.showToast({
@@ -125,7 +144,7 @@ Page({
     server.getJSON('/Walletpay/getUsermoneyPoints', {
       user_id: user_id
     }, function (res) {
-      console.log(res)
+
       that.setData({
         moneys: res.data.user_money || 0
       });

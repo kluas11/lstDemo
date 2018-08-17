@@ -104,17 +104,10 @@ Page({
 function getCodeTimer(context) {
   var user_id = wx.getStorageSync("user_id");
   console.log(user_id)
-  wx.request({
-    url: app.postUrl+'/Walletpay/getcode',
-    data: { user_id: user_id },
-    method: 'POST',
-    header: { 'content-type': 'application/x-www-form-urlencoded' },// 将数据转化为query string
-    success: res => {
-      console.log(res);
-      barQRCode.barcode('myBarcode', res.data.code, 680, 200);
-      context.setData({
-        myCode: res.data.code
-      });
-    }
-  });
+  server.newpostJSON('/Walletpay/getcode', { user_id: user_id},function(res){
+    barQRCode.barcode('myBarcode', res.data.code, 680, 200);
+    context.setData({
+      myCode: res.data.code
+    });
+  })
 }
