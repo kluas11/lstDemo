@@ -20,11 +20,9 @@ Page({
       content: '确定删除该收藏吗？',
       success: function(res) {
         if (res.confirm) {
-          var user_id = wx.getStorageSync("user_id");
           var goods_id = e.currentTarget.dataset.goodsId;;
           var type = 1;
           server.getJSON('/Goods/collectGoods', {
-            user_id,
             goods_id,
             type
           }, function(res) {
@@ -43,9 +41,7 @@ Page({
   },
   getCollectLists: function (page) {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
     server.getJSON('/User/getGoodsCollect', {
-      user_id: user_id,
       p: page
     }, function (res) {
       console.log(res)

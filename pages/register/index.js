@@ -54,9 +54,7 @@ Page({
   },
   deciphering: function(e) {
     let that = this;
-    let userID = wx.getStorageSync("user_id");
     server.newpostJSON("/User/getDecryptData", {
-      user_id: userID,
       encryptedData: e.detail.encryptedData,
       iv: e.detail.iv
     }, function(res) {
@@ -133,9 +131,8 @@ Page({
   },
   getUserInfo: function() {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    // console.log(user_id)
-    if (!user_id) {
+    var sessionId = wx.getStorageSync("sessionId");
+    if (!sessionId) {
       wx.showToast({
         title: '用户信息有误',
         duration: 2000,
@@ -143,10 +140,7 @@ Page({
       })
       return;
     }
-    server.getJSON("/User/getUserDetails", {
-      user_id: user_id,
-    }, function(res) {
-
+    server.getJSON("/User/getUserDetails", function(res) {
       var data = res.data;
       // console.log(data)
       let winRecord = {
@@ -183,14 +177,12 @@ Page({
   // 提交信息
   quick_register_phone: function(e) {
     var that = this;
-    var user_Id = wx.getStorageSync("user_id");
     var real_name = that.data.real_name;
     var mobile = that.data.mobile;
     var sex = that.data.sex;
     var PhoneRegex = RegExp('^1[34578]\\d{9}$', 'g');
     let store_id = that.data.storeList[that.data.storeIndex].store_id;
     var winrecord = {
-      user_id: user_Id,
       real_name: real_name == null ? "" : real_name,
       sex: sex,
       store_id: store_id

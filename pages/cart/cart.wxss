@@ -46,16 +46,11 @@
 .carts-item-title {
 	display: flex;
 	flex-direction: row;
-
-	
 	/*width属性解决标题文字太短而缩略图偏移*/
 	width:100%;
 	border-bottom: 1px solid #eee;
 	padding: 18rpx 0;
-
 	align-items: center;
-	
-	
 }
 
 .carts-item-title image{
@@ -243,17 +238,9 @@
 
 }
 
-.carts-footer-left text{
-	/* margin-top: 20rpx; */
-}
-
-
 .text-price{
 	font-size: 27rpx;
 	color: #999999;
-	background-image: url('https://wudhl.com/delete.png');
-    background-size:160% 100%;
-	
 	text-decoration-line:line-through; 
 }
 .text-red{

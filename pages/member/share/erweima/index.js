@@ -17,7 +17,6 @@ Page({
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
   },
 
   accountInput: function(e) {
@@ -35,11 +34,9 @@ Page({
   },
 
   formSubmit: function() {
-    let user_id = wx.getStorageSync("user_id"),
       seller_id = this.data.staffAccount,
       seller_name = this.data.staffName
     server.newpostJSON("/User/apply_user_level", {
-        user_id,
         seller_id,
         seller_name
       },

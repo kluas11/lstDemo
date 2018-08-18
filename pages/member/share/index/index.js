@@ -11,13 +11,10 @@ Page({
     var that = this;
     var login = app.globalData.login;
     var that = this;
-    var user_id = wx.getStorageSync('user_id');
     this.setData({
       login: login
     });
-    server.getJSON('/User/createShareQRCode', {
-      user_id
-    }, function(res) {
+    server.getJSON('/User/createShareQRCode', function(res) {
       console.log(res)
       that.setData({
         result: res.data.qrcode

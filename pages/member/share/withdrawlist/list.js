@@ -6,29 +6,31 @@ Page({
     moneys: 0,
     accounts: [],
     orders: [],
+    show:false,
+    loadtext:'加载中...'
   },
 
   onReachBottom: function() {
     this.getMoneyInfoListDetail(++cPage);
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
+    this.setData({
+      show:true
     })
   },
   getMoneyInfoListDetail(page) {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    var winrecord = {
-      user_id: user_id
-    }
+    var winrecord = {}
     if (page > 1) {
       winrecord['p'] = page
     }
     server.getJSON('/User/withdrawList', winrecord, function(res) {
       // success
-      console.log(res)
-      var result = res.data
-      wx.stopPullDownRefresh();
+      var result = res.data;
+      console.log(result)
+      if (result.length <= 0){
+        that.setData({
+            loadtext: '————没有更多了————'
+          })
+      }
       that.setData({
         accounts: that.data.accounts.concat(result),
       });
@@ -43,10 +45,7 @@ Page({
   },
   getMoneyInfoList() {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    server.getJSON('/Walletpay/getUsermoneyPoints', {
-      user_id: user_id
-    }, function(res) {
+    server.getJSON('/Walletpay/getUsermoneyPoints', function(res) {
       that.setData({
         moneys: res.data.user_money || 0
       });

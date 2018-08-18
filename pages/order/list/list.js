@@ -23,7 +23,8 @@ Page({
     var index = e.currentTarget.dataset.index
     this.setData({
       tab: index,
-      active_index: index
+      active_index: index,
+      show: false
     })
     cPage = 1;
     ctype = index;
@@ -42,7 +43,6 @@ Page({
     })
   },
   paymentBtn: function(e) {
-    var user_id = wx.getStorageSync("user_id");
     var open_id = App.globalData.openid;
     var order_id = this.data.orders_id
     var that = this;
@@ -73,7 +73,6 @@ Page({
     if (payway == "wxPreparePay") {
       port = "/Dopay/wxPreparePay"
       winrecord = {
-        user_id: user_id,
         open_id: open_id,
         order_id: order_id
       }
@@ -81,7 +80,6 @@ Page({
     } else {
       port = "/Dopay/walletPay"
       winrecord = {
-        user_id: user_id,
         order_id: order_id
       }
       var total = that.data.total_amount;
@@ -139,6 +137,7 @@ Page({
                 that.setData({
                   orders_id: "",
                   total_amount: 0,
+                  orderState: false
                 })
                 cPage = 1;
                 that.data.orders = [];
@@ -159,7 +158,6 @@ Page({
       } else {
         // 余额支付
         if (res.data.status) {
-
           wx.showToast({
             title: "支付成功",
             icon: "success",
@@ -168,11 +166,11 @@ Page({
               that.setData({
                 orders_id: "",
                 total_amount: 0,
+                orderState: false
               })
               cPage = 1;
               that.data.orders = [];
               that.getOrderLists(ctype, cPage);
-
             }
           })
         } else {
@@ -232,10 +230,8 @@ Page({
       content: '确定已收货吗？',
       success: function(res) {
         if (res.confirm) {
-          var user_id = that.data.user_id;
           var order_id = order['order_id'];
           server.newpostJSON("/Dopay/completeOrder", {
-            user_id,
             order_id
           }, function(res) {
             if (res.data.status) {
@@ -269,9 +265,7 @@ Page({
   //获取订单列表
   getOrderLists: function(ctype, page) {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
     server.getJSON('/Order/getOrderList', {
-        user_id,
         p: page,
         status: ctype ? ctype : ''
       },
@@ -289,7 +283,6 @@ Page({
         wx.stopPullDownRefresh();
         that.setData({
           orders: ms,
-          user_id: user_id,
           wx_loading: false
         });
       });

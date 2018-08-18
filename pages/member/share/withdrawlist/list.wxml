@@ -22,10 +22,22 @@
         <text>金额:</text>
         <text style="color:red">{{item.money}}</text>
       </view>
-      <text>提现状态:{{item.status=="FAIL"?"失败":"成功"}}</text>
+      <view>
+        <text>提现状态：</text>
+        <text wx:if="{{item.status=='WAIT'}}" style='color:#d94612;'>正在处理</text>
+        <text wx:if="{{item.status=='SUCCESS'}}" style='color:#00b26a;'>提现到账</text>
+        <text wx:if="{{item.status=='FAIL'}}" style='color:red;'>提现失败</text>
+      </view>
       <text>操作时间:{{tools.timestampToTime(item.add_time)}}</text>
       <text>手续费: {{item.service_fee}}</text>
       <text>户主姓名: {{item.account_username}}</text>
+      <text>提现银行: {{item.bank_name}}</text>
+      <text>提现卡号: {{item.account_bankno}}</text>
     </view>
   </view>
+</view>
+<view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>
+<view wx:if="{{accounts.length == 0}}" class="view-tint">
+  <image src="/images/icon_empty.png"></image>
+  <text>亲,没有数据</text>
 </view>

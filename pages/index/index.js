@@ -104,12 +104,7 @@ Page({
       wx.setStorage({
         key: "scene",
         data: uid
-      })
-      wx.showToast({
-        title: '来自用户:' + uid + '的分享',
-        icon: 'success',
-        duration: 3000
-      })
+      }) 
     }
   },
   // 首次加入获取最近门店
@@ -262,7 +257,6 @@ Page({
     })
     server.newpostJSON("/Index/receiveCoupon", {
       coupon_id,
-      user_id: wx.getStorageSync("user_id")
     }, function(res) {
       if (res.data.status) {
         wx.showToast({
@@ -304,7 +298,6 @@ Page({
     server.newpostJSON('/Cart/addCart', {
       goods_id: goodsId,
       goods_num: 1,
-      user_id: wx.getStorageSync("user_id")
     }, function(res) {
       // return 1/0 字符类型 是否加入成功; 
       console.log(res)
@@ -345,7 +338,6 @@ Page({
   },
   onShareAppMessage: function() {
     var user_id = App.globalData.userInfo.user_id
-    console.log(user_id);
     return {
       title: '乐善亭',
       desc: '乐善亭',

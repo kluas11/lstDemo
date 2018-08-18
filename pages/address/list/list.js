@@ -19,10 +19,8 @@ Page({
       // 判断是否为当前地址，是则传true
       addressObjects[i].is_default = i == index
     }
-    var user_id = wx.getStorageSync("user_id");
     var address_id = addressObjects[index].address_id;
     server.newpostJSON('/User/setDefaultAddress',{
-      user_id,
       address_id
     },
      function(res) {
@@ -49,7 +47,6 @@ Page({
     var index = parseInt(e.currentTarget.dataset.index);
     // 找到当前地址AVObject对象
     var address = that.data.addressObjects[index];
-    var user_id = wx.getStorageSync("user_id")
     var address_id = address.address_id;
     // 给出确认提示框
     wx.showModal({
@@ -58,7 +55,6 @@ Page({
       success: function(res) {
         if (res.confirm) {
           server.newpostJSON('/User/delAddress',{
-            user_id,
             address_id
           },
            function(res) {
@@ -77,10 +73,7 @@ Page({
   loadData: function() {
     // 加载网络数据，获取地址列表
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    server.getJSON('/User/getAddressList', {
-        user_id
-      },
+    server.getJSON('/User/getAddressList',
       function(res) {
         var addressList = res.data;
         console.log(res)

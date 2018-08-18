@@ -55,10 +55,8 @@ Page({
         return;
       }
       let open_id = app.globalData.openid;
-      let user_id = wx.getStorageSync("user_id");
       server.newpostJSON('/Recharge/prepare_pay', {
         openid: open_id,
-        user_id: user_id,
         total_amount: rechargeAmount
       },function(res){
         wx.requestPayment({

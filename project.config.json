@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 31,
+			"current": 32,
 			"list": [
 				{
 					"id": 1,
@@ -110,10 +110,11 @@
 					"query": ""
 				},
 				{
-					"id": 12,
+					"id": 11,
 					"name": "编辑地址",
 					"pathName": "pages/address/edit/index",
-					"query": "objectId=81"
+					"query": "objectId=257",
+					"scene": "1011"
 				},
 				{
 					"id": 12,
@@ -235,6 +236,13 @@
 					"id": -1,
 					"name": "商家活动",
 					"pathName": "pages/goods/activity/activity",
+					"query": "",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "提现记录",
+					"pathName": "pages/member/share/withdrawlist/list",
 					"query": "",
 					"scene": "1011"
 				}

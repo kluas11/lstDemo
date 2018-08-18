@@ -53,8 +53,8 @@ Page({
   },
   load() {
     let that = this;
-    app.getlogin().then(user_id => {
-      getCustomerInfo(that, user_id);
+    app.getlogin().then(() => {
+      getCustomerInfo(that);
     })
   },
   /*******************************************************************************
@@ -111,7 +111,7 @@ Page({
         content: '确认支付' + ctx.data.fixedAmount + '元',
         success: function(res) {
           if (res.confirm) {
-            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
+            doPay('walletpay', ctx.data.fixedAmount, ctx.data.store_id,function(res) {
               console.log(res.data.payway)
               if (res.data.status == 1 && res.data.payway == 'Walletpay') {
                 ctx.complete("支付成功", `余额成功支付${ctx.data.fixedAmount}元`)
@@ -149,7 +149,7 @@ Page({
       'disable.WXPay': true
     });
     setTimeout(function() {
-      doPay('wxpay', ctx.data.fixedAmount, ctx.data.store_id, wx.getStorageSync("user_id"), function(res) {
+      doPay('wxpay', ctx.data.fixedAmount, ctx.data.store_id,function(res) {
         if (res.data.status == 1 && res.data.payway == 'wxpay') {
           wx.requestPayment({
             'timeStamp': res.data.data.timeStamp,
@@ -210,13 +210,12 @@ Page({
 /*******************************************************************************
  * 通用方法
  *******************************************************************************/
-function doPay(payway, total_amount, store_id, user_id, func) {
-  console.log(payway + '   ' + total_amount + '   ' + store_id + '   ' + user_id);
+function doPay(payway, total_amount, store_id, func) {
+  console.log(payway + '   ' + total_amount + '   ' + store_id + '   ');
   server.newpostJSON('/Scanpay/dopay', {
     payway: payway,
     total_amount: total_amount,
     store_id: store_id,
-    user_id: user_id
   }, func)
 }
 
@@ -232,10 +231,8 @@ function getStoreInfo(ctx, store_id) {
   });
 }
 
-function getCustomerInfo(ctx, user_id) {
-  server.getJSON("/Scanpay/get_userInfo", {
-    user_id: user_id
-  }, function(res) {
+function getCustomerInfo(ctx) {
+  server.getJSON("/Scanpay/get_userInfo", function(res) {
     ctx.setData({
       //用户余额
       'myInfo.balance': new Number(res.data.user_money)

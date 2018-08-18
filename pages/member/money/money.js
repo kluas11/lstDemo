@@ -29,8 +29,7 @@ Page({
   },
   getMoneyInfodetail:function(page){
     var that= this;
-    var user_id = wx.getStorageSync('user_id');
-    var winRecord = { user_id: user_id}
+    var winRecord = {}
     if(page>1){
       winRecord['p'] =  page
     }
@@ -48,17 +47,15 @@ Page({
   },
   getMoneyInfoList() {
     var that = this;
-    var user_id = wx.getStorageSync('user_id');
-    if (!user_id){
+    var sessionId = wx.getStorageSync('sessionId');
+    if (!sessionId){
       wx.showToast({
         title: '用户获取失败',
         image:"../../../images/about.png",
         duration:2000
       })
     }
-    server.getJSON('/Walletpay/getUsermoneyPoints',{
-      user_id: user_id
-    }, function (res) {
+    server.getJSON('/Walletpay/getUsermoneyPoints', function (res) {
       // success
       that.setData({
         // accounts: ms,
@@ -102,9 +99,8 @@ Page({
 });
 // 获取条形码
 function getCodeTimer(context) {
-  var user_id = wx.getStorageSync("user_id");
-  console.log(user_id)
-  server.newpostJSON('/Walletpay/getcode', { user_id: user_id},function(res){
+
+  server.newpostJSON('/Walletpay/getcode',function(res){
     barQRCode.barcode('myBarcode', res.data.code, 680, 200);
     context.setData({
       myCode: res.data.code

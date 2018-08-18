@@ -12,7 +12,7 @@ Page({
     collectstate: false,
     goods_num: 1,
     goods_oss: App.image_oss + '750_750',
-    wx_loading:true
+    wx_loading: true
   },
   // 加入收藏
   addCollect: function(e) {
@@ -21,35 +21,42 @@ Page({
     let collectstate = this.data.collectstate;
     var type = collectstate ? 1 : 0;
     var msg = collectstate ? '取消收藏' : "成功收藏";
-    this.getuser_id().then(user_id => {
+    this.getuser_id().then(() => {
       server.getJSON('/Goods/collectGoods', {
-          user_id,
           goods_id,
           type
         },
         function(res) {
-
-          that.setData({
-            collectstate: !collectstate
-          })
-          wx.showToast({
-            title: msg,
-            icon: 'success',
-            duration: 2000
-          })
+          console.log(res)
+          if (res.data.status) {
+            that.setData({
+              collectstate: !collectstate
+            })
+            wx.showToast({
+              title: msg,
+              icon: 'success',
+              duration: 2000
+            })
+          } else {
+            wx.showToast({
+              title: "收藏失败",
+              icon: '/images/about.png',
+              duration: 2000
+            })
+          }
         });
     })
   },
   // 获取用户信息
   getuser_id() {
     return new Promise((request, reject) => {
-      var user_id = wx.getStorageSync("user_id");
-      if (!user_id) {
+      var sessionId = wx.getStorageSync("sessionId");
+      if (!sessionId) {
         App.getlogin().then(res => {
-          request(res);
+          request();
         })
       } else {
-        request(user_id)
+        request()
       }
     })
   },
@@ -90,7 +97,7 @@ Page({
       //获取商品详情
       this.getGoodsById(goodsId);
       // 用户是否收藏该商品
-      if (wx.getStorageSync('user_id')) {
+      if (wx.getStorageSync('sessionId')) {
         this.iscollect();
       }
       //获取附近店铺
@@ -102,9 +109,8 @@ Page({
   iscollect() {
     let that = this;
     server.getJSON("/Goods/isCollect",
-      // 传user_id和goods_id
+      // 传goods_id
       {
-        user_id: wx.getStorageSync('user_id'),
         goods_id: objectId
       },
       function(res) {
@@ -147,7 +153,7 @@ Page({
     var that = this
     var goods = this.data.goods;
     var goods_num = that.data.goods_num;
-    that.getuser_id().then(user_id => {
+    that.getuser_id().then(() => {
       var goodsID = goods.goods_id
       if (goodsID) {
         wx.navigateTo({
@@ -160,18 +166,17 @@ Page({
   //  
   /*
     加入购物车
-    说明: goods_id，goods_num，user_id 
+    说明: goods_id，goods_num，
   */
   addCart: function(e) {
     var that = this;
     var goodsId = this.data.goods.goods_id;
     var goodsNum = this.data.goods_num;
-    that.getuser_id().then(user_id => {
+    that.getuser_id().then(() => {
       server.newpostJSON('/Cart/addCart', {
         goods_id: goodsId,
         goods_num: goodsNum,
-        user_id: user_id
-      },function(res){
+      }, function(res) {
         if (res.data == "1")
           wx.showToast({
             title: '已加入购物车',
@@ -207,7 +212,7 @@ Page({
     }
   },
   onShow: function() {
-    
+
   },
   // 首次加入获取最近门店
   gainStore() {
@@ -263,8 +268,7 @@ Page({
           App.globalData.city = res.result.ad_info.city;
         }
       },
-      fail: function(res) {
-      },
+      fail: function(res) {},
       complete: function(res) {
         self.gainStore().then((res) => {
 

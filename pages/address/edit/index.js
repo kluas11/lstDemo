@@ -13,7 +13,6 @@ Page({
     // mobile
     var address = this.data.address;
     var is_default = this.data.is_default;
-    var user_id = this.data.user_id;
     var province;
     var city;
     var district;
@@ -28,7 +27,6 @@ Page({
     }
     var that = this;
     server.newpostJSON('/User/editAddress', {
-      user_id,
       mobile,
       zipcode,
       consignee,
@@ -125,11 +123,9 @@ Page({
   },
   loadAddress: function(options) {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
     if (options.objectId != undefined) {
       address_id = options.objectId;
       server.getJSON('/User/getOneAddress', {
-        user_id,
         address_id
       }, function(res) {
         console.log(res.data);
@@ -143,7 +139,6 @@ Page({
           district: address.district_id,
           cityvalue: address.city_id,
           provincev: address.province_id,
-          user_id: user_id,
           is_default: address.is_default
         });
       });

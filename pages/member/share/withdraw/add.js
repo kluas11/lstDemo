@@ -22,7 +22,6 @@ Page({
     // mobile
     var account_name = this.data.account_name;
     var bankNumReg = /^([1-9]{1})(\d{15}|\d{18})$/;
-
     if (!bankNumReg.test(account_bank)){
       this.showToasts("输入正确的卡号",false)
       return;
@@ -31,9 +30,7 @@ Page({
       this.showToasts("请填写完整",false)
       return;
     }
-    var user_id = wx.getStorageSync("user_id")
     server.newpostJSON('/User/addWithdraw', {
-      user_id: user_id,
       money: money,
       bank_name: bank_name,
       account_username: account_name,
@@ -46,9 +43,9 @@ Page({
           account_username: null,
           account_bankno: null
         })
-        that.showToasts(res.data.msg || "提现成功", true)
+        that.showToasts(res.data.msg || "申请成功", true)
       } else {
-        that.showToasts(res.data.msg || "提现失败", false)
+        that.showToasts(res.data.msg || "申请失败", false)
       }
     })
   },
@@ -108,10 +105,7 @@ Page({
   },
   getMoneyInfoList() {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    server.getJSON('/Walletpay/getUsermoneyPoints', {
-      user_id: user_id
-    }, function (res) {
+    server.getJSON('/Walletpay/getUsermoneyPoints', function (res) {
 
       that.setData({
         moneys: res.data.user_money || 0

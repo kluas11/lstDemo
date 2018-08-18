@@ -22,10 +22,7 @@ Page({
   },
   getcuoponlist: function() {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    server.getJSON('/User/getUserCoupon', {
-      user_id
-    }, function(res) {
+    server.getJSON('/User/getUserCoupon', function(res) {
       console.log(res)
       that.setData({
         cuoponlist:res.data

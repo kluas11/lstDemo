@@ -197,14 +197,12 @@ Page({
     var minusStatuses = [];
     var that = this;
     var store_id = app.globalData.store_id;
-     var userID = wx.getStorageSync("user_id")
   //  门店
     if (!store_id){
       app.get_getLocation()
       store_id = app.globalData.store_id;
     }
      server.getJSON('/Cart/cartList',{
-       user_id: userID,
        store_id: store_id
         }, function (res) {
           console.log(res)

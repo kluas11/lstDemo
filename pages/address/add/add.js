@@ -27,7 +27,6 @@
         var address = this.data.address;
 
         var is_default = 1;
-        var user_id = wx.getStorageSync("user_id");
         var twon = 0;
         var province_id = this.data.province_id;
         var city_id = this.data.city_id;
@@ -35,7 +34,6 @@
         console.log('省市区地址ID', province_id, city_id, district_id)
         var that = this;
         server.newpostJSON('/User/addAddress', {
-          user_id: user_id,
           mobile: mobile,
           zipcode: zipcode,
           consignee: consignee,

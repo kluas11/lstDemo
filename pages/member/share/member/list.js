@@ -12,10 +12,7 @@ Page({
   },
   getOrderLists: function () {
     var that = this;
-    var user_id =wx.getStorageSync("user_id");
-    server.getJSON('/User/getGroupUsers',{
-      user_id
-    },
+    server.getJSON('/User/getGroupUsers',
      function (res) {
        console.log(res.data);
        that.setData({

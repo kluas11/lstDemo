@@ -3,6 +3,7 @@
   padding: 20rpx 40rpx;
   box-sizing: border-box;
 }
+/* 没有数据 */
 .view-tint{
     width: 100%;
     height: 100%;

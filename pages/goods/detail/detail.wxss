@@ -145,8 +145,6 @@ button::after {
   margin-left: 30rpx;
   font-size: 31rpx;
   color: #999;
-  background-image: url('https://wudhl.com/delete.png');
-  background-size: 180% 100%;
   text-decoration-line: line-through;
 }
 

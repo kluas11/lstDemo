@@ -7,7 +7,7 @@
     <swiper class="images" indicator-dots="{{false}}" autoplay="true" interval="5000" duration="1000" style="height:{{galleryHeight}}px;">
       <!-- <block wx:for="{{goods.gallery}}" wx:key=""> -->
       <swiper-item>
-        <image src="{{goods.original_img+goods_oss}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-current="{{1}}" />
+        <image wx:if="{{goods.original_img}}" src="{{goods.original_img+goods_oss}}" mode="aspectFill" class="swiper-image" bindtap="previewImage" data-current="{{1}}" />
       </swiper-item>
       <!-- </block>  -->
     </swiper>

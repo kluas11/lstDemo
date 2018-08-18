@@ -26,8 +26,8 @@ Page({
   },
   getUserInfo: function () {
     var that = this;
-    var user_id = wx.getStorageSync("user_id");
-    if (!user_id) {
+    var sessionId = wx.getStorageSync("sessionId");
+    if (!sessionId) {
       wx.showToast({
         title: '用户信息有误',
         duration: 2000,
@@ -35,9 +35,7 @@ Page({
       })
       return;
     }
-    server.getJSON("/User/getUserDetails", {
-      user_id: user_id,
-    }, function (res) {
+    server.getJSON("/User/getUserDetails", function (res) {
       var data = res.data;
       var winRecord = {
         birthday: data.birthday == "0" ? "" : data.birthday,
@@ -63,9 +61,8 @@ Page({
     });
   },
   skipEdit:function(){
-    var user_id = wx.getStorageSync("user_id");
-    // console.log(user_id)
-    if (!user_id) {
+    var sessionId = wx.getStorageSync("sessionId");
+    if (!sessionId) {
       wx.showToast({
         title: '用户信息有误',
         duration: 2000,

@@ -24,14 +24,10 @@
     <input name="account_bank" value="{{account_bank}}" type="number" bindinput='bankNumInput' placeholder-class="input-placeholder" placeholder="请输入银行卡号" />
   </view>
   <view class="class-line"></view>
-
   <view class="view-row">
     <text>提现金额</text>
     <input name="money" type="number" value="{{money}}" bindinput='amountInput' placeholder-class="input-placeholder" placeholder="请输入提现金额" />
   </view>
-
   <view class="class-line"></view>
-
   <button bindtap="formSubmit" class="text-save" formType="reset">提交申请</button>
-
 </form>

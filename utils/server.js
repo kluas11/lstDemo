@@ -29,7 +29,7 @@ function __json(method, setting) {
   };
   setting.complete =function(res){
     if (res.statusCode === 401){
-      getApp().getlogin();
+      // getApp().getlogin();
     }
   }
   return wx.request(setting);
@@ -43,7 +43,7 @@ function __newjson(method, setting) {
   };
   setting.complete = function (res) {
     if (res.statusCode === 401) {
-      getApp().getlogin();
+      // getApp().getlogin();
     }
   }
   return wx.request(setting);
