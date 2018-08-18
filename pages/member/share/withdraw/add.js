@@ -21,7 +21,6 @@ Page({
     var account_bank = this.data.account_bank;
     // mobile
     var account_name = this.data.account_name;
-    var postUrl = app.postUrl;
     var bankNumReg = /^([1-9]{1})(\d{15}|\d{18})$/;
 
     if (!bankNumReg.test(account_bank)){
@@ -52,37 +51,6 @@ Page({
         that.showToasts(res.data.msg || "提现失败", false)
       }
     })
-    // wx.request({
-    //   url: postUrl +'/User/addWithdraw', 
-    //   data: {
-    //     user_id: user_id,
-    //     money: money,
-    //     bank_name: bank_name,
-    //     account_username: account_name,
-    //     account_bankno: account_bank
-    //   },
-    //   header: {
-    //     "Content-Type": "application/x-www-form-urlencoded" // 默认值
-    //   },
-    //   method: 'POST',
-    //   success: function (res) {
-
-    //     if(res.data.status){
-    //       that.setData({
-    //         bank_name: null,
-    //         money: null,
-    //         account_username: null,
-    //         account_bankno: null
-    //       })
-    //       that.showToasts(res.data.msg || "提现成功",true)
-    //     }else{
-    //       that.showToasts(res.data.msg || "提现失败", false)
-    //     }
-    //   },
-    //   fail:function(res){
-    //     that.showToasts(res.data.msg || "提现失败", false)
-    //   }
-    // })
   },
   showToasts: function (content, success){
     wx.showToast({

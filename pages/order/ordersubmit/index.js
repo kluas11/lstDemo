@@ -218,7 +218,7 @@ Page({
         open_id: open_id,
         order_id: order_id
       }
-      that.sendpayment(postUrl, port, winrecord, payway)
+      that.sendpayment(port, winrecord, payway)
     } else {
       port = "/Dopay/walletPay"
       winrecord = {
@@ -231,7 +231,7 @@ Page({
         content: "此次付款金额为" + total + "元",
         success: function(res) {
           if (res.confirm) {
-            that.sendpayment(postUrl, port, winrecord, payway)
+            that.sendpayment(port, winrecord, payway)
           } else if (res.cancel) {
             return;
           }
@@ -244,80 +244,35 @@ Page({
     }
   },
   // 发送支付
-  sendpayment: function(postUrl, port, winrecord, payway) {
+  sendpayment: function(port, winrecord, payway) {
     var that = this;
     wx.showLoading({
       title: '加载中',
     })
     // 请求提交订单
-    wx.request({
-      url: postUrl + port,
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: winrecord,
-      method: 'POST',
-      success: function(res) {
-        wx.hideLoading()
-        // console.log(res)
-        // 微信支付
-        if (payway == "wxPreparePay") {
-          var result = res.data.data
-          wx.requestPayment({
-            "timeStamp": result.timeStamp,
-            "nonceStr": result.nonceStr,
-            "package": result.package,
-            "signType": result.signType,
-            'paySign': result.paySign,
-            'success': function(res) {
-              wx.hideLoading()
-              // console.log(res)
-              wx.showToast({
-                title: "支付成功",
-                icon: "success",
-                duration: 2000,
-                complete: function() {
-                  that.setData({
-                    goodsID: ""
-                  })
-                  setTimeout(function() {
-                    wx.navigateTo({
-                      url: '../../order/list/list'
-                    });
-                  }, 2000)
-
-                }
-              })
-            },
-            'fail': function(res) {
-              wx.hideLoading()
-              console.log(res)
-              wx.showToast({
-                title: "支付失败",
-                image: '../../../images/about.png',
-                duration: 2000,
-                complete: function() {
-                  setTimeout(function() {
-                    wx.switchTab({
-                      url: '../../index/index'
-                    });
-                  }, 2000)
-                }
-
-              })
-            }
-          })
-        } else {
-          // 余额支付
-          if (res.data.status) {
-            that.setData({
-              goodsID: ""
-            })
+    server.newpostJSON(port, winrecord, function() {
+      wx.hideLoading()
+      // console.log(res)
+      // 微信支付
+      if (payway == "wxPreparePay") {
+        var result = res.data.data
+        wx.requestPayment({
+          "timeStamp": result.timeStamp,
+          "nonceStr": result.nonceStr,
+          "package": result.package,
+          "signType": result.signType,
+          'paySign': result.paySign,
+          'success': function(res) {
+            wx.hideLoading()
+            // console.log(res)
             wx.showToast({
               title: "支付成功",
               icon: "success",
               duration: 2000,
               complete: function() {
+                that.setData({
+                  goodsID: ""
+                })
                 setTimeout(function() {
                   wx.navigateTo({
                     url: '../../order/list/list'
@@ -326,9 +281,12 @@ Page({
 
               }
             })
-          } else {
+          },
+          'fail': function(res) {
+            wx.hideLoading()
+            console.log(res)
             wx.showToast({
-              title: "下单失败",
+              title: "支付失败",
               image: '../../../images/about.png',
               duration: 2000,
               complete: function() {
@@ -338,32 +296,173 @@ Page({
                   });
                 }, 2000)
               }
+
             })
           }
-        }
-        // return;
-      },
-      fail: function(res) {
-        wx.showToast({
-          title: '下单失败',
-          image: '../../../images/about.png',
-          duration: 2000,
-          complete: function() {
-            setTimeout(function() {
-              wx.switchTab({
-                url: '../../index/index'
-              });
-            }, 2000)
+        })
+      } else {
+        // 余额支付
+        if (res.data.status) {
+          that.setData({
+            goodsID: ""
+          })
+          wx.showToast({
+            title: "支付成功",
+            icon: "success",
+            duration: 2000,
+            complete: function() {
+              setTimeout(function() {
+                wx.navigateTo({
+                  url: '../../order/list/list'
+                });
+              }, 2000)
 
-          }
-        })
-      },
-      complete: function() {
-        that.setData({
-          orderState: false
-        })
+            }
+          })
+        } else {
+          wx.showToast({
+            title: "下单失败",
+            image: '../../../images/about.png',
+            duration: 2000,
+            complete: function() {
+              setTimeout(function() {
+                wx.switchTab({
+                  url: '../../index/index'
+                });
+              }, 2000)
+            }
+          })
+        }
       }
+      // return;
+    }, function(res) {
+      wx.showToast({
+        title: '下单失败',
+        image: '../../../images/about.png',
+        duration: 2000,
+        complete: function() {
+          setTimeout(function() {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          }, 2000)
+        }
+      })
     })
+    // wx.request({
+    //   url: postUrl + port,
+    //   header: {
+    //     "Content-Type": "application/x-www-form-urlencoded"
+    //   },
+    //   data: winrecord,
+    //   method: 'POST',
+    //   success: function(res) {
+    //     wx.hideLoading()
+    //     // console.log(res)
+    //     // 微信支付
+    //     if (payway == "wxPreparePay") {
+    //       var result = res.data.data
+    //       wx.requestPayment({
+    //         "timeStamp": result.timeStamp,
+    //         "nonceStr": result.nonceStr,
+    //         "package": result.package,
+    //         "signType": result.signType,
+    //         'paySign': result.paySign,
+    //         'success': function(res) {
+    //           wx.hideLoading()
+    //           // console.log(res)
+    //           wx.showToast({
+    //             title: "支付成功",
+    //             icon: "success",
+    //             duration: 2000,
+    //             complete: function() {
+    //               that.setData({
+    //                 goodsID: ""
+    //               })
+    //               setTimeout(function() {
+    //                 wx.navigateTo({
+    //                   url: '../../order/list/list'
+    //                 });
+    //               }, 2000)
+
+    //             }
+    //           })
+    //         },
+    //         'fail': function(res) {
+    //           wx.hideLoading()
+    //           console.log(res)
+    //           wx.showToast({
+    //             title: "支付失败",
+    //             image: '../../../images/about.png',
+    //             duration: 2000,
+    //             complete: function() {
+    //               setTimeout(function() {
+    //                 wx.switchTab({
+    //                   url: '../../index/index'
+    //                 });
+    //               }, 2000)
+    //             }
+
+    //           })
+    //         }
+    //       })
+    //     } else {
+    //       // 余额支付
+    //       if (res.data.status) {
+    //         that.setData({
+    //           goodsID: ""
+    //         })
+    //         wx.showToast({
+    //           title: "支付成功",
+    //           icon: "success",
+    //           duration: 2000,
+    //           complete: function() {
+    //             setTimeout(function() {
+    //               wx.navigateTo({
+    //                 url: '../../order/list/list'
+    //               });
+    //             }, 2000)
+
+    //           }
+    //         })
+    //       } else {
+    //         wx.showToast({
+    //           title: "下单失败",
+    //           image: '../../../images/about.png',
+    //           duration: 2000,
+    //           complete: function() {
+    //             setTimeout(function() {
+    //               wx.switchTab({
+    //                 url: '../../index/index'
+    //               });
+    //             }, 2000)
+    //           }
+    //         })
+    //       }
+    //     }
+    //     // return;
+    //   },
+    //   fail: function(res) {
+    //     wx.showToast({
+    //       title: '下单失败',
+    //       image: '../../../images/about.png',
+    //       duration: 2000,
+    //       complete: function() {
+    //         setTimeout(function() {
+    //           wx.switchTab({
+    //             url: '../../index/index'
+    //           });
+    //         }, 2000)
+
+    //       }
+    //     })
+    //   },
+    //   complete: function() {
+    //     that.setData({
+    //       orderState: false
+    //     })
+    //   }
+    // })
   },
   // 提交订单
   formSubmit: function(e) {

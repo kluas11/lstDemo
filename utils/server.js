@@ -24,16 +24,28 @@ function __args() {
 function __json(method, setting) {
   setting.method = method;
   setting.header = {
-    'content-type': 'application/json'
+    'content-type': 'application/json',
+    "cookie": `${wx.getStorageSync("sessionName")}=${wx.getStorageSync("sessionId")}`
   };
+  setting.complete =function(res){
+    if (res.statusCode === 401){
+      getApp().getlogin();
+    }
+  }
   return wx.request(setting);
 }
 
 function __newjson(method, setting) {
   setting.method = method;
   setting.header = {
-    "Content-Type": "application/x-www-form-urlencoded"
+    "Content-Type": "application/x-www-form-urlencoded",
+    "cookie": `${wx.getStorageSync("sessionName")}=${wx.getStorageSync("sessionId")}`
   };
+  setting.complete = function (res) {
+    if (res.statusCode === 401) {
+      getApp().getlogin();
+    }
+  }
   return wx.request(setting);
 }
 
@@ -57,7 +69,7 @@ module.exports = {
         data: templateData,
       },
       success: success, // errorcode==0时发送成功
-      fail: fail
+      fail
     });
   }
 }

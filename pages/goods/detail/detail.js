@@ -1,7 +1,6 @@
 var server = require('../../../utils/server');
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
 const App = getApp();
-const postUrl = App.postUrl;
 var objectId;
 Page({
   data: {

@@ -1,6 +1,5 @@
 var server = require('../../utils/server');
 var app = getApp()
-const postUrl = app.postUrl;
 Page({
   data: {
     carts: [],

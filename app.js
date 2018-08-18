@@ -50,7 +50,7 @@ App({
           if (data.code) {
             that.getuser().then((wx_name) => {
               server.newpostJSON(
-                "/User/login", {
+                "/Login/login", {
                   code: data.code,
                   wx_name,
                   leader
@@ -65,12 +65,13 @@ App({
                     var user = that.globalData.userInfo;
                     //本地缓存
                     wx.setStorageSync("user_id", user.user_id)
+                    wx.setStorageSync("sessionId", data.data.sessionId)
+                    wx.setStorageSync("sessionName", data.data.sessionName)
                     that.globalData.login = true;
                     request(user.user_id)
                   }
                 });
             })
-
           }
         }
       })

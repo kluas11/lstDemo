@@ -1,6 +1,5 @@
 var server = require('../../../utils/server');
 const App = getApp();
-const postUrl = App.postUrl;
 var cPage = 1; //页码  从一开始
 var ctype = "0";
 // 当为全部订单时候，不传status
@@ -18,7 +17,7 @@ Page({
     total_amount: 0,
     show: false,
     loadtext: '正在加载...',
-    wx_loading:true
+    wx_loading: true
   },
   tabClick: function(e) {
     var index = e.currentTarget.dataset.index
@@ -78,7 +77,7 @@ Page({
         open_id: open_id,
         order_id: order_id
       }
-      that.sendpayment(postUrl, port, winrecord, payway)
+      that.sendpayment(port, winrecord, payway)
     } else {
       port = "/Dopay/walletPay"
       winrecord = {
@@ -91,7 +90,7 @@ Page({
         content: "此次付款金额为" + total + "元",
         success: function(res) {
           if (res.confirm) {
-            that.sendpayment(postUrl, port, winrecord, payway)
+            that.sendpayment(port, winrecord, payway)
           } else if (res.cancel) {
             return;
           }
@@ -113,17 +112,13 @@ Page({
     }
   },
   // 发送支付
-  sendpayment: function(postUrl, port, winrecord, payway) {
-    console.log(postUrl)
-    console.log(port)
-    console.log(payway)
-    console.log(winrecord)
+  sendpayment: function(port, winrecord, payway) {
     var that = this;
     wx.showLoading({
       title: '加载中',
     })
     // 请求提交订单
-    server.newpostJSON(port, winrecord,function(res){
+    server.newpostJSON(port, winrecord, function(res) {
       wx.hideLoading()
       if (payway == "wxPreparePay") {
         var result = res.data.data
@@ -133,14 +128,14 @@ Page({
           "package": result.package,
           "signType": result.signType,
           'paySign': result.paySign,
-          'success': function (res) {
+          'success': function(res) {
             wx.hideLoading()
             console.log(res)
             wx.showToast({
               title: "支付成功",
               icon: "success",
               duration: 2000,
-              complete: function () {
+              complete: function() {
                 that.setData({
                   orders_id: "",
                   total_amount: 0,
@@ -151,7 +146,7 @@ Page({
               }
             })
           },
-          'fail': function (res) {
+          'fail': function(res) {
             wx.hideLoading()
             console.log(res)
             wx.showToast({
@@ -169,7 +164,7 @@ Page({
             title: "支付成功",
             icon: "success",
             duration: 2000,
-            complete: function () {
+            complete: function() {
               that.setData({
                 orders_id: "",
                 total_amount: 0,
@@ -185,7 +180,7 @@ Page({
             title: "余额不足",
             image: '../../../images/about.png',
             duration: 2000,
-            complete: function () { }
+            complete: function() {}
           })
         }
       }
@@ -204,7 +199,7 @@ Page({
         if (res.confirm) {
           server.newpostJSON('/Dopay/cancleOrder', {
             order_id: order['order_id']
-          },function(res){
+          }, function(res) {
             if (res.data.status) {
               wx.showToast({
                 title: "订单取消成功",
@@ -239,33 +234,24 @@ Page({
         if (res.confirm) {
           var user_id = that.data.user_id;
           var order_id = order['order_id'];
-          wx.request({
-            url: postUrl + "/Dopay/completeOrder",
-            header: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            data: {
-              user_id,
-              order_id
-            },
-            method: 'POST',
-            success(res) {
-              if (res.data.status) {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'success',
-                  duration: 2000
-                })
-                cPage = 1;
-                that.data.orders = [];
-                that.getOrderLists(ctype, 1);
-              } else {
-                wx.showToast({
-                  title: res.data.msg,
-                  icon: 'clear',
-                  duration: 2000
-                })
-              }
+          server.newpostJSON("/Dopay/completeOrder", {
+            user_id,
+            order_id
+          }, function(res) {
+            if (res.data.status) {
+              wx.showToast({
+                icon: 'success',
+                duration: 2000
+              })
+              cPage = 1;
+              that.data.orders = [];
+              that.getOrderLists(ctype, 1);
+            } else {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'clear',
+                duration: 2000
+              })
             }
           })
         }
@@ -290,7 +276,7 @@ Page({
         status: ctype ? ctype : ''
       },
       function(res) {
-        if(res.data.length<=0){
+        if (res.data.length <= 0) {
           that.setData({
             loadtext: '——没有更多了——'
           })
@@ -304,7 +290,7 @@ Page({
         that.setData({
           orders: ms,
           user_id: user_id,
-          wx_loading:false
+          wx_loading: false
         });
       });
   },
