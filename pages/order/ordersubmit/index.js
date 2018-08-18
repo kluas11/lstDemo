@@ -4,7 +4,6 @@ var tp;
 var pay_points;
 var points_rate;
 const app = getApp();
-const postUrl = app.postUrl;
 Page({
   data: {
     image_oss: app.image_oss + "130_150",

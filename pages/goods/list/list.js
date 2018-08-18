@@ -54,6 +54,7 @@ Page({
     // 分类
     cPage = 0;
     this.setData({
+      show:false,
       goods: []
     })
     this.getGoodsByKeywords(keywords, cPage, gsort + "-" + asc);

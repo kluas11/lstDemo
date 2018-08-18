@@ -125,6 +125,11 @@ Page({
                 ctx.setData({
                   'disable.balance': false
                 });
+              } else if (res.data.status === 0){
+                wx.showToast({
+                  icon:'/images/about.png',
+                  title: '支付失败',
+                });
               }
             });
           } else if (res.cancel) {

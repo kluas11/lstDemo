@@ -52,10 +52,6 @@ Page({
     // if (num>1){
       this.saveNum(carts[index].cart_id, num);
       // return;
-    
-    // update database
-    //carts[index].save();
-    
     this.sum();
   },
   // 增加
@@ -116,7 +112,6 @@ Page({
         selectedAllStatus: false,
       });
     }else{
-    
       let cas = this.data.carts;
       let checkbollen=cas.map((value,index)=>{
         if (value.selected==false){
@@ -127,20 +122,15 @@ Page({
       })
    
       if (checkbollen.indexOf(false)>-1){
-     
         this.setData({
           selectedAllStatus: false,
         });
       }else{
-      
         this.setData({
           selectedAllStatus: true,
         });
       }
     }
-    // update database
-
-    // this.updataSelect(carts[index].id, carts[index].selected);
     this.sum();
   },
   // 全选按钮
@@ -161,8 +151,6 @@ Page({
       carts: carts,
     });
     this.sum();
-    // var open_id = app.globalData.openid;
-    // this.updateAllSelect(open_id, selectedAllStatus);
   },
   // 立即结算
   bindCheckout: function () {
@@ -275,32 +263,5 @@ Page({
         console.log("err")
       }
     })
- 
-
   },
-  // 弃用
-  updataSelect: function (id, selected) {
-    if (selected)
-      selected = 1;
-    else selected = 0;
-
-    server.getJSON('/Cart/updateSelect/id/' + id + "/selected/" + selected, function (res) {
-    });
-
-
-  },
-  // 弃用
-  updateAllSelect: function (id, selected) {
-    if (selected)
-      selected = 1;
-    else selected = 0;
-
-    server.getJSON('/Cart/updateAllSelect/open_id/' + id + "/selected/" + selected, function (res) {
-
-
-
-    });
-
-
-  }
 })
