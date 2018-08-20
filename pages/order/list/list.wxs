@@ -1,0 +1,19 @@
+var status = function (status) {
+  switch (status) {
+    case '1':
+      return "待付款"
+      break;
+    case '2':
+      return "待发货"
+      break;
+    case '3':
+      return "待收货"
+      break;
+    case '4':
+      return "已完成"
+      break;
+  }
+}
+module.exports = {
+  status: status,
+};
