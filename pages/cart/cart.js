@@ -36,6 +36,7 @@ Page({
     if (num > 1) {
       num--;
     }
+    console.log(num)    
     // 只有大于一件的时候，才能normal状态，否则disable状态
     var minusStatus = num <= 1 ? 'disabled' : 'normal';
     // 购物车数据
@@ -60,6 +61,7 @@ Page({
     var num = this.data.carts[index].goods_num;
     // 自增
     num++;
+    console.log(num)
     // 只有大于一件的时候，才能normal状态，否则disable状态
     var minusStatus = num <= 1 ? 'disabled' : 'normal';
     // 购物车数据
@@ -160,7 +162,6 @@ Page({
 
     for (var i = 0; i < this.data.carts.length; i++) {
       if (this.data.carts[i].selected) {
-        console.log(this.data.carts[i])
         goodsID.push(this.data.carts[i].goods_id)
       }
     }
@@ -191,7 +192,7 @@ Page({
       store_id = app.globalData.store_id;
     }
      server.getJSON('/Cart/cartList',{
-       store_id: store_id
+       store_id: 30
         }, function (res) {
           console.log(res)
       var carts = res.data
@@ -229,11 +230,11 @@ Page({
     var total = 0;
     for (var i = 0; i < carts.length; i++) {
       if (carts[i].selected) {
-        total += carts[i].goods_num * carts[i].shop_price;
+        total += carts[i].goods_num * (carts[i].shop_price*10000)/10000;
       }
     }
-    var newValue = parseInt(total * 100);
-    total = newValue / 100.0;
+    var newValue = parseInt(total * 10000);
+    total = newValue / 10000;
     // 写回经点击修改后的数组
     this.setData({
       carts: carts,

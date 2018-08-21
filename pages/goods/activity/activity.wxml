@@ -1,9 +1,9 @@
 <!--pages/goods/activity/activity.wxml-->
 <wxs module='time' src='../../index/index.wxs' />
 <view class='layout'>
-  <view class='header'>
-    <view class='hea_text active'>正在进行</view>
-    <view class='hea_text'>即将开始</view>
+  <view class='header' bindtap='getactivityTap'>
+    <view class='hea_text {{activeindex==1?"active":""}}' data-index='1'>正在进行</view>
+    <view class='hea_text {{activeindex==2?"active":""}}' data-index='2'>即将开始</view>
   </view>
   <view class='info_box'>
     <view class='admin' wx:for="{{active_list}}" wx:key="{{index}}">

@@ -1,23 +1,17 @@
 var server = require('../../utils/server');
 const app = getApp();
 var stopgetCategory;
-var stopgetBanner;
 Page({
   data: {
     wh:null,
     stairId:"",
     topCategories: [],
     subCategories: [],
-    banner: '',
     nav_avtive: 0,
    loadings:true,
    list_oss:app.image_oss+'130_130'
   },
-
   onLoad: function() {
-    // this.setData({
-    //   loadings: true
-    // })
     this.getTopCategory();
     try {
       var res = wx.getSystemInfoSync();
@@ -31,57 +25,48 @@ Page({
       console.log(e)
     }
   },
-
+  // 点击活动
+  bannerTap(){
+    wx.navigateTo({
+      url: '/pages/goods/activity/activity',
+    })
+  },
+  // 点击顶级分类
   tapTopCategory: function(e) {
     stopgetCategory.abort();//结束上一个getCategory请求
-    stopgetBanner.abort();//结束上一个getBanner请求
     // 拿到objectId，作为访问子类的参数
     var objectId = e.currentTarget.dataset.id;
-    var banner_name = e.currentTarget.dataset.banner;
     var index = parseInt(e.currentTarget.dataset.index);
-    // if (index == this.data.nav_avtive || this.data.loadings==true){
-    //   return;
-    // }
     this.setData({
       nav_avtive:index,
       loadings:true
     })
     this.getCategory(objectId);
-    this.getBanner(banner_name);
   },
-
-  clickBanner: function(e) {
-    var goodsId = e.currentTarget.dataset.goodsId;
-    wx.navigateTo({
-      url: "../goods/detail/detail?objectId=" + goodsId
-    });
-  },
-
+  // 获取顶级分类列表
   getTopCategory: function(parent) {
     var that = this;
     var storeid = app.globalData.store_id;
     server.getJSON("/Goods/goodsCategoryList", {
       store_id: storeid
     }, function(res) {
-      // console.log(res)
-      var categorys = res.data.result;
-      // console.log(categorys)
+      // console.log(res.data)
+      var categorys = res.data;
       that.setData({
         topCategories: categorys,
       });
       that.getCategory(categorys[0].class_id);
-      // console.log(categorys[0].name)
-      that.getBanner(categorys[0].name);
     });
   },
+  // 获取二级分类列表
   getCategory: function(parent_id) {
     var that = this;
+    var storeid = app.globalData.store_id;    
     stopgetCategory = server.getJSON('/Goods/goodsCategoryList', {
       parent_id,
-      store_id:getApp().globalData.store_id
+      store_id: storeid
     }, function(res) {
-      // console.log(res)
-      var categorys = res.data.result;
+      var categorys = res.data;
       that.setData({
         subCategories: categorys,
         stairId: parent_id,
@@ -90,23 +75,13 @@ Page({
     });
     
   },
+  // 查看二级分类商品
   avatarTap: function(e) {
     // 拿到objectId，作为访问子类的参数
     var objectId = e.currentTarget.dataset.objectId;
     var stairId = this.data.stairId
     wx.navigateTo({
       url: "../../../../goods/list/list?categoryId=" + objectId + "&parentId=" + stairId
-    });
-  },
-
-  getBanner: function(banner_name) {
-    var that = this;
-    stopgetBanner = server.getJSON('/goods/categoryBanner/banner_name/' + banner_name, function(res) {
-      // console.log(res);
-      var banner = res.data.banner ? res.data.banner:'';
-      that.setData({
-        banner: banner
-      });
     });
   }
 })

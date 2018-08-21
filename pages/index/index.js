@@ -45,8 +45,8 @@ Page({
     });
   },
   load() {
-    App.get_getLocation(this.getstore_id);
     App.getlogin();
+    App.get_getLocation(this.getstore_id);    
   },
   getstore_id(res) {
     var self = this;
@@ -76,6 +76,7 @@ Page({
       fail: function(res) {},
       complete: function(res) {
         // console.log(self.data.options)
+        wx.stopPullDownRefresh();
         if (self.data.options.store_id) {
           self.loadBanner(self.data.options.store_id);
         } else {

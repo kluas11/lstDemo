@@ -71,7 +71,7 @@ Page({
         store_id: store_id,
         parent_id: parent
       }, function(res) {
-        var categorys = res.data.result
+        var categorys = res.data
         categorys.unshift({
           class_id: "0",
           name: "全部分类",
@@ -128,7 +128,7 @@ Page({
     var firstArr = server.getJSON("/Goods/goodsCategoryList", {
       store_id: storeids
     }, function(res) {
-      var firstcategorys = res.data.result;
+      var firstcategorys = res.data;
       that.setData({
         firstate: that.data.firstate.concat(firstcategorys),
       });
@@ -137,7 +137,7 @@ Page({
           store_id: storeids,
           parent_id: parentId
         }, function(res) {
-          var categorys = res.data.result;
+          var categorys = res.data;
           var sencondArr = that.data.sencondstate
           sencondArr = sencondArr.concat(categorys)
           that.setData({

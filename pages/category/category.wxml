@@ -1,26 +1,34 @@
-<view class="container">
-  <!-- 侧边栏 -->
-  <scroll-view class="sidebar" scroll-y="false" scroll-x="true" style="height:{{wh}}">
-    <view wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.class_id}}" data-banner="{{item.name}}" data-index="{{index}}" class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
-      <view class="{{nav_avtive==index?'active':'actives'}}"></view>
-      <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.name}}</view>
-    </view>
-  </scroll-view>
-  <scroll-view class="main" scroll-y="false" scroll-x="true" lazy-load="false" style="height:{{wh}}">
-    <view class='markshade' wx:if="{{loadings}}">
-      <view class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
+<view class='layout'>
+  <view class='banner' bindtap='bannerTap'>
+    <view class='img'>活动优惠广告区域</view>
+  </view>
+  <view class="container">
+    <!-- 侧边栏 -->
+    <scroll-view class="sidebar" scroll-y="false" scroll-x="true">
+      <view wx:for="{{topCategories}}" wx:key="id" bindtap="tapTopCategory" data-id="{{item.class_id}}" data-index="{{index}}" class="{{nav_avtive==index?'sidebarlist  activetabs':'sidebarlist'}}">
+        <view class="{{nav_avtive==index?'active':'actives'}}"></view>
+        <view class="{{nav_avtive==index?'activetext':'activestext'}}">{{item.name}}</view>
       </view>
-    </view>
-    <view class="gridview">
-      <block wx:for="{{subCategories}}" wx:key="id">
-        <view class='gridview_list'>
-          <image src="{{item.image+list_oss}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}" />
-          <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}">{{item.name}}</text>
+    </scroll-view>
+    <!-- 二级分类 -->
+    <scroll-view class="main" scroll-y="false" scroll-x="true">
+      <!-- 二级分类加载动画 -->
+      <view class='markshade' wx:if="{{loadings}}">
+        <view class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
         </view>
-      </block>
-    </view>
-  </scroll-view>
+      </view>
+      <!-- 二级分类列表 -->
+      <view class="gridview">
+        <block wx:for="{{subCategories}}" wx:key="id">
+          <view class='gridview_list'>
+            <image src="{{item.image+list_oss}}" mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}" />
+            <text mode="scaleToFit" bindtap="avatarTap" data-object-id="{{item.class_id}}">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
 </view>
