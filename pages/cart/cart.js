@@ -40,13 +40,13 @@ Page({
       }
   
       //获取手指触摸的是哪一项
-      var index = e.currentTarget.dataset.index;
-      var list = this.data.carts;
-      list[index].txtStyle = txtStyle;
-      //更新列表的状态
-      this.setData({
-        carts: list
-      });
+      // var index = e.currentTarget.dataset.index;
+      // var list = this.data.carts;
+      // list[index].txtStyle = txtStyle;
+      // //更新列表的状态
+      // this.setData({
+      //   carts: list
+      // });
     }
   },
   touchE: function (e) {
@@ -59,6 +59,7 @@ Page({
       //如果距离小于删除按钮的1/2，不显示删除按钮
       var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0px";
       //获取手指触摸的是哪一项
+      console.log(txtStyle)
       var index = e.currentTarget.dataset.index;
       var list = this.data.carts;
       list[index].txtStyle = txtStyle;
