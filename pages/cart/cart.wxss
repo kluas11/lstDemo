@@ -1,12 +1,4 @@
 /*外部容器*/
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	box-sizing: border-box;
-	
-} 
 .view-empty{
 	width: 750rpx;
 	height: 750rpx;
@@ -37,10 +29,15 @@
 
 /*整体列表*/
 .carts-list {
-	display: flex;
-	flex-direction: column;
-	padding: 0 20rpx;
-	
+  position: relative;
+  overflow: hidden;
+  height:185rpx;
+  line-height:185rpx;
+  display:flex;
+flex-direction:row;
+border:1px solid #eee;
+
+
 }
 /*每行单元格*/
 .carts-item-title {
@@ -50,6 +47,7 @@
 	width:100%;
 	border-bottom: 1px solid #eee;
 	padding: 18rpx 0;
+
 	align-items: center;
 }
 
@@ -66,15 +64,17 @@
 
 /*每行单元格*/
 .carts-item {
+    z-index: 5;
 	display: flex;
 	flex-direction: row;
+  background: #fff;
 	height:155rpx;
 	/*width属性解决标题文字太短而缩略图偏移*/
 	width:100%;
-	border-bottom: 2px solid #eee;
-	padding: 20rpx 0;
-	
 	justify-content: space-between;
+  padding:15rpx 0 15rpx 15rpx;
+  transition: left 0.5s ;
+  overflow: hidden;
 }
 
 /*左部图片*/
@@ -91,13 +91,11 @@
 /*右部描述*/
 .carts-text {
 	margin-left: 10rpx;
-	width: 370rpx;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 .carts-right{
-	height: 180rpx;
 	width: 110rpx;
 	display: flex;
 	flex-direction: column;
@@ -185,7 +183,6 @@
 
 /*复选框样式*/
 .carts-list icon {
-	margin-top: 60rpx;
 	margin-right: 20rpx;
 }
 
@@ -244,11 +241,24 @@
 	text-decoration-line:line-through; 
 }
 .text-red{
+  overflow:hidden;
 	font-size: 27rpx;
 	color: orangered;
 }
+
+.inner{
+    position: absolute;
+    top:0;
+}
 .icon-shanchu{
+  right:0;
   font-size: 50rpx;
   color: #444444;
-  padding: 20rpx;
+  width:100rpx;
+  display:flex;
+  z-index: 4;
+  align-items:center;
+  justify-content:center;
+  background:red;
+  height:180rpx;
 }

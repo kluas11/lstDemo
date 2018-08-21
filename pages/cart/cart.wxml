@@ -6,7 +6,8 @@
 <view wx:else>
   <scroll-view scroll-y="true" style="width:100%;height:{{height}}px">
     <view wx:for="{{carts}}" wx:key="index" class="container carts-list">
-      <view class="carts-item">
+   
+      <view class="carts-item inner" data-index="{{index}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}">
         <!-- 复选框图标 -->
          <icon  type="{{item.selected?'success_circle':'circle'}}" size="20" bindtap="bindCheckbox" data-index="{{index}}" />
         <view>
@@ -31,9 +32,9 @@
         </view>
         <view class="carts-right">
           <text class="text-red">￥{{item.shop_price}}</text>
-          <view bindtap='deleteCart'data-index='{{index}}' class='iconfont icon-shanchu'></view>
         </view>
       </view>
+       <view bindtap='deleteCart'data-index='{{index}}' class='iconfont icon-shanchu inner'></view>
     </view>
     <view style="width:100%;height:100rpx;"></view>
   </scroll-view>
