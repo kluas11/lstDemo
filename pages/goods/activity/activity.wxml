@@ -2,7 +2,7 @@
 <wxs module='time' src='../../index/index.wxs' />
 <view class='layout'>
   <view class='header' bindtap='getactivityTap'>
-    <view class='hea_text {{activeindex==1?"active":""}}' data-index='1'>正在进行</view>
+    <view class='hea_text {{activeindex==1?"active":""}}' data-index='1'>正在抢购</view>
     <view class='hea_text {{activeindex==2?"active":""}}' data-index='2'>即将开始</view>
   </view>
   <view class='info_box'>

@@ -134,8 +134,8 @@ border:1px solid #eee;
 /*价格*/
 .carts-price {
 	color: #f60;
-	font-size:14px;
-	line-height: 22px;
+	font-size:28rpx;
+	line-height: 44rpx;
 }
 
 /*商品加减按钮*/
@@ -143,16 +143,14 @@ border:1px solid #eee;
 .stepper {
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	width: 80px;
-	height: 23px;
-	margin:0 auto;
+	height: 46rpx;
 }
 
 
 /*加号与减号*/
 .stepper text {
-	width: 19px;
-	line-height: 23px;
+	width: 50rpx;
+	line-height: 46rpx;
 	text-align: center;
 	float: left;
 }
@@ -162,11 +160,11 @@ border:1px solid #eee;
 	color: black;
 	float: left;
 	margin: 0 auto;
-	width: 40px;
-	height: 23px;
-  min-height: 23px;
+	width: 60rpx;
+	height: 46rpx;
+  min-height: 46rpx;
 	text-align: center;
-	font-size: 12px;
+	font-size: 24rpx;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }

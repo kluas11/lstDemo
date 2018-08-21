@@ -32,6 +32,12 @@ Page({
       // 首页加载
       // console.log(options)
       this.load();
+    });
+  },
+  load() {
+    let that =this;
+    App.getlogin().then(() => {
+      App.get_getLocation(this.getstore_id);
       // 获取后台设置全部分类
       server.getJSON("/Index/getIndexNav", {}, function(res) {
         if (res.statusCode == 200) {
@@ -43,10 +49,6 @@ Page({
         }
       })
     });
-  },
-  load() {
-    App.getlogin();
-    App.get_getLocation(this.getstore_id);    
   },
   getstore_id(res) {
     var self = this;
@@ -95,7 +97,7 @@ Page({
 
   },
   // 下拉刷新
-  onPullDownRefresh(){
+  onPullDownRefresh() {
     this.load();
   },
   getInviteCode: function(options) {
@@ -105,7 +107,7 @@ Page({
       wx.setStorage({
         key: "scene",
         data: uid
-      }) 
+      })
     }
   },
   // 首次加入获取最近门店
@@ -248,7 +250,7 @@ Page({
   },
   // 去领取优惠券
   receivetap(e) {
-    let that =this;
+    let that = this;
     let coupon_id = e.currentTarget.dataset.coupon_id;
     let cuoponlist = this.data.cuoponlist;
     cuoponlist.forEach(function(val, index) {
