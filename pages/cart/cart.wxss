@@ -35,7 +35,7 @@
   line-height:185rpx;
   display:flex;
 flex-direction:row;
-border:1px solid #eee;
+border-bottom:1px solid #eee;
 
 
 }
@@ -68,13 +68,13 @@ border:1px solid #eee;
 	display: flex;
 	flex-direction: row;
   background: #fff;
-	height:155rpx;
+	height:185rpx;
 	/*width属性解决标题文字太短而缩略图偏移*/
 	width:100%;
-	justify-content: space-between;
-  padding:15rpx 0 15rpx 15rpx;
+  padding:15rpx 10rpx 15rpx 15rpx;
   transition: left 0.5s ;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /*左部图片*/
@@ -82,7 +82,6 @@ border:1px solid #eee;
 	width:130rpx;
 	height:150rpx;
 	border-width: 3rpx;
-	
 	border-style: solid;
 	border-color: #ccc;
 }
@@ -92,15 +91,15 @@ border:1px solid #eee;
 .carts-text {
 	margin-left: 10rpx;
 	display: flex;
+  width: 400rpx;
 	flex-direction: column;
 	justify-content: space-between;
 }
 .carts-right{
-	width: 110rpx;
+	width: 120rpx;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-end;
+  overflow:hidden;
+	align-items: center;
 }
 /*右上部分标题*/
 .carts-title {
@@ -127,15 +126,13 @@ border:1px solid #eee;
 	color:darkgray;
 	padding: 0 20rpx;
 	display: flex;
-	flex-direction: row;
-	justify-content:space-between;
 }
 
 /*价格*/
 .carts-price {
 	color: #f60;
-	font-size:28rpx;
-	line-height: 44rpx;
+	font-size:14px;
+	line-height: 22px;
 }
 
 /*商品加减按钮*/
@@ -143,14 +140,16 @@ border:1px solid #eee;
 .stepper {
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	height: 46rpx;
+	width: 80px;
+	height: 23px;
+	margin:0 auto;
 }
 
 
 /*加号与减号*/
 .stepper text {
-	width: 50rpx;
-	line-height: 46rpx;
+	width: 19px;
+	line-height: 23px;
 	text-align: center;
 	float: left;
 }
@@ -160,11 +159,11 @@ border:1px solid #eee;
 	color: black;
 	float: left;
 	margin: 0 auto;
-	width: 60rpx;
-	height: 46rpx;
-  min-height: 46rpx;
+	width: 40px;
+	height: 23px;
+  min-height: 23px;
 	text-align: center;
-	font-size: 24rpx;
+	font-size: 12px;
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
@@ -196,6 +195,7 @@ border:1px solid #eee;
 	bottom: 0;
 	border-top: 1px solid #eee;
 	background: white;
+  z-index: 100;
 }
 
 /*复选框*/
@@ -239,7 +239,7 @@ border:1px solid #eee;
 	text-decoration-line:line-through; 
 }
 .text-red{
-  overflow:hidden;
+  width: 100%;
 	font-size: 27rpx;
 	color: orangered;
 }
@@ -251,12 +251,12 @@ border:1px solid #eee;
 .icon-shanchu{
   right:0;
   font-size: 50rpx;
-  color: #444444;
-  width:100rpx;
+  color: #db7272;
+  width:70rpx;
   display:flex;
   z-index: 4;
   align-items:center;
   justify-content:center;
-  background:red;
-  height:180rpx;
+  background:rgb(119, 236, 138);
+  height:185rpx;
 }

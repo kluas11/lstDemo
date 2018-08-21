@@ -11,7 +11,7 @@ Page({
     goods_oss: app.image_oss+'130_150',
     wx_loading:true,
     startX: "",
-    delBtnWidth: 100
+    delBtnWidth: 70
   },
   touchS: function (e) {
     if (e.touches.length == 1) {
@@ -32,10 +32,10 @@ Page({
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，说明向右滑动，文本层位置不变
         txtStyle = "left:0px";
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
-        txtStyle = "left:-" + disX + "px";
+        txtStyle = "left:-" + disX + "rpx";
         if (disX >= delBtnWidth) {
           //控制手指移动距离最大值为删除按钮的宽度
-          txtStyle = "left:-" + delBtnWidth + "px";
+          txtStyle = "left:-" + delBtnWidth + "rpx";
         }
       }
   
@@ -57,7 +57,7 @@ Page({
       var disX = this.data.startX - endX;
       var delBtnWidth = this.data.delBtnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
-      var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "px" : "left:0px";
+      var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0px";
       //获取手指触摸的是哪一项
       var index = e.currentTarget.dataset.index;
       var list = this.data.carts;
