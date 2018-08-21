@@ -85,13 +85,15 @@ Page({
     var index = parseInt(e.currentTarget.dataset.index);
     var carts = this.data.carts;
     var num = e.detail.value;
+    if (carts[index].goods_num == num){
+      return;
+    }
     carts[index].goods_num = num;
     // 将数值与状态写回
     this.setData({
       carts: carts
     });
     this.saveNum(carts[index].cart_id, num);
-    //console.log(this.data.carts);
     this.sum();
   },
   // 取反选中
@@ -192,7 +194,7 @@ Page({
       store_id = app.globalData.store_id;
     }
      server.getJSON('/Cart/cartList',{
-       store_id: 30
+       store_id: store_id
         }, function (res) {
           console.log(res)
       var carts = res.data
@@ -260,8 +262,8 @@ Page({
       cart_id: id,
       num: num
     }, function (result){
-      if (result.data == "0" || result.data == 0) {
-        console.log("err")
+      if(result.data == "0" || result.data == 0) {
+        
       }
     })
   },

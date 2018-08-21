@@ -5,7 +5,6 @@ page{
 }
 
 .header{
-  padding: 10rpx 0;
   box-sizing: border-box;
   display: flex;
   background: #ffffff;
@@ -16,17 +15,26 @@ page{
   width: 100%;
 }
 .header .hea_text{
-  padding: 10rpx 0;
+  padding: 20rpx 0;
   flex: 1;
   text-align: center;
   font-size: 30rpx;
-  color: #999999;
+  color: #ffffff;
+  background: #868686;
 }
-.header .hea_text:first-child{
-  border-right: 2px solid #d94612;
-}
+
 .header .active{
-  color: #d94612;
+  background: #ff9933;
+  position: relative;
+  overflow: hidden;
+}
+.header .active::after{
+  content: '';
+  position: absolute;
+  border: 10rpx solid #ff9933;
+  border-bottom: 10rpx solid #ffffff;
+  bottom: 0rpx;
+  left: 50%;
 }
 .info_box{
   margin-top: 100rpx;
