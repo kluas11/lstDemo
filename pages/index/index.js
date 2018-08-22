@@ -39,7 +39,7 @@ Page({
     App.getlogin().then(() => {
       App.get_getLocation(this.getstore_id);
       // 获取后台设置全部分类
-      server.getJSON("/Index/getIndexNav", {}, function(res) {
+      server.getJSON("/Index/getIndexNav",function(res) {
         if (res.statusCode == 200) {
           that.setData({
             navArray: res.data

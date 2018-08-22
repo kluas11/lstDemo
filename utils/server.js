@@ -24,9 +24,11 @@ function __json(method, setting) {
     'content-type': 'application/json',
     "cookie": `${wx.getStorageSync("sessionName")}=${wx.getStorageSync("sessionId")}`
   };
-  setting.complete =function(res){
-    if (res.statusCode === 401){
-      // getApp().getlogin();
+  setting.complete = function(res) {
+    if (res.statusCode === 401) {
+      getApp().getlogin().then(() => {
+        wx.request(setting)
+      });
     }
   }
   return wx.request(setting);
@@ -38,9 +40,11 @@ function __newjson(method, setting) {
     "Content-Type": "application/x-www-form-urlencoded",
     "cookie": `${wx.getStorageSync("sessionName")}=${wx.getStorageSync("sessionId")}`
   };
-  setting.complete = function (res) {
+  setting.complete = function(res) {
     if (res.statusCode === 401) {
-      // getApp().getlogin();
+      getApp().getlogin().then(() => {
+        wx.request(setting)
+      });
     }
   }
   return wx.request(setting);
@@ -53,7 +57,7 @@ module.exports = {
   postJSON: function() {
     return __json('POST', __args.apply(this, arguments));
   },
-  newpostJSON:function(){
+  newpostJSON: function() {
     return __newjson('POST', __args.apply(this, arguments));
   },
   sendTemplate: function(formId, templateData, success, fail) {

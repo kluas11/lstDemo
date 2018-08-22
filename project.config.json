@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 32,
+			"current": 33,
 			"list": [
 				{
 					"id": 1,
@@ -245,6 +245,12 @@
 					"pathName": "pages/member/share/withdrawlist/list",
 					"query": "",
 					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "充值中心",
+					"pathName": "pages/recharge/recharge",
+					"query": ""
 				}
 			]
 		}

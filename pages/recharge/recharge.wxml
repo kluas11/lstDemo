@@ -1,9 +1,28 @@
-<view class='main'>
-  <text>充值金额</text>
-  <view class='input'>
-    <text>￥</text>
-    <input type='digit' bindblur='count' value="{{formatedNum}}"></input>
+<view class="layout">
+  <view class='main'>
+    <text>充值金额</text>
+    <view class='input'>
+      <text>￥</text>
+      <input type='digit' bindblur='count' value="{{formatedNum}}"></input>
+    </view>
+    <view class='dLine'></view>
+    <button class='btnNext' type='number' bindtap="wxRecharge">微信充值</button>
   </view>
-  <view class='dLine'></view>
-  <button class='btnNext' type='number' bindtap="wxRecharge" >微信充值</button>
+  <view class='rules'>
+    <view class='rules_title'>充值优惠</view>
+    <view class='rules_info'>
+      <block wx:for="{{rules}}" wx:key="{{index}}">
+        <view class='rules_list' wx:if="{{item.way == 'PAYPOINT'}}">
+          <text class='rules_name'>{{item.name}}</text>
+          <text class='condition'>每充值{{item.lower_limit_money}}元送{{item.giving_paypoints}}积分</text>
+          <text class='condition'>最低充值{{item.lower_limit_money}}元，最多充值{{item.upper_limit_money}}元，超出部分不享受充值优惠</text>
+        </view>
+        <view class='rules_list' wx:if="{{item.way == 'MONEY'}}">
+          <text class='rules_name'>{{item.name}}</text>
+          <text class='condition'>每充值{{item.lower_limit_money}}元送{{item.giving_money}}余额</text>
+          <text class='condition'>最低充值{{item.lower_limit_money}}元，最多充值{{item.upper_limit_money}}元，超出部分不享受充值优惠</text>
+        </view>
+      </block>
+    </view>
+  </view>
 </view>

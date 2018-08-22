@@ -38,7 +38,6 @@ Page({
           txtStyle = "left:-" + delBtnWidth + "rpx";
         }
       }
-  
       //获取手指触摸的是哪一项
       var index = e.currentTarget.dataset.index;
       var list = this.data.carts;

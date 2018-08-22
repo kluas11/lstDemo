@@ -13,7 +13,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    let that = this;
+    server.getJSON('/Recharge/getRechargeRulesList', function(res) {
+        that.setData({
+          rules:res.data
+        })
+    })
   },
 
   /**
@@ -32,9 +37,9 @@ Page({
       //     formatedNum: ""
       //   })
       // } else {
-        that.setData({
-          formatedNum: count
-        })
+      that.setData({
+        formatedNum: count
+      })
       // }
     } else {
       wx.showToast({
@@ -58,27 +63,27 @@ Page({
       server.newpostJSON('/Recharge/prepare_pay', {
         openid: open_id,
         total_amount: rechargeAmount
-      },function(res){
+      }, function(res) {
         wx.requestPayment({
           'timeStamp': res.data.data.timeStamp,
           'nonceStr': res.data.data.nonceStr,
           'package': res.data.data.package,
           'signType': res.data.data.signType,
           'paySign': res.data.data.paySign,
-          'success': function (res) {
+          'success': function(res) {
             wx.showToast({
               title: '充值成功',
               icon: 'success',
               duration: 2000,
-              complete: function () {
-                setTimeout(function () {
+              complete: function() {
+                setTimeout(function() {
                   wx.navigateBack()
                 }, 1500)
               }
             })
 
           },
-          'fail': function (res) {
+          'fail': function(res) {
             wx.showToast({
               title: '充值失败',
               image: '../../images/about.png',
