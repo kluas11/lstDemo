@@ -11,26 +11,13 @@
   <view class='re_box'>
     <view class='re_title'>选择充值金额</view>
     <view class='recharge_lists' bindtap='rechargeTap'>
-      <view class='recharge_list' data-index='11111'>
-        <text class='re_price'data-index='11111'>100元</text>
-        <text class='balance' data-index='11111'>立赠10元</text>
-        <text class='integral' data-index='11111'>另送100积分</text>
-      </view>
-      <view class='recharge_list'>
-        <text class='re_price'>100元</text>
-        <text class='balance'>立赠10元</text>
-        <text class='integral'>另送100积分</text>
-      </view>
-      <view class='recharge_list'>
-        <text class='re_price'>100元</text>
-        <text class='balance'>立赠10元</text>
-        <text class='integral'>另送100积分</text>
-      </view>
-      <view class='recharge_list'>
-        <text class='re_price'>100元</text>
-        <text class='balance'>立赠10元</text>
-        <text class='integral'>另送100积分</text>
-      </view>
+      <block wx:for="{{rules}}" wx:key="{{index}}">
+        <view class='recharge_list' data-amount='{{item.lower_limit_money}}'>
+          <text class='re_price' data-amount='{{item.lower_limit_money}}'>{{item.lower_limit_money}}元</text>
+          <text class='balance' wx:if="{{item.giving_money&&item.giving_money!=0}}" data-amount='{{item.lower_limit_money}}'>立赠{{item.giving_money}}元</text>
+          <text class='integral' wx:if="{{item.giving_paypoints&&item.giving_paypoints!=0}}" data-amount='{{item.lower_limit_money}}'>另送{{item.giving_paypoints}}积分</text>
+        </view>
+      </block>
     </view>
   </view>
 </view>

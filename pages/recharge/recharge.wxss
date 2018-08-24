@@ -59,7 +59,7 @@ page {
 .recharge_lists {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  padding-bottom: 20rpx;
 }
 
 .recharge_list {
@@ -74,6 +74,10 @@ page {
   border-radius: 6rpx;
   position: relative;
   overflow: hidden;
+  margin-right: 20rpx;
+}
+.recharge_list:nth-of-type(3n){
+  margin-right: 0rpx;
 }
 
 .re_price {
@@ -91,12 +95,14 @@ page {
   font-size: 18rpx;
   color: #ffffff;
   background: #f96268;
-  padding: 10rpx 40rpx;
+  padding: 6rpx;
+  width: 200rpx;
+  text-align: center;
   transform-origin: 50% 50%;
   transform:rotateZ(-45deg);
   position: absolute;
-  top: 26rpx;
-  left: -46rpx;
+  top: 28rpx;
+  left: -62rpx;
 }
 
 /* 充值金额 结束*/
