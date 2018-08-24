@@ -13,17 +13,6 @@ Page({
   },
   onLoad: function() {
     this.getTopCategory();
-    try {
-      var res = wx.getSystemInfoSync();
-      // console.log(res.windowHeight)
-      this.setData({
-        wh: res.windowHeight + 'px'
-      })
-
-    } catch (e) {
-      // Do something when catch error
-      console.log(e)
-    }
   },
   // 点击活动
   bannerTap(){

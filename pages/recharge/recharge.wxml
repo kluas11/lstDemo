@@ -8,21 +8,29 @@
     <view class='dLine'></view>
     <button class='btnNext' type='number' bindtap="wxRecharge">微信充值</button>
   </view>
-  <view class='rules'>
-    <view class='rules_title'>充值优惠</view>
-    <view class='rules_info'>
-      <block wx:for="{{rules}}" wx:key="{{index}}">
-        <view class='rules_list' wx:if="{{item.way == 'PAYPOINT'}}">
-          <text class='rules_name'>{{item.name}}</text>
-          <text class='condition'>每充值{{item.lower_limit_money}}元送{{item.giving_paypoints}}积分</text>
-          <text class='condition'>最低充值{{item.lower_limit_money}}元，最多充值{{item.upper_limit_money}}元，超出部分不享受充值优惠</text>
-        </view>
-        <view class='rules_list' wx:if="{{item.way == 'MONEY'}}">
-          <text class='rules_name'>{{item.name}}</text>
-          <text class='condition'>每充值{{item.lower_limit_money}}元送{{item.giving_money}}余额</text>
-          <text class='condition'>最低充值{{item.lower_limit_money}}元，最多充值{{item.upper_limit_money}}元，超出部分不享受充值优惠</text>
-        </view>
-      </block>
+  <view class='re_box'>
+    <view class='re_title'>选择充值金额</view>
+    <view class='recharge_lists' bindtap='rechargeTap'>
+      <view class='recharge_list' data-index='11111'>
+        <text class='re_price'data-index='11111'>100元</text>
+        <text class='balance' data-index='11111'>立赠10元</text>
+        <text class='integral' data-index='11111'>另送100积分</text>
+      </view>
+      <view class='recharge_list'>
+        <text class='re_price'>100元</text>
+        <text class='balance'>立赠10元</text>
+        <text class='integral'>另送100积分</text>
+      </view>
+      <view class='recharge_list'>
+        <text class='re_price'>100元</text>
+        <text class='balance'>立赠10元</text>
+        <text class='integral'>另送100积分</text>
+      </view>
+      <view class='recharge_list'>
+        <text class='re_price'>100元</text>
+        <text class='balance'>立赠10元</text>
+        <text class='integral'>另送100积分</text>
+      </view>
     </view>
   </view>
 </view>

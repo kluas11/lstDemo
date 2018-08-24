@@ -7,10 +7,11 @@ Page({
    * 页面的初始数据
    *******************************************************************************/
   data: {
+    wx_loading: true,
     storeInfo: {
       name: '',
       subName: '',
-      logo: ''
+      logo: '',
     },
     myInfo: {
       name: '',
@@ -41,7 +42,6 @@ Page({
         let str = scan_url.substring(scan_url.indexOf('store_id'), scan_url.length); //"store_id = 26"
         store_id = str.split("=")[1];
       }
-      getStoreInfo(ctx, store_id);
       this.setData({
         store_id: store_id
       })
@@ -55,6 +55,7 @@ Page({
     let that = this;
     app.getlogin().then(() => {
       getCustomerInfo(that);
+      getStoreInfo(that, that.data.store_id);
     })
   },
   /*******************************************************************************
@@ -232,6 +233,7 @@ function getStoreInfo(ctx, store_id) {
       // 商家信息
       'storeInfo.name': res.data.store_name,
       'storeInfo.logo': res.data.store_logo,
+      wx_loading: false
     })
   });
 }

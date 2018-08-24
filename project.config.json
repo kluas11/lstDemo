@@ -41,13 +41,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 0,
 			"list": [
 				{
-					"id": 1,
+					"id": 0,
 					"name": "商品详情",
 					"pathName": "pages/goods/detail/detail",
-					"query": "objectId=3000"
+					"query": "objectId=8321"
 				},
 				{
 					"id": 2,

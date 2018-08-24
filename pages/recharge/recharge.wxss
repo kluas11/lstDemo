@@ -1,14 +1,15 @@
 page {
-  background-color: #eee;
+  background-color: #ffffff;
   display: flex;
   /* align-items: center; */
   justify-content: center;
 }
 
 .main {
-  margin: 32rpx;
+  margin: 32rpx 15rpx;
   padding: 64rpx;
   background: white;
+  border: 1px solid rgba(204, 204, 204, 1);
 }
 
 .input {
@@ -42,8 +43,87 @@ page {
   background-color: #009247;
   color: white;
   text-align: center;
-  margin-top: 64rpx;
+  margin-top: 40rpx;
 }
+
+/* 充值金额 开始*/
+.re_box{
+  padding: 0 15rpx;
+  margin-top: 90rpx;
+}
+.re_title{
+  font-size: 22rpx;
+  font-weight: 500;
+  color: #333333;
+}
+.recharge_lists {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.recharge_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20rpx;
+  width: 220rpx;
+  height: 200rpx;
+  border: 1px solid rgba(204, 204, 204, 1);
+  border-radius: 6rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.re_price {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.balance {
+  font-size: 18rpx;
+  font-weight: 400;
+  color: #999999;
+}
+
+.integral {
+  font-size: 18rpx;
+  color: #ffffff;
+  background: #f96268;
+  padding: 10rpx 40rpx;
+  transform-origin: 50% 50%;
+  transform:rotateZ(-45deg);
+  position: absolute;
+  top: 26rpx;
+  left: -46rpx;
+}
+
+/* 充值金额 结束*/
+
+/* 选择充值金额 开始 */
+
+.selected {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+
+.select_list {
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.select_price {
+  color: #d94612;
+  margin-left: 10rpx;
+}
+
+/* 选择充值金额 结束 */
+
+/* 充值规矩 开始 */
 
 .rules {
   background: #fdcb08;
@@ -63,17 +143,22 @@ page {
 .rules_info {
   padding: 20rpx 40rpx;
 }
-.rules_list{
+
+.rules_list {
   display: flex;
   flex-direction: column;
   font-size: 28rpx;
-  color: #999999;
+  color: #999;
   margin-bottom: 20rpx;
 }
-.rules_name{
-  color: #000000;
-  font-weight: 400; 
+
+.rules_name {
+  color: #000;
+  font-weight: 400;
 }
-.condition{
+
+.condition {
   padding-left: 20rpx;
 }
+
+/* 充值规矩 结束  */

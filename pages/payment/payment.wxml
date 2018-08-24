@@ -18,3 +18,5 @@
     <button class='payByWXPay' disabled='{{disable.WXPay}}' bindtap='payByWXPay'>微信支付</button>
   </view>
 </view>
+<!-- 页面加载动画 -->
+<include src="/template/loading/loading.wxml" />

@@ -95,15 +95,16 @@ Page({
       objectId = goodsId;
       // 获取到分享商品
       //获取商品详情
-      this.getGoodsById(goodsId);
-      // 用户是否收藏该商品
-      if (wx.getStorageSync('sessionId')) {
-        this.iscollect();
-      }
-      //获取附近店铺
-      if (!App.globalData.store_id) {
-        App.get_getLocation(this.getstore_id)
-      }
+      this.getGoodsById(goodsId).then(() => {
+        // 用户是否收藏该商品
+        if (wx.getStorageSync('sessionId')) {
+          this.iscollect();
+        }
+        //获取附近店铺
+        if (!App.globalData.store_id) {
+          App.get_getLocation(this.getstore_id)
+        }
+      });
     })
   },
   iscollect() {
@@ -130,23 +131,26 @@ Page({
   },
   getGoodsById: function(goodsId) {
     var that = this
-    server.getJSON('/Goods/goodsInfo', {
-      goods_id: goodsId
-    }, function(res) {
-      var goodsInfo = res.data;
-      if (res.statusCode == 200) {
-        that.setData({
-          goods: goodsInfo,
-          wx_loading: false
-        });
-      } else {
-        wx.showToast({
-          title: "数据异常",
-          image: "../../../images/about.png"
-        })
-        return;
-      }
-    });
+    return new Promise((reuqest, reject) => {
+      server.getJSON('/Goods/goodsInfo', {
+        goods_id: goodsId
+      }, function(res) {
+        var goodsInfo = res.data;
+        if (res.statusCode == 200) {
+          reuqest();
+          that.setData({
+            goods: goodsInfo,
+            wx_loading: false
+          });
+        } else {
+          wx.showToast({
+            title: "数据异常",
+            image: "../../../images/about.png"
+          })
+        }
+      });
+
+    })
   },
   //  立即购买了解一下
   immediatelyBuy: function(e) {
@@ -206,8 +210,7 @@ Page({
   onShareAppMessage: function() {
     var path = '/pages/goods/detail/detail?objectId=' + objectId
     return {
-      title: '吕氏电商系统',
-      desc: '联系qq727186863',
+      title: this.data.goods.goods_name,
       path: path
     }
   },
@@ -271,7 +274,6 @@ Page({
       fail: function(res) {},
       complete: function(res) {
         self.gainStore().then((res) => {
-
           // self.loadBanner(self.data.options);
         }, (err) => {
 
