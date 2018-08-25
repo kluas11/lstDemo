@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 34,
+			"current": 22,
 			"list": [
 				{
 					"id": 0,
@@ -178,8 +178,8 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "优惠券",
+					"id": 22,
+					"name": "我的优惠券",
 					"pathName": "pages/member/coupon/index",
 					"query": ""
 				},

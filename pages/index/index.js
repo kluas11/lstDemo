@@ -35,11 +35,11 @@ Page({
     });
   },
   load() {
-    let that =this;
+    let that = this;
     App.getlogin().then(() => {
       App.get_getLocation(this.getstore_id);
       // 获取后台设置全部分类
-      server.getJSON("/Index/getIndexNav",function(res) {
+      server.getJSON("/Index/getIndexNav", function(res) {
         if (res.statusCode == 200) {
           that.setData({
             navArray: res.data
@@ -209,16 +209,40 @@ Page({
             url: "/pages/web-view/web-view?url=" + link,
             success() {
               wx.hideLoading()
+            },
+            fail() {
+
             }
           });
           break;
         case "/page":
-          wx.navigateTo({
-            url: link,
-            success() {
-              wx.hideLoading()
-            }
-          });
+          if (links == ("/pages/index/index" || "/pages/category/category" || "/pages/cart/cart" || "/pages/member/index/index")) {
+            // 转到底部导航页面
+            wx.switchTab({
+              url: links
+            });
+          } else {
+            wx.navigateTo({
+              url: link,
+              success() {
+                wx.hideLoading()
+              },
+              fail() {
+                wx.showToast({
+                  image: '/images/about.png',
+                  title: '链接有误',
+                  duration: 2000
+                })
+              }
+            });
+          }
+          break;
+        default:
+          wx.showToast({
+            image: '/images/about.png',
+            title: '链接有误',
+            duration: 2000
+          })
           break;
       }
     } else {

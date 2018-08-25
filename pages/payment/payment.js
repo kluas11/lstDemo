@@ -128,7 +128,7 @@ Page({
                 });
               } else if (res.data.status === 0){
                 wx.showToast({
-                  icon:'/images/about.png',
+                  image:'/images/about.png',
                   title: '支付失败',
                 });
               }
