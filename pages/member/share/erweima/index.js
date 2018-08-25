@@ -34,7 +34,7 @@ Page({
   },
 
   formSubmit: function() {
-      seller_id = this.data.staffAccount,
+      var seller_id = this.data.staffAccount,
       seller_name = this.data.staffName
     server.newpostJSON("/User/apply_user_level", {
         seller_id,
