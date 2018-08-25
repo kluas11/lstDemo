@@ -6,28 +6,25 @@ page {
 }
 
 .main {
-  margin: 32rpx 15rpx;
-  padding: 64rpx;
+  font-size: 18rpx;
+  margin: 20rpx 15rpx 0;
+  padding: 32rpx 24rpx;
   background: white;
   border: 1px solid rgba(204, 204, 204, 1);
 }
 
 .input {
   display: flex;
-  margin-top: 32rpx;
+  margin: 68rpx 0 18rpx; 
 }
 
 .input > text {
-  height: 120rpx;
-  font-size: 64rpx;
-  line-height: 120rpx;
+  font-size: 36rpx;
   margin-right: 32rpx;
 }
 
 .input > input {
-  height: 120rpx;
-  font-size: 64rpx;
-  line-height: 120rpx;
+  font-size: 36rpx;
 }
 
 .dLine {
@@ -37,13 +34,14 @@ page {
 }
 
 .btnNext {
-  height: 80rpx;
-  line-height: 80rpx;
-  width: 50%;
+  height: 63rpx;
+  line-height: 63rpx;
+  width: 654rpx;
+  font-size: 24rpx;
   background-color: #009247;
   color: white;
   text-align: center;
-  margin-top: 40rpx;
+  margin-top: 60rpx;
 }
 
 /* 充值金额 开始*/
