@@ -68,7 +68,7 @@ Page({
   unfocused: function(num) {
     let that = this;
     let numbers = num.detail.value ? num.detail.value : num;
-    // if()
+
     if (numbers.length != 11) {
       wx.showToast({
         title: "输入正确手机号"
@@ -79,11 +79,10 @@ Page({
       server.getJSON("/User/checkOldUser", {
         mobile: numbers,
       }, function(res) {
-        console.log(res)
         if (res.data.status) {
           let result = res.data.info;
           let winRecord = {
-            birthday: result.birthday == "0" ? "" : result.birthday,
+            birthday: result.birthday == "0" ? result.birthday? result.birthday:"":"" ,
             real_name: result.real_name,
             sex: result.sex,
           };
@@ -95,11 +94,14 @@ Page({
             winRecord["storeState"] = true
             winRecord["store_id"] = result.store_id
             winRecord['storeIndex'] = indexs
+            winRecord['mobile'] = numbers
           }
           that.setData(winRecord)
 
         } else {
-          console.log("号码不在老用户了解一下")
+          that.setData({
+            mobile: numbers
+          })
         }
       })
     }
@@ -204,11 +206,10 @@ Page({
         icon: "clear",
         duration: 2000,
       })
-      return
+      return false
     } else {
       winrecord['mobile'] = mobile
     }
-    // console.log(winrecord)
     server.newpostJSON('/User/setUserDetails', winrecord, function(res) {
       if (res.data == 1) {
         wx.showToast({
