@@ -1,19 +1,16 @@
 {
   "pages": [
     "pages/index/index",
-
     "pages/address/list/list",
     "pages/address/add/add",
     "pages/address/edit/index",
-
     "pages/cart/cart",
     "pages/category/category",
-
+    "pages/coupon/coupon",
     "pages/goods/list/list",
     "pages/goods/detail/detail",
     "pages/goods/activity/activity",
     "pages/login/login",
-
     "pages/member/share/erweima/index",
     "pages/member/coupon/index",
     "pages/member/index/index",
@@ -24,11 +21,9 @@
     "pages/member/share/withdraw/add",
     "pages/member/share/withdrawlist/list",
     "pages/member/share/member/list",
-
     "pages/order/list/list",
     "pages/order/details/index",
     "pages/order/ordersubmit/index",
-
     "pages/payment/payment",
     "pages/payment/complete/complete",
     "pages/personalInformation/personalInformation",

@@ -203,8 +203,8 @@ Page({
     // var linktype = e.currentTarget.dataset.linktype;
     wx.showLoading()
     if (link) {
-      switch (link.slice(0, 5)) {
-        case "https":
+      switch (link.slice(0, 4)) {
+        case "http":
           wx.navigateTo({
             url: "/pages/web-view/web-view?url=" + link,
             success() {

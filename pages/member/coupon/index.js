@@ -3,30 +3,63 @@ var cPage = 0;
 var ctype = "0";
 Page({
   data: {
-    cuopon_cart:true,//判断是不是我的优惠券页面
+    cuopon_cart: true, //判断是不是我的优惠券页面
   },
   onLoad: function(option) {
-    this.getcuoponlist();
+    this.getUserCoupon();
+    this.getuserCouponUsed();
+    this.getUserCouponExc();
   },
-  // onReachBottom: function() {
-  //   this.getcuoponlist();
-  //   wx.showToast({
-  //     title: '加载中',
-  //     icon: 'loading'
-  //   })
-  // },
-  receivetap(){
+  receivetap() {
     wx.switchTab({
       url: '/pages/index/index',
     })
   },
-  getcuoponlist: function() {
+  // 可使用优惠券
+  getUserCoupon: function() {
     var that = this;
-    server.getJSON('/User/getUserCoupon', function(res) {
-      console.log(res)
-      that.setData({
-        cuoponlist:res.data
-      })
+    server.getJSON('/Coupon/getUserCoupon', function(res) {
+      if (typeof(res.data) === "string") {
+        that.setData({
+          cuoponlist: []
+        })
+      } else {
+        that.setData({
+          cuoponlist: res.data
+        })
+      }
     });
   },
+  // 已使用优惠券
+  getuserCouponUsed: function() {
+    var that = this;
+    server.getJSON('/Coupon/getuserCouponUsed', function(res) {
+      console.log(res.data)
+      // if (typeof (res.data) === "string") {
+      //   that.setData({
+      //     cuoponlist: []
+      //   })
+      // } else {
+      //   that.setData({
+      //     cuoponlist: res.data
+      //   })
+      // }
+    });
+  },
+  // 不可用优惠券
+  getUserCouponExc: function() {
+    var that = this;
+    server.getJSON('/Coupon/getUserCouponExc', function(res) {
+      console.log(res.data)
+      // if (typeof (res.data) === "string") {
+      //   that.setData({
+      //     cuoponlist: []
+      //   })
+      // } else {
+      //   that.setData({
+      //     cuoponlist: res.data
+      //   })
+      // }
+    });
+  }
 });
