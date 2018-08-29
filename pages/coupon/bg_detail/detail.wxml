@@ -17,9 +17,13 @@
         </view>
       </view>
       <!-- 实付款 -->
-      <view class='buy_info'>
+      <view class='buy_info' wx:if="{{item.buy_way=='MONEY'}}">
         <text>实付款</text>
         <text class='buy_price'>{{item.buy_price}}元</text>
+      </view>
+      <view class='buy_info' wx:elif="{{item.buy_way=='PAYPOINT'}}">
+        <text>实付积分</text>
+        <text class='buy_price'>{{item.buy_paypoints}}积分</text>
       </view>
     </view>
     <!-- 优惠券 内容 -->
@@ -55,7 +59,7 @@
       </view>
     </view>
     <!-- 适用门店 -->
-    <view class='selected'>
+    <!-- <view class='selected'>
       <view class='sel_list'>
         <text class='sel_text'>适用门店(3)</text>
       </view>
@@ -63,8 +67,8 @@
         <view class='sel_text'>乐善亭({{item.store_name}})</view>
         <view class='sel_detail'>1KM 离我最近</view>
       </view>
-    </view>
-    <view class='selected' style='margin-top:20rpx;'>
+    </view> -->
+    <view class='selected'>
       <view class='good_lists'>
         <view class='sel_text'>包含商品</view>
         <block wx:for="{{item.good_list}}" wx:key="{{index}}">

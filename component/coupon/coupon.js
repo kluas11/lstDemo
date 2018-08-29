@@ -20,10 +20,10 @@ Component({
    */
   methods: {
     detailTap(e) {
+      let id = e.currentTarget.dataset.id; 
       if (id) {
-        let id = e.currentTarget.dataset.id;        
         wx.navigateTo({
-          url: '/pages/coupon/detail/detail?id=' + id,
+          url: '/pages/coupon/b_detail/b_detail?id=' + id,
         })
       }
     }

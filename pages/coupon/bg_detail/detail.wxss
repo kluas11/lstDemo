@@ -132,7 +132,7 @@ page {
 
 canvas {
   width: 300rpx;
-  height: 280rpx;
+  height: 300rpx;
 }
 .coupon_sn{
   color: #333;

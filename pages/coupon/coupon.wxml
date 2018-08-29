@@ -8,8 +8,45 @@
   </view>
   <!-- 优惠券 -->
   <scroll-view scroll-y="true" class='cuopon_lists' wx:else>
-    <include src="../../template/goods_coupon/goods_coupon.wxml" /> 
-    <!-- 引用模板 -->
-    <include src="../../template/cuopon_cart/cuopon_cart.wxml" />
+    <!-- 核销券 商品券 线下券 -->
+    <block wx:for="{{goodsCuoponlist}}" wx:key="{{index}}">
+      <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+        <view class='list_right'>
+          <!-- 微信购买和余额购买 -->
+          <view class='list_right'>
+            <view class='list_right_price' wx:if="{{item.buy_way=='MONEY'}}">
+              <text style="font-size: 28rpx;">￥</text>
+              <text>{{item.buy_price}}</text>
+            </view>
+            <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
+              <text>{{item.buy_price}}积分</text>
+            </view>
+            <text decode="true" class='list_right_originprice'>&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
+            <button class='cuopon_btn'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
+          </view>
+        </view>
+      </goods-coupon>
+    </block>
+    <!-- 线上券 普通券-->
+    <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
+      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+      <!-- 线上普通券 -->
+        <view class='list_right' wx:if="{{item.coupon_attr =='NORMAL'}}">
+          <button bindtap='receivetap' class='cuopon_btn'>领取</button>
+        </view>
+        <!-- 线上购买券 -->
+        <view class='list_right' wx:elif="{{item.coupon_attr =='BUY'}}">
+          <view class='list_right_price' wx:if="{{item.buy_way=='MONEY'}}">
+            <text style="font-size: 28rpx;">￥</text>
+            <text>{{item.buy_price}}</text>
+          </view>
+          <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
+            <text>{{item.buy_price}}积分</text>
+          </view>
+          <text decode="true" class='list_right_originprice'>&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
+          <button class='cuopon_btn'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
+        </view>
+      </coupon>
+    </block>
   </scroll-view>
 </view>

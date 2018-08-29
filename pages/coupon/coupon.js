@@ -14,13 +14,14 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-    server.getJSON("/Index/getCouponList", {
+    server.getJSON("/Coupon/getBuyCouponList", {
       // store_id: App.globalData.store_id
       store_id: 26
     }, function(res) {
       console.log(res)
       that.setData({
-        cuoponlist: res.data
+        cuoponlist: res.data.online,
+        goodsCuoponlist: res.data.offline
       })
     });
   },

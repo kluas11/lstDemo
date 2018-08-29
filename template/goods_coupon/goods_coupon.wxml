@@ -27,7 +27,7 @@
       <view class='list_right_price'>
         <text>{{item.buy_price}}积分</text>
       </view>
-      <text decode="true" class='list_right_originprice'></text>
+      <text decode="true" class='list_right_originprice'>&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
       <button class='cuopon_btn'>兑换</button>
     </view>
   </view>

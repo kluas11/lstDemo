@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "优惠中心"
+  "navigationBarTitleText": "优惠中心",
+  "usingComponents": {
+    "goods-coupon": "/component/goodsCoupon/goodsCoupon",
+    "coupon": "/component/coupon/coupon"
+  }
 }
