@@ -1,0 +1,23 @@
+
+<!--component/getmore/getmore.wxml-->
+<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<view class='list_out'>
+  <view class='{{cuopon.isoverdue(Cuoponitem.end_time,Cuoponindex,select_index)?"disabled":"cuopon_list"}}'>
+    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'> 
+      <view style="height: 100%;display: flex;">
+        <image src='{{Cuoponitem.image}}' class='coupon_img'></image>
+      </view>
+      <view class='goods_center'>
+        <!-- 中间的标题 详情 时间 -->
+        <text class='goods_coupon_details clamp2'>{{Cuoponitem.details}}</text>
+        <view>
+          <text>{{cuopon.timestampToTime(Cuoponitem.start_time,true)}}-</text>
+          <text>{{cuopon.timestampToTime(Cuoponitem.end_time,true)}}</text>
+        </view>
+      </view>
+    </view>
+    <slot>
+     
+    </slot>
+  </view>
+</view>

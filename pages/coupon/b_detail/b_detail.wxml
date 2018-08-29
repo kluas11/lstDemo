@@ -1,0 +1,40 @@
+<!--pages/coupon/b_detail/b_detail.wxml-->
+<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<view class='layout'>
+  <view class='content'>
+    <view class='head'>
+      <!-- 满减多少钱  SUBTRAC-->
+      <view class='cuopon_price' wx:if='{{couponInfo.coupon_type == "SUBTRAC"}}'>
+        <text class='num'>{{cuopon.parseFloat(couponInfo.subtrac_money)}}</text>
+        <text>￥</text>
+      </view>
+      <!-- 满减折扣  PERCENT-->
+      <view class='cuopon_price' wx:elif='{{couponInfo.coupon_type == "PERCENT"}}'>
+        <text class='num'>{{cuopon.toFloat(couponInfo.subtrac_percent)}}</text>
+        <text>折</text>
+      </view>
+      <!-- 一口价 BUYOUT -->
+      <view class='cuopon_price' wx:elif='{{couponInfo.coupon_type == "BUYOUT"}}'>
+        <text class='num'>{{cuopon.parseFloat(couponInfo.buyout_price)}}</text>
+        <text>￥</text>
+      </view>
+      <view class='coupon_name'>{{couponInfo.name}}</view>
+      <view>有效期：{{cuopon.timestampToTime(couponInfo.start_time,true)}}-{{cuopon.timestampToTime(couponInfo.end_time,true)}}</view>
+    </view>
+    <!-- -->
+    <view class='canshare' wx:if="{{couponInfo.canshare ==1}}" >
+      <text class='sel_text'>该券可赠送</text>
+      <text class='share_btn'>赠送</text>
+    </view>
+    <view class='canshare'>
+      <view class='used' wx:if="{{couponInfo.status =='NORMAL'}}">未使用</view>
+      <view class='used' wx:elif="{{couponInfo.status =='USED'}}">已使用</view>
+      <view class='used' wx:elif="{{couponInfo.status =='SHARING'}}">分享中</view>
+      <view class='used' wx:elif="{{couponInfo.status =='SHARED'}}">不可使用</view>
+    </view>
+    <view class='details' style='border:none'>
+      <view class='sel_text'>优惠详情</view>
+      <view class='details_text'>{{couponInfo.details}}</view>
+    </view>
+  </view>
+</view>

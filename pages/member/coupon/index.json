@@ -1,5 +1,9 @@
 {
   "navigationBarTitleText": "我的优惠劵",
   "enablePullDownRefresh": false,
-  "backgroundTextStyle": "dark"
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "goods-coupon": "/component/goodsCoupon/goodsCoupon",
+    "coupon": "/component/coupon/coupon"
+  }
 }

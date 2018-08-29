@@ -99,7 +99,6 @@ Page({
 });
 // 获取条形码
 function getCodeTimer(context) {
-
   server.newpostJSON('/Walletpay/getcode',function(res){
     barQRCode.barcode('myBarcode', res.data.code, 680, 200);
     context.setData({

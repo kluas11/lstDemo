@@ -7,7 +7,7 @@
       <view>
         <text>{{item.goods_name}}</text>
         <view class='time'>
-          <text>{{item.details}}</text>
+          <text class='clamp2'>{{item.details}}</text>
         </view>
       </view>
       <view class='content_foot'>

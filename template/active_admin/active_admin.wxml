@@ -4,7 +4,7 @@
       <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>
     </view>
     <view class='content'>
-      <text>{{item.goods_name}}</text>
+      <text class='clamp2'>{{item.goods_name}}</text>
       <view class='time'>
         <image class='time_img' src='/images/time.svg'></image>
         <text>剩余:{{time.timestampToTime(item.end_time)}}</text>

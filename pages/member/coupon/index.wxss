@@ -17,7 +17,18 @@ page{
   justify-content: center;
   align-items: center;
 }
-
+.tab_active{
+  position: relative;
+}
+.tab_active::after{
+  content: "";
+  height: 4rpx;
+  position: absolute;
+  background: red;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 .teb_page {
   height: 54rpx;
   background: #ffffff;
@@ -30,6 +41,9 @@ page{
   line-height: 54rpx;
   padding: 0 15rpx;
   margin-right: 30rpx;
+}
+.pageactive{
+  color: #d94612;
 }
 .cuopon_lists {
   padding: 20rpx 40rpx;

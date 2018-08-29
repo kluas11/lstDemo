@@ -13,7 +13,6 @@ var timestampToTime = function (timestamp, bool) {
     } else {
       return Y + M + D + h + m + s;
     }
-
   } else {
     return;
   }

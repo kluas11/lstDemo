@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 22,
+			"current": 36,
 			"list": [
 				{
 					"id": 0,
@@ -157,7 +157,7 @@
 					"id": 18,
 					"name": "商品确认订单",
 					"pathName": "pages/order/ordersubmit/index",
-					"query": "origin=detail&goodsID=4186&goods_num=1"
+					"query": "origin=detail&goodsID=2276&goods_num=1"
 				},
 				{
 					"id": -1,
@@ -257,6 +257,18 @@
 					"name": "优惠中心",
 					"pathName": "pages/coupon/coupon",
 					"query": ""
+				},
+				{
+					"id": 35,
+					"name": "购买的商品优惠券详情",
+					"pathName": "pages/coupon/bg_detail/detail",
+					"query": "id=4"
+				},
+				{
+					"id": 36,
+					"name": "我的优惠券详情",
+					"pathName": "pages/coupon/b_detail/b_detail",
+					"query": "id=42"
 				}
 			]
 		}

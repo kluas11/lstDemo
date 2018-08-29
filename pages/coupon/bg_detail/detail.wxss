@@ -1,0 +1,194 @@
+/* pages/coupon/detail/detail.wxss */
+
+page {
+  background: #f2f2f2;
+}
+
+/*  */
+
+.header {
+  padding: 18rpx 16rpx 0rpx;
+  font-weight: 400;
+  background: #fff;
+}
+
+/* 头部详情 开始 */
+
+.head_detail {
+  height: 132rpx;
+  border-bottom: 1px solid #797979;
+  display: flex;
+  font-size: 20rpx;
+  color: #666;
+  justify-content: space-between;
+}
+
+.head_left {
+  display: flex;
+}
+
+.img_box {
+  display: flex;
+}
+
+.head_img {
+  width: 123rpx;
+  height: 123rpx;
+}
+
+.head_content {
+  margin-left: 18rpx;
+}
+
+.head_num {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.head_number {
+  text-align: right;
+  margin-bottom: 10rpx;
+}
+
+/* 头部详情 结束 */
+
+/* 实付款 开始 */
+
+.buy_info {
+  color: #333;
+  font-size: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  height: 64rpx;
+  line-height: 64rpx;
+}
+
+.buy_price {
+  color: #fa6958;
+}
+
+/* 实付款 结束 */
+
+/* 优惠券内容 开始 */
+
+.content {
+  padding: 16rpx;
+  font-size: 18rpx;
+  color: #999;
+}
+
+.context_info {
+  background: #fff;
+  border-radius: 12rpx;
+}
+
+.canshare {
+  display: flex;
+  height: 55rpx;
+  padding: 0 20rpx;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #999;
+}
+
+.share_btn {
+  width: 60rpx;
+  height: 26rpx;
+  border: 1rpx solid #c30;
+  border-radius: 6rpx;
+  line-height: 26rpx;
+  text-align: center;
+  color: #c30;
+  font-size: 16rpx;
+}
+
+.time {
+  height: 102rpx;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 20rpx;
+  border-bottom: 1px solid #999;
+}
+
+.time .used {
+  font-size: 20rpx;
+  color: #f30;
+}
+
+.qr_code {
+  height: 408rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.code_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  width: 300rpx;
+  height: 280rpx;
+}
+.coupon_sn{
+  color: #333;
+  font-size: 24rpx;
+}
+.remarks{
+  padding-left:30rpx;
+  margin-bottom: 15rpx; 
+}
+/* 优惠券内容 结束 */
+/* 适用门店 */
+.selected{
+  font-size: 20rpx;
+  padding: 0 20rpx;
+  background: #fff;
+  color: #333;
+}
+.sel_list{
+  height: 68rpx;
+  line-height: 68rpx;
+}
+.sel_text{
+  height: 30rpx;
+  line-height: 30rpx;
+  border-left: 6rpx solid #d94612;
+  padding-left: 16rpx;
+}
+.sel_list:nth-of-type(2){
+  border-top: 1px solid #999;
+  height: 100rpx;
+  padding-top: 15rpx;
+  box-sizing: border-box;
+  line-height: normal;
+}
+.sel_detail{
+  font-size: 16rpx;
+  color: #999;
+  margin-top: 14rpx;
+}
+.good_lists{
+  padding: 30rpx 0;
+}
+.good_detail1{
+  margin-top: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 20rpx;
+  color: #999;
+  display: flex;
+  justify-content: space-between;
+}
+.good_detail{
+  height: 38rpx;
+  line-height: 38rpx;
+  font-size: 18rpx;
+  color: #999;
+  display: flex;
+  justify-content: space-between;
+}

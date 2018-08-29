@@ -3,7 +3,9 @@
   position: relative;
   overflow: hidden;
 }
+
 /* 可以使用的优惠券样式 */
+
 .cuopon_list {
   display: flex;
   border: 2rpx solid #ff9d9d;
@@ -44,12 +46,15 @@
   border-right: 1px dashed #ff9d9d;
   justify-content: space-around;
 }
+
 .cuopon_list .cuopon_price {
   color: #ff5757;
   font-size: 24rpx;
   margin: 0rpx 20rpx;
 }
+
 /* 过期得优惠券样式 */
+
 .disabled {
   display: flex;
   border: 2rpx solid #ccc;
@@ -90,15 +95,32 @@
   border-right: 1px dashed #ccc;
   justify-content: space-around;
 }
+
+.coupon_img {
+  width: 116rpx;
+  height: 114rpx;
+  margin: 0rpx 10rpx;
+}
+
 .disabled .cuopon_price {
-  color: #cccccc;
+  color: #ccc;
   font-size: 24rpx;
   margin: 0rpx 20rpx;
 }
+
 /*  */
 
 .cuopon_price .num {
   font-size: 48rpx;
+}
+
+.goods_center {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #b7b6b6;
 }
 
 .list_left .center .title {
@@ -106,11 +128,30 @@
   font-size: 30rpx;
 }
 
+.coupon_details {
+  margin: 4rpx 0;
+}
+.goods_coupon_details{
+  margin-bottom: 20rpx;
+}
 .list_right {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.list_right_price {
+  font-size: 36rpx;
+  color: #fa6958;
+}
+
+.list_right_originprice {
+  margin: 6rpx 0;
+  font-size: 16rpx;
+  color: #999;
+  text-decoration: line-through;
 }
 
 .list_right .cuopon_btn {
@@ -121,7 +162,14 @@
   height: 43rpx;
   line-height: 43rpx;
 }
-
+.list_right .cuopon_share {
+  width: 124rpx;
+  font-size: 22rpx;
+  height: 43rpx;
+  border: 1px solid #8b8b8b;
+  line-height: 43rpx;
+  margin-bottom: 20rpx;
+}
 .cuopon_list .center, .disabled .center {
   display: flex;
   flex-direction: column;

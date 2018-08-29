@@ -1,0 +1,83 @@
+/* pages/coupon/b_detail/b_detail.wxss */
+
+.layout {
+  background: #fff;
+  padding: 35rpx 16rpx;
+}
+
+.content {
+  background: #f2f2f2;
+  padding: 0rpx 26rpx;
+}
+
+.head {
+  height: 280rpx;
+  border-bottom: 1rpx solid #dcdcdc;
+  text-align: center;
+  font-size: 18rpx;
+  color: #999;
+}
+
+.cuopon_price {
+  padding-top: 60rpx;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 20rpx;
+}
+
+.num {
+  font-size: 72rpx;
+  margin-right: 10rpx;
+}
+
+.coupon_name {
+  margin-bottom: 20rpx;
+}
+
+.canshare {
+  display: flex;
+  height: 55rpx;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.sel_text {
+  height: 30rpx;
+  line-height: 30rpx;
+  border-left: 6rpx solid #d94612;
+  padding-left: 16rpx;
+  font-size: 18rpx;
+  color: #999;
+}
+
+.used {
+  height: 30rpx;
+  line-height: 30rpx;
+  border-left: 6rpx solid #d94612;
+  padding-left: 16rpx;
+  font-size: 18rpx;
+  color: #f30;
+}
+
+.share_btn {
+  width: 60rpx;
+  height: 26rpx;
+  border: 1rpx solid #c30;
+  border-radius: 6rpx;
+  line-height: 26rpx;
+  text-align: center;
+  color: #c30;
+  font-size: 16rpx;
+}
+
+.details {
+  display: flex;
+  padding-top: 15rpx;
+  flex-direction: column;
+}
+.details_text{
+  font-size: 18rpx;
+  color: #999;
+  padding: 30rpx 0;
+}

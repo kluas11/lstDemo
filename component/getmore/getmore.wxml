@@ -1,2 +1,0 @@
-<!--component/getmore/getmore.wxml-->
-<view class='more_foot' wx:if="{{show}}">{{loadtext}}</view>

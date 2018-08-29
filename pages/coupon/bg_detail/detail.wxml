@@ -1,0 +1,87 @@
+<!--pages/coupon/detail/detail.wxml-->
+<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<view class='layout'>
+  <block wx:for="{{[couponInfo]}}" wx:key="{{index}}">
+    <view class='header'>
+      <!-- 头部详情 -->
+      <view class='head_detail'>
+        <view class='head_left'>
+          <view class='img_box'>
+            <image class='head_img' src='{{item.image}}'></image>
+          </view>
+          <view class='head_content'>{{item.name}}</view>
+        </view>
+        <view class='head_num'>
+          <text class='head_price'>{{item.origin_buy_price}}元</text>
+          <text class='head_number'>x1</text>
+        </view>
+      </view>
+      <!-- 实付款 -->
+      <view class='buy_info'>
+        <text>实付款</text>
+        <text class='buy_price'>{{item.buy_price}}元</text>
+      </view>
+    </view>
+    <!-- 优惠券 内容 -->
+    <view class='content'>
+      <view class='context_info'>
+        <view class='canshare' wx:if="{{item.canshare ==1}}">
+          <text>该券可赠送</text>
+          <text class='share_btn'>赠送</text>
+        </view>
+        <view class='time'>
+          <view class='used' wx:if="{{item.status =='NORMAL'}}">未使用</view>
+          <view class='used' wx:elif="{{item.status =='USED'}}">已使用</view>
+          <view class='used' wx:elif="{{item.status =='SHARING'}}">分享中</view>
+          <view class='used' wx:elif="{{item.status =='SHARED'}}">不可使用</view>
+          <view>
+            有效期{{cuopon.timestampToTime(item.start_time)}}至{{cuopon.timestampToTime(item.end_time)}}
+          </view>
+        </view>
+        <!-- 二维码 -->
+        <view class='qr_code'>
+          <view class='code_box'>
+            <view>
+              <canvas canvas-id='myQrcode'></canvas>
+            </view>
+            <view>
+              <text class='coupon_sn'>{{item.coupon_sn}}</text>
+            </view>
+          </view>
+          <view class='remarks'>
+            <text>备注:本券已购买，只需展示券码给商家进行核销。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 适用门店 -->
+    <view class='selected'>
+      <view class='sel_list'>
+        <text class='sel_text'>适用门店(3)</text>
+      </view>
+      <view class='sel_list'>
+        <view class='sel_text'>乐善亭({{item.store_name}})</view>
+        <view class='sel_detail'>1KM 离我最近</view>
+      </view>
+    </view>
+    <view class='selected' style='margin-top:20rpx;'>
+      <view class='good_lists'>
+        <view class='sel_text'>包含商品</view>
+        <block wx:for="{{item.good_list}}" wx:key="{{index}}">
+          <view class='{{index==0?"good_detail1":"good_detail"}}'>
+            <text>{{item.goods_name}}</text>
+            <text>x{{item.num}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class='selected' style='margin-top:20rpx;'>
+      <view class='good_lists'>
+        <view class='sel_text'>券说明</view>
+        <view class='good_detail1'>
+          {{item.details}}
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

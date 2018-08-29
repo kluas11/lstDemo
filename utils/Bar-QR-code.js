@@ -2,6 +2,7 @@ var barcode = require('./barcode');
 var qrcode = require('./qrcode');
 
 function convert_length(length) {
+  // console.log(Math.round(wx.getSystemInfoSync().windowWidth * length / 750))
 	return Math.round(wx.getSystemInfoSync().windowWidth * length / 750);
 }
 

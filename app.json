@@ -7,6 +7,8 @@
     "pages/cart/cart",
     "pages/category/category",
     "pages/coupon/coupon",
+    "pages/coupon/bg_detail/detail",
+    "pages/coupon/b_detail/b_detail",
     "pages/goods/list/list",
     "pages/goods/detail/detail",
     "pages/goods/activity/activity",

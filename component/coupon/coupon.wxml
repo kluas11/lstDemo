@@ -1,0 +1,40 @@
+<!--component/getmore/getmore.wxml-->
+<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<view class='list_out'>
+  <view class='{{cuopon.isoverdue(Cuoponitem.end_time,Cuoponindex,select_index)?"disabled":"cuopon_list"}}'>
+    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'>
+      <!-- 满减多少钱  SUBTRAC-->
+      <view class='cuopon_price' wx:if='{{Cuoponitem.coupon_type == "SUBTRAC"}}'>
+        <text class='num'>{{cuopon.parseFloat(Cuoponitem.subtrac_money)}}</text>
+        <text>元</text>
+      </view>
+      <!-- 满减折扣  PERCENT-->
+      <view class='cuopon_price' wx:elif='{{Cuoponitem.coupon_type == "PERCENT"}}'>
+        <text class='num'>{{cuopon.toFloat(Cuoponitem.subtrac_percent)}}</text>
+        <text>折</text>
+      </view>
+      <!-- 一口价 BUYOUT -->
+      <view class='cuopon_price' wx:elif='{{Cuoponitem.coupon_type == "BUYOUT"}}'>
+        <text class='num'>{{cuopon.parseFloat(Cuoponitem.buyout_price)}}</text>
+        <text>元</text>
+      </view>
+      <view class='center'>
+        <!-- 中间的标题 详情 时间 -->
+        <text wx:if='{{Cuoponitem.coupon_type == "BUYOUT"}}' class='title'>{{Cuoponitem.name}}</text>
+        <!-- 满减+满打折 和 一口价的标题不同 -->
+        <text wx:else class='title'>满{{cuopon.parseFloat(Cuoponitem.subtrac_price)}}元可用</text>
+        <text class='coupon_details clamp2'>{{Cuoponitem.details}}</text>
+        <view>
+          <text>{{cuopon.timestampToTime(Cuoponitem.start_time,true)}}-</text>
+          <text>{{cuopon.timestampToTime(Cuoponitem.end_time,true)}}</text>
+        </view>
+      </view>
+    </view>
+    <slot></slot>
+    <!-- <view class='list_right'>
+      <button bindtap='receivetap' wx:if="{{cuopon_cart}}" data-coupon_id='{{Cuoponitem.coupon_id}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(Cuoponitem.end_time)}}'>使用</button>
+      <button bindtap='receivetap' wx:if="{{ordersubmit}}" data-index='{{index}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(Cuoponitem.end_time)}}'>{{index==select_index?"已使用":"使用"}}</button>
+      <button bindtap='receivetap' disabled='{{Cuoponitem.disabled}}' wx:if="{{homeIndex}}" data-coupon_id='{{Cuoponitem.coupon_id}}' class='cuopon_btn'>领取</button>
+    </view> -->
+  </view>
+</view>

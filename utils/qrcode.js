@@ -763,7 +763,7 @@ var QR = (function () {
             for (var i = 0; i < width; i++) {
                 for (var j = 0; j < width; j++) {
                     if (frame[j * width + i]) {
-                        ctx.fillRect(px * (4 + i) + offset, px * (4 + j) + offset, px, px);
+                        ctx.fillRect(px * (4 + i), px * (4 + j), px, px);
                     }
                 }
             }

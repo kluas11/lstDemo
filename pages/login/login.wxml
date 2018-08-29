@@ -5,4 +5,3 @@
     <button class='btn' open-type="getUserInfo" bindgetuserinfo="getuserTap">授权登录</button>
   </view>
 </view>
-

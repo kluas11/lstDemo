@@ -145,11 +145,17 @@ Page({
   receivetap(e) {
     let index = e.currentTarget.dataset.index;
     let coupon = this.data.cuoponlist[index];
+    let discount_coupon_money;
+    if (coupon.coupon_type == 'BUYOUT') {
+      discount_coupon_money = coupon.buyout_price
+    } else {
+      discount_coupon_money = coupon.discount_coupon_money
+    }
     this.setData({
       cuoponhidden: false,
       coupon_id: coupon.id,
       card_id: coupon.coupon_id,
-      discount_coupon_money: coupon.discount_coupon_money,
+      discount_coupon_money,
       select_index: index
     })
     this.sum()
@@ -185,7 +191,7 @@ Page({
         }
       })
     }
-    console.log(open_id)
+    // console.log(open_id)
     if (open_id == "" || !open_id || open_id == null) {
       wx.hideLoading()
       wx.showModal({
@@ -540,10 +546,16 @@ Page({
         }
         if (cuoponlist.length > 0) {
           var coupon = cuoponlist[0];
+          let discount_coupon_money;
+          if (coupon.coupon_type =='BUYOUT'){
+            discount_coupon_money = coupon.buyout_price
+          }else{
+            discount_coupon_money = coupon.discount_coupon_money
+          }
           that.setData({
             coupon_id: coupon.id,
             card_id: coupon.coupon_id,
-            discount_coupon_money: coupon.discount_coupon_money,
+            discount_coupon_money,
             coupontext: "可用优惠券",
             select_index: 0
           })
@@ -572,6 +584,7 @@ Page({
     let isnum = this.isNumber;
     let discount_activity_money = isnum(data.discount_activity_money) || 0;
     let discount_coupon_money = isnum(data.discount_coupon_money) || 0;
+    // console.log(discount_coupon_money)
     let goodsAmount = isnum(data.goodsAmount);
     let expressFee = isnum(data.expressFee) || 0;
     let totalPrice = 0;

@@ -21,7 +21,7 @@
         <text wx:if='{{item.coupon_type == "BUYOUT"}}' class='title'>{{item.name}}</text>
         <!-- 满减+满打折 和 一口价的标题不同 -->
         <text wx:else class='title'>满{{cuopon.parseFloat(item.subtrac_price)}}元可用</text>
-        <text style='margin:4rpx 0'>{{item.details}}</text>
+        <text class='coupon_details clamp2'>{{item.details}}</text>
         <view>
           <text>{{cuopon.timestampToTime(item.start_time,true)}}-</text>
           <text>{{cuopon.timestampToTime(item.end_time,true)}}</text>
