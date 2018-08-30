@@ -16,9 +16,15 @@ Page({
     let that = this;
     server.getJSON('/Recharge/getRechargeRulesList', function(res) {
       let rules = res.data;
-      that.setData({
-        rules
-      })
+      if (typeof(rules) != 'string') {
+        that.setData({
+          rules
+        })
+      }else{
+        that.setData({
+          rules:''
+        })
+      }
     })
   },
   /**
@@ -28,7 +34,7 @@ Page({
     let that = this;
     let count = e.detail.value;
     if (/^[0-9]+(.[0-9]{1,2})?$/.exec(count)) {
-      
+
       // if (!(parseFloat(count) >= 1)) {
       //   wx.showToast({
       //     title: '充值金额需要大于1元',
@@ -51,7 +57,7 @@ Page({
   },
   // 充值
   preparepay(rechargeAmount) {
-    let that =this;
+    let that = this;
     if (!this.data.disable) {
       // 点击先把点击禁用  支付结束在开启
       this.setData({
@@ -116,15 +122,15 @@ Page({
   },
   // 选择固定充值金额 该事件绑定在父元素
   rechargeTap(e) {
-      let rechargeAmount = e.target.dataset.amount;
-      if (!isNaN(+rechargeAmount) && rechargeAmount) {
-        this.preparepay(+rechargeAmount)
-      } else {
-        wx.showToast({
-          title: '充值的金额有误',
-          image: '/images/about.png',
-          duration: 2000
-        })
-      }
+    let rechargeAmount = e.currentTarget.dataset.amount;
+    if (!isNaN(+rechargeAmount) && rechargeAmount) {
+      this.preparepay(+rechargeAmount)
+    } else {
+      wx.showToast({
+        title: '充值的金额有误',
+        image: '/images/about.png',
+        duration: 2000
+      })
+    }
   }
 })

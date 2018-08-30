@@ -12,7 +12,7 @@ Page({
         name: "已使用",
         type: 'getuserCouponUsed'
       }, {
-        name: "不可用",
+        name: "已过期",
         type: 'getUserCouponExc'
       }
     ],
@@ -72,15 +72,21 @@ Page({
       return;
     }
   },
-  // 查看优惠券详情
-  detailTap(e){
-    console.log(e)
-  },
   // 使用
   receivetap(e) {
-    wx.switchTab({
-      url: '/pages/index/index',
-    })
+    let status = e.target.dataset.status;
+    let id = e.target.dataset.id;
+    if (status && status == 'offline') {
+      wx.navigateTo({
+        url: '/pages/coupon/bg_detail/detail?id=' + id,
+      })
+    } else if (status && status == 'online') {
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    }else{
+      return;
+    }
   },
   // 优惠券
   getUserCoupon: function(type) {

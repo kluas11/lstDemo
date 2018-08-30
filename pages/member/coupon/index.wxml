@@ -1,4 +1,6 @@
 <wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<!-- 引用右边的模板 -->
+<import src="/template/coupon_right/coupon_right.wxml"/>
 <view>
   <view class='header'>
     <view class='tab' bindtap='tabTap'>
@@ -22,19 +24,15 @@
     <!-- 核销券 商品券 线下券 -->
     <block wx:for="{{goodsCuoponlist}}" wx:key="{{index}}">
       <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
-        <view class='list_right'>
-          <button class='cuopon_share' wx:if="{{item.canshare==1}}">赠送</button>
-          <button bindtap='receivetap' class='cuopon_btn'>去使用</button>
-        </view>
+        <!-- 右边的模板 -->
+        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'offline'}}"/>
       </goods-coupon>
     </block>
     <!-- 线上券 普通券-->
     <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
       <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
-        <view class='list_right'>
-        <button class='cuopon_share' wx:if="{{item.cansharee==1}}">赠送</button>
-          <button bindtap='receivetap' class='cuopon_btn'>使用</button>
-        </view>
+        <!-- 右边的模板 -->
+        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'online'}}"/>
       </coupon>
     </block>
   </scroll-view>

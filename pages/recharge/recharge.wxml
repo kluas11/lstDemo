@@ -1,21 +1,26 @@
 <view class="layout">
   <view class='main'>
-    <text>充值金额</text>
     <view class='input'>
       <text>￥</text>
-      <input type='digit' bindblur='count' value="{{formatedNum}}"></input>
+      <input type='digit' bindblur='count' value="{{formatedNum}}" placeholder='输入金额' placeholder-class='palce'></input>
     </view>
     <view class='dLine'></view>
     <button class='btnNext' type='number' bindtap="wxRecharge">微信充值</button>
+    <view>
+      <image class='bg_img' src='/images/bolang.png'></image>
+    </view>
   </view>
   <view class='re_box'>
     <view class='re_title'>选择充值金额</view>
-    <view class='recharge_lists' bindtap='rechargeTap'>
+    <view class='recharge_lists' wx:if="{{rules}}">
       <block wx:for="{{rules}}" wx:key="{{index}}">
-        <view class='recharge_list' data-amount='{{item.lower_limit_money}}'>
-          <text class='re_price' data-amount='{{item.lower_limit_money}}'>{{item.lower_limit_money}}元</text>
-          <text class='balance' wx:if="{{item.giving_money&&item.giving_money!=0}}" data-amount='{{item.lower_limit_money}}'>立赠{{item.giving_money}}元</text>
-          <text class='integral' wx:if="{{item.giving_paypoints&&item.giving_paypoints!=0}}" data-amount='{{item.lower_limit_money}}'>另送{{item.giving_paypoints}}积分</text>
+        <view class='recharge_list' bindtap='rechargeTap' data-amount='{{item.lower_limit_money}}'>
+          <view class='re_price' >
+            <text class='rmb'>￥</text>
+            <text>{{item.lower_limit_money}}</text>
+          </view>
+          <text class='balance' wx:if="{{item.giving_money&&item.giving_money!=0}}">立赠{{item.giving_money}}元</text>
+          <text class='integral' wx:if="{{item.giving_paypoints&&item.giving_paypoints!=0}}">送{{item.giving_paypoints}}积分</text>
         </view>
       </block>
     </view>

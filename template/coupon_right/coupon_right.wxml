@@ -1,0 +1,21 @@
+<!-- 我的优惠券 右边模板 -->
+<template name="mycoupon">
+  <view class='list_right' bindtap='receivetap' wx:if="{{tabtype == 'getUserCoupon'}}">
+    <button class='cuopon_share' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">赠送</button>
+    <button  class='cuopon_btn' data-status='{{status}}' data-id='{{item.id}}'>去使用</button>
+  </view>
+  <view class='list_right' wx:elif="{{tabtype == 'getuserCouponUsed'}}">
+    <view class='right_img'>
+      <image class='used_img' src='/images/used.png'></image>
+    </view>
+  </view>
+  <view class='list_right' wx:elif="{{tabtype == 'getUserCouponExc'}}">
+    <view class='right_img'>
+      <image class='used_img' src='/images/timeout.png'></image>
+    </view>
+  </view>
+</template>
+<!-- 优惠中心  右边模板 -->
+<template name="coupon">
+  <view bindtap='receivetap'>555555</view>
+</template>
