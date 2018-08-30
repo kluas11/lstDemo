@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 35,
+			"current": 20,
 			"list": [
 				{
 					"id": 0,
@@ -166,7 +166,7 @@
 					"query": ""
 				},
 				{
-					"id": 21,
+					"id": 20,
 					"name": "扫码支付结果",
 					"pathName": "pages/payment/complete/complete",
 					"query": ""

@@ -3,7 +3,9 @@
 .improt_color {
   color: #d94612;
 }
-
+button::after {
+  border: none;
+}
 image, view, text {
   margin: 0;
   padding: 0;

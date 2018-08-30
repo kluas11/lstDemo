@@ -1,5 +1,6 @@
 // pages/payment/complete/complete.js
-// 扫码支付结果页面
+// 支付结果页面
+var server = require('../../../utils/server');
 Page({
 
   /**
@@ -13,57 +14,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let type = options.type;
-    let complete = options.complete;
-    let money = options.money ? options.money:'';
-    this.setData({
-      type,
-      money,
-      complete
-    })
+    let that = this;
+    server.getJSON('/Walletpay/getUsermoneyPoints', function(res) {
+      // success
+      that.setData({
+        moneys: res.data.user_money || 0
+      });
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-      wx.switchTab({
-        url: '/pages/index/index'
+  // 点击按钮
+  btnTap(e) {
+    let type = e.target.dataset.type;
+    if (type == 'money') {
+      wx.redirectTo({
+        url: '/pages/member/money/money',
       })
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
+    } else if (type == 'recharge') {
+      wx.redirectTo({
+        url: '/pages/recharge/recharge',
+      })
+    } else {
+      return;
+    }
   }
 })
