@@ -30,11 +30,7 @@
         </view>
       </view>
     </view>
+    <!-- 插槽 -->
     <slot></slot>
-    <!-- <view class='list_right'>
-      <button bindtap='receivetap' wx:if="{{cuopon_cart}}" data-coupon_id='{{Cuoponitem.coupon_id}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(Cuoponitem.end_time)}}'>使用</button>
-      <button bindtap='receivetap' wx:if="{{ordersubmit}}" data-index='{{index}}' class='cuopon_btn' disabled='{{cuopon.isoverdue(Cuoponitem.end_time)}}'>{{index==select_index?"已使用":"使用"}}</button>
-      <button bindtap='receivetap' disabled='{{Cuoponitem.disabled}}' wx:if="{{homeIndex}}" data-coupon_id='{{Cuoponitem.coupon_id}}' class='cuopon_btn'>领取</button>
-    </view> -->
   </view>
 </view>
