@@ -1,0 +1,28 @@
+<!--pages/coupon_detail/coupon_detail.wxml-->
+<view class='layout'>
+  <view class='head'>
+    <view class='img_box'>
+      <image class='head_img' src='{{couponInfo.image}}'></image>
+    </view>
+    <view>
+      <text class='clamp2 head_name'>{{couponInfo.name}}</text>
+    </view>
+    <view class='head_detail'>
+      <view wx:if="couponInfo.buy_way=='MONEY'">
+        <text class='rmb'>￥</text>
+        <text class='buy_price'>{{couponInfo.buy_price}}</text>
+      </view>
+      <view wx:else>
+        <text class='buy_price'>{{couponInfo.buy_paypoints}}积分</text>        
+      </view>
+      <text class='origin_buy_price' decode="true">&nbsp;&nbsp;&nbsp;原价:{{couponInfo.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
+      <view>
+        <text class='canshare' wx:if="{{couponInfo.canshare == 1}}">该券可赠送</text>
+      </view>
+    </view>
+  </view>
+  <coupon-detail wx:if="{{couponInfo}}" Cuoponitem="{{couponInfo}}" type="goods"></coupon-detail>
+  <view class='foot_btn'>
+    <button>{{couponInfo.buy_way=='MONEY'?"购买":"兑换"}}</button>
+  </view>
+</view>

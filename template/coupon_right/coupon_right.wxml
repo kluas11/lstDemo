@@ -31,7 +31,7 @@
       <text>{{item.buy_price}}</text>
     </view>
     <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
-      <text>{{item.buy_price}}积分</text>
+      <text>{{item.buy_paypoints}}积分</text>
     </view>
     <text decode="true" class='list_right_originprice'>&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
     <button class='cuopon_btn'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>

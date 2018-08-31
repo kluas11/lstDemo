@@ -88,7 +88,6 @@
   margin-right: 10rpx;
   font-size: 28rpx;
   color: #3d3de8;
-  border-bottom: 1rpx solid #3d3de8;
 }
 .money_btn{
   padding: 10rpx 15rpx;

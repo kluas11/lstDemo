@@ -19,7 +19,7 @@
     </block>
     <!-- 线上券 普通券-->
     <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
-      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+      <coupon Cuoponitem="{{item}}" tyep="buy">
         <!-- 右边的模板 -->
         <template is="coupon" data="{{coupon_attr:item.coupon_attr,item:item}}" />
       </coupon>
