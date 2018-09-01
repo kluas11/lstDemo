@@ -16,31 +16,54 @@ Page({
     let that = this;
     let id = options.id;
     let coupon_id = options.coupon_id;
-    let api ;
+    let api;
     let data;
-    if (id){
-      server.getJSON("/Coupon/getCouponDetails", { id }, function (res) {
-        if (typeof (res.data) != "string") {
+    if (id) {
+      server.getJSON("/Coupon/getCouponDetails", {
+        id
+      }, function(res) {
+        if (typeof(res.data) != "string") {
           that.setData({
             couponInfo: res.data.online,
-            online:true
+            online: true
           })
         }
       })
-    } else if (coupon_id){
-      server.getJSON("/Coupon/getBuyCouponDetails", { coupon_id }, function (res) {
-        if (typeof (res.data) != "string") {
+    } else if (coupon_id) {
+      server.getJSON("/Coupon/getBuyCouponDetails", {
+        coupon_id
+      }, function(res) {
+        if (typeof(res.data) != "string") {
           that.setData({
             couponInfo: res.data,
-            online:false
+            online: false
           })
         }
       })
-    }else{
+    } else {
       return;
     }
   },
-
+  // 领取优惠券
+  receiveCouponTap(e) {
+    let that = this;
+    let coupon_id = e.currentTarget.dataset.coupon_id;
+    server.newpostJSON("/Index/receiveCoupon", {
+      coupon_id,
+    }, function(res) {
+      if (res.data.status) {
+        wx.showToast({
+          title: '领取成功',
+          icon: "success"
+        })
+      } else {
+        wx.showToast({
+          title: '领取失败',
+          image: '/images/about.png',
+        })
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
