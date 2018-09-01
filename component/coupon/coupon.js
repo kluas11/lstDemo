@@ -5,7 +5,8 @@ Component({
    */
   properties: {
     Cuoponitem: Object,
-    Cuoponindex: Number
+    Cuoponindex: Number,
+    select_index: null
   },
 
   /**
@@ -27,5 +28,8 @@ Component({
         })
       }
     }
+  },
+  ready:function(){
+    
   }
 })

@@ -1,6 +1,8 @@
 <view class='layout'>
   <view class='banner' bindtap='bannerTap'>
-    <view class='img'>活动优惠广告区域</view>
+    <view class='img'>
+      <image src='/images/tiemlimit.jpg'></image>
+    </view>
   </view>
   <view class="container">
     <!-- 侧边栏 -->

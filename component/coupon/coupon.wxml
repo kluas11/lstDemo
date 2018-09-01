@@ -1,7 +1,7 @@
 <!--component/getmore/getmore.wxml-->
-<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='./coupon.wxs' />
 <view class='list_out'>
-  <view class='{{cuopon.isoverdue(Cuoponitem.end_time,Cuoponindex,select_index)?"disabled":"cuopon_list"}}'>
+  <view class='{{cuopon.isoverdue(Cuoponitem.limit_total,Cuoponindex,select_index)}}'>
     <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'>
       <!-- 满减多少钱  SUBTRAC-->
       <view class='cuopon_price' wx:if='{{Cuoponitem.coupon_type == "SUBTRAC"}}'>

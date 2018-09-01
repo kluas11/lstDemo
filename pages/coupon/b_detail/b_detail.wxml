@@ -1,5 +1,5 @@
 <!--pages/coupon/b_detail/b_detail.wxml-->
-<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../../component/coupon/coupon.wxs' />
 <view class='layout'>
   <view class='content'>
     <view class='head'>
@@ -20,13 +20,16 @@
       </view>
       <view class='coupon_name'>{{couponInfo.name}}</view>
       <view>有效期：{{cuopon.timestampToTime(couponInfo.start_time,true)}}-{{cuopon.timestampToTime(couponInfo.end_time,true)}}</view>
+      <view class='head_share' wx:if="{{couponInfo.canshare ==1&&!online}}">
+        <text class='share_text'>该券可赠送</text>
+      </view>
     </view>
     <!-- -->
-    <view class='canshare' wx:if="{{couponInfo.canshare ==1}}" >
+    <view class='canshare' wx:if="{{couponInfo.canshare ==1&&online}}">
       <text class='sel_text'>该券可赠送</text>
       <text class='share_btn'>赠送</text>
     </view>
-    <view class='canshare'>
+    <view class='canshare' wx:if="{{online}}">
       <view class='used' wx:if="{{couponInfo.status =='NORMAL'}}">未使用</view>
       <view class='used' wx:elif="{{couponInfo.status =='USED'}}">已使用</view>
       <view class='used' wx:elif="{{couponInfo.status =='SHARING'}}">分享中</view>
@@ -36,5 +39,15 @@
       <view class='sel_text'>优惠详情</view>
       <view class='details_text'>{{couponInfo.details}}</view>
     </view>
+  </view>
+  <view class='foot_btn' wx:if="{{!online}}">
+    <view class='foot_price' wx:if="{{couponInfo.buy_way}}">
+      <text class='buy_price' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.buy_price}}</text>
+      <text class='buy_price' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">{{couponInfo.buy_paypoint}}积分</text>
+      <!-- <text class='originprice' decode="true">&nbsp;&nbsp;&nbsp;原价:{{couponInfo.originprice}}&nbsp;&nbsp;&nbsp;</text> -->
+    </view>
+    <button class='buybtn' wx:if="{{couponInfo.buy_way=='MONEY'}}">购买</button>
+    <button class='buybtn' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">兑换</button>
+    <button class='buybtn' wx:else>领取</button>
   </view>
 </view>

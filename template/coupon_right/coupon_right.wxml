@@ -22,7 +22,7 @@
 <template name="coupon">
   <!-- 线上普通券 -->
   <view class='list_right' wx:if="{{coupon_attr =='NORMAL'}}">
-    <button bindtap='receivetap' class='cuopon_btn'>领取</button>
+    <button bindtap='receivetap' class='cuopon_btn' disabled='{{item.disabled}}' data-coupon_id='{{item.coupon_id}}'>领取</button>
   </view>
   <!-- 线上购买券 -->
   <view class='list_right' wx:elif="{{coupon_attr =='BUY'}}">
@@ -33,8 +33,16 @@
     <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
       <text>{{item.buy_paypoints}}积分</text>
     </view>
-    <text decode="true" class='list_right_originprice'>&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
-    <button class='cuopon_btn'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
+    <text decode="true" class='list_right_originprice' wx:if="{{item.origin_buy_price}}">&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
+    <button class='cuopon_btn' bindtap='detailTap' data-coupon_id='{{item.coupon_id}}' data-olcoupon_id='{{item.olcoupon_id}}'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
   </view>
 </template>
 <!-- 优惠中心  结束 -->
+
+<!-- 确定订单  开始 -->
+<template name="orderCoupon">
+  <view class='list_right {{index==select_index?"disabled2":""}}'>
+    <button bindtap='receivetap' data-index='{{index}}' class='cuopon_btn'>{{index==select_index?"已使用":"使用"}}</button>
+  </view>
+</template>
+<!-- 确定订单  结束 -->

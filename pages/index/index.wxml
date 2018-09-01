@@ -1,4 +1,4 @@
-<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../component/coupon/coupon.wxs' />
 <wxs module='time' src='./index.wxs' />
 <view class='layout'>
   <view class='shopNameTip' wx:if='{{shopName != ""}}'>

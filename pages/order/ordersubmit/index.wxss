@@ -1,5 +1,5 @@
 /* pages/order/ordersubmit/index.wxss */
-@import '../../../template/cuopon_cart/cuopon_cart.wxss';
+@import '../../../component/coupon/coupon.wxss';
 @import '../../../template/select_pay/select_pay.wxss';
 .addressbox {
   width: 70%;
@@ -618,7 +618,7 @@
   font-size: 24rpx;
   margin: 0rpx 20rpx;
 }
-
-.disabled  .cuopon_btn {
+.disabled2 .cuopon_btn {
   background: #4ab760;
 }
+

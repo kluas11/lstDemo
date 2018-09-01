@@ -1,4 +1,4 @@
-@import '../../../template/cuopon_cart/cuopon_cart.wxss';
+@import '../../../component/coupon/coupon.wxss';
 
 page {
   background: #e4e4e4;

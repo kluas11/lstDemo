@@ -1,5 +1,5 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
-<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../../component/coupon/coupon.wxs' />
 <wxs module='time' src='./index.wxs' />
 <view class="parent" wx:if="{{result}}">
   <!-- 订单状态 -->

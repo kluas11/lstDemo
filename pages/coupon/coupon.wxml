@@ -1,5 +1,5 @@
 <!--pages/coupon/coupon.wxml-->
-<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../component/coupon/coupon.wxs' />
 <!-- 引用右边的模板 -->
 <import src="/template/coupon_right/coupon_right.wxml" />
 <view>

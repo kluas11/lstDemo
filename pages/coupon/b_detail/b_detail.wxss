@@ -34,6 +34,17 @@
   margin-bottom: 20rpx;
 }
 
+.share_text {
+  padding: 0 10rpx;
+  height: 26rpx;
+  border: 1rpx solid #c30;
+  border-radius: 6rpx;
+  line-height: 26rpx;
+  text-align: center;
+  color: #c30;
+  font-size: 16rpx;
+}
+
 .canshare {
   display: flex;
   height: 55rpx;
@@ -76,8 +87,46 @@
   padding-top: 15rpx;
   flex-direction: column;
 }
-.details_text{
+
+.details_text {
   font-size: 18rpx;
   color: #999;
   padding: 30rpx 0;
+}
+
+.foot_btn {
+  position: fixed;
+  height: 80rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+
+.foot_price {
+  flex: 1;
+  height: 100%;
+  border-top: 1rpx solid #ccc;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+.buy_price {
+  font-size: 36rpx;
+  color: #fa6958;
+}
+
+.originprice {
+  font-size: 16rpx;
+  color: #999;
+  text-decoration: line-through;
+  margin-left: 10rpx;
+}
+
+.buybtn {
+  flex: 1;
+  background: #fa6958;
+  color: #ffffff;
+  font-size: 28rpx;
+  border-radius: 0;
 }

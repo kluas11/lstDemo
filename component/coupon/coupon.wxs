@@ -20,25 +20,27 @@ var timestampToTime = function (timestamp, bool) {
 var fileter = function (data) {
   return data < 10 ? "0" + data : data
 }
-// 判断优惠券是否过期  或者被选择
-var isoverdue = function(end,index,select){
-  if (arguments.length == 3){
-    if (index == select){
-      return true;
-    }else{
-      return false;
+// 判断优惠券是否已抢光  或者被选择
+var isoverdue = function (buyout, index, select) {
+  // console.log(index, select)
+  if (arguments.length == 3) {
+    if (index == select) {
+      return 'disabled';
+    } else {
+      return "cuopon_list";
     }
-  }else{
-    return getDate().getTime() > end * 1000;
   }
+  // else{
+  //   return getDate().getTime() > end * 1000;
+  // }
 }
 // 折扣处理
-var toFloat = function(num){
-    return num/10
+var toFloat = function (num) {
+  return num / 10
 }
 module.exports = {
   timestampToTime: timestampToTime,
   parseFloat: parseFloat,
-  isoverdue:isoverdue,
+  isoverdue: isoverdue,
   toFloat: toFloat
 };

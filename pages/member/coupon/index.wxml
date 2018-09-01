@@ -1,4 +1,4 @@
-<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../../component/coupon/coupon.wxs' />
 <!-- 引用右边的模板 -->
 <import src="/template/coupon_right/coupon_right.wxml"/>
 <view>
@@ -30,7 +30,7 @@
     </block>
     <!-- 线上券 普通券-->
     <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
-      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" select_index="null">
         <!-- 右边的模板 -->
         <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'online'}}"/>
       </coupon>

@@ -1,99 +1,120 @@
 /*页面背景*/
+
 page {
-	background-color: #ffffff;
-  height:100%;
+  background-color: #fff;
+  height: 100%;
 }
-.layout{
+
+.layout {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
+
 /*容器总体布局为左右两列*/
+
 .container {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
   flex: 1;
 }
+
 /* banner图 */
-.banner{
+
+.banner {
   padding: 10rpx;
 }
-.banner .img{
+
+.banner .img {
   background: #e7e7e7;
   height: 130rpx;
   text-align: center;
   line-height: 130rpx;
 }
-/*侧边栏顶级分类给予固定宽度*/
-.sidebar {
-	width: 300rpx;
-	background: #e8e8e8;
+
+.banner .img image {
+  width: 100%;
+  height: 100%;
 }
-.sidebar .sidebarlist{
+
+/*侧边栏顶级分类给予固定宽度*/
+
+.sidebar {
+  width: 300rpx;
+  background: #e8e8e8;
+}
+
+.sidebar .sidebarlist {
   height: 100rpx;
-  background:#e8e8e8;
+  background: #e8e8e8;
   display: flex;
   flex-direction: row;
   line-height: 100rpx;
   text-align: center;
   align-items: center;
 }
- .sidebar .activetabs {
-  background:#fff;
-} 
-.sidebar .sidebarlist .actives{
-flex:1;
-background: transparent;
-height:62rpx;
-}
-.sidebar .sidebarlist .activestext{
-flex:20;
-font-family: PingFangSC-Regular, sans-serif;
-font-size: 14px;
-color:#838383
-}
-.sidebar .sidebarlist .active {
-flex:1;
-background: #d84712;
-height:62rpx;
-}
-.sidebar .sidebarlist .activetext {
-flex:20;
-font-family: PingFangSC-Regular, sans-serif;
-font-size: 14px;
-color:#000
+
+.sidebar .activetabs {
+  background: #fff;
 }
 
+.sidebar .sidebarlist .actives {
+  flex: 1;
+  background: transparent;
+  height: 62rpx;
+}
+
+.sidebar .sidebarlist .activestext {
+  flex: 20;
+  font-family: PingFangSC-Regular, sans-serif;
+  font-size: 14px;
+  color: #838383;
+}
+
+.sidebar .sidebarlist .active {
+  flex: 1;
+  background: #d84712;
+  height: 62rpx;
+}
+
+.sidebar .sidebarlist .activetext {
+  flex: 20;
+  font-family: PingFangSC-Regular, sans-serif;
+  font-size: 14px;
+  color: #000;
+}
 
 .main {
-	display: flex;
+  display: flex;
   padding-left: 1%;
-	flex-direction: column;
+  flex-direction: column;
   width: 100%;
   position: relative;
 }
-.markshade {
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#fff;
-opacity:.8;
-z-index:99;
 
+.markshade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  opacity: 0.8;
+  z-index: 99;
 }
 
 /*网格布局子类九宫格分布*/
+
 .gridview {
-	background-color: #ffffff;
+  background-color: #fff;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height:auto;
-  padding:10px 0 10px 0;
+  height: auto;
+  padding: 10px 0 10px 0;
 }
-.gridview .gridview_list{
+
+.gridview .gridview_list {
   width: 33%;
   /* margin-top: 20rpx; */
   display: flex;
@@ -101,32 +122,36 @@ z-index:99;
   align-items: center;
   overflow: hidden;
 }
+
 /*图片*/
+
 .gridview view image {
-	width: 130rpx;
-	height: 130rpx;
+  width: 130rpx;
+  height: 130rpx;
 }
+
 /*文字*/
+
 .gridview view text {
-	color: #6c6c6c;
-	font-size: 12px;
-	text-align: center;
-	display: block;
+  color: #6c6c6c;
+  font-size: 12px;
+  text-align: center;
+  display: block;
   margin-top: 10rpx;
 }
+
 .spinner {
-  position:absolute ;
+  position: absolute;
   top: 40%;
-   left:45%; 
+  left: 45%;
   z-index: 1000;
   text-align: center;
 }
- 
+
 .spinner > div {
   width: 30rpx;
   height: 30rpx;
-  background-color: #67CF22;
- 
+  background-color: #67cf22;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
@@ -135,27 +160,34 @@ z-index:99;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
- 
+
 .spinner .bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
- 
+
 .spinner .bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
- 
+
 @-webkit-keyframes bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0.0) }
-  40% { -webkit-transform: scale(1.0) }
+  0%, 80%, 100% {
+    -webkit-transform: scale(0.0);
+  }
+
+  40% {
+    -webkit-transform: scale(1.0);
+  }
 }
- 
+
 @keyframes bouncedelay {
   0%, 80%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 40% {
+  }
+
+  40% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }

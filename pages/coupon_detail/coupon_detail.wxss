@@ -3,10 +3,11 @@
 page {
   background: #f2f2f2;
   height: 100%;
-  padding-bottom:80rpx;
   box-sizing: border-box; 
 }
-
+.layout{
+  padding-bottom:100rpx;
+}
 .head {
   background: #fff;
   padding: 20rpx 15rpx 0rpx 20rpx;

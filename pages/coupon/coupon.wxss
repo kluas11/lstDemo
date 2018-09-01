@@ -1,5 +1,5 @@
 /* pages/coupon/coupon.wxss */
-@import '../../template/cuopon_cart/cuopon_cart.wxss';
+@import '../../component/coupon/coupon.wxss';
 .cuopon_lists{
   padding: 24rpx 56rpx;
   display: flex;

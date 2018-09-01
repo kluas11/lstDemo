@@ -1,5 +1,7 @@
 <!--orderinfo{{cartIds}}{{amount}}-->
 <!--保留几位小数方法  -->
+<!-- 引用右边的模板 -->
+<import src="/template/coupon_right/coupon_right.wxml" />
 <wxs module="filters" src="common.wxs"></wxs>
 <view class="parent" style='margin-bottom:200rpx'>
   <view class="view-address" bindtap="addressSelect">
@@ -110,13 +112,16 @@
 </view>
 <!-- 页面加载 -->
 <include src="/template/loading/loading.wxml" />
-<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
 <!-- 数据过滤 -->
 <view class='cuopon_info' bindtap='hidetap' id='cuopon_info' wx:if='{{cuoponhidden}}'>
   <view class='cuopon_content'>
     <scroll-view scroll-y="true" class='cuopon_lists'>
-      <!-- 自己写的模板  优惠券页面也有用到 -->
-      <include src="/template/cuopon_cart/cuopon_cart.wxml" />
+      <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
+        <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" select_index="{{select_index}}">
+          <!-- 右边的模板 -->
+          <template is="orderCoupon" data="{{coupon_attr:'BUY',item:item}}" data="{{index:index,select_index:select_index}}"/>
+        </coupon>
+      </block>
     </scroll-view>
   </view>
 </view>

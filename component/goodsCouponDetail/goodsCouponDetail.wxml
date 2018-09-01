@@ -1,4 +1,4 @@
-<wxs module='cuopon' src='../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../component/coupon/coupon.wxs' />
 <!-- 适用门店 -->
 <!-- <view class='selected'>
       <view class='sel_list'>

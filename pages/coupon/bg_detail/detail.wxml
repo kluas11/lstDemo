@@ -1,5 +1,5 @@
 <!--pages/coupon/detail/detail.wxml-->
-<wxs module='cuopon' src='../../../template/cuopon_cart/cuopon_cart.wxs' />
+<wxs module='cuopon' src='../../../component/coupon/coupon.wxs' />
 <view class='layout'>
   <block wx:for="{{[couponInfo]}}" wx:key="{{index}}">
     <view class='header'>

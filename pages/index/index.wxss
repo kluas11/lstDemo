@@ -1,4 +1,4 @@
-@import '../../template/cuopon_cart/cuopon_cart.wxss';
+@import '../../component/coupon/coupon.wxss';
 @import '../../template/active_admin/active_admin.wxss';
 @import '../../template/active_store/active_store.wxss';
 page {

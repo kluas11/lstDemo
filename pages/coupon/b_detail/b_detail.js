@@ -13,17 +13,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let id = options.id;
     let that = this;
-    server.getJSON("/Coupon/getCouponDetails", {
-      id
-    }, function(res) {
-      if (typeof(res.data) != "string") {
-        that.setData({
-          couponInfo: res.data.online
-        })
-      }
-    })
+    let id = options.id;
+    let coupon_id = options.coupon_id;
+    let api ;
+    let data;
+    if (id){
+      server.getJSON("/Coupon/getCouponDetails", { id }, function (res) {
+        if (typeof (res.data) != "string") {
+          that.setData({
+            couponInfo: res.data.online,
+            online:true
+          })
+        }
+      })
+    } else if (coupon_id){
+      server.getJSON("/Coupon/getBuyCouponDetails", { coupon_id }, function (res) {
+        if (typeof (res.data) != "string") {
+          that.setData({
+            couponInfo: res.data,
+            online:false
+          })
+        }
+      })
+    }else{
+      return;
+    }
   },
 
   /**
