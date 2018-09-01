@@ -48,6 +48,6 @@
     </view>
     <button class='buybtn' wx:if="{{couponInfo.buy_way=='MONEY'}}">购买</button>
     <button class='buybtn' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">兑换</button>
-    <button class='buybtn' bindtap='receiveCouponTap' data-coupon_id='couponInfo.coupon_id' wx:else>领取</button>
+    <button class='buybtn' bindtap='receiveCouponTap' data-coupon_id='{{couponInfo.coupon_id}}' wx:else>领取</button>
   </view>
 </view>
