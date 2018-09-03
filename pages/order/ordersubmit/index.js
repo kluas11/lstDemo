@@ -492,7 +492,8 @@ Page({
       console.log(e)
     })
     var winrecord = {
-      goods_ids: that.data.goodsID
+      goods_ids: that.data.goodsID,
+      store_id
     };
     if (that.data.orginPage == "detail") {
       winrecord["goods_num"] = parseInt(that.data.goodsNum)

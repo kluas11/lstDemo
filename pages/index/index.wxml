@@ -1,8 +1,8 @@
 <wxs module='cuopon' src='../../component/coupon/coupon.wxs' />
 <wxs module='time' src='./index.wxs' />
 <view class='layout'>
-  <view class='shopNameTip' wx:if='{{shopName != ""}}'>
-    <view class='address'>
+  <view class='shopNameTip'>
+    <view class='address' wx:if='{{shopName != ""}}' bindtap='storeTap'>
       <view class='iconfont icon-dizhi1'></view>
       {{shopName}}
     </view>
@@ -43,21 +43,6 @@
       </swiper-item>
     </block>
   </swiper>
-  <!-- 门店商品列表 -->
-  <!-- <view class='container-class' wx:for="{{goods}}" wx:key='unique' data-index="{{index}}">
-    <view class='container-goods'>
-      <view class="category_title">
-        <text class="caption improt_color">{{item.name}}</text>
-      </view>
-      <scroll-view scroll-x class="main-goods">
-        <view class="single-goods" wx:for="{{item.goodsList}}" wx:key="" bindtap="showDetail" data-index="{{index}}" data-goods-id="{{item.goods_id}}">
-          <text class="title">{{item.goods_name}}</text>
-          <text class="source improt_color">￥{{item.shop_price}}</text>
-          <image class="avatar" src="{{item.original_img==null?imageErr:item.original_img+goods_oss}}" mode="aspectFill" />
-        </view>
-      </scroll-view>
-    </view>
-  </view> -->
   <view class='active'>
     <scroll-view class='admin' wx:for="{{active_list}}" wx:if="{{item.length>0}}" wx:key="{{index}}">
       <view class='active_title'>
@@ -86,8 +71,12 @@
       <!-- 优惠券 -->
       <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
         <coupon Cuoponitem="{{item}}">
-          <view class='list_right'>
-            <button bindtap='receivetap' disabled='{{item.disabled}}' data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
+          <!-- 已抢光 -->
+          <view class='list_right' wx:if="{{item.limit_total =='0'}}">
+            <image class='used_img' src='/images/buyout.png'></image>
+          </view>
+          <view class='list_right' wx:else>
+            <button bindtap='receivetap' data-coupon_id='{{item.coupon_id}}' class='cuopon_btn'>领取</button>
           </view>
         </coupon>
       </block>

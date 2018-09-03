@@ -1,15 +1,12 @@
 <wxs module='cuopon' src='../../component/coupon/coupon.wxs' />
 <!-- 适用门店 -->
-<!-- <view class='selected'>
-      <view class='sel_list'>
-        <text class='sel_text'>适用门店(3)</text>
-      </view>
-      <view class='sel_list'>
-        <view class='sel_text'>乐善亭({{Cuoponitem.store_name}})</view>
-        <view class='sel_detail'>1KM 离我最近</view>
-      </view>
-    </view> -->
 <view class='selected'>
+  <view class='good_lists'>
+    <text class='sel_text'>适用门店</text>
+    <view class='sel_detail'>{{Cuoponitem.store_name?Cuoponitem.store_name:''}}</view>
+  </view>
+</view>
+<view class='selected' style='margin-top:20rpx;'>
   <view class='good_lists'>
     <view class='sel_text'>包含商品</view>
     <view class='goods_box' style='height:{{goods_h}};' animation="{{animationData}}">

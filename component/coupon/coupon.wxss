@@ -67,69 +67,6 @@ button::after {
   margin: 0rpx 20rpx;
 }
 
-
-
-/* 选择的优惠券 */
-
-.disabled {
-  display: flex;
-  border: 2rpx solid #4ab760;
-  border-radius: 10rpx;
-  border-left: 6rpx solid #00ff32;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.disabled::after, .disabled::before {
-  content: '';
-  width: 16rpx;
-  height: 16rpx;
-  border: 2rpx solid #4ab760;
-  border-radius: 50%;
-  position: absolute;
-  left: 466rpx;
-  transform: translateX(-25%);
-  background: #fff;
-  z-index: 9;
-}
-
-.disabled::after {
-  bottom: -6rpx;
-}
-
-.disabled::before {
-  top: -6rpx;
-}
-
-.disabled .list_left {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 466rpx;
-  padding: 20rpx 0;
-  border-right: 1px dashed #4ab760;
-  justify-content: space-around;
-}
-
-.disabled .cuopon_price {
-  color: #4ab760;
-  font-size: 24rpx;
-  margin: 0rpx 20rpx;
-}
-
-.disabled  .cuopon_btn {
-  background: #4ab760;
-}
-
-.coupon_img {
-  width: 116rpx;
-  height: 114rpx;
-  margin: 0rpx 10rpx;
-}
-
-/*  */
-
 .cuopon_price .num {
   font-size: 48rpx;
 }
@@ -156,48 +93,142 @@ button::after {
   margin-bottom: 20rpx;
 }
 
-.list_right {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.list_right_price {
-  font-size: 36rpx;
-  color: #fa6958;
-}
-
-.list_right_originprice {
-  margin: 6rpx 0;
-  font-size: 16rpx;
-  color: #999;
-  text-decoration: line-through;
-}
-
-.list_right .cuopon_btn {
-  width: 124rpx;
-  font-size: 22rpx;
-  color: #fff;
-  background: #ff5757;
-  height: 43rpx;
-  line-height: 43rpx;
-}
-
-.list_right .cuopon_share {
-  width: 124rpx;
-  font-size: 22rpx;
-  height: 43rpx;
-  border: 1px solid #8b8b8b;
-  line-height: 43rpx;
-  margin-bottom: 20rpx;
-}
-
-.cuopon_list .center, .disabled .center {
+.cuopon_list .center {
   display: flex;
   flex-direction: column;
   font-size: 24rpx;
   color: #b7b6b6;
 }
 
+/* 选择的优惠券 开始*/
+
+.selected {
+  display: flex;
+  border: 2rpx solid #4ab760;
+  border-radius: 10rpx;
+  border-left: 6rpx solid #00ff32;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.selected::after, .selected::before {
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border: 2rpx solid #4ab760;
+  border-radius: 50%;
+  position: absolute;
+  left: 466rpx;
+  transform: translateX(-25%);
+  background: #fff;
+  z-index: 9;
+}
+
+.selected::after {
+  bottom: -6rpx;
+}
+
+.selected::before {
+  top: -6rpx;
+}
+
+.selected .list_left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 466rpx;
+  padding: 20rpx 0;
+  border-right: 1px dashed #4ab760;
+  justify-content: space-around;
+}
+
+.selected .cuopon_price {
+  color: #4ab760;
+  font-size: 24rpx;
+  margin: 0rpx 20rpx;
+}
+
+.selected  .cuopon_btn {
+  background: #4ab760;
+}
+
+.selected .center {
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #b7b6b6;
+}
+
+/* 选择的优惠券 结束 */
+
+/* 已抢光优惠券 开始*/
+
+.disabled {
+  display: flex;
+  border: 2rpx solid #ccc;
+  border-radius: 10rpx;
+  border-left: 6rpx solid #ccc;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.disabled::after, .disabled::before {
+  content: '';
+  width: 16rpx;
+  height: 16rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 50%;
+  position: absolute;
+  left: 466rpx;
+  transform: translateX(-25%);
+  background: #fff;
+  z-index: 9;
+}
+
+.disabled::after {
+  bottom: -6rpx;
+}
+
+.disabled::before {
+  top: -6rpx;
+}
+
+.disabled .list_left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 466rpx;
+  padding: 20rpx 0;
+  border-right: 1px dashed #ccc;
+  justify-content: space-around;
+}
+
+.disabled .cuopon_price {
+  color: #ccc;
+  font-size: 24rpx;
+  margin: 0rpx 20rpx;
+}
+
+.disabled .center {
+  display: flex;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #ccc;
+}
+
+.disabled .list_left .center .title {
+  color: #ccc;
+  font-size: 30rpx;
+}
+
+/* 已抢光优惠券 结束*/
+
+/* 线下核销优惠券图片 */
+
+.coupon_img {
+  width: 116rpx;
+  height: 114rpx;
+  margin: 0rpx 10rpx;
+}

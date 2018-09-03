@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 38,
+			"current": 31,
 			"list": [
 				{
 					"id": 0,
@@ -71,7 +71,7 @@
 					"id": 4,
 					"name": "购物车确认订单",
 					"pathName": "pages/order/ordersubmit/index",
-					"query": "origin=cart&goodsID=2272,2273,2274"
+					"query": "origin=cart&goodsID=2274"
 				},
 				{
 					"id": 6,
@@ -233,8 +233,8 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "商家活动",
+					"id": 31,
+					"name": "限时抢购",
 					"pathName": "pages/goods/activity/activity",
 					"query": "",
 					"scene": "1011"

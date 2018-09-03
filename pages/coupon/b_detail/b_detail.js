@@ -1,5 +1,7 @@
 // pages/coupon/b_detail/b_detail.js
 var server = require('../../../utils/server');
+var id;
+var coupon_id;
 Page({
 
   /**
@@ -13,12 +15,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    id = options.id;
+    coupon_id = options.coupon_id;
+    this.getcouponInof();
+  },
+  // getcouponInfo 获取优惠详情
+  getcouponInof() {
     let that = this;
-    let id = options.id;
-    let coupon_id = options.coupon_id;
     let api;
     let data;
     if (id) {
+      // 我的优惠券查看线上的优惠券详情
       server.getJSON("/Coupon/getCouponDetails", {
         id
       }, function(res) {
@@ -30,13 +37,15 @@ Page({
         }
       })
     } else if (coupon_id) {
+      // 优惠中心查看线上的优惠券详情
       server.getJSON("/Coupon/getBuyCouponDetails", {
         coupon_id
       }, function(res) {
         if (typeof(res.data) != "string") {
           that.setData({
             couponInfo: res.data,
-            online: false
+            online: false,
+            buyout: res.data.limit_total === '0' ? true : false,
           })
         }
       })
@@ -62,6 +71,7 @@ Page({
           image: '/images/about.png',
         })
       }
+      that.getcouponInof();
     });
   },
   /**

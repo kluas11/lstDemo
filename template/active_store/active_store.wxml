@@ -16,7 +16,7 @@
           <text wx:if="{{item.activity_type === 'SUBTRAC'}}" class='ac_num'>{{time.parseprice(item.shop_price,item.subtrac_money)}}</text>
           <text wx:elif="{{item.activity_type === 'PERCENT'}}" class='ac_num'>{{time.percent(item.shop_price,item.subtrac_percent)}}</text>
         </view>
-        <view class='cart'  bindtap='cartTap' data-goods-id="{{item.goods_id}}">
+        <view class='cart'  bindtap='cartTap' data-goods-id="{{item.goods_id}}" wx:if="{{!wait}}">
           <text class='iconfont icon-ziyuan'></text>
         </view>
       </view>

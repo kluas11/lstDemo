@@ -14,17 +14,17 @@ App({
       }
     });
   },
-  getsetting(pages,options) {
+  getsetting(pages, options) {
     return new Promise((reslove, reject) => {
       wx.getSetting({
         success: (res) => {
           if (!res.authSetting["scope.userInfo"]) {
             var url = pages[pages.length - 1].route;
-            if (options){
+            if (options) {
               url = url + "&id=" + options
             }
             wx.redirectTo({
-              url: '/pages/login/login?url='+url,
+              url: '/pages/login/login?url=' + url,
             })
           } else {
             reslove();
@@ -34,7 +34,7 @@ App({
     })
   },
   // 登录注册
-  getlogin() {
+  getlogin(skip) {
     var leader;
     wx.getStorage({
       key: 'scene',
@@ -45,36 +45,40 @@ App({
     })
     return new Promise((request, rej) => {
       const that = this;
-      wx.login({
-        success(data) {
-          if (data.code) {
-            that.getuser().then((wx_name) => {
-              server.newpostJSON(
-                "/Login/login", {
-                  code: data.code,
-                  wx_name,
-                  leader
-                },
-                function(data) {
-                  if (data.data.status) {
-                    that.globalData.userInfo = {
-                      user_id: data.data.user_id
-                    };
-                    that.globalData.openid = data.data.openid
-                    // 全局app变量
-                    var user = that.globalData.userInfo;
-                    //本地缓存
-                    wx.setStorageSync("user_id", user.user_id)
-                    wx.setStorageSync("sessionId", data.data.sessionId)
-                    wx.setStorageSync("sessionName", data.data.sessionName)
-                    that.globalData.login = true;
-                    request(user.user_id)
-                  }
-                });
-            })
+      if (!skip) {
+        wx.login({
+          success(data) {
+            if (data.code) {
+              that.getuser().then((wx_name) => {
+                server.newpostJSON(
+                  "/Login/login", {
+                    code: data.code,
+                    wx_name,
+                    leader
+                  },
+                  function(data) {
+                    if (data.data.status) {
+                      that.globalData.userInfo = {
+                        user_id: data.data.user_id
+                      };
+                      that.globalData.openid = data.data.openid
+                      // 全局app变量
+                      var user = that.globalData.userInfo;
+                      //本地缓存
+                      wx.setStorageSync("user_id", user.user_id)
+                      wx.setStorageSync("sessionId", data.data.sessionId)
+                      wx.setStorageSync("sessionName", data.data.sessionName)
+                      that.globalData.login = true;
+                      request(user.user_id)
+                    }
+                  });
+              })
+            }
           }
-        }
-      })
+        })
+      }else{
+        request(that.globalData.userInfo.user_id)
+      }
     })
   },
   getuser() {

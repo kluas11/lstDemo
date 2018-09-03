@@ -130,3 +130,6 @@
   font-size: 28rpx;
   border-radius: 0;
 }
+button[disabled] {
+color:#ffffff;
+}

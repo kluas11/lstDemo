@@ -36,7 +36,8 @@ Page({
   },
   load() {
     let that = this;
-    App.getlogin().then(() => {
+    // console.log(App.globalData.userInfo)
+    App.getlogin(App.globalData.openid).then(() => {
       App.get_getLocation(this.getstore_id);
       // 获取后台设置全部分类
       server.getJSON("/Index/getIndexNav", function(res) {
@@ -155,21 +156,6 @@ Page({
     }
 
     App.globalData.store_id = storesId;
-    // 获取底部good列表
-    // server.getJSON("/Index/getColumnGoodlist", {
-    //   store_id: storesId
-    // }, function(res) {
-    //   if (res.statusCode == 200) {
-    //     // console.log(res)
-    //     that.setData({
-    //       goods: res.data
-    //     });
-    //   } else {
-    //     that.setData({
-    //       goods: [],
-    //     });
-    //   }
-    // })
     server.getJSON("/Index/getActivityGoodsList", {
       store_id: storesId
     }, function(res) {
@@ -196,6 +182,12 @@ Page({
       });
 
     });
+  },
+  // 点击门店
+  storeTap(){
+    wx.navigateTo({
+      url: '/pages/seller/index',
+    })
   },
   // 点击banner图
   clickBanner: function(e) {

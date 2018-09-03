@@ -1,7 +1,7 @@
 // 转化时间格式
-var timestampToTime = function (timestamp, bool) {
+var timestampToTime = function(timestamp, bool) {
   if (timestamp !== '0') {
-    var date = getDate(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var date = getDate(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
     var Y = date.getFullYear() + '.';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
     var D = fileter(date.getDate()) + ' ';
@@ -17,25 +17,23 @@ var timestampToTime = function (timestamp, bool) {
     return;
   }
 }
-var fileter = function (data) {
+var fileter = function(data) {
   return data < 10 ? "0" + data : data
 }
 // 判断优惠券是否已抢光  或者被选择
-var isoverdue = function (buyout, index, select) {
-  // console.log(index, select)
+var isoverdue = function(buyout, index, select) {
   if (arguments.length == 3) {
-    if (index == select) {
-      return 'disabled';
+    if (select && index == select) {
+      return 'selected';
+    } else if (!select && buyout == '0'){
+      return "disabled";
     } else {
       return "cuopon_list";
     }
   }
-  // else{
-  //   return getDate().getTime() > end * 1000;
-  // }
 }
 // 折扣处理
-var toFloat = function (num) {
+var toFloat = function(num) {
   return num / 10
 }
 module.exports = {

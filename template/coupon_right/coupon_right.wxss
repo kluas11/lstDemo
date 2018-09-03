@@ -35,10 +35,10 @@
   line-height: 43rpx;
   margin-bottom: 20rpx;
 }
-
-.cuopon_list .center, .disabled .center {
-  display: flex;
-  flex-direction: column;
-  font-size: 24rpx;
-  color: #b7b6b6;
+/* 右边图片 */
+.used_img {
+  width: 126rpx;
+  height: 109rpx;
+  transform: rotate(330deg);
 }
+

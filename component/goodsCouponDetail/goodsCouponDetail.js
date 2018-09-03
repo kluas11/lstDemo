@@ -58,6 +58,7 @@ Component({
     }
   },
   ready: function() {
+    console.log(this.properties.Cuoponitem)
     let goods = this.properties.Cuoponitem.goods_list;
     let goods_h;
     let hasmore = false;

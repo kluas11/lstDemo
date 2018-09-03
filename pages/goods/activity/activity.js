@@ -1,6 +1,6 @@
 // pages/goods/activity/activity.js
 var server = require('../../../utils/server');
-var App = getApp();
+var App = getApp()
 Page({
 
   /**
@@ -8,19 +8,22 @@ Page({
    */
   data: {
     goods_oss: App.image_oss + '224_280',
-    activeindex:1
+    activeindex: 1,
+    urls: ["/Index/getActivityGoodsList", '/Index/getBfbeginActivityGoodsList'],
+    wait: false
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.getactivity();
+  onLoad: function(options) {
+    this.getactivity(this.data.urls[0]);
   },
-  getactivity(){
-    let that =this;
-    server.getJSON("/Index/getActivityGoodsList", {
+  getactivity(url) {
+    let that = this;
+    server.getJSON(url, {
+      // store_id: App.globalData.store_id
       store_id: 26
-    }, function (res) {
+    }, function(res) {
       if (res.statusCode == 200) {
         that.setData({
           active_list: res.data
@@ -33,11 +36,14 @@ Page({
     })
   },
   // 切换活动
-  getactivityTap(e){
+  getactivityTap(e) {
     let index = e.target.dataset.index;
-    if (index){
+    let wait = index == '1' ? false : true;
+    if (index) {
+      this.getactivity(this.data.urls[index - 1]);
       this.setData({
-        activeindex:index
+        activeindex: index,
+        wait
       })
     }
   },
@@ -47,7 +53,7 @@ Page({
     server.newpostJSON('/Cart/addCart', {
       goods_id: goodsId,
       goods_num: 1,
-    }, function (res) {
+    }, function(res) {
       // return 1/0 字符类型 是否加入成功; 
       console.log(res)
       if (res.data == "1")
@@ -67,20 +73,20 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   }
 })

@@ -1,14 +1,17 @@
 <!-- 我的优惠券 开始 -->
 <template name="mycoupon">
-  <view class='list_right' bindtap='receivetap' wx:if="{{tabtype == 'getUserCoupon'}}">
-    <button class='cuopon_share' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">赠送</button>
-    <button class='cuopon_btn' data-status='{{status}}' data-id='{{item.id}}'>去使用</button>
+  <!-- 可使用 -->
+  <view class='list_right'  wx:if="{{tabtype == 'getUserCoupon'}}">
+    <button class='cuopon_share'  bindtap='detailtap' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">赠送</button>
+    <button class='cuopon_btn' bindtap='receivetap' data-status='{{status}}' data-id='{{item.id}}'>去使用</button>
   </view>
+  <!-- 已使用 -->
   <view class='list_right' wx:elif="{{tabtype == 'getuserCouponUsed'}}">
     <view class='right_img'>
       <image class='used_img' src='/images/used.png'></image>
     </view>
   </view>
+  <!-- 已过期 -->
   <view class='list_right' wx:elif="{{tabtype == 'getUserCouponExc'}}">
     <view class='right_img'>
       <image class='used_img' src='/images/timeout.png'></image>
@@ -20,8 +23,12 @@
 
 <!-- 优惠中心  开始 -->
 <template name="coupon">
+  <!-- 已抢光 -->
+  <view class='list_right' wx:if="{{item.limit_total =='0'}}">
+    <image class='used_img' src='/images/buyout.png'></image>
+  </view>
   <!-- 线上普通券 -->
-  <view class='list_right' wx:if="{{coupon_attr =='NORMAL'}}">
+  <view class='list_right' wx:elif="{{coupon_attr =='NORMAL'}}">
     <button bindtap='receivetap' class='cuopon_btn' disabled='{{item.disabled}}' data-coupon_id='{{item.coupon_id}}'>领取</button>
   </view>
   <!-- 线上购买券 -->
@@ -31,7 +38,7 @@
       <text>{{item.buy_price}}</text>
     </view>
     <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
-      <text>{{item.buy_paypoints}}积分</text>
+      <text>{{item.buy_paypoint}}积分</text>
     </view>
     <text decode="true" class='list_right_originprice' wx:if="{{item.origin_buy_price}}">&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
     <button class='cuopon_btn' bindtap='detailTap' data-coupon_id='{{item.coupon_id}}' data-olcoupon_id='{{item.olcoupon_id}}'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>

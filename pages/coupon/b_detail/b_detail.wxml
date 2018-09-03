@@ -19,7 +19,7 @@
         <text>￥</text>
       </view>
       <view class='coupon_name'>{{couponInfo.name}}</view>
-      <view>有效期：{{cuopon.timestampToTime(couponInfo.start_time,true)}}-{{cuopon.timestampToTime(couponInfo.end_time,true)}}</view>
+      <view wx:if="{{couponInfo.start_time}}">有效期：{{cuopon.timestampToTime(couponInfo.start_time,true)}}-{{cuopon.timestampToTime(couponInfo.end_time,true)}}</view>
       <view class='head_share' wx:if="{{couponInfo.canshare ==1&&!online}}">
         <text class='share_text'>该券可赠送</text>
       </view>
@@ -37,17 +37,16 @@
     </view>
     <view class='details' style='border:none'>
       <view class='sel_text'>优惠详情</view>
-      <view class='details_text'>{{couponInfo.details}}</view>
+      <view class='details_text' wx:if="{{couponInfo.details}}">{{couponInfo.details}}</view>
     </view>
   </view>
   <view class='foot_btn' wx:if="{{!online}}">
-    <view class='foot_price' wx:if="{{couponInfo.buy_way}}">
+    <view class='foot_price' wx:if="{{couponInfo.buy_way||couponInfo.can_receive}}">
       <text class='buy_price' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.buy_price}}</text>
       <text class='buy_price' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">{{couponInfo.buy_paypoint}}积分</text>
-      <!-- <text class='originprice' decode="true">&nbsp;&nbsp;&nbsp;原价:{{couponInfo.originprice}}&nbsp;&nbsp;&nbsp;</text> -->
     </view>
-    <button class='buybtn' wx:if="{{couponInfo.buy_way=='MONEY'}}">购买</button>
-    <button class='buybtn' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">兑换</button>
-    <button class='buybtn' bindtap='receiveCouponTap' data-coupon_id='{{couponInfo.coupon_id}}' wx:else>领取</button>
+    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.can_receive?'购买':'已购买'}}</button>
+    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">{{couponInfo.can_receive?'兑换':'已兑换'}}</button>
+    <button class='buybtn' bindtap='receiveCouponTap' disabled='{{buyout||!couponInfo.can_receive}}' data-coupon_id='{{couponInfo.coupon_id}}' wx:else>{{buyout||!couponInfo.can_receive?"已领完":"领取"}}</button>
   </view>
 </view>

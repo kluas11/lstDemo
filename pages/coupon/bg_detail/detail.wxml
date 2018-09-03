@@ -58,6 +58,6 @@
         </view>
       </view>
     </view>
-    <coupon-detail Cuoponitem="{{item}}"></coupon-detail>
+    <coupon-detail wx:if="{{item}}" Cuoponitem="{{item}}"></coupon-detail>
   </block>
 </view>

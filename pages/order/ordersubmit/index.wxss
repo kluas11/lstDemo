@@ -1,5 +1,5 @@
 /* pages/order/ordersubmit/index.wxss */
-@import '../../../component/coupon/coupon.wxss';
+@import '../../../template/coupon_right/coupon_right.wxss';
 @import '../../../template/select_pay/select_pay.wxss';
 .addressbox {
   width: 70%;

@@ -72,7 +72,7 @@ Page({
       return;
     }
   },
-  // 使用
+  // 去使用
   receivetap(e) {
     let status = e.target.dataset.status;
     let id = e.target.dataset.id;
@@ -85,6 +85,22 @@ Page({
         url: '/pages/index/index',
       })
     }else{
+      return;
+    }
+  },
+  // 赠送
+  detailtap(e) {
+    let status = e.target.dataset.status;
+    let id = e.target.dataset.id;
+    if (status && status == 'offline') {
+      wx.navigateTo({
+        url: '/pages/coupon/bg_detail/detail?id=' + id,
+      })
+    } else if (status && status == 'online') {
+      wx.navigateTo({
+        url: '/pages/coupon/b_detail/b_detail?id='+id,
+      })
+    } else {
       return;
     }
   },
