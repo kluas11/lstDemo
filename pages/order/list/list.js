@@ -42,65 +42,6 @@ Page({
       total_amount: order['total_amount']
     })
   },
-  paymentBtn: function(e) {
-    var open_id = App.globalData.openid;
-    var order_id = this.data.orders_id
-    var that = this;
-    if (order_id == "" || !order_id || order_id == null) {
-      wx.hideLoading()
-      wx.showToast({
-        title: '订单有误',
-        image: '../../../images/about.png',
-        duration: 2000,
-        showCancel: false,
-        complete: function() {}
-      })
-      return;
-    }
-    if (open_id == "" || !open_id || open_id == null) {
-      wx.hideLoading()
-      wx.showModal({
-        title: "消息提示",
-        content: "获取个人信息有误,请后台关闭小程序再使用",
-        showCancel: false,
-        success: function(res) {}
-      })
-      return;
-    }
-    var payway = e.currentTarget.dataset.way
-    var port = ""
-    var winrecord = {}
-    if (payway == "wxPreparePay") {
-      port = "/Dopay/wxPreparePay"
-      winrecord = {
-        open_id: open_id,
-        order_id: order_id
-      }
-      that.sendpayment(port, winrecord, payway)
-    } else {
-      port = "/Dopay/walletPay"
-      winrecord = {
-        order_id: order_id
-      }
-      var total = that.data.total_amount;
-      wx.showModal({
-        title: "交易提示",
-        content: "此次付款金额为" + total + "元",
-        success: function(res) {
-          if (res.confirm) {
-            that.sendpayment(port, winrecord, payway)
-          } else if (res.cancel) {
-            return;
-          }
-        },
-        fail: function() {
-          wx.hideLoading()
-          return;
-        }
-
-      })
-    }
-  },
   //关闭支付窗口
   hidden_paybox(e) {
     if (e.target.id === 'paybox') {

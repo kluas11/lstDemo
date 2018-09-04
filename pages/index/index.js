@@ -37,7 +37,7 @@ Page({
   load() {
     let that = this;
     // console.log(App.globalData.userInfo)
-    App.getlogin(App.globalData.openid).then(() => {
+    App.getlogin(App.globalData.userInfo).then(() => {
       App.get_getLocation(this.getstore_id);
       // 获取后台设置全部分类
       server.getJSON("/Index/getIndexNav", function(res) {

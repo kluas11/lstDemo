@@ -64,7 +64,6 @@ Page({
         disable: true
       })
       server.newpostJSON('/Recharge/prepare_pay', {
-        openid: app.globalData.openid,
         total_amount: rechargeAmount
       }, function(res) {
         wx.requestPayment({
