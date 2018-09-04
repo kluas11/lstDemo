@@ -356,11 +356,11 @@ Page({
     }
   },
   onShareAppMessage: function() {
-    var user_id = App.globalData.userInfo.user_id
+    // var user_id = App.globalData.userInfo.user_id
     return {
       title: '乐善亭',
       desc: '乐善亭',
-      path: '/pages/index/index?uid=' + user_id
+      path: '/pages/index/index'
     }
   }
 })

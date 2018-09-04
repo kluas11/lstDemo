@@ -173,7 +173,6 @@ Page({
     })
   },
   paymentBtn: function(e) {
-    var open_id = app.globalData.openid;
     var order_id = this.data.orderId
     var that = this;
     if (order_id == "" || !order_id || order_id == null) {
@@ -191,34 +190,13 @@ Page({
         }
       })
     }
-    // console.log(open_id)
-    if (open_id == "" || !open_id || open_id == null) {
-      wx.hideLoading()
-      wx.showModal({
-        title: "消息提示",
-        content: "获取个人信息有误,请后台关闭小程序再使用",
-        showCancel: false,
-        success: function(res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '../../index/index'
-            });
-          } else if (res.cancel) {
-            wx.switchTab({
-              url: '../../index/index'
-            });
-          }
-        }
-      })
-      return false;
-    }
+  
     var payway = e.currentTarget.dataset.way
     var port = ""
     var winrecord = {}
     if (payway == "wxPreparePay") {
       port = "/Dopay/wxPreparePay"
       winrecord = {
-        open_id: open_id,
         order_id: order_id
       }
       that.sendpayment(port, winrecord, payway)
@@ -429,7 +407,7 @@ Page({
     server.getJSON('/Dopay/confirmPayMoney', {
       order_id,
     }, function(res) {
-      console.log(res)
+      // console.log(res)
       if (res.data.status) {
         that.setData({
           total_amount: res.data.total_amount
@@ -502,7 +480,7 @@ Page({
     // console.log(winrecord)
     server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
       var result = res.data
-      console.log(res)
+      // console.log(res)
       if (result.status == false) {
         wx.hideLoading()
         app.globalData.cart_ids = ""

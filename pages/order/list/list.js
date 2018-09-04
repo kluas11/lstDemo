@@ -35,15 +35,13 @@ Page({
   pay: function(e) {
     var index = e.currentTarget.dataset.index;
     var order = this.data.orders[index];
-    console.log(order)
     this.setData({
       orderState: true,
       orders_id: order['order_id'],
       total_amount: order['total_amount']
     })
   },
-  paymentBtn: function (e) {
-    var open_id = App.globalData.openid;
+  paymentBtn: function(e) {
     var order_id = this.data.orders_id
     var that = this;
     if (order_id == "" || !order_id || order_id == null) {
@@ -53,17 +51,7 @@ Page({
         image: '../../../images/about.png',
         duration: 2000,
         showCancel: false,
-        complete: function () { }
-      })
-      return;
-    }
-    if (open_id == "" || !open_id || open_id == null) {
-      wx.hideLoading()
-      wx.showModal({
-        title: "消息提示",
-        content: "获取个人信息有误,请后台关闭小程序再使用",
-        showCancel: false,
-        success: function (res) { }
+        complete: function() {}
       })
       return;
     }
@@ -73,7 +61,6 @@ Page({
     if (payway == "wxPreparePay") {
       port = "/Dopay/wxPreparePay"
       winrecord = {
-        open_id: open_id,
         order_id: order_id
       }
       that.sendpayment(port, winrecord, payway)
@@ -86,14 +73,14 @@ Page({
       wx.showModal({
         title: "交易提示",
         content: "此次付款金额为" + total + "元",
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             that.sendpayment(port, winrecord, payway)
           } else if (res.cancel) {
             return;
           }
         },
-        fail: function () {
+        fail: function() {
           wx.hideLoading()
           return;
         }
@@ -128,7 +115,7 @@ Page({
           'paySign': result.paySign,
           'success': function(res) {
             wx.hideLoading()
-            console.log(res)
+            // console.log(res)
             wx.showToast({
               title: "支付成功",
               icon: "success",
@@ -137,9 +124,11 @@ Page({
                 that.setData({
                   orders_id: "",
                   total_amount: 0,
-                  orderState: false
+                  orderState: false,
+                  active_index:2
                 })
                 cPage = 1;
+                ctype = 2;
                 that.data.orders = [];
                 that.getOrderLists(ctype, cPage);
               }
@@ -166,9 +155,11 @@ Page({
               that.setData({
                 orders_id: "",
                 total_amount: 0,
-                orderState: false
+                orderState: false,
+                active_index:2
               })
               cPage = 1;
+              ctype = 2;
               that.data.orders = [];
               that.getOrderLists(ctype, cPage);
             }
