@@ -172,6 +172,79 @@ Page({
       addressToggle: true
     })
   },
+  paymentBtn: function(e) {
+    var open_id = app.globalData.openid;
+    var order_id = this.data.orderId
+    var that = this;
+    if (order_id == "" || !order_id || order_id == null) {
+      wx.hideLoading()
+      wx.showToast({
+        title: '订单有误',
+        image: '../../../images/about.png',
+        duration: 2000,
+        complete: function() {
+          setTimeout(function() {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          }, 2000);
+        }
+      })
+    }
+    // console.log(open_id)
+    if (open_id == "" || !open_id || open_id == null) {
+      wx.hideLoading()
+      wx.showModal({
+        title: "消息提示",
+        content: "获取个人信息有误,请后台关闭小程序再使用",
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          } else if (res.cancel) {
+            wx.switchTab({
+              url: '../../index/index'
+            });
+          }
+        }
+      })
+      return false;
+    }
+    var payway = e.currentTarget.dataset.way
+    var port = ""
+    var winrecord = {}
+    if (payway == "wxPreparePay") {
+      port = "/Dopay/wxPreparePay"
+      winrecord = {
+        open_id: open_id,
+        order_id: order_id
+      }
+      that.sendpayment(port, winrecord, payway)
+    } else {
+      port = "/Dopay/walletPay"
+      winrecord = {
+        order_id: order_id
+      }
+      var total = that.data.total_amount;
+      wx.showModal({
+        title: "交易提示",
+        content: "此次付款金额为" + total + "元",
+        success: function(res) {
+          if (res.confirm) {
+            that.sendpayment(port, winrecord, payway)
+          } else if (res.cancel) {
+            return;
+          }
+        },
+        fail: function() {
+          wx.hideLoading()
+          return;
+        }
+      })
+    }
+  },
   // 发送支付
   sendpayment: function(port, winrecord, payway) {
     var that = this;
@@ -475,9 +548,9 @@ Page({
         if (cuoponlist.length > 0) {
           var coupon = cuoponlist[0];
           let discount_coupon_money;
-          if (coupon.coupon_type =='BUYOUT'){
+          if (coupon.coupon_type == 'BUYOUT') {
             discount_coupon_money = coupon.buyout_price
-          }else{
+          } else {
             discount_coupon_money = coupon.discount_coupon_money
           }
           that.setData({
