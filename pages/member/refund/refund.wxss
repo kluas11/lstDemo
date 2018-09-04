@@ -1,0 +1,89 @@
+.container {
+  width: 100%;
+  height: 100%;
+  font-size: 25rpx;
+  border-bottom: 14rpx #f2f2f2 solid;
+}
+.container .content-item .numbering {
+  width: 100%;
+  height: 83rpx;
+  line-height: 83rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+.container .content-item .commodity {
+  width: 100%;
+  height: 194rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  background-color: rgba(0, 204, 255, 0.05);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .content-item .commodity .img {
+  width: 139rpx;
+  height: 139rpx;
+}
+.container .content-item .commodity .right {
+  flex: 1;
+  height: 139rpx;
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.container .content-item .commodity .right .num {
+  align-self: flex-end;
+  color: #999999;
+  text-align: right;
+}
+.container .content-item .refund-status {
+  width: 100%;
+  height: 83rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+.container .content-item .refund-status::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1rpx solid #aaa;
+  content: "";
+  transform: scaleY(0.5);
+}
+.container .content-item .refund-status .img {
+  width: 42rpx;
+  height: 42rpx;
+}
+.container .content-item .refund-status .text {
+  margin-left: 30rpx;
+}
+.container .content-item .details {
+  width: 100%;
+  height: 83rpx;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.container .content-item .details .button {
+  width: 139rpx;
+  height: 47rpx;
+  line-height: 47rpx;
+  color: #FF6600;
+  border: 1rpx #FF6600 solid;
+  border-radius: 5rpx;
+  text-align: center;
+}

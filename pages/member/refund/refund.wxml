@@ -1,0 +1,25 @@
+<!--pages/member/refund/refund.wxml-->
+<view class='container'>
+  <view class='content-item'>
+    <view class='numbering'>订单编号：20180602563284</view>
+    <view class='commodity'>
+      <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image>
+      <view class='right'>
+        <text class='name'>999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵</text>
+        <text class='num'>X1</text>
+      </view>
+    </view>
+    <view class='refund-status'>
+      <image class='img' src='/images/refund-icon.png' lazy-load='true'></image>
+      <text class='text'>仅退款</text>
+      <text class='text'>退款成功</text>
+    </view>
+    <view class='details'>
+      <view class='button'>查看详情</view>
+    </view>
+  </view>
+  <!-- <view wx:if="false" class="view-tint">
+    <image class='img' src="/images/icon_empty.png"></image>
+    <text class='text'>亲,没有数据</text>
+  </view> -->
+</view>
