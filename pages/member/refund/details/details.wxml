@@ -1,0 +1,67 @@
+<!--pages/member/refund/details/details.wxml-->
+<view class='container'>
+  <view class='title-wrapper'>
+    <text class='content'>等待商家处理</text>
+    <text class='content'>2018年2月26日 16:48</text>
+  </view>
+  <view class='turn-down-wrapper'>
+    <view class='turn-down'>
+      <text class='title'>驳回原因：</text>
+      <text class='content'>驳回原因驳回原因驳回原因驳回原因驳回原因驳回原因</text>
+    </view>
+  </view>
+  <view class='order-money'>
+    <text class='left'>订单总金额</text>
+    <text class='right'>￥45.00</text>
+  </view>
+  <view class='refund-money'>
+    <text class='left'>应退金额</text>
+    <text class='right'>￥5.00</text>
+  </view>
+  <view class='commodity'>
+    <view class='title'>退款信息</view>
+    <view class='item'>
+      <image class="img" src='/images/unknown-picture.png'></image>
+      <view class='right'>
+        <text class="name">999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵</text>
+        <text class="num">X1</text>
+      </view>
+    </view>
+    <view class='quantity-wrapper'>
+      <view class='quantity'>
+        <text>购买数量</text>
+        <text>5</text>
+      </view>
+      <view class='quantity'>
+        <text>申请退款数量</text>
+        <text>1</text>
+      </view>
+      <view class='quantity'>
+        <text>已退数量</text>
+        <text>0</text>
+      </view>
+    </view>
+    <view class='details-text-wrapper'>
+      <text class='details-text'>订单编号 : PO35465135165413513541654</text>
+      <text class='details-text'>退款原因 : 拍错/多拍/不想要</text>
+      <text class='details-text'>退款金额 : ￥45.00</text>
+      <text class='details-text'>申请时间 : 2018-2-5 16:11</text>
+      <text class='details-text'>退款编号 : 3654189464654</text>
+    </view>
+  </view>
+  <view class='description'>
+    <view class='text-wrapper'>
+      <view class='title'>退款说明：</view>
+      <text class='content'>发货很慢发货很慢发货很慢发货很慢发货很慢发货很慢发货很慢</text>
+    </view>
+    <view class='img-wrapper'>
+      <view class='left'>退款凭证：</view>
+      <view class='right'>
+        <image class='img' src='/images/unknown-picture.png'></image>
+        <image class='img' src='/images/unknown-picture.png'></image>
+        <image class='img' src='/images/unknown-picture.png'></image>
+        <image class='img' src='/images/unknown-picture.png'></image>
+      </view>
+    </view>
+  </view>
+</view>

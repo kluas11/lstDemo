@@ -79,6 +79,13 @@
     </view>
     <text class='iconfont icon-gengduo'></text>
   </view>
+  <view bindtap="navigateToRefund" class="tableviewcell">
+    <view class='cell_list'>
+      <image src="../../../images/sc.png" />
+      <text>退款售后</text>
+    </view>
+    <text class='iconfont icon-gengduo'></text>
+  </view>
   <view bindtap="navigateToAddress" class="tableviewcell">
     <view class='cell_list'>
       <image src="../../../images/dw.png" />

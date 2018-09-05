@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.91",
+	"libVersion": "2.2.5",
 	"appid": "wx01555ce453e1ee21",
 	"projectname": "%E4%B9%90%E5%96%84%E4%BA%AD%E6%AD%A3%E5%BC%8F%E7%89%88%E6%9C%AC",
 	"packOptions": {
@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 37,
+			"current": 40,
 			"list": [
 				{
 					"id": 0,
@@ -283,6 +283,17 @@
 					"name": "线上可购买优惠券详情",
 					"pathName": "pages/coupon/b_detail/b_detail",
 					"query": "coupon_id=4"
+				},
+				{
+					"id": -1,
+					"name": "退款售后",
+					"pathName": "pages/member/refund/refund",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "退款详情",
+					"pathName": "pages/member/refund/details/details"
 				}
 			]
 		}

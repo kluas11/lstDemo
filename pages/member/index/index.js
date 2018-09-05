@@ -1,9 +1,8 @@
-
 // 我的页面
 var app = getApp();
 Page({
   data: {
-    mobile:"123"
+    mobile: "123"
   },
   onLoad: function(options) {
 
@@ -44,6 +43,12 @@ Page({
       url: '/pages/member/collect/collect'
     });
   },
+  // 退款售后
+  navigateToRefund: function() {
+    wx.navigateTo({
+      url: '/pages/member/refund/refund'
+    });
+  },
   // 我的钱包
   navigateToMoney: function() {
     //url: "../order/list/list"
@@ -63,6 +68,5 @@ Page({
       url: '/pages/address/list/list'
     });
   },
-  onShow: function() {
-  },
+  onShow: function() {},
 })
