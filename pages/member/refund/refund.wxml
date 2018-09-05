@@ -15,7 +15,7 @@
       <text class='text'>退款成功</text>
     </view>
     <view class='details'>
-      <view class='button'>查看详情</view>
+      <view class='button' bindtap='openDetails'>查看详情</view>
     </view>
   </view>
   <!-- <view wx:if="false" class="view-tint">

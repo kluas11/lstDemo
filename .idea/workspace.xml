@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07365510-606e-4c95-bd6c-d9b9ed4c39eb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/member/collect/collect.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/member/collect/collect.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/member/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/member/index/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/member/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/member/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/member/refund/refund.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/member/refund/refund.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/member/refund/refund.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/member/refund/refund.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,20 +20,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="refund.wxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pages/member/refund/refund.wxml">
+      <file leaf-file-name="details.wxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.wxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+            <state relative-caret-position="72">
+              <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="refund.less" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/member/refund/refund.less">
+      <file leaf-file-name="details.less" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
-              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+            <state relative-caret-position="395">
+              <caret line="146" column="19" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -51,6 +51,8 @@
     <findStrings>
       <find>numbering</find>
       <find>num</find>
+      <find>order-money</find>
+      <find>quantity-wrapper</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -62,6 +64,8 @@
         <option value="$PROJECT_DIR$/pages/member/refund/refund..less" />
         <option value="$PROJECT_DIR$/pages/member/refund/refund.wxml" />
         <option value="$PROJECT_DIR$/pages/member/refund/refund.less" />
+        <option value="$PROJECT_DIR$/pages/member/refund/details/details.wxml" />
+        <option value="$PROJECT_DIR$/pages/member/refund/details/details.less" />
       </list>
     </option>
   </component>
@@ -71,7 +75,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="950" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -81,7 +85,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -107,10 +110,19 @@
               <item name="member" type="462c0819:PsiDirectoryNode" />
               <item name="refund" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="lst-wxmini-apps" type="b2602c69:ProjectViewProjectNode" />
+              <item name="lst-wxmini-apps" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="member" type="462c0819:PsiDirectoryNode" />
+              <item name="refund" type="462c0819:PsiDirectoryNode" />
+              <item name="details" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -122,7 +134,7 @@
     <property name="node.js.selected.package.prettier" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="D:/Software/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -152,12 +164,14 @@
       <option name="presentableId" value="Default" />
       <updated>1536043005520</updated>
       <workItem from="1536043010159" duration="3852000" />
-      <workItem from="1536046927653" duration="1010000" />
+      <workItem from="1536046927653" duration="2960000" />
+      <workItem from="1536050013342" duration="4396000" />
+      <workItem from="1536110566603" duration="1448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4862000" />
+    <option name="totallyTimeSpent" value="12656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -189,6 +203,27 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2128">
+          <caret line="112" column="8" lean-forward="true" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="7" lean-forward="true" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pages/member/refund/refund.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -213,14 +248,28 @@
     <entry file="file://$PROJECT_DIR$/pages/member/refund/refund.wxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
-          <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pages/member/refund/refund.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        <state relative-caret-position="414">
+          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.wxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/member/refund/details/details.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="146" column="19" selection-start-line="146" selection-start-column="19" selection-end-line="146" selection-end-column="19" />
         </state>
       </provider>
     </entry>
