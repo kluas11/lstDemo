@@ -1,0 +1,12 @@
+<!--component/mymodal.wxml-->
+<view class='modalbox' wx:if="{{modalshow}}">
+  <view class='model_layout'>
+    <image class='model_img' src='/images/pay_succ.png'></image>
+    <view class='model_text_view'>
+      <view class='model_complete'>购买成功！请到我的优惠券查看详情！</view>
+    </view>
+    <view class='model_foot_btn' bindtap='btnTap'>
+      <button class='model_money'>我知道了</button>
+    </view>
+  </view>
+</view>

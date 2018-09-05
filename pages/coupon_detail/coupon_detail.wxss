@@ -1,10 +1,14 @@
 /* pages/coupon_detail/coupon_detail.wxss */
-
+@import '../../template/select_pay/select_pay.wxss';
 page {
   background: #f2f2f2;
   height: 100%;
   box-sizing: border-box; 
 }
+.addressmark{
+  top: 0;
+  left: 0;
+} 
 .layout{
   padding-bottom:100rpx;
 }

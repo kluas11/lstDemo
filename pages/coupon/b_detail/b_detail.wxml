@@ -41,12 +41,16 @@
     </view>
   </view>
   <view class='foot_btn' wx:if="{{!online}}">
-    <view class='foot_price' wx:if="{{couponInfo.buy_way||couponInfo.can_receive}}">
+    <view class='foot_price' wx:if="{{couponInfo.buy_way&&couponInfo.can_receive}}">
       <text class='buy_price' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.buy_price}}</text>
       <text class='buy_price' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">{{couponInfo.buy_paypoint}}积分</text>
     </view>
-    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.can_receive?'购买':'已购买'}}</button>
-    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}">{{couponInfo.can_receive?'兑换':'已兑换'}}</button>
-    <button class='buybtn' bindtap='receiveCouponTap' disabled='{{buyout||!couponInfo.can_receive}}' data-coupon_id='{{couponInfo.coupon_id}}' wx:else>{{buyout||!couponInfo.can_receive?"已领完":"领取"}}</button>
+    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' bindtap='buycouponTap' wx:if="{{couponInfo.buy_way=='MONEY'}}">{{couponInfo.can_receive?'购买':'已购买'}}</button>
+    <button class='buybtn' disabled='{{!couponInfo.can_receive}}' wx:elif="{{couponInfo.buy_way=='PAYPOINT'}}" bindtap='buycouponTap'>{{couponInfo.can_receive?'兑换':'已兑换'}}</button>
+    <button class='buybtn' bindtap='receiveCouponTap' disabled='{{buyout||!couponInfo.can_receive}}' data-coupon_id='{{couponInfo.coupon_id}}' wx:else>{{buyout||!couponInfo.can_receive?"已领取":"领取"}}</button>
   </view>
 </view>
+<!--支付方式选择  -->
+<include src="../../../template/select_pay/select_pay.wxml" />
+<!-- modal 模态框 -->
+<mymodal modalshow="{{modalshow}}" bindhindeEvent="hindetap"></mymodal>

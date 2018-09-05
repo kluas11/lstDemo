@@ -1,5 +1,4 @@
 <wxs module='WXSPayment' src='./payment.wxs' />
-
 <view class='mat'>
   <view class='storeInfo'>
     <image class='storeIcon' mode='widthFix' src='{{storeInfo.logo}}'></image>

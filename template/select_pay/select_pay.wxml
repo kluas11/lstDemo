@@ -5,6 +5,9 @@
       <view class='payment_price' wx:if="{{total_amount||total_amount==0}}">
         <text>需要支付金额为{{total_amount}}元</text>
       </view>
+      <view class='payment_price' wx:elif="{{couponInfo.buy_way=='MONEY'}}">
+        <text>需要支付金额为{{couponInfo.buy_price}}元</text>
+      </view>
       <view>
         <button class='payByBalance' bindtap="paymentBtn" data-way="wxPreparePay">微信支付</button>
         <button class='payByWXPay button-hover' bindtap="paymentBtn" data-way="walletPay">余额支付</button>

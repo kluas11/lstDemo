@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "优惠详情",
   "usingComponents": {
-    "coupon-detail": "/component/goodsCouponDetail/goodsCouponDetail"
+    "coupon-detail": "/component/goodsCouponDetail/goodsCouponDetail",
+    "mymodal": "/component/mymodal/mymodal"
   }
 }

@@ -6,7 +6,8 @@ Component({
    */
   properties: {
     Cuoponitem:Object,
-    Cuoponindex:Number
+    Cuoponindex:Number,
+    Cuopon: Boolean
   },
 
   /**
@@ -23,7 +24,7 @@ Component({
     detailTap(e){
       // 已购买的优惠券才有id  
       let id = e.currentTarget.dataset.id;
-      if(id){
+      if (id && !this.properties.Cuopon){
         wx.navigateTo({
           url: '/pages/coupon/bg_detail/detail?id='+id,
         })

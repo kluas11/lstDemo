@@ -6,7 +6,8 @@ Component({
   properties: {
     Cuoponitem: Object,
     Cuoponindex: Number,
-    select_index: null
+    select_index: null,
+    Cuopon:Boolean
   },
 
   /**
@@ -22,7 +23,7 @@ Component({
   methods: {
     detailTap(e) {
       let id = e.currentTarget.dataset.id; 
-      if (id) {
+      if (id && !this.properties.Cuopon) {
         wx.navigateTo({
           url: '/pages/coupon/b_detail/b_detail?id=' + id,
         })

@@ -12,14 +12,14 @@
   <scroll-view scroll-y="true" class='cuopon_lists' wx:else>
     <!-- 核销券 商品券 线下券 -->
     <block wx:for="{{goodsCuoponlist}}" wx:key="{{index}}">
-      <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+      <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" Cuopon="{{true}}">
         <!-- 右边的模板 -->
         <template is="coupon" data="{{coupon_attr:'BUY',item:item}}" />
       </goods-coupon>
     </block>
     <!-- 线上券 普通券-->
     <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
-      <coupon Cuoponitem="{{item}}" tyep="buy">
+      <coupon Cuoponitem="{{item}}" tyep="buy" Cuopon="{{true}}">
         <!-- 右边的模板 -->
         <template is="coupon" data="{{coupon_attr:item.coupon_attr,item:item}}" />
       </coupon>

@@ -23,7 +23,11 @@
   </view>
   <coupon-detail wx:if="{{couponInfo}}" Cuoponitem="{{couponInfo}}" type="goods"></coupon-detail>
   <view class='foot_btn'>
-    <button wx:if="{{couponInfo.buy_way=='MONEY'}}" disabled='{{!couponInfo.can_receive}}'>{{couponInfo.can_receive?"购买":"已购买"}}</button>
-    <button wx:if="{{couponInfo.buy_way=='PAYPOINT'}}" disabled='{{!couponInfo.can_receive}}'>{{couponInfo.can_receive?"兑换":"已兑换"}}</button>
+    <button wx:if="{{couponInfo.buy_way=='MONEY'}}" bindtap='buycouponTap' disabled='{{!couponInfo.can_receive}}'>{{couponInfo.can_receive?"购买":"已购买"}}</button>
+    <button wx:if="{{couponInfo.buy_way=='PAYPOINT'}}" bindtap='buycouponTap'  disabled='{{!couponInfo.can_receive}}'>{{couponInfo.can_receive?"兑换":"已兑换"}}</button>
   </view>
 </view>
+  <!--支付方式选择  -->
+<include src="../../template/select_pay/select_pay.wxml" />
+<!-- modal 模态框 -->
+<mymodal modalshow="{{modalshow}}" bindhindeEvent="hindetap"></mymodal>

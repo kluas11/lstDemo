@@ -1,5 +1,9 @@
 /* pages/coupon/b_detail/b_detail.wxss */
-
+@import '../../../template/select_pay/select_pay.wxss';
+.addressmark{
+  top: 0;
+  left: 0;
+} 
 .layout {
   background: #fff;
   padding: 35rpx 16rpx;

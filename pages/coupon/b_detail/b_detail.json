@@ -1,1 +1,6 @@
-{}
+{
+  "navigationBarTitleText": "优惠详情",
+  "usingComponents": {
+    "mymodal": "/component/mymodal/mymodal"
+  }
+}

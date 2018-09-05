@@ -23,7 +23,7 @@
       </view>
       <view class='buy_info' wx:elif="{{item.buy_way=='PAYPOINT'}}">
         <text>实付积分</text>
-        <text class='buy_price'>{{item.buy_paypoints}}积分</text>
+        <text class='buy_price'>{{item.buy_paypoint}}积分</text>
       </view>
     </view>
     <!-- 优惠券 内容 -->

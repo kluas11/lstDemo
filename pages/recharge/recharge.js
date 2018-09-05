@@ -76,17 +76,9 @@ Page({
             that.setData({
               disable: false
             })
-            wx.showToast({
-              title: '充值成功',
-              icon: 'success',
-              duration: 2000,
-              complete: function() {
-                setTimeout(function() {
-                  wx.navigateBack()
-                }, 1500)
-              }
-            })
-
+           wx.navigateTo({
+             url: '/pages/payment/complete/complete',
+           })
           },
           'fail': function(res) {
             that.setData({

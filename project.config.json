@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 31,
+			"current": 37,
 			"list": [
 				{
 					"id": 0,
@@ -262,7 +262,8 @@
 					"id": 35,
 					"name": "购买的商品优惠券详情",
 					"pathName": "pages/coupon/bg_detail/detail",
-					"query": "id=2"
+					"query": "id=1",
+					"scene": "1011"
 				},
 				{
 					"id": 36,
@@ -274,7 +275,8 @@
 					"id": 37,
 					"name": "优惠中心商品券详情",
 					"pathName": "pages/coupon_detail/coupon_detail",
-					"query": "olcoupon_id=1"
+					"query": "olcoupon_id=1",
+					"scene": "1011"
 				},
 				{
 					"id": 38,
