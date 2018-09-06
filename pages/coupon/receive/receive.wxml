@@ -1,0 +1,26 @@
+<!--pages/coupon/receive/receive.wxml-->
+<!-- 引用右边的模板 -->
+<import src="/template/coupon_right/coupon_right.wxml" />
+<view class='layout'>
+  <view class='title'>
+    <text>您的好友XXX送您一张优惠券，赶快领取！</text>
+  </view>
+  <view>
+    <!--商品优惠券  -->
+    <goods-coupon Cuoponitem="{{coupon}}">
+      <!-- 右边的模板 -->
+      <template is="coupon" data="{{coupon_attr:'BUY',item:coupon,receive:true}}" />
+    </goods-coupon>
+  </view>
+  <!--  -->
+  <view>
+    <button class='receivebtn'>免费领取</button>
+  </view>
+  <!--  -->
+  <view class='record_title'>
+    <text>领取记录</text>
+  </view>
+  <!--  -->
+  <view class='norecord' wx:if="{{!isreceive}}">暂无领取记录</view>
+  <view class='record' wx:else>2018.8.8 XXX领取了该优惠券</view>
+</view>

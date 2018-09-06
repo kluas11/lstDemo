@@ -3,6 +3,10 @@ var App = getApp();
 Component({
   /**
    * 组件的属性列表
+   * Cuoponitem 优惠券详情 
+   * Cuoponindex 该优惠券在优惠券列表的排序
+   * Cuopon  是否为优惠券中心页面 传值为是  不传为否
+   * 
    */
   properties: {
     Cuoponitem:Object,

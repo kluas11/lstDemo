@@ -1,5 +1,6 @@
 // pages/coupon/coupon.js
 var server = require('../../utils/server');
+var App =getApp();
 Page({
 
   /**
