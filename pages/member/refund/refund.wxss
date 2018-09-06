@@ -2,6 +2,8 @@
   width: 100%;
   height: 100%;
   font-size: 25rpx;
+}
+.container .content-item {
   border-bottom: 14rpx #f2f2f2 solid;
 }
 .container .content-item .numbering {
@@ -86,4 +88,23 @@
   border: 1rpx #FF6600 solid;
   border-radius: 5rpx;
   text-align: center;
+}
+.container .view-tint {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70rpx;
+}
+.container .view-tint .img {
+  width: 412rpx;
+  height: 312rpx;
+  margin-left: 100rpx;
+}
+.container .view-tint .text {
+  color: #888888;
+  font-size: 33rpx;
+  margin-top: 30rpx;
 }

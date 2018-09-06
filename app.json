@@ -27,6 +27,9 @@
     "pages/member/share/member/list",
     "pages/order/list/list",
     "pages/order/details/index",
+    "pages/order/details/request_refund/request_refund",
+    "pages/order/details/request_refund/only_refund/only_refund",
+    "pages/order/details/request_refund/returns_refunds/returns_refunds",
     "pages/order/ordersubmit/index",
     "pages/payment/payment",
     "pages/payment/complete/complete",
@@ -36,10 +39,7 @@
     "pages/seller/index",
     "pages/web-view/web-view",
     "pages/member/refund/refund",
-    "pages/member/refund/details/details",
-    "pages/member/refund/request_refund/request_refund",
-    "pages/member/refund/request_refund/only_refund/only_refund",
-    "pages/member/refund/request_refund/returns_refunds/returns_refunds"
+    "pages/member/refund/details/details"
   ],
   "window": {
     "navigationBarBackgroundColor": "#d94612",

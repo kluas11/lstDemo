@@ -1,19 +1,51 @@
 /* pages/coupon/b_detail/b_detail.wxss */
-@import '../../../template/select_pay/select_pay.wxss';
-.addressmark{
+.orderpaybox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  background: #fff;
+}
+.payByBalance {
+  background: #38a4f0;
+}
+.payment {
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx 20rpx;
+}
+.payment_price {
+  font-size: 30rpx;
+  text-align: center;
+}
+.payment button {
+  color: #fff;
+  margin-top: 20rpx;
+}
+.payByWXPay {
+  background-color: #1aad19;
+}
+.addressmark {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+.addressmark {
   top: 0;
   left: 0;
-} 
+}
 .layout {
   background: #fff;
   padding: 35rpx 16rpx;
 }
-
 .content {
   background: #f2f2f2;
   padding: 0rpx 26rpx;
 }
-
 .head {
   height: 280rpx;
   border-bottom: 1rpx solid #dcdcdc;
@@ -21,23 +53,19 @@
   font-size: 18rpx;
   color: #999;
 }
-
 .cuopon_price {
   padding-top: 60rpx;
   font-size: 28rpx;
   color: #666;
   margin-bottom: 20rpx;
 }
-
 .num {
   font-size: 72rpx;
   margin-right: 10rpx;
 }
-
 .coupon_name {
   margin-bottom: 20rpx;
 }
-
 .share_text {
   padding: 0 10rpx;
   height: 26rpx;
@@ -48,7 +76,6 @@
   color: #c30;
   font-size: 16rpx;
 }
-
 .canshare {
   display: flex;
   height: 55rpx;
@@ -56,7 +83,6 @@
   align-items: center;
   border-bottom: 1px solid #dcdcdc;
 }
-
 .sel_text {
   height: 30rpx;
   line-height: 30rpx;
@@ -65,7 +91,6 @@
   font-size: 18rpx;
   color: #999;
 }
-
 .used {
   height: 30rpx;
   line-height: 30rpx;
@@ -74,7 +99,6 @@
   font-size: 18rpx;
   color: #f30;
 }
-
 .share_btn {
   width: 60rpx;
   height: 26rpx;
@@ -85,19 +109,16 @@
   color: #c30;
   font-size: 16rpx;
 }
-
 .details {
   display: flex;
   padding-top: 15rpx;
   flex-direction: column;
 }
-
 .details_text {
   font-size: 18rpx;
   color: #999;
   padding: 30rpx 0;
 }
-
 .foot_btn {
   position: fixed;
   height: 80rpx;
@@ -106,7 +127,6 @@
   right: 0;
   display: flex;
 }
-
 .foot_price {
   flex: 1;
   height: 100%;
@@ -114,19 +134,16 @@
   line-height: 80rpx;
   text-align: center;
 }
-
 .buy_price {
   font-size: 36rpx;
   color: #fa6958;
 }
-
 .originprice {
   font-size: 16rpx;
   color: #999;
   text-decoration: line-through;
   margin-left: 10rpx;
 }
-
 .buybtn {
   flex: 1;
   background: #fa6958;
@@ -135,5 +152,5 @@
   border-radius: 0;
 }
 button[disabled] {
-color:#ffffff;
+  color: #ffffff;
 }

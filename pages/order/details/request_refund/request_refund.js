@@ -5,25 +5,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    obj: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.setData({
+      obj: JSON.parse(options.obj)
+    })
+    console.log(this.data.obj)
   },
 
   onlyRefund: function() {
     wx.navigateTo({
-      url: './only_refund/only_refund',
+      url: './only_refund/only_refund?obj=' + JSON.stringify(this.data.obj),
     })
   },
 
   returnsRefunds: function() {
     wx.navigateTo({
-      url: './returns_refunds/returns_refunds',
+      url: './returns_refunds/returns_refunds?obj=' + JSON.stringify(this.data.obj),
     })
   },
 

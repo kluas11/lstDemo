@@ -1,8 +1,9 @@
 <!--pages/member/refund/request_refund/request_refund.wxml-->
 <view class='container'>
   <view class='commodity'>
-    <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image>
-    <view class="text">999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵</view>
+    <!-- <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image> -->
+    <image class='img' src='{{obj.original_img}}' lazy-load='true'></image>
+    <view class="text">{{obj.goods_name}}</view>
   </view>
   <view class='only-refund' bindtap='onlyRefund'>
     <image class='img' src='/images/refund-icon.png' lazy-load='true'></image>
