@@ -1,11 +1,38 @@
-// pages/member/refund/refund.js
+// pages/member/refund/request_refund/only_refund/only_refund.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    backgroundColor: ''
+    statusStyle: 'display:none',
+    reasonStyle: 'display:none'
+  },
+
+  //货物状态
+  statusClick: function() {
+    this.changeData('statusStyle', 'display:none', 'display:block')
+  },
+  //退款原因
+  reasonClick: function() {
+    this.changeData('reasonStyle', 'display:none', 'display:block')
+  },
+  //关闭货物状态选项
+  selectTopWrapper: function() {
+    this.changeData('statusStyle', 'display:block', 'display:none')
+  },
+  //关闭退款原因选项
+  reasonTopWrapper: function() {
+    this.changeData('reasonStyle', 'display:block', 'display:none')
+  },
+
+  //改变data
+  changeData: function(dataName, data, change) {
+    if (this.data[dataName] === data) {
+      this.setData({
+        [dataName]: change
+      })
+    }
   },
 
   /**
@@ -13,25 +40,6 @@ Page({
    */
   onLoad: function(options) {
 
-  },
-
-  //查看详情
-  touchStart: function() {
-    this.setData({
-      backgroundColor: 'background-color: moccasin'
-    })
-  },
-  //查看详情
-  toucHend: function() {
-    this.setData({
-      backgroundColor: ''
-    })
-    wx.navigateTo({
-      url: './details/details',
-    })
-    // wx.navigateTo({
-    //   url: './request_refund/request_refund',
-    // })
   },
 
   /**

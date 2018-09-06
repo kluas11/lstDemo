@@ -35,7 +35,10 @@
     "pages/seller/index",
     "pages/web-view/web-view",
     "pages/member/refund/refund",
-    "pages/member/refund/details/details"
+    "pages/member/refund/details/details",
+    "pages/member/refund/request_refund/request_refund",
+    "pages/member/refund/request_refund/only_refund/only_refund",
+    "pages/member/refund/request_refund/returns_refunds/returns_refunds"
   ],
   "window": {
     "navigationBarBackgroundColor": "#d94612",

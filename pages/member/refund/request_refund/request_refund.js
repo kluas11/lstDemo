@@ -1,11 +1,11 @@
-// pages/member/refund/refund.js
+// pages/member/refund/request_refund/request_refund.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    backgroundColor: ''
+
   },
 
   /**
@@ -15,23 +15,16 @@ Page({
 
   },
 
-  //查看详情
-  touchStart: function() {
-    this.setData({
-      backgroundColor: 'background-color: moccasin'
+  onlyRefund: function() {
+    wx.navigateTo({
+      url: './only_refund/only_refund',
     })
   },
-  //查看详情
-  toucHend: function() {
-    this.setData({
-      backgroundColor: ''
-    })
+
+  returnsRefunds: function() {
     wx.navigateTo({
-      url: './details/details',
+      url: './returns_refunds/returns_refunds',
     })
-    // wx.navigateTo({
-    //   url: './request_refund/request_refund',
-    // })
   },
 
   /**

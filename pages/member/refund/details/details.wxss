@@ -180,5 +180,5 @@
 .container .description .img-wrapper .right .img {
   width: 170rpx;
   height: 170rpx;
-  margin: 0 0 20rpx 20rpx;
+  margin: 0 20rpx 20rpx 0;
 }

@@ -1,0 +1,65 @@
+<!--pages/member/refund/request_refund/returns_refunds/returns_refunds.wxml-->
+<view class='container'>
+  <view class='commodity'>
+    <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image>
+    <view class='content'>
+      <text class='name'>999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵999感冒灵</text>
+      <view class="num-wrapper">
+        <image class='subtract' src='/images/subtract_fill.png' lazy-load='true'></image>
+        <input class="input" type='num' value='1'></input>
+        <image class='add' src='/images/add_fill.png' lazy-load='true'></image>
+      </view>
+    </view>
+  </view>
+  <view class='select-wrapper'>
+    <view class='reason' bindtap='reasonClick'>
+      <text class='text'>退款原因</text>
+      <image class='right-arrow' src='/images/right-arrow.png' lazy-load='true'></image>
+    </view>
+  </view>
+  <view class='refund-wrapper'>
+    <view class='money'>
+      <text class='text'>退款金额</text>
+      <text class='num'>999.00</text>
+    </view>
+    <view class='description'>
+      <text class='text'>退款说明</text>
+      <input class="input" type='text' placeholder='选填'></input>
+    </view>
+  </view>
+  <view class='certificate-wrapper'>
+    <view class='title'>上传凭证</view>
+    <view class='certificate'>
+      xxxxxxxxxxxxxxxxx
+    </view>
+  </view>
+  <view class='submit'>提交</view>
+  <view class='reason-top-wrapper' style='{{reasonStyle}}'>
+    <view class='flex'>
+      <view class='blank' bindtap='reasonTopWrapper'></view>
+      <view class='select'>
+        <view class='status'>
+          <image class='left-arrow' src='/images/left-arrow.png' lazy-load='true' bindtap='reasonTopWrapper'></image>
+          <text class='text'>退款原因</text>
+          <view class='right'></view>
+        </view>
+        <view class='select-item'>
+          <text class='text'>多拍/拍错/不想要</text>
+          <image class='hook' src='/images/hook-active.png' lazy-load='true'></image>
+        </view>
+        <view class='select-item'>
+          <text class='text'>卖家发错货</text>
+          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+        </view>
+        <view class='select-item'>
+          <text class='text'>生产日期/保质期描叙不符</text>
+          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+        </view>
+        <view class='select-item'>
+          <text class='text'>其他</text>
+          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

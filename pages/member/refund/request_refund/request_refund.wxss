@@ -1,0 +1,105 @@
+.container {
+  width: 100%;
+  font-size: 25rpx;
+}
+.container .commodity {
+  width: 100%;
+  height: 204rpx;
+  background-color: rgba(0, 204, 255, 0.05);
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  border-bottom: 14rpx #f2f2f2 solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .commodity .img {
+  width: 139rpx;
+  height: 139rpx;
+}
+.container .commodity .text {
+  flex: 1;
+  height: 139rpx;
+  margin-left: 30rpx;
+}
+.container .only-refund {
+  width: 100%;
+  height: 83rpx;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .only-refund::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1rpx solid #f2f2f2;
+  content: "";
+  transform: scaleY(0.5);
+}
+.container .only-refund .img {
+  width: 56rpx;
+  height: 56rpx;
+}
+.container .only-refund .text-wrapper {
+  flex: 1;
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.container .only-refund .text-wrapper .content {
+  color: #999999;
+}
+.container .only-refund .right-arrow {
+  width: 18rpx;
+  height: 31rpx;
+}
+.container .returns-refunds {
+  width: 100%;
+  height: 83rpx;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .returns-refunds::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1rpx solid #f2f2f2;
+  content: "";
+  transform: scaleY(0.5);
+}
+.container .returns-refunds .img {
+  width: 56rpx;
+  height: 56rpx;
+}
+.container .returns-refunds .text-wrapper {
+  flex: 1;
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.container .returns-refunds .text-wrapper .content {
+  color: #999999;
+}
+.container .returns-refunds .right-arrow {
+  width: 18rpx;
+  height: 31rpx;
+}
