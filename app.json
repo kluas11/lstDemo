@@ -10,6 +10,7 @@
     "pages/coupon_detail/coupon_detail",
     "pages/coupon/bg_detail/detail",
     "pages/coupon/b_detail/b_detail",
+    "pages/coupon/receive/receive",
     "pages/goods/list/list",
     "pages/goods/detail/detail",
     "pages/goods/activity/activity",

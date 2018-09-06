@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+      "goods-coupon": "/component/goodsCoupon/goodsCoupon",
+      "coupon": "/component/coupon/coupon"
+    }
+}

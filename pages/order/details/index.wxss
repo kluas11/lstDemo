@@ -21,28 +21,28 @@ page {
 }
 
 .order_top {
-  height: 68rpx;
-  background: #fff;
-  font-size: 30rpx;
+  height: 100rpx;
+  background: #d94612;
+  font-size: 26rpx;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   padding: 0 20rpx;
-  margin-bottom: 10rpx;
+  color: #fff;
 }
 
 .order_top .num {
-  color: #969696;
+  color: #fff;
+  margin-top: 10rpx;
 }
 
 .order_msg {
-  margin-bottom: 20rpx;
+  margin-top: 20rpx;
 }
 
 .order_time {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #eee;
   padding: 20rpx 10rpx;
   font-size: 28rpx;
   color: #444;
@@ -60,7 +60,7 @@ page {
   width: 100%;
   padding: 20rpx 0;
   background: #3aa0b7;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 20rpx;
 }
 
 .view-addressleft {
@@ -69,7 +69,6 @@ page {
   padding: 20rpx 0 0 3;
   justify-content: flex-start;
   align-items: center;
-  width: 450rpx;
   margin-left: 30rpx;
 }
 
@@ -117,6 +116,15 @@ page {
 .view-addressright image {
   width: 50rpx;
   height: 50rpx;
+}
+
+.carts_title {
+  font-size: 24rpx;
+  color: #999;
+  height: 50rpx;
+  line-height: 50rpx;
+  border-bottom: 1rpx solid #ccc;
+  padding-left: 20rpx;
 }
 
 .shipping_btn {
@@ -188,7 +196,6 @@ page {
 
 .carts-item {
   display: flex;
-  height: 150rpx;
   border-bottom: 1px solid #eee;
   padding: 30rpx 40rpx;
 }
@@ -222,6 +229,17 @@ page {
   align-items: center;
 }
 
+.goods_btn {
+  padding:2rpx 10rpx;
+  line-height: normal;
+  margin: 0;
+  font-size: 20rpx;
+  color: #cccccc;
+  background: #ffffff;
+  border-radius: 4rpx;
+  border: 1rpx  solid #cccccc;
+}
+
 /*右上部分标题*/
 
 .carts-title {
@@ -252,7 +270,14 @@ page {
 }
 
 /*价格*/
-
+.price_title{
+  font-size: 22rpx;
+  color: #cccccc;
+  border-bottom:1rpx solid #cccccc;
+  padding: 24rpx; 
+  display: flex;
+  justify-content: space-between;
+}
 .carts-price {
   color: #f60;
   font-size: 14px;
@@ -390,6 +415,9 @@ page {
 
 .view-price {
   background: #fff;
+  margin-top: 20rpx;
+  font-size: 20rpx;
+  color: #cccccc;
 }
 
 .view-price1 {
@@ -398,20 +426,27 @@ page {
   display: flex;
   flex: 1;
   flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+  padding: 0 20rpx;
 }
-.c_price{
+.goods_foot{
+  margin: 0 20rpx;
+  border-top: 1rpx solid #cccccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 10rpx 0 20rpx;
+}
+.c_price {
   font-size: 26rpx;
   margin-left: 20rpx;
 }
+
 .cuopon_info {
-  padding:0 20rpx;
+  padding: 0 20rpx;
   height: 68rpx;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
   justify-content: space-between;
 }
 

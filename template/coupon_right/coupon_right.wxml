@@ -1,3 +1,8 @@
+<!--
+    **** tabtype 我的优惠券状态：  getUserCoupon  可以使用 getuserCouponUsed 已使用 getUserCouponExc 已过期
+    **** status  线上 线下优惠券：  offline 线下优惠券  online 线上优惠券 
+    **** item 优惠券详情
+ -->
 <!-- 我的优惠券 开始 -->
 <template name="mycoupon">
   <!-- 可使用 -->
@@ -22,6 +27,11 @@
 
 
 <!-- 优惠中心  开始 -->
+<!--
+  **** item 单个优惠券详情
+  **** coupon_attr 优惠券属性： NORMAL 正常的线上券  BUY 可以购买的线上 线下券
+  **** receive 是否为分享领取的优惠券页面 true 是传true ，其他页面可以不传  
+ -->
 <template name="coupon">
   <!-- 已抢光 -->
   <view class='list_right' wx:if="{{item.limit_total =='0'}}">
@@ -41,11 +51,15 @@
       <text>{{item.buy_paypoint}}积分</text>
     </view>
     <text decode="true" class='list_right_originprice' wx:if="{{item.origin_buy_price}}">&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
-    <button class='cuopon_btn' bindtap='detailTap' data-coupon_id='{{item.coupon_id}}' data-olcoupon_id='{{item.olcoupon_id}}'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
+    <button class='cuopon_btn' bindtap='detailTap' wx:if="{{!receive}}" data-coupon_id='{{item.coupon_id}}' data-olcoupon_id='{{item.olcoupon_id}}'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>
   </view>
 </template>
 <!-- 优惠中心  结束 -->
 
+
+<!--
+  *** select_index  选择的使用的优惠券
+ -->
 <!-- 确定订单  开始 -->
 <template name="orderCoupon">
   <view class='list_right {{index==select_index?"disabled2":""}}'>

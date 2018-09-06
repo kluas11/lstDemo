@@ -4,30 +4,20 @@
 <view class="parent" wx:if="{{result}}">
   <!-- 订单状态 -->
   <view class='order_top'>
+    <view class='order_status'>{{result.status_msg}}</view>
     <view class='order_num'>订单号:
       <text class='num'>{{result.order_sn}}</text>
     </view>
-    <view class='order_status improt_color'>{{result.status_msg}}</view>
   </view>
-  <view class='order_msg'>
-    <!-- 订单时间 -->
-    <view class="order_time" style="background:#ffffff;">
-      <text class="time">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
-      <text class="time" wx:if="{{result.pay_time!=='0'}}">支付时间 : {{time.timestampToTime(result.pay_time)}}</text>
-      <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间 : {{time.timestampToTime(result.shipping_time)}}</text>
-      <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间 : {{time.timestampToTime(result.confirm_time)}}</text>
-    </view>
-    <!-- 收货地址 -->
+  <!-- 收货地址 -->
+  <view>
     <view class="view-address" style="background:#ffffff" wx:if="{{result.province}}">
       <view class="view-addressleft">
         <text class='iconfont icon-dizhi2'></text>
         <view class="view-addressleft-info">
-          <text class="text-name">收货人:{{result.consignee}}</text>
-          <text class="text-address">收货地址:{{result.province+result.city+result.district+result.address}}</text>
+          <text class="text-name">{{result.consignee}} {{result.mobile}}</text>
+          <text class="text-address">{{result.province+result.city+result.district+result.address}}</text>
         </view>
-      </view>
-      <view class="view-addressright">
-        <text class="text-mobile">{{result.mobile}}</text>
       </view>
     </view>
     <view wx:else class="view-address" style="background:#ffffff">
@@ -38,7 +28,79 @@
         </view>
       </view>
     </view>
-    <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
+  </view>
+
+  <view class="carts-list">
+    <view class='carts_title'>商品清单</view>
+    <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
+      <!-- -->
+      <view style='display: flex;'>
+        <view>
+          <!-- 缩略图 -->
+          <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" />
+        </view>
+        <view>
+          <!-- 商品标题 -->
+          <text class="carts-title">{{item.goods_name}}</text>
+        </view>
+      </view>
+      <view class="carts-text">
+        <!-- <text class="carts-key-name">{{item.spec_key_name}}</text> -->
+        <view class="carts-subtitle">
+          <text class="text-red improt_color">￥{{item.price}}</text>
+          <text class="text-red improt_color">￥{{item.price}}</text>
+          <text class="text-price"> x{{item.goods_num}}</text>
+          <button class='goods_btn'>退款</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="view-price">
+    <view class='price_title'>
+      <text>支付方式</text>
+      <text>微信付款</text>
+    </view>
+    <view class="view-price1">
+      <text>商品总额:</text>
+      <text class="text-red ">￥{{result.goods_price}}元</text>
+    </view>
+    <view class="view-price1">
+      <text>邮费:</text>
+      <text class="text-red">￥{{result.shipping_price}}元</text>
+    </view>
+    <view class="cuopon_info" wx:if="{{CouponAmount}}">
+      <view>
+        <text>优惠券抵扣:{{couponInfo.name}}</text>
+        <!-- 满打折 -->
+        <text wx:if="{{couponInfo.coupon_type == 'PERCENT'}}">{{cuopon.toFloat(couponInfo.subtrac_percent)}}折</text>
+        <!-- 满减 -->
+        <text wx:if="{{couponInfo.coupon_type == 'SUBTRAC'}}">{{cuopon.parseFloat(couponInfo.subtrac_money)}}元</text>
+        <!-- 一口价 -->
+        <text wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}元</text>
+      </view>
+      <view>
+        <text class="text-red">-{{result.discount_coupon_amount}}元</text>
+      </view>
+    </view>
+    <view class="view-price1" wx:if="{{result.discount_activity_amount}}">
+      <text>限时抢购:</text>
+      <text class="text-red">￥{{result.discount_activity_amount}}元</text>
+    </view>
+    <view class="goods_foot">
+      <text class="text-price1">实付款:</text>
+      <text class="text-red improt_color">￥{{result.total_amount}}元</text>
+    </view>
+  </view>
+
+  <view class='order_msg'>
+    <!-- 订单时间 -->
+    <view class="order_time" style="background:#ffffff;">
+      <text class="time">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
+      <text class="time" wx:if="{{result.pay_time!=='0'}}">支付时间 : {{time.timestampToTime(result.pay_time)}}</text>
+      <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间 : {{time.timestampToTime(result.shipping_time)}}</text>
+      <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间 : {{time.timestampToTime(result.confirm_time)}}</text>
+    </view>
+    <!-- <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
       <view class="view-addressleft">
         <image src="/images/wl.png"></image>
         <view data-no="{{result.invoice_no}}" class="view-addressleft-info">
@@ -49,62 +111,7 @@
       <button class='shipping_btn {{disabled?"disabled_btn":""}}' bindtap='shippingTap' disabled="{{disabled}}">配送信息</button>
       <view>
       </view>
-    </view>
-  </view>
-  <view class="carts-list">
-    <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
-      <!-- -->
-      <view>
-        <!-- 缩略图 -->
-        <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" />
-      </view>
-      <view class="carts-text">
-        <!-- 商品标题 -->
-        <text class="carts-title">{{item.goods_name}}</text>
-        <!-- <text class="carts-key-name">{{item.spec_key_name}}</text> -->
-        <view class="carts-subtitle">
-          <text class="text-red improt_color">￥{{item.price}}</text>
-          <text class="text-price"> x{{item.goods_num}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
-  <view class="view-price">
-    <view class="view-price1">
-      <text class="text-price1">商品总额:</text>
-      <text class="text-red improt_color">￥{{result.goods_price}}元</text>
-    </view>
-    <view class="cuopon_info" wx:if="{{CouponAmount}}">
-      <view>
-        <text class="text-price1">优惠券:{{couponInfo.name}}</text>
-        <!-- 满打折 -->
-        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'PERCENT'}}">{{cuopon.toFloat(couponInfo.subtrac_percent)}}折</text>
-        <!-- 满减 -->
-        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'SUBTRAC'}}">{{cuopon.parseFloat(couponInfo.subtrac_money)}}元</text>
-        <!-- 一口价 -->
-        <text class="c_price" wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}元</text>
-      </view>
-      <view>
-        <text class="text-price1" style='color:#d94612;'>优惠券:</text>
-        <text class="text-red improt_color">-{{result.discount_coupon_amount}}元</text>
-      </view>
-    </view>
-    <view class="view-price1 improt_color" wx:if="{{result.discount_activity_amount}}">
-      <text class='c_price'>活动优惠:</text>
-      <text class="text-red improt_color">￥{{result.discount_activity_amount}}元</text>
-    </view>
-     <view class="view-price1 improt_color" wx:if="{{result.discount_activity_amount}}">
-      <text class='c_price'>实际总优惠:</text>
-      <text class="text-red improt_color">￥{{result.total_discount_amount}}元</text>
-    </view>
-    <view class="view-price1">
-      <text class="text-price1">邮费:</text>
-      <text class="text-red improt_color">￥{{result.shipping_price}}元</text>
-    </view>
-    <view class="view-price1">
-      <text class="text-price1">应付总金额:</text>
-      <text class="text-red improt_color">￥{{result.total_amount}}元</text>
-    </view>
+    </view> -->
   </view>
 </view>
 <!-- 页面加载动画 -->
