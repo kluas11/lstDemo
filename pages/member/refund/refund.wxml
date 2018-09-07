@@ -8,7 +8,7 @@
           <image class='img' src='{{item.original_img}}' lazy-load='true'></image>
           <view class='right'>
             <text class='name'>{{item.goods_name}}</text>
-            <text class='num'>X{{item.refund_num}}</text>
+            <text class='num'>X{{item.goods_num}}</text>
           </view>
         </view>
       </block>

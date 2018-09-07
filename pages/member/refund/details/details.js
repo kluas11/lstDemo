@@ -8,7 +8,8 @@ Page({
    */
   data: {
     obj: {},
-    add_time: ''
+    refund_time: 0,
+    add_time: 0
   },
 
   /**
@@ -28,15 +29,20 @@ Page({
         console.log(res)
         if (res.statusCode === 200) {
           _this.setData({
-            obj: res.data
+            obj: res.data,
+            refund_time: parseInt(res.data.refund_time),
+            add_time: parseInt(res.data.add_time)
           })
-          _this.date(res.data.add_time)
+          setTimeout(() => {
+            _this.date(_this.data.refund_time, 'refund_time'),
+              _this.date(_this.data.add_time, 'add_time')
+          }, 50)
         }
       })
   },
 
   //时间
-  date: function(input) {
+  date: function(input, key) {
     let d = new Date(input);
     let year = d.getFullYear();
     let month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;
@@ -45,7 +51,7 @@ Page({
     let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
     let seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
     this.setData({
-      add_time: year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
+      [key]: year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
     })
   },
 

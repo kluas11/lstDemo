@@ -3,7 +3,7 @@
   <view class='title-wrapper'>
     <wxs src="./details.wxs" module="details" />
     <text class='content'>{{details.status(obj.status)}}</text>
-    <!-- <text class='content'>{{add_time}}</text> -->
+    <text class='content'>{{refund_time}}</text>
   </view>
   <view class='turn-down-wrapper' wx:if='{{obj.store_remark!==null}}'>
     <view class='turn-down'>
@@ -13,7 +13,7 @@
   </view>
   <view class='order-money'>
     <text class='left'>订单总金额</text>
-    <text class='right'>￥45.00</text>
+    <text class='right'>￥{{obj.total_amount}}</text>
   </view>
   <view class='refund-money'>
     <text class='left'>应退金额</text>
@@ -26,30 +26,30 @@
         <image class="img" src='{{item.original_img}}'></image>
         <view class='right'>
           <text class="name">{{item.goods_name}}</text>
-          <text class="num">X{{item.refund_num}}</text>
+          <text class="num">X{{item.goods_num}}</text>
         </view>
       </view>
     </block>
     <view class='quantity-wrapper' wx:if='{{obj.goods_list.length===1}}'>
       <view class='quantity'>
         <text>购买数量</text>
-        <text>5</text>
+        <text>{{obj.goods_list[0].goods_num}}</text>
       </view>
       <view class='quantity'>
         <text>申请退款数量</text>
-        <text>1</text>
+        <text>{{obj.goods_list[0].refund_num}}</text>
       </view>
       <view class='quantity'>
         <text>已退数量</text>
-        <text>0</text>
+        <text>{{obj.goods_list[0].refund_goods_num}}</text>
       </view>
     </view>
     <view class='details-text-wrapper'>
-      <text class='details-text'>订单编号 : PO35465135165413513541654</text>
+      <text class='details-text'>订单编号：{{obj.order_sn}}</text>
       <text class='details-text'>退款原因：{{obj.reason}}</text>
       <text class='details-text'>退款金额：￥{{obj.refund_money}}</text>
-      <text class='details-text'>申请时间 : 2018-2-5 16:11</text>
-      <text class='details-text'>退款编号 : 3654189464654</text>
+      <text class='details-text'>申请时间：{{add_time}}</text>
+      <text class='details-text'>退款编号：{{obj.refund_sn}}</text>
     </view>
   </view>
   <view class='description'>
