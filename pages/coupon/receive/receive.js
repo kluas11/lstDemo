@@ -1,5 +1,6 @@
 // pages/coupon/receive/receive.js
-var App =getApp();
+var server = require('../../../utils/server');
+var App = getApp();
 Page({
 
   /**
@@ -26,8 +27,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    App.getsetting().then(()=>{
-
+    console.log(options.id)
+    let that = this;
+    App.getsetting().then(() => {
+      server.getJSON("/Coupon/getOlCouponDetails", {
+        id: options.id
+      }, function(res) {
+        if (typeof(res.data) != "string") {
+          that.setData({
+            coupon: res.data
+          })
+        }
+      })
     })
   },
 

@@ -52,10 +52,7 @@ Page({
   onShareAppMessage: function() {
     return {
       title: this.data.couponInfo.name,
-      path: '/pages/coupon/receive/receive?id='+id,
-      complete:function(){
-        console.log(1111111111)
-      }
+      path: '/pages/coupon/receive/receive?id='+id
     }
   }
 })

@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 41,
 			"list": [
 				{
 					"id": 0,
@@ -298,10 +298,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 41,
 					"name": "优惠券分享领取页面",
 					"pathName": "pages/coupon/receive/receive",
-					"query": "",
+					"query": "id=28",
 					"scene": "1011"
 				}
 			]
