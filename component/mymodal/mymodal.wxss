@@ -1,5 +1,4 @@
 /* component/mymodal.wxss */
-
 .modalbox {
   width: 100%;
   height: 100%;
@@ -9,7 +8,6 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
 }
-
 .model_layout {
   width: 446rpx;
   height: 529rpx;
@@ -21,20 +19,17 @@
   align-items: center;
   flex-direction: column;
 }
-
 .model_img {
   padding-top: 100rpx;
   width: 212rpx;
   height: 170rpx;
 }
-
 .model_complete {
   margin-top: 40rpx;
   color: #000;
   font-size: 20rpx;
   font-weight: 500;
 }
-
 .model_foot_btn button {
   margin-top: 100rpx;
   font-size: 16rpx;

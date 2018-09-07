@@ -1,15 +1,10 @@
 /* pages/order/ordersubmit/index.wxss */
-
-page {
-}
-
 .parent {
   display: flex;
   flex-direction: column;
   width: 100%;
   background: #eee;
 }
-
 .view-order {
   display: flex;
   flex-direction: row;
@@ -19,7 +14,6 @@ page {
   height: 150rpx;
   background: #3aa0b7;
 }
-
 .order_top {
   height: 100rpx;
   background: #d94612;
@@ -30,16 +24,13 @@ page {
   padding: 0 20rpx;
   color: #fff;
 }
-
 .order_top .num {
   color: #fff;
   margin-top: 10rpx;
 }
-
 .order_msg {
   margin-top: 20rpx;
 }
-
 .order_time {
   display: flex;
   flex-direction: column;
@@ -47,11 +38,9 @@ page {
   font-size: 28rpx;
   color: #444;
 }
-
 .order_time .time {
   padding: 10rpx 0;
 }
-
 .view-address {
   display: flex;
   flex-direction: row;
@@ -62,7 +51,6 @@ page {
   background: #3aa0b7;
   margin-bottom: 20rpx;
 }
-
 .view-addressleft {
   display: flex;
   flex-direction: row;
@@ -71,17 +59,14 @@ page {
   align-items: center;
   margin-left: 30rpx;
 }
-
 .view-addressleft image {
   width: 40rpx;
   height: 40rpx;
 }
-
 .icon-dizhi2 {
   font-size: 50rpx;
   color: #969696;
 }
-
 .view-addressleft-info {
   display: flex;
   flex-direction: column;
@@ -89,17 +74,14 @@ page {
   justify-content: space-around;
   align-items: flex-start;
 }
-
 .text-name {
   font-size: 29rpx;
   color: #444;
 }
-
 .text-address {
   font-size: 29rpx;
   color: #444;
 }
-
 .view-addressright {
   height: 50rpx;
   margin-right: 20rpx;
@@ -107,17 +89,14 @@ page {
   flex-direction: row;
   align-items: center;
 }
-
 .text-mobile {
   font-size: 29rpx;
   color: #444;
 }
-
 .view-addressright image {
   width: 50rpx;
   height: 50rpx;
 }
-
 .carts_title {
   font-size: 24rpx;
   color: #999;
@@ -126,22 +105,18 @@ page {
   border-bottom: 1rpx solid #ccc;
   padding-left: 20rpx;
 }
-
 .shipping_btn {
   background: #d94612;
   font-size: 28rpx;
   color: #fff;
 }
-
 .disabled_btn {
   background: #eee;
   border: 1px solid #969696;
 }
-
 .shipping_btn::after {
   border: none;
 }
-
 .view-title {
   display: flex;
   flex-direction: row;
@@ -150,32 +125,26 @@ page {
   align-items: center;
   background: #fff;
 }
-
 .view-title image {
   width: 50rpx;
   height: 50rpx;
 }
-
-.view-title  .icon-gouwudai {
+.view-title .icon-gouwudai {
   font-size: 50rpx;
   color: #969696;
   font-weight: 600;
 }
-
 .view-title text {
   font-size: 29rpx;
   color: black;
 }
-
 .class-line {
   width: 710rpx;
   margin-left: 20rpx;
   height: 2rpx;
   background: #f4f4f4;
 }
-
 /*外部容器*/
-
 .container {
   display: flex;
   flex-direction: column;
@@ -183,25 +152,19 @@ page {
   justify-content: space-between;
   box-sizing: border-box;
 }
-
 /*整体列表*/
-
 .carts-list {
   background: #fff;
   display: flex;
   flex-direction: column;
 }
-
 /*每行单元格*/
-
 .carts-item {
   display: flex;
   border-bottom: 1px solid #eee;
   padding: 30rpx 40rpx;
 }
-
 /*左部图片*/
-
 .carts-image {
   width: 130rpx;
   height: 150rpx;
@@ -209,9 +172,7 @@ page {
   border-style: solid;
   border-color: #ccc;
 }
-
 /*右部描述*/
-
 .carts-text {
   margin-left: 20rpx;
   display: flex;
@@ -219,7 +180,6 @@ page {
   justify-content: space-between;
   flex: 1;
 }
-
 .carts-right {
   height: 100%;
   width: 110rpx;
@@ -228,20 +188,17 @@ page {
   justify-content: center;
   align-items: center;
 }
-
 .goods_btn {
-  padding:2rpx 10rpx;
+  padding: 2rpx 10rpx;
   line-height: normal;
   margin: 0;
   font-size: 20rpx;
   color: #cccccc;
   background: #ffffff;
   border-radius: 4rpx;
-  border: 1rpx  solid #cccccc;
+  border: 1rpx solid #cccccc;
 }
-
 /*右上部分标题*/
-
 .carts-title {
   font-size: 27rpx;
   color: #444;
@@ -251,15 +208,12 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-
 .carts-key-name {
   margin-top: 10rpx;
   font-size: 27rpx;
   color: #999;
 }
-
 /*右下部分价格与数量*/
-
 .carts-subtitle {
   font-size: 25rpx;
   color: darkgray;
@@ -268,13 +222,12 @@ page {
   justify-content: space-around;
   align-items: flex-end;
 }
-
 /*价格*/
-.price_title{
+.price_title {
   font-size: 22rpx;
   color: #cccccc;
-  border-bottom:1rpx solid #cccccc;
-  padding: 24rpx; 
+  border-bottom: 1rpx solid #cccccc;
+  padding: 24rpx;
   display: flex;
   justify-content: space-between;
 }
@@ -284,11 +237,8 @@ page {
   line-height: 22px;
   margin-top: 12rpx;
 }
-
 /*商品加减按钮*/
-
 /*stepper容器*/
-
 .stepper {
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -296,18 +246,14 @@ page {
   height: 26px;
   margin: 0 auto;
 }
-
 /*加号与减号*/
-
 .stepper text {
   width: 19px;
   line-height: 26px;
   text-align: center;
   float: left;
 }
-
 /*数值*/
-
 .stepper input {
   color: black;
   float: left;
@@ -319,28 +265,20 @@ page {
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
-
 /*普通样式*/
-
 .stepper .normal {
   color: black;
 }
-
 /*禁用样式*/
-
 .stepper .disabled {
   color: #ccc;
 }
-
 /*复选框样式*/
-
 .carts-list icon {
   margin-top: 60rpx;
   margin-right: 20rpx;
 }
-
 /*底部按钮*/
-
 .carts-footer {
   width: 100%;
   height: 80rpx;
@@ -353,24 +291,18 @@ page {
   border-top: 1px solid #eee;
   background: white;
 }
-
 /*复选框*/
-
 .carts-footer icon {
   margin-left: 20rpx;
   margin-top: 20rpx;
 }
-
 /*全选字样*/
-
 .carts-footer text {
   font-size: 30rpx;
   margin-left: 8rpx;
   line-height: 10rpx;
 }
-
 /*立即结算按钮*/
-
 .carts-footer .button {
   line-height: 80rpx;
   text-align: center;
@@ -382,44 +314,36 @@ page {
   border-radius: 0;
   border: 0;
 }
-
 .carts-footer-left {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
 .carts-footer-left text {
   margin-top: 20rpx;
 }
-
 .text-price {
   font-size: 32rpx;
   color: #999;
 }
-
 .text-red {
   font-size: 32rpx;
 }
-
 .image-delete {
   width: 50rpx;
   height: 60rpx;
 }
-
 .class-line1 {
   width: 750rpx;
   height: 20rpx;
   background: #f4f4f4;
 }
-
 .view-price {
   background: #fff;
   margin-top: 20rpx;
   font-size: 20rpx;
   color: #cccccc;
 }
-
 .view-price1 {
   padding-right: 20rpx;
   height: 68rpx;
@@ -430,7 +354,7 @@ page {
   justify-content: space-between;
   padding: 0 20rpx;
 }
-.goods_foot{
+.goods_foot {
   margin: 0 20rpx;
   border-top: 1rpx solid #cccccc;
   display: flex;
@@ -441,7 +365,6 @@ page {
   font-size: 26rpx;
   margin-left: 20rpx;
 }
-
 .cuopon_info {
   padding: 0 20rpx;
   height: 68rpx;
@@ -449,12 +372,10 @@ page {
   align-items: center;
   justify-content: space-between;
 }
-
 .text-price1 {
   font-size: 26rpx;
   color: #000;
 }
-
 .text-save {
   width: 680rpx;
   align-self: center;

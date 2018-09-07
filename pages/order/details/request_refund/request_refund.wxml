@@ -1,0 +1,24 @@
+<!--pages/member/refund/request_refund/request_refund.wxml-->
+<view class='container'>
+  <view class='commodity'>
+    <!-- <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image> -->
+    <image class='img' src='{{obj.original_img}}' lazy-load='true'></image>
+    <view class="text">{{obj.goods_name}}</view>
+  </view>
+  <view class='only-refund' bindtap='onlyRefund'>
+    <image class='img' src='/images/refund-icon.png' lazy-load='true'></image>
+    <view class='text-wrapper'>
+      <text class='title'>仅退款</text>
+      <text class='content'>未收到货(包含未签收),或卖家协商同意前提下</text>
+    </view>
+    <image class='right-arrow' src='/images/right-arrow.png' lazy-load='true'></image>
+  </view>
+  <view class='returns-refunds' bindtap='returnsRefunds'>
+    <image class='img' src='/images/returns-refunds.png' lazy-load='true'></image>
+    <view class='text-wrapper'>
+      <text class='title'>退货退款</text>
+      <text class='content'>已收到货,需要退换已收到的货物</text>
+    </view>
+    <image class='right-arrow' src='/images/right-arrow.png' lazy-load='true'></image>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+module.exports.status = function(status) {
+  if (status === 'SUCCESS') {
+    return '退款成功';
+  } else if (status === 'FAIL') {
+    return '退款失败';
+  } else if (status === 'WAIT') {
+    return '退款中';
+  }
+}

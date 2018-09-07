@@ -1,49 +1,32 @@
-// pages/member/refund/refund.js
-let server = require('../../../utils/server')
+// pages/member/refund/request_refund/request_refund.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    backgroundColor: '',
-    refundData: []
+    obj: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getData()
+    this.setData({
+      obj: JSON.parse(options.obj)
+    })
+    console.log(this.data.obj)
   },
 
-  //获取用户退款记录列表
-  getData: function() {
-    let _this = this
-    server.getJSON('/OrderRefund/getUserRefundLog', {
-
-      },
-      function(res) {
-        console.log(res)
-        if (res.statusCode === 200) {
-          _this.setData({
-            refundData: res.data
-          })
-        }
-      })
-  },
-  //查看详情
-  touchStart: function() {
-    this.setData({
-      backgroundColor: 'background-color: moccasin'
-    })
-  },
-  //查看详情
-  toucHend: function(e) {
-    this.setData({
-      backgroundColor: ''
-    })
+  onlyRefund: function() {
     wx.navigateTo({
-      url: './details/details?refund_id=' + e.target.dataset.refund_id
+      url: './only_refund/only_refund?obj=' + JSON.stringify(this.data.obj),
+    })
+  },
+
+  returnsRefunds: function() {
+    wx.navigateTo({
+      url: './returns_refunds/returns_refunds?obj=' + JSON.stringify(this.data.obj),
     })
   },
 

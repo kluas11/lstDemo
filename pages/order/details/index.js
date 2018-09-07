@@ -3,7 +3,14 @@ const App = getApp();
 Page({
   data: {
     goods_oss: App.image_oss + '130_150',
-    wx_loading:true
+    wx_loading: true
+  },
+  //退款
+  refund: function(e) {
+    // let obj = encodeURIComponent(e.currentTarget.dataset.goods)
+    wx.navigateTo({
+      url: './request_refund/request_refund?obj=' + JSON.stringify(e.currentTarget.dataset.goods),
+    })
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -19,9 +26,9 @@ Page({
         that.getshipping(result.status)
         that.setData({
           result: result,
-          CouponAmount:result.discount_coupon_amount,
+          CouponAmount: result.discount_coupon_amount,
           couponInfo: result.couponInfo,
-          wx_loading:false
+          wx_loading: false
         });
       });
   },
@@ -34,15 +41,15 @@ Page({
         var result = res.data;
         that.setData({
           disabled: !result.status,
-          shipping_status: result.shipping_status ? result.shipping_status:'',
+          shipping_status: result.shipping_status ? result.shipping_status : '',
         })
       });
   },
   // 配送信息
-  shippingTap(){
+  shippingTap() {
     wx.showModal({
       content: this.data.shipping_status,
-      showCancel:false
+      showCancel: false
     })
   },
   details: function(e) {
