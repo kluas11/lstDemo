@@ -6,8 +6,11 @@
 <!-- 我的优惠券 开始 -->
 <template name="mycoupon">
   <!-- 可使用 -->
-  <view class='list_right'  wx:if="{{tabtype == 'getUserCoupon'}}">
-    <button class='cuopon_share'  bindtap='detailtap' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">赠送</button>
+  <view class='list_right' wx:if="{{tabtype == 'getUserCoupon'}}">
+    <button class='cuopon_share' bindtap='detailtap' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">
+      <text>赠送</text>
+      <image src='/images/share1.png' class='share_img'></image>
+    </button>
     <button class='cuopon_btn' bindtap='receivetap' data-status='{{status}}' data-id='{{item.id}}'>去使用</button>
   </view>
   <!-- 已使用 -->
@@ -31,6 +34,7 @@
   **** item 单个优惠券详情
   **** coupon_attr 优惠券属性： NORMAL 正常的线上券  BUY 可以购买的线上 线下券
   **** receive 是否为分享领取的优惠券页面 true 是传true ，其他页面可以不传  
+  **** imgUrl  分享页面普通券的右边图片  其他页面不需要传
  -->
 <template name="coupon">
   <!-- 已抢光 -->
@@ -49,6 +53,9 @@
     </view>
     <view class='list_right_price' wx:elif="{{item.buy_way=='PAYPOINT'}}">
       <text>{{item.buy_paypoint}}积分</text>
+    </view>
+    <view class='list_right_price' wx:else>
+      <image class='used_img' src='{{imgUrl}}'></image>
     </view>
     <text decode="true" class='list_right_originprice' wx:if="{{item.origin_buy_price}}">&nbsp;&nbsp;&nbsp;原价：{{item.origin_buy_price}}&nbsp;&nbsp;&nbsp;</text>
     <button class='cuopon_btn' bindtap='detailTap' wx:if="{{!receive}}" data-coupon_id='{{item.coupon_id}}' data-olcoupon_id='{{item.olcoupon_id}}'>{{item.buy_way=='PAYPOINT'?'兑换':'购买'}}</button>

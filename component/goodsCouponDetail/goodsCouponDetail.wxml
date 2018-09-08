@@ -33,7 +33,7 @@
 <view class='selected' style='margin-top:20rpx;' wx:if="{{type == 'goods'}}">
   <view class='good_lists'>
     <view class='sel_text'>使用期限</view>
-    <view class='good_detail'>
+    <view class='good_detail' wx:if="{{Cuoponitem.start_time}}">
       {{cuopon.timestampToTime(Cuoponitem.start_time)}}至{{cuopon.timestampToTime(Cuoponitem.end_time)}}
     </view>
   </view>

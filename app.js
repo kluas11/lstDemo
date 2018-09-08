@@ -14,7 +14,11 @@ App({
       }
     });
   },
-  getsetting(pages, options) {
+  /*
+    ***pages小程序路由对象
+    ***options 页面需要的参数 string 必须
+  */ 
+  getsetting(pages, options) {  
     return new Promise((reslove, reject) => {
       wx.getSetting({
         success: (res) => {

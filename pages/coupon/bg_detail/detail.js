@@ -16,6 +16,9 @@ Page({
    */
   onLoad: function(options) {
     id = options.id;
+    this.getcouponInof();
+  },
+  getcouponInof() {
     let that = this;
     server.getJSON("/Coupon/getOlCouponDetails", {
       id
@@ -25,7 +28,6 @@ Page({
           couponInfo: res.data
         })
         that.getCodeTimer(res.data.coupon_sn);
-        // that.giveOlCoupon(id);
       }
     })
   },
@@ -33,29 +35,30 @@ Page({
   getCodeTimer(code) {
     barQRCode.qrcode('myQrcode', code, 300, 300);
   },
-  // 获取优惠券赠送id
+  // 请求转发接口，现在无法获取到是否转发成功的回调，所以暂时在点击赠送是调用
   giveOlCoupon(id) {
     let that = this;
     server.newpostJSON("/Coupon/giveOlCoupon", {
       id
     }, function(res) {
       if (typeof(res.data) != "string") {
-        console.log(res.data)
-        // that.setData({
-        //   couponInfo: res.data
-        // })
-        // that.getCodeTimer(res.data.coupon_sn)
+        that.getcouponInof();
+      } else {
+        wx.showModal({
+          content: '赠送失败',
+          showCancel: false
+        })
       }
     })
+  },
+  shareTap() {
+    this.giveOlCoupon(id);
   },
   // 赠送
   onShareAppMessage: function() {
     return {
       title: this.data.couponInfo.name,
-      path: '/pages/coupon/receive/receive?id='+id,
-      complete:function(){
-        console.log(1111111111)
-      }
+      path: `/pages/coupon/receive/receive?objectId=${id}&coupon_type=offline`
     }
   }
 })

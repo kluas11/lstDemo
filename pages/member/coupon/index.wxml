@@ -1,11 +1,13 @@
 <wxs module='cuopon' src='../../../component/coupon/coupon.wxs' />
 <!-- 引用右边的模板 -->
-<import src="/template/coupon_right/coupon_right.wxml"/>
+<import src="/template/coupon_right/coupon_right.wxml" />
 <view>
   <view class='header'>
     <view class='tab' bindtap='tabTap'>
       <block wx:for="{{tablists}}" wx:key="{{index}}">
-        <text class='tab_list {{tabtype==item.type?"tab_active":""}}' data-type='{{item.type}}'>{{item.name}}(22)</text>
+        <view class='list_box'>
+          <text class='tab_list {{tabtype==item.type?"tab_active":""}}' data-type='{{item.type}}'>{{item.name}}(22)</text>
+        </view>
       </block>
     </view>
     <view class='teb_page' bindtap='pageTap'>
@@ -23,16 +25,16 @@
   <scroll-view scroll-y="true" class='cuopon_lists' wx:else>
     <!-- 核销券 商品券 线下券 -->
     <block wx:for="{{goodsCuoponlist}}" wx:key="{{index}}">
-      <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}">
+      <goods-coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" tabtype="{{tabtype}}">
         <!-- 右边的模板 -->
-        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'offline'}}"/>
+        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'offline'}}" />
       </goods-coupon>
     </block>
     <!-- 线上券 普通券-->
     <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
-      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" select_index="null">
+      <coupon Cuoponitem="{{item}}" Cuoponindex="{{index}}" select_index="null" tabtype="{{tabtype}}">
         <!-- 右边的模板 -->
-        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'online'}}"/>
+        <template is="mycoupon" data="{{tabtype:tabtype,item:item,status:'online'}}" />
       </coupon>
     </block>
   </scroll-view>

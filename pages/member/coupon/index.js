@@ -17,10 +17,16 @@ Page({
       }
     ],
     tabtype: "getUserCoupon",
-    pagetype: "all"
+    pagetype: "all",
+    isload: true
   },
   onLoad: function(option) {
     this.getUserCoupon("getUserCoupon");
+  },
+  onShow() {
+    if (!this.data.isload) {
+      this.getUserCoupon("getUserCoupon");
+    }
   },
   //点击tab
   tabTap(e) {
@@ -84,7 +90,7 @@ Page({
       wx.switchTab({
         url: '/pages/index/index',
       })
-    }else{
+    } else {
       return;
     }
   },
@@ -98,7 +104,7 @@ Page({
       })
     } else if (status && status == 'online') {
       wx.navigateTo({
-        url: '/pages/coupon/b_detail/b_detail?id='+id,
+        url: '/pages/coupon/b_detail/b_detail?id=' + id,
       })
     } else {
       return;
@@ -113,11 +119,12 @@ Page({
     let couponData;
     let empty = false;
     server.getJSON(url, function(res) {
+      console.log(res)
       if (typeof(res.data) === "string") {
         cuoponlist = [];
         goodsCuoponlist = [];
         couponData = false;
-      } else {
+      } else if (res.data.online) {
         cuoponlist = res.data.online;
         goodsCuoponlist = res.data.offline;
         couponData = res.data
@@ -129,7 +136,8 @@ Page({
         couponData,
         cuoponlist,
         goodsCuoponlist,
-        empty
+        empty,
+        idload: false
       })
     });
   }

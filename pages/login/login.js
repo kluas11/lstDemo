@@ -1,6 +1,7 @@
 // pages/login/login.js
 var url;
 var id;
+var type;
 Page({
 
   /**
@@ -16,6 +17,7 @@ Page({
   onLoad: function (options) {
     url =  options.url;
     id = options.id;
+    type = options.type ? options.type:"";
   },
   //获取授权
   getuserTap(e){
@@ -27,9 +29,13 @@ Page({
           url
         })
       }else{
-        console.log(isNaN(+id))
+        // console.log(isNaN(+id))
         if (!isNaN(+id)){
-          url = url +"?objectId="+id
+          if (type){
+            url = url + "?objectId=" + id+"&type="+tyep
+          }else{
+            url = url + "?objectId=" + id
+          }
         } else{
           url = url + "?q=" + id
         }

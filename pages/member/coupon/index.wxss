@@ -1,52 +1,58 @@
 @import '../../../template/coupon_right/coupon_right.wxss';
 
 page {
-  background: #e4e4e4;
+  background: #eeeeee;
 }
 
 .tab {
-  height: 70rpx;
-  font-size: 20rpx;
-  color: #333;
-  background: #f2f2f2;
+  font-size: 28rpx;
+  background: #ffffff;
   font-weight: 400;
   display: flex;
+  border-bottom: 1px solid #dcdcdc;
+  justify-content: space-around;
+  color: #626262;
 }
-
-.tab_list {
+.list_box{
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.tab_list {
+  height: 86rpx;
+  line-height: 86rpx;
+}
 
 .tab_active {
   position: relative;
+  color: #d94612;
 }
 
 .tab_active::after {
   content: "";
-  height: 4rpx;
+  height: 8rpx;
   position: absolute;
-  background: red;
+  background: #d94612;
+  border-radius: 3rpx;
   bottom: 0;
   left: 0;
   width: 100%;
 }
 
 .teb_page {
-  height: 54rpx;
+  height: 60rpx;
   background: #fff;
-  font-size: 20rpx;
-  color: #333;
+  font-size: 22rpx;
+  color: #707070;
   font-weight: 400;
   display: flex;
 }
 
 .page_list {
-  line-height: 54rpx;
-  padding: 0 15rpx;
-  margin-right: 30rpx;
+  flex: 1;
+  line-height: 60rpx;
+  text-align: center;
 }
 
 .pageactive {
@@ -54,19 +60,9 @@ page {
 }
 
 .cuopon_lists {
-  padding: 20rpx 40rpx;
+  padding: 28rpx 22rpx;
   box-sizing: border-box;
-  margin-top: 10rpx;
-  background: #fff;
-}
-
-.right_img {
-  transform: rotate(330deg);
-}
-
-.used_img {
-  width: 126rpx;
-  height: 109rpx;
+  background: #eeeeee;
 }
 
 /* 没有数据 */
