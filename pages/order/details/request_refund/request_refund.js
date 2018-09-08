@@ -1,32 +1,47 @@
 // pages/member/refund/request_refund/request_refund.js
+let server = require('../../../../utils/server')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    obj: {}
+    obj: {},
+    order_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getData(options.order_id, options.index)
     this.setData({
-      obj: JSON.parse(options.obj)
+      order_id: options.order_id
     })
-    console.log(this.data.obj)
+  },
+
+  getData: function(order_id, index) {
+    var _this = this;
+    server.getJSON('/OrderRefund/getBeRefundedGoodsList', {
+        order_id
+      },
+      function(res) {
+        console.log(res)
+        _this.setData({
+          obj: res.data[index]
+        })
+      });
   },
 
   onlyRefund: function() {
     wx.navigateTo({
-      url: './only_refund/only_refund?obj=' + JSON.stringify(this.data.obj),
+      url: './only_refund/only_refund?obj=' + JSON.stringify(this.data.obj) + '&order_id=' + this.data.order_id
     })
   },
 
   returnsRefunds: function() {
     wx.navigateTo({
-      url: './returns_refunds/returns_refunds?obj=' + JSON.stringify(this.data.obj),
+      url: './returns_refunds/returns_refunds?obj=' + JSON.stringify(this.data.obj) + '&order_id=' + this.data.order_id
     })
   },
 

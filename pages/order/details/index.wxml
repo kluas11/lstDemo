@@ -50,7 +50,7 @@
           <text class="text-red improt_color">￥{{item.price}}</text>
           <text class="text-red improt_color">￥{{item.price}}</text>
           <text class="text-price"> x{{item.goods_num}}</text>
-          <button class='goods_btn' bindtap='refund' data-goods='{{result.goodsList[index]}}'>退款</button>
+          <button class='goods_btn' bindtap='refund' data-index='{{index}}' data-goods='{{result.goodsList[index]}}'>退款</button>
         </view>
       </view>
     </view>

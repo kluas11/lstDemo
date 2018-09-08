@@ -5,7 +5,7 @@
     <text class='content'>{{details.status(obj.status)}}</text>
     <text class='content'>{{refund_time}}</text>
   </view>
-  <view class='turn-down-wrapper' wx:if='{{obj.store_remark!==null}}'>
+  <view class='turn-down-wrapper' wx:if='{{obj.status==="FAIL"}}'>
     <view class='turn-down'>
       <text class='title'>驳回原因：</text>
       <text class='content'>{{obj.store_remark}}</text>
@@ -60,10 +60,9 @@
     <view class='img-wrapper'>
       <view class='left'>退款凭证：</view>
       <view class='right'>
-        <image class='img' src='/images/unknown-picture.png'></image>
-        <image class='img' src='/images/unknown-picture.png'></image>
-        <image class='img' src='/images/unknown-picture.png'></image>
-        <image class='img' src='/images/unknown-picture.png'></image>
+        <block wx:for='{{certificate}}' wx:key='{{index}}'>
+          <image class='img' src='{{item}}' bindtap='previewImage' data-url='{{item}}'></image>
+        </block>
       </view>
     </view>
   </view>
