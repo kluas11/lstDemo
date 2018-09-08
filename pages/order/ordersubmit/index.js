@@ -37,7 +37,8 @@ Page({
     ordersubmit: true, //优惠券按钮判断
     cuoponhidden: false,
     coupontext: "暂无可用优惠券",
-    wx_loading: true
+    wx_loading: true,
+    select_index:0
   },
   // 页面开始加载
   onLoad: function(options) {

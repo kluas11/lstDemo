@@ -108,6 +108,8 @@
   text-align: center;
   color: #c30;
   font-size: 16rpx;
+  margin: 0;
+  padding: 0;
 }
 .details {
   display: flex;

@@ -31,7 +31,7 @@
       <view class='context_info'>
         <view class='canshare' wx:if="{{item.canshare ==1}}">
           <text>该券可赠送</text>
-          <button class='share_btn' open-type="share">赠送</button>
+          <button class='share_btn' bindtap='shareTap' open-type="share">赠送</button>
         </view>
         <view class='time'>
           <view class='used' wx:if="{{item.status =='NORMAL'}}">未使用</view>

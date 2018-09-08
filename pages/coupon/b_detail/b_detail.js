@@ -1,5 +1,6 @@
 // pages/coupon/b_detail/b_detail.js
 var server = require('../../../utils/server');
+var App = getApp();
 var id;
 var coupon_id;
 Page({
@@ -15,6 +16,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    
+    // 隐藏右上角的转发
+    wx.hideShareMenu()
     id = options.id;
     coupon_id = options.coupon_id;
     this.getcouponInof();
@@ -188,5 +192,31 @@ Page({
     this.setData({
       modalshow: e.detail.modalshow
     })
+  },
+  // 请求转发接口，现在无法获取到是否转发成功的回调，所以暂时在点击赠送是调用
+  giveOlCoupon(id) {
+    let that = this;
+    server.newpostJSON("/Coupon/giveCoupon", {
+      id
+    }, function (res) {
+      if (typeof (res.data) != "string") {
+        that.getcouponInof();
+      }else{
+        wx.showModal({
+          content: '赠送失败',
+          showCancel:false
+        })
+      }
+    })
+  },
+  shareTap() {
+    this.giveOlCoupon(id);
+  },
+  // 赠送
+  onShareAppMessage: function () {
+    return {
+      title: this.data.couponInfo.name,
+      path: `/pages/coupon/receive/receive?objectId=${id}&coupon_type=online`
+    }
   }
 })

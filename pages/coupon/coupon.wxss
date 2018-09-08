@@ -1,7 +1,10 @@
 /* pages/coupon/coupon.wxss */
 @import '../../template/coupon_right/coupon_right.wxss';
+page{
+  background: #eeeeee;
+}
 .cuopon_lists{
-  padding: 24rpx 56rpx;
+  padding: 24rpx 22rpx;
   display: flex;
   box-sizing: border-box;
 }

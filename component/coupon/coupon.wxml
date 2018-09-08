@@ -1,10 +1,13 @@
 <!--component/getmore/getmore.wxml-->
 <wxs module='cuopon' src='./coupon.wxs' />
 <view class='list_out'>
-  <view class='{{cuopon.isoverdue(Cuoponitem.limit_total,Cuoponindex,select_index)}}'>
+  <view>
+    <image class='coupon_top' src='{{tabtype=="getUserCouponExc"?top_img2:top_img}}'></image>
+  </view>
+  <view class='{{cuopon.isoverdue(Cuoponitem.limit_total,Cuoponindex,select_index)}} border_top'>
     <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'>
       <!-- 满减多少钱  SUBTRAC-->
-      <view class='cuopon_price' wx:if='{{Cuoponitem.coupon_type == "SUBTRAC"}}'>
+      <view class='cuopon_price {{tabtype!="getUserCoupon"?"dis_color":""}}' wx:if='{{Cuoponitem.coupon_type == "SUBTRAC"}}'>
         <text class='num'>{{cuopon.parseFloat(Cuoponitem.subtrac_money)}}</text>
         <text>元</text>
       </view>
@@ -20,11 +23,13 @@
       </view>
       <view class='center'>
         <!-- 中间的标题 详情 时间 -->
-        <text wx:if='{{Cuoponitem.coupon_type == "BUYOUT"}}' class='title'>{{Cuoponitem.name}}</text>
-        <!-- 满减+满打折 和 一口价的标题不同 -->
-        <text wx:else class='title'>满{{cuopon.parseFloat(Cuoponitem.subtrac_price)}}元可用</text>
-        <text class='coupon_details clamp2'>{{Cuoponitem.details}}</text>
         <view>
+          <view wx:if='{{Cuoponitem.coupon_type == "BUYOUT"}}' class='title'>{{Cuoponitem.name}}</view>
+          <!-- 满减+满打折 和 一口价的标题不同 -->
+          <view wx:else class='title'>满{{cuopon.parseFloat(Cuoponitem.subtrac_price)}}元可用</view>
+          <view class='coupon_details clamp2'>{{Cuoponitem.details}}</view>
+        </view>
+        <view class='coupon_time'>
           <text>{{cuopon.timestampToTime(Cuoponitem.start_time,true)}}-</text>
           <text>{{cuopon.timestampToTime(Cuoponitem.end_time,true)}}</text>
         </view>

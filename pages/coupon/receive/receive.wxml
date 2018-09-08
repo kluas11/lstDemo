@@ -1,26 +1,37 @@
 <!--pages/coupon/receive/receive.wxml-->
 <!-- 引用右边的模板 -->
 <import src="/template/coupon_right/coupon_right.wxml" />
-<view class='layout'>
+<wxs module='time' src='./receive.wxs' />
+<view class='layout' wx:if="{{coupon}}">
   <view class='title'>
-    <text>您的好友XXX送您一张优惠券，赶快领取！</text>
+    <text>您的好友{{coupon.original_user_name}}送您一张优惠券，赶快领取！</text>
   </view>
   <view>
     <!--商品优惠券  -->
-    <goods-coupon Cuoponitem="{{coupon}}">
+    <goods-coupon Cuoponitem="{{coupon}}" wx:if="{{coupon_type=='offline'}}">
       <!-- 右边的模板 -->
       <template is="coupon" data="{{coupon_attr:'BUY',item:coupon,receive:true}}" />
     </goods-coupon>
+
+    <coupon Cuoponitem="{{coupon}}" wx:if="{{coupon_type=='online'}}">
+      <!-- 右边的模板 -->
+      <template is="coupon" data="{{coupon_attr:'BUY',item:coupon,receive:true,imgUrl:imgUrl}}" />
+    </coupon>
   </view>
   <!--  -->
   <view>
-    <button class='receivebtn'>免费领取</button>
+    <button class='receivebtn' bindtap='receiveTap' wx:if="{{coupon.status=='SHARING'}}">免费领取</button>
+    <button class='receivebtn' bindtap='receiveTap' wx:else disabled='{{true}}'>已被领取</button>
   </view>
   <!--  -->
   <view class='record_title'>
     <text>领取记录</text>
   </view>
   <!--  -->
-  <view class='norecord' wx:if="{{!isreceive}}">暂无领取记录</view>
-  <view class='record' wx:else>2018.8.8 XXX领取了该优惠券</view>
+  <view class='norecord' wx:if="{{coupon.status=='SHARING'}}">暂无领取记录</view>
+  <view class='record' wx:else>2018.8.8 {{coupon.now_user_name}}领取了该优惠券</view>
+
+  <view wx:if="{{coupon.status!='SHARING'}}">
+    <button class='getback' bindtap='getbackTap'>返回首页</button>
+  </view>
 </view>

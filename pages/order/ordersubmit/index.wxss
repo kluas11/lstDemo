@@ -559,66 +559,16 @@
   top: 272rpx;
   width: 700rpx;
   height: 640rpx;
-  background: #fff;
   border-radius: 10rpx;
 }
 
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
-  background: #fff;
+  background: #eeeeee;
   height: 640rpx;
 }
-
-/* 选择的优惠券 */
-
-.disabled {
-  display: flex;
-  border: 2rpx solid #4ab760;
-  border-radius: 10rpx;
-  border-left: 6rpx solid #00ff32;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.disabled::after, .disabled::before {
-  content: '';
-  width: 16rpx;
-  height: 16rpx;
-  border: 2rpx solid #4ab760;
-  border-radius: 50%;
-  position: absolute;
-  left: 466rpx;
-  transform: translateX(-25%);
-  background: #fff;
-  z-index: 9;
-}
-
-.disabled::after {
-  bottom: -6rpx;
-}
-
-.disabled::before {
-  top: -6rpx;
-}
-
-.disabled .list_left {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 466rpx;
-  padding: 20rpx 0;
-  border-right: 1px dashed #4ab760;
-  justify-content: space-around;
-}
-
-.disabled .cuopon_price {
-  color: #4ab760;
-  font-size: 24rpx;
-  margin: 0rpx 20rpx;
-}
-.disabled2 .cuopon_btn {
+.selected  .cuopon_btn {
   background: #4ab760;
 }
 

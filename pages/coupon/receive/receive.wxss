@@ -1,7 +1,6 @@
 /* pages/coupon/receive/receive.wxss */
 .list_right {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -34,9 +33,8 @@
 }
 /* 右边图片 */
 .used_img {
-  width: 126rpx;
-  height: 109rpx;
-  transform: rotate(330deg);
+  width: 156rpx;
+  height: 116rpx;
 }
 .layout {
   padding: 20rpx 40rpx;
@@ -69,4 +67,12 @@
   font-size: 20rpx;
   color: #999;
   margin-top: 40rpx;
+}
+.getback{
+  font-size: 24rpx;
+  background: #ffffff;
+  border: 1rpx solid #CCCCCC;
+  border-radius: 10rpx;
+  width: 50%;
+  margin-top: 100rpx;
 }
