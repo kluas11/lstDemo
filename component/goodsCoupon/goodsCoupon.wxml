@@ -5,7 +5,7 @@
     <image class='coupon_top' src='{{tabtype=="getUserCouponExc"?top_img2:top_img}}'></image>
   </view>
   <view class='{{cuopon.isoverdue(Cuoponitem.limit_total,Cuoponindex,select_index)}}'>
-    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'>
+    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}' data-status='{{Cuoponitem.status}}'>
       <view style="height: 100%;display: flex;">
         <image wx:if="{{Cuoponitem.image}}" src='{{Cuoponitem.image+goods_oss}}' class='coupon_img'></image>
       </view>

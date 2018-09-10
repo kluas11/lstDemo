@@ -31,14 +31,14 @@
       <view class='context_info'>
         <view class='canshare' wx:if="{{item.canshare ==1}}">
           <text>该券可赠送</text>
-          <button class='share_btn' bindtap='shareTap' open-type="share">赠送</button>
+          <button class='share_btn' bindtap='shareTap' disabled='{{isouttime||couponInfo.status =="USED"||couponInfo.status =="SHARED"}}' open-type="share">赠送</button>
         </view>
         <view class='time'>
           <view class='used' wx:if="{{item.status =='NORMAL'}}">未使用</view>
           <view class='used' wx:elif="{{item.status =='USED'}}">已使用</view>
           <view class='used' wx:elif="{{item.status =='SHARING'}}">分享中</view>
           <view class='used' wx:elif="{{item.status =='SHARED'}}">不可使用</view>
-          <view>
+          <view wx:if="{{item.start_time}}">
             有效期{{cuopon.timestampToTime(item.start_time)}}至{{cuopon.timestampToTime(item.end_time)}}
           </view>
         </view>
@@ -59,5 +59,8 @@
       </view>
     </view>
     <coupon-detail wx:if="{{item}}" Cuoponitem="{{item}}"></coupon-detail>
+    <view class='refund' wx:if="{{item.buy_way=='MONEY'}}">
+      <button class='refund_btn' bindtap='refundTap' wx:if="{{!isouttime==couponInfo.status =='NORMAL'}}">退款</button>
+    </view>
   </block>
 </view>

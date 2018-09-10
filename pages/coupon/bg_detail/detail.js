@@ -15,6 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let isouttime = options.outtime ? true : "";
+    this.setData({
+      isouttime
+    })
     id = options.id;
     this.getcouponInof();
   },
@@ -59,6 +63,33 @@ Page({
     return {
       title: this.data.couponInfo.name,
       path: `/pages/coupon/receive/receive?objectId=${id}&coupon_type=offline`
+    }
+  },
+  // 退款
+  refundTap() {
+    if (id) {
+      wx.showModal({
+        content: '退款将原路退回给购买人,是否确认',
+        confirmText: '确认退款',
+        success(res) {
+          if (res.confirm) {
+            server.newpostJSON("/Coupon/refundOlCoupon", {
+              id
+            }, function(res) {
+              if (typeof (res.data) != "string" && res.data.status) {
+                wx.showToast({
+                  title: '退款成功',
+                })
+              } else {
+                wx.showToast({
+                  title: '退款失败',
+                  image: '/images/about.png'
+                })
+              }
+            })
+          }
+        }
+      })
     }
   }
 })

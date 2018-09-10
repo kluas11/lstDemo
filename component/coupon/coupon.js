@@ -33,9 +33,11 @@ Component({
   methods: {
     detailTap(e) {
       let id = e.currentTarget.dataset.id; 
-      if (id && !this.properties.Cuopon) {
+      let status = e.currentTarget.dataset.status; 
+      let outtime = this.properties.tabtype =='getUserCouponExc'?"true":'';
+      if (id && !this.properties.Cuopon && status != 'SHARING') {
         wx.navigateTo({
-          url: '/pages/coupon/b_detail/b_detail?id=' + id,
+          url: `/pages/coupon/b_detail/b_detail?id=${id}&outtime=${outtime}`,
         })
       }
     }

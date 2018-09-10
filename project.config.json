@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 35,
 			"list": [
 				{
 					"id": 0,
@@ -264,7 +264,7 @@
 					"id": 35,
 					"name": "购买的商品优惠券详情",
 					"pathName": "pages/coupon/bg_detail/detail",
-					"query": "id=30",
+					"query": "id=29&outtime=",
 					"scene": "1011"
 				},
 				{

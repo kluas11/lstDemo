@@ -16,7 +16,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+    let isouttime = options.outtime?true:"";
+    this.setData({
+      isouttime
+    })
     // 隐藏右上角的转发
     wx.hideShareMenu()
     id = options.id;
@@ -165,8 +168,11 @@ Page({
           },
           'fail': function(res) {
             that.setData({
-              orderState: false,
-              modalshow: true
+              orderState: false
+            })
+            wx.showToast({
+              title: '购买失败',
+              image: '/images/about.png'
             })
           }
         })
@@ -179,8 +185,11 @@ Page({
           })
         } else {
           that.setData({
-            orderState: false,
-            modalshow: true
+            orderState: false
+          })
+          wx.showToast({
+            title: '购买失败',
+            image: '/images/about.png'
           })
         }
       }

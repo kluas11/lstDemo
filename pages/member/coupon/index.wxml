@@ -6,7 +6,7 @@
     <view class='tab' bindtap='tabTap'>
       <block wx:for="{{tablists}}" wx:key="{{index}}">
         <view class='list_box'>
-          <text class='tab_list {{tabtype==item.type?"tab_active":""}}' data-type='{{item.type}}'>{{item.name}}(22)</text>
+          <text class='tab_list {{tabtype==item.type?"tab_active":""}}' data-type='{{item.type}}'>{{item.name}}</text>
         </view>
       </block>
     </view>

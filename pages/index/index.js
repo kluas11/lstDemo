@@ -184,7 +184,7 @@ Page({
     });
   },
   // 点击门店
-  storeTap(){
+  storeTap() {
     wx.navigateTo({
       url: '/pages/seller/index',
     })
@@ -258,40 +258,20 @@ Page({
       store_id: App.globalData.store_id
       // store_id: 26
     }, function(res) {
-      console.log(res)
-      that.setData({
-        cuoponlist: res.data
-      })
+      if (typeof(res.data) != "string") {
+        that.setData({
+          cuoponlist: res.data
+        })
+      }
     });
   },
   // 去领取优惠券
   receivetap(e) {
     let that = this;
     let coupon_id = e.currentTarget.dataset.coupon_id;
-    let cuoponlist = this.data.cuoponlist;
-    cuoponlist.forEach(function(val, index) {
-      if (val.coupon_id === coupon_id) {
-        val.disabled = true;
-      }
+    wx.navigateTo({
+      url: '/pages/coupon/b_detail/b_detail?coupon_id=' + coupon_id,
     })
-    server.newpostJSON("/Index/receiveCoupon", {
-      coupon_id,
-    }, function(res) {
-      if (res.data.status) {
-        wx.showToast({
-          title: '领取成功',
-          icon: "success"
-        })
-        that.setData({
-          cuoponlist
-        })
-      } else {
-        wx.showToast({
-          title: '领取失败',
-          image: '../../images/about.png',
-        })
-      }
-    });
   },
   // 关闭领券
   hidetap(e) {

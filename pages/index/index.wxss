@@ -370,7 +370,7 @@ button::after {
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
-  background: #fff;
+  background:#eeeeee;
   height: 520rpx;
 }
 

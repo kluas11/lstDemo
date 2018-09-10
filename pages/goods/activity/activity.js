@@ -21,8 +21,8 @@ Page({
   getactivity(url) {
     let that = this;
     server.getJSON(url, {
-      // store_id: App.globalData.store_id
-      store_id: 26
+      store_id: App.globalData.store_id
+      // store_id: 26
     }, function(res) {
       if (res.statusCode == 200) {
         that.setData({

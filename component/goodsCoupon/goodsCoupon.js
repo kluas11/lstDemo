@@ -33,11 +33,12 @@ Component({
    */
   methods: {
     detailTap(e){
-      // 已购买的优惠券才有id  
       let id = e.currentTarget.dataset.id;
-      if (id && !this.properties.Cuopon){
+      let status = e.currentTarget.dataset.status;
+      let outtime = this.properties.tabtype == 'getUserCouponExc' ? "true" : '';
+      if (id && !this.properties.Cuopon && status !='SHARING'){
         wx.navigateTo({
-          url: '/pages/coupon/bg_detail/detail?id='+id,
+          url:  `/pages/coupon/bg_detail/detail?id=${id}&outtime=${outtime}`,
         })
       }
     }

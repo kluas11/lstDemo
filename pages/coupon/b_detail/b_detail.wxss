@@ -1,4 +1,7 @@
 /* pages/coupon/b_detail/b_detail.wxss */
+button[disabled]{
+  border: 1rpx solid #cccccc;
+}
 .orderpaybox {
   position: absolute;
   top: 40%;

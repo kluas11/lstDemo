@@ -16,8 +16,8 @@ Page({
   onLoad: function(options) {
     let that = this;
     server.getJSON("/Coupon/getBuyCouponList", {
-      // store_id: App.globalData.store_id
-      store_id: 26
+      store_id: App.globalData.store_id
+      // store_id: 26
     }, function(res) {
       // console.log(res)
       if (typeof(res.data) == "string") {

@@ -6,14 +6,17 @@ Page({
     cuopon_cart: true, //判断是不是我的优惠券页面
     tablists: [{
         name: "可使用",
-        type: 'getUserCoupon'
+        type: 'getUserCoupon',
+        len: 0
       },
       {
         name: "已使用",
-        type: 'getuserCouponUsed'
+        type: 'getuserCouponUsed',
+        len: 0
       }, {
         name: "已过期",
-        type: 'getUserCouponExc'
+        type: 'getUserCouponExc',
+        len: 0
       }
     ],
     tabtype: "getUserCoupon",
@@ -110,6 +113,34 @@ Page({
       return;
     }
   },
+  // 撤回赠送
+  cancelGivetap(e) {
+    let status = e.target.dataset.status;
+    let id = e.target.dataset.id;
+    let that =this;
+    let url;
+    if (status && status == 'offline') {
+      url = "/Coupon/cancelGiveOlCoupon";
+    } else if (status && status == 'online') {
+      url = '/Coupon/cancelGiveCoupon'
+    } else {
+      return;
+    }
+    server.newpostJSON(url,{id}, function(res) {
+      console.log(res)
+      if (typeof (res.data) !== "string" && res.data.status=='1') {
+          wx.showToast({
+            title: '撤回成功'
+          })
+        that.getUserCoupon("getUserCoupon");
+      }else{
+        wx.showToast({
+          title: '撤回失败',
+          image: '/images/about.png'
+        })
+      }
+    });
+  },
   // 优惠券
   getUserCoupon: function(type) {
     var that = this;
@@ -117,9 +148,9 @@ Page({
     let cuoponlist;
     let goodsCuoponlist;
     let couponData;
-    let empty = false;
+    let empty;
     server.getJSON(url, function(res) {
-      console.log(res)
+      // console.log(res)
       if (typeof(res.data) === "string") {
         cuoponlist = [];
         goodsCuoponlist = [];
@@ -131,13 +162,15 @@ Page({
       }
       if (cuoponlist.length == 0 && goodsCuoponlist.length == 0) {
         empty = true;
+      } else {
+        empty = false;
       }
       that.setData({
         couponData,
         cuoponlist,
         goodsCuoponlist,
         empty,
-        idload: false
+        isload: false
       })
     });
   }

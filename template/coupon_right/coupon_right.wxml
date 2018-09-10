@@ -5,8 +5,15 @@
  -->
 <!-- 我的优惠券 开始 -->
 <template name="mycoupon">
+  <!-- 已分享-->
+  <view class='list_right' wx:if="{{tabtype == 'getUserCoupon'&&item.status=='SHARING'}}">
+    <button class='cuopon_share' bindtap='cancelGivetap' data-status='{{status}}' data-id='{{item.id}}'>
+      <text>撤回赠送</text>
+      <image src='/images/share1.png' class='share_img'></image>
+    </button>
+  </view>
   <!-- 可使用 -->
-  <view class='list_right' wx:if="{{tabtype == 'getUserCoupon'}}">
+  <view class='list_right' wx:if="{{tabtype == 'getUserCoupon'&&item.status!='SHARING'}}">
     <button class='cuopon_share' bindtap='detailtap' data-status='{{status}}' data-id='{{item.id}}' wx:if="{{item.canshare==1}}">
       <text>赠送</text>
       <image src='/images/share1.png' class='share_img'></image>

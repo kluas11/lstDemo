@@ -127,7 +127,9 @@ button::after {
   text-align: center;
   line-height: 140rpx;
 }
-
+.selected .list_right  .cuopon_btn{
+  background: #4ab760;
+}
 /* 选择的优惠券 结束 */
 
 /* 已抢光优惠券 开始*/

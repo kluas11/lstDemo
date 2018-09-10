@@ -5,7 +5,7 @@
     <image class='coupon_top' src='{{tabtype=="getUserCouponExc"?top_img2:top_img}}'></image>
   </view>
   <view class='{{cuopon.isoverdue(Cuoponitem.limit_total,Cuoponindex,select_index)}} border_top'>
-    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'>
+    <view class='list_left' bindtap='detailTap' data-id='{{Cuoponitem.id}}'  data-status='{{Cuoponitem.status}}'>
       <!-- 满减多少钱  SUBTRAC-->
       <view class='cuopon_price {{tabtype!="getUserCoupon"?"dis_color":""}}' wx:if='{{Cuoponitem.coupon_type == "SUBTRAC"}}'>
         <text class='num'>{{cuopon.parseFloat(Cuoponitem.subtrac_money)}}</text>
@@ -29,7 +29,7 @@
           <view wx:else class='title'>满{{cuopon.parseFloat(Cuoponitem.subtrac_price)}}元可用</view>
           <view class='coupon_details clamp2'>{{Cuoponitem.details}}</view>
         </view>
-        <view class='coupon_time'>
+        <view class='coupon_time' wx:if="{{Cuoponitem.start_time}}">
           <text>{{cuopon.timestampToTime(Cuoponitem.start_time,true)}}-</text>
           <text>{{cuopon.timestampToTime(Cuoponitem.end_time,true)}}</text>
         </view>
