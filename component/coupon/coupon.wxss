@@ -1,4 +1,3 @@
-
 /* 文字超两行省略 */
 .clamp2 {
   overflow: hidden;
@@ -7,18 +6,15 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-
 button::after {
   border: none;
 }
-
 .list_out {
   margin-bottom: 30rpx;
   padding-top: 8rpx;
   position: relative;
   overflow: hidden;
 }
-
 .coupon_top {
   position: absolute;
   width: 100%;
@@ -26,9 +22,7 @@ button::after {
   top: 0;
   left: 0;
 }
-
 /* 可以使用的优惠券样式 */
-
 .cuopon_list {
   display: flex;
   border-radius: 8rpx;
@@ -36,13 +30,11 @@ button::after {
   justify-content: space-between;
   background: #fff;
 }
-
 .list_left {
   display: flex;
   flex: 1;
   margin: 16rpx 0;
 }
-
 .cuopon_list .cuopon_price {
   color: #d94612;
   font-size: 38rpx;
@@ -53,7 +45,7 @@ button::after {
   text-align: center;
   line-height: 140rpx;
 }
-.cuopon_list .dis_color{
+.cuopon_list .dis_color {
   color: #626262;
 }
 .cuopon_price .num {
@@ -61,14 +53,12 @@ button::after {
   font-weight: 700;
 }
 /* 线下核销优惠券图片 */
-
 .coupon_img {
   width: 140rpx;
   height: 140rpx;
   margin: 0rpx 16rpx;
   border-radius: 8rpx;
 }
-
 .goods_center {
   flex: 1;
   display: flex;
@@ -79,12 +69,10 @@ button::after {
   font-weight: 400;
   margin-right: 20rpx;
 }
-
 .coupon_time {
   font-size: 22rpx;
   color: #a0a0a0;
 }
-
 .center {
   display: flex;
   flex-direction: column;
@@ -94,20 +82,16 @@ button::after {
   margin-right: 20rpx;
   justify-content: space-between;
 }
-
 .list_left .center .title {
   color: #626262;
   font-size: 28rpx;
   font-weight: 600;
 }
-
 .coupon_details {
   font-size: 24rpx;
   color: #626262;
 }
-
 /* 选择的优惠券 开始*/
-
 .selected {
   display: flex;
   border-radius: 8rpx;
@@ -115,8 +99,6 @@ button::after {
   justify-content: space-between;
   background: #ffffff;
 }
-
-
 .selected .cuopon_price {
   color: #4ab760;
   font-size: 38rpx;
@@ -131,9 +113,7 @@ button::after {
   background: #4ab760;
 }
 /* 选择的优惠券 结束 */
-
 /* 已抢光优惠券 开始*/
-
 .disabled {
   display: flex;
   border-radius: 8rpx;
@@ -141,9 +121,6 @@ button::after {
   justify-content: space-between;
   background: #ffffff;
 }
-
-
-
 .disabled .cuopon_price {
   color: #ccc;
   font-size: 38rpx;

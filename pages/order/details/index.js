@@ -3,13 +3,14 @@ const App = getApp();
 Page({
   data: {
     goods_oss: App.image_oss + '130_150',
-    wx_loading: true
+    wx_loading: true,
+    order_id: ''
   },
   //退款
   refund: function(e) {
-    // let obj = encodeURIComponent(e.currentTarget.dataset.goods)
+    console.log(e)
     wx.navigateTo({
-      url: './request_refund/request_refund?obj=' + JSON.stringify(e.currentTarget.dataset.goods),
+      url: './request_refund/request_refund?order_id=' + this.data.order_id + '&goods_id=' + e.currentTarget.dataset.goods.goods_id
     })
   },
   onLoad: function(options) {
@@ -17,6 +18,9 @@ Page({
     var that = this;
     var app = getApp();
     var order_id = options.order_id;
+    this.setData({
+      order_id: options.order_id
+    })
     server.getJSON('/Order/orderDetails', {
         order_id
       },

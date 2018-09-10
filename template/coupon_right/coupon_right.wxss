@@ -7,19 +7,16 @@
   flex-direction: column;
   border-left: 1rpx dashed #b5b5b5;
 }
-
 .list_right_price {
   font-size: 36rpx;
   color: #fa6958;
 }
-
 .list_right_originprice {
   margin: 6rpx 0;
   font-size: 16rpx;
   color: #999;
   text-decoration: line-through;
 }
-
 .list_right .cuopon_btn {
   width: 134rpx;
   font-size: 26rpx;
@@ -30,10 +27,9 @@
   height: 40rpx;
   line-height: 40rpx;
 }
-
 .list_right .cuopon_share {
   font-size: 28rpx;
-  color:  #d94612;
+  color: #d94612;
   font-weight: 400;
   background: #ffffff;
   margin: 0;
@@ -43,7 +39,7 @@
   display: flex;
   align-items: center;
 }
-.share_img{
+.share_img {
   width: 30rpx;
   height: 30rpx;
   margin-left: 6rpx;

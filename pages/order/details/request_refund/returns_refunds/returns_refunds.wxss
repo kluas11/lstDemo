@@ -126,11 +126,36 @@ page {
   padding: 30rpx;
   margin-bottom: 83rpx;
   background-color: #ffffff;
+  overflow: hidden;
 }
 .container .certificate-wrapper .certificate {
   margin-top: 30rpx;
   width: 100%;
   height: 100px;
+}
+.container .certificate-wrapper .certificate .item-img {
+  width: 167rpx;
+  height: 167rpx;
+  margin: 0 30rpx 30rpx 0;
+  float: left;
+}
+.container .certificate-wrapper .certificate .add {
+  width: 167rpx;
+  height: 167rpx;
+  box-sizing: border-box;
+  border: 1rpx #999999 solid;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container .certificate-wrapper .certificate .add .img {
+  width: 43rpx;
+  height: 38rpx;
+}
+.container .certificate-wrapper .certificate .add .text {
+  color: #999999;
 }
 .container .submit {
   width: 100%;

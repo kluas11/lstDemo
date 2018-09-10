@@ -6,9 +6,9 @@
     <view class='content'>
       <text class='name'>{{obj.goods_name}}</text>
       <view class="num-wrapper">
-        <image class='subtract' src='/images/subtract_fill.png' lazy-load='true'></image>
-        <input class="input" type='num' value='1'></input>
-        <image class='add' src='/images/add_fill.png' lazy-load='true'></image>
+        <image class='subtract' src='/images/subtract_fill.png' lazy-load='true' bindtap='subtract'></image>
+        <input class="input" type='num' bindinput='inputClick' value='{{refundNum}}'></input>
+        <image class='add' src='/images/add_fill.png' lazy-load='true' bindtap='add'></image>
       </view>
     </view>
   </view>
@@ -25,25 +25,28 @@
   <view class='refund-wrapper'>
     <view class='money'>
       <text class='text'>退款金额</text>
-      <text class='num'>100</text>
+      <text class='num'>{{money}}</text>
     </view>
     <view class='tips'>*退款金额不含运费</view>
     <view class='description'>
       <text class='text'>退款说明</text>
-      <input class="input" type='text' placeholder='选填'></input>
+      <input class="input" type='text' placeholder='选填' bindinput='inputDescription' value='{{description}}'></input>
     </view>
   </view>
   <view class='certificate-wrapper'>
     <view class='title'>上传凭证</view>
     <view class='certificate'>
-      <view class='add'>
+      <block wx:for='{{certificate}}' wx:key='index'>
+        <image class='item-img' src='{{item}}' mode='aspectFill' lazy-load='true'></image>
+      </block>
+      <view class='add' wx:if='{{certificate.length<5}}' bindtap='chooseImage'>
         <image class='img' src='/images/camera.png' lazy-load='true'></image>
         <text class='text'>添加图片</text>
         <text class='text'>(最多5张)</text>
       </view>
     </view>
   </view>
-  <view class='submit'>提交</view>
+  <view class='submit' bindtap='submit'>提交</view>
   <view class='select-top-wrapper' style='{{statusStyle}}'>
     <view class='flex'>
       <view class='blank' bindtap='selectTopWrapper'></view>
@@ -53,13 +56,13 @@
           <text class='text'>货物状态</text>
           <view class='right'></view>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='goodStatus' data-status='0'>
           <text class='text'>已收货</text>
-          <image class='hook' src='/images/hook-active.png' lazy-load='true'></image>
+          <image class='hook' src='{{goodStatusImg[0]}}' lazy-load='true'></image>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='goodStatus' data-status='1'>
           <text class='text'>未收货</text>
-          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+          <image class='hook' src='{{goodStatusImg[1]}}' lazy-load='true'></image>
         </view>
       </view>
     </view>
@@ -73,21 +76,21 @@
           <text class='text'>退款原因</text>
           <view class='right'></view>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='reasonItem' data-status='0'>
           <text class='text'>多拍/拍错/不想要</text>
-          <image class='hook' src='/images/hook-active.png' lazy-load='true'></image>
+          <image class='hook' src='{{reasonImg[0]}}' lazy-load='true'></image>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='reasonItem' data-status='1'>
           <text class='text'>卖家发错货</text>
-          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+          <image class='hook' src='{{reasonImg[1]}}' lazy-load='true'></image>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='reasonItem' data-status='2'>
           <text class='text'>生产日期/保质期描叙不符</text>
-          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+          <image class='hook' src='{{reasonImg[2]}}' lazy-load='true'></image>
         </view>
-        <view class='select-item'>
+        <view class='select-item' bindtap='reasonItem' data-status='3'>
           <text class='text'>其他</text>
-          <image class='hook' src='/images/hook.png' lazy-load='true'></image>
+          <image class='hook' src='{{reasonImg[3]}}' lazy-load='true'></image>
         </view>
       </view>
     </view>

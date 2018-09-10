@@ -8,14 +8,19 @@ Page({
    */
   data: {
     obj: {},
-    refund_time: 0,
-    add_time: 0
+    certificate: [],
+    refund_time: "",
+    add_time: "",
+    refund_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      refund_id: options.refund_id
+    })
     this.getData(options.refund_id)
   },
 
@@ -30,29 +35,62 @@ Page({
         if (res.statusCode === 200) {
           _this.setData({
             obj: res.data,
-            refund_time: parseInt(res.data.refund_time),
-            add_time: parseInt(res.data.add_time)
+            certificate: res.data.images.split(",")
           })
-          setTimeout(() => {
-            _this.date(_this.data.refund_time, 'refund_time'),
-              _this.date(_this.data.add_time, 'add_time')
-          }, 50)
+          _this.date(parseInt(res.data.refund_time), 'refund_time')
+          _this.date(parseInt(res.data.add_time), 'add_time')
         }
       })
   },
 
   //时间
-  date: function(input, key) {
-    let d = new Date(input);
-    let year = d.getFullYear();
-    let month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;
-    let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
-    let hour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
-    let minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
-    let seconds = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
+  date: function(timeStamp, key) {
+    if (!timeStamp) return
+    let date = new Date();
+    date.setTime(timeStamp * 1000);
+    let y = date.getFullYear();
+    let m = date.getMonth() + 1;
+    m = m < 10 ? ('0' + m) : m;
+    let d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    let h = date.getHours();
+    h = h < 10 ? ('0' + h) : h;
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    minute = minute < 10 ? ('0' + minute) : minute;
+    second = second < 10 ? ('0' + second) : second;
     this.setData({
-      [key]: year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
+      [key]: y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second
     })
+  },
+
+  //打开大图
+  previewImage: function(e) {
+    wx.previewImage({
+      current: e.currentTarget.dataset.url, // 当前显示图片的http链接
+      urls: this.data.certificate // 需要预览的图片http链接列表
+    })
+  },
+
+  //返回上一层
+  back: function() {
+    wx.navigateBack({
+
+    })
+  },
+
+  //撤销申请
+  cancel: function() {
+    let _this = this
+    server.postJSON('/OrderRefund/cancelRefund', {
+        refund_id: _this.data.refund_id
+      },
+      function(res) {
+        console.log(res)
+        if (res.data.status) {
+          wx.navigateBack()
+        }
+      })
   },
 
   /**

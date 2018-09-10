@@ -13,7 +13,8 @@
         </view>
       </block>
       <view class='refund-status'>
-        <image class='img' src='/images/refund-icon.png' lazy-load='true'></image>
+        <image class='img' wx:if='{{item.refund_way==="仅退款"}}' src='/images/refund-icon.png' lazy-load='true'></image>
+        <image class='img' wx:if='{{item.refund_way==="退货退款"}}' src='/images/returns-refunds.png' lazy-load='true'></image>
         <text class='text'>{{item.refund_way}}</text>
         <wxs src="./refund.wxs" module="status" />
         <text class='text'>{{status.fun(item.status)}}</text>

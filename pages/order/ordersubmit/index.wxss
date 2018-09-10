@@ -1,6 +1,90 @@
 /* pages/order/ordersubmit/index.wxss */
-@import '../../../template/coupon_right/coupon_right.wxss';
-@import '../../../template/select_pay/select_pay.wxss';
+.list_right {
+  display: flex;
+  width: 186rpx;
+  height: 128rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 1rpx dashed #b5b5b5;
+}
+.list_right_price {
+  font-size: 36rpx;
+  color: #fa6958;
+}
+.list_right_originprice {
+  margin: 6rpx 0;
+  font-size: 16rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+.list_right .cuopon_btn {
+  width: 134rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #fff;
+  background: #d94612;
+  border-radius: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.list_right .cuopon_share {
+  font-size: 28rpx;
+  color: #d94612;
+  font-weight: 400;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  margin-bottom: 14rpx;
+  display: flex;
+  align-items: center;
+}
+.share_img {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 6rpx;
+}
+/* 右边图片 */
+.used_img {
+  width: 156rpx;
+  height: 119rpx;
+}
+.orderpaybox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600rpx;
+  background: #fff;
+}
+.payByBalance {
+  background: #38a4f0;
+}
+.payment {
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx 20rpx;
+}
+.payment_price {
+  font-size: 30rpx;
+  text-align: center;
+}
+.payment button {
+  color: #fff;
+  margin-top: 20rpx;
+}
+.payByWXPay {
+  background-color: #1aad19;
+}
+.addressmark {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
 .addressbox {
   width: 70%;
   height: 70%;
@@ -11,11 +95,9 @@
   display: flex;
   flex-direction: column;
 }
-
 .improt_color {
   color: #d94612;
 }
-
 .view-address {
   display: flex;
   flex-direction: row;
@@ -25,7 +107,6 @@
   height: 150rpx;
   background: #3aa0b7;
 }
-
 .view-addressleft {
   display: flex;
   flex-direction: row;
@@ -34,12 +115,10 @@
   align-items: center;
   width: 450rpx;
 }
-
 .icon-dizhi {
   color: #fff;
   font-size: 40rpx;
 }
-
 .view-addressleft-info {
   display: flex;
   flex-direction: column;
@@ -48,17 +127,14 @@
   align-items: flex-start;
   height: 85rpx;
 }
-
 .text-name {
   font-size: 29rpx;
   color: #fff;
 }
-
 .text-address {
   font-size: 29rpx;
   color: #fff;
 }
-
 .view-addressright {
   height: 50rpx;
   margin-right: 20rpx;
@@ -66,44 +142,36 @@
   flex-direction: row;
   align-items: center;
 }
-
 .text-mobile {
   font-size: 29rpx;
   color: #fff;
 }
-
 .icon-gengduo {
   font-size: 36rpx;
   font-weight: 600;
   color: #fff;
 }
-
 .view-title {
   display: flex;
   flex-direction: row;
   height: 75rpx;
   align-items: center;
 }
-
 .view-title image {
   width: 50rpx;
   height: 50rpx;
 }
-
 .view-title text {
   font-size: 29rpx;
   color: black;
 }
-
 .class-line {
   width: 670rpx;
   margin-left: 0rpx;
   height: 2rpx;
   background: #f4f4f4;
 }
-
 /*外部容器*/
-
 .container {
   display: flex;
   flex-direction: column;
@@ -111,17 +179,13 @@
   justify-content: space-between;
   box-sizing: border-box;
 }
-
 /*整体列表*/
-
 .carts-list {
   display: flex;
   flex-direction: column;
   padding: 0 40rpx;
 }
-
 /*每行单元格*/
-
 .carts-item {
   display: flex;
   flex-direction: row;
@@ -132,9 +196,7 @@
   padding: 30rpx 0;
   justify-content: space-between;
 }
-
 /*左部图片*/
-
 .carts-image {
   width: 130rpx;
   height: 150rpx;
@@ -142,9 +204,7 @@
   border-style: solid;
   border-color: #ccc;
 }
-
 /*右部描述*/
-
 .carts-text {
   margin-left: 10rpx;
   width: 370rpx;
@@ -152,7 +212,6 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
 .carts-right {
   height: 100%;
   width: 110rpx;
@@ -161,9 +220,7 @@
   justify-content: center;
   align-items: center;
 }
-
 /*右上部分标题*/
-
 .carts-title {
   font-size: 27rpx;
   color: #444;
@@ -173,26 +230,21 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-
 .acitve_goods {
   display: flex;
   flex-direction: column;
   font-size: 26rpx;
   color: #d94612;
 }
-
 .acitve_goods_num {
   color: #00b26a;
 }
-
 .carts-key-name {
   margin-top: 10rpx;
   font-size: 27rpx;
   color: #999;
 }
-
 /*右下部分价格与数量*/
-
 .carts-subtitle {
   font-size: 25rpx;
   color: darkgray;
@@ -201,20 +253,15 @@
   flex-direction: row;
   justify-content: space-between;
 }
-
 /*价格*/
-
 .carts-price {
   color: #f60;
   font-size: 14px;
   line-height: 22px;
   margin-top: 12rpx;
 }
-
 /*商品加减按钮*/
-
 /*stepper容器*/
-
 .stepper {
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -222,18 +269,14 @@
   height: 26px;
   margin: 0 auto;
 }
-
 /*加号与减号*/
-
 .stepper text {
   width: 19px;
   line-height: 26px;
   text-align: center;
   float: left;
 }
-
 /*数值*/
-
 .stepper input {
   color: black;
   float: left;
@@ -245,28 +288,20 @@
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
-
 /*普通样式*/
-
 .stepper .normal {
   color: black;
 }
-
 /*禁用样式*/
-
 .stepper .disabled {
   color: #ccc;
 }
-
 /*复选框样式*/
-
 .carts-list icon {
   margin-top: 60rpx;
   margin-right: 20rpx;
 }
-
 /*底部按钮*/
-
 .carts-footer {
   width: 100%;
   height: 80rpx;
@@ -279,24 +314,18 @@
   border-top: 1px solid #eee;
   background: white;
 }
-
 /*复选框*/
-
 .carts-footer icon {
   margin-left: 20rpx;
   margin-top: 20rpx;
 }
-
 /*全选字样*/
-
 .carts-footer text {
   font-size: 30rpx;
   margin-left: 8rpx;
   line-height: 10rpx;
 }
-
 /*立即结算按钮*/
-
 .carts-footer .button {
   line-height: 80rpx;
   text-align: center;
@@ -308,45 +337,37 @@
   border-radius: 0;
   border: 0;
 }
-
 .carts-footer-left {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
 .carts-footer-left text {
   margin-top: 20rpx;
 }
-
 .text-price {
   font-size: 32rpx;
   color: #999;
 }
-
 .text-red {
   font-size: 32rpx;
   /* color: orangered; */
 }
-
 .image-delete {
   width: 50rpx;
   height: 60rpx;
 }
-
 .class-line1 {
   width: 750rpx;
   height: 20rpx;
   background: #f4f4f4;
 }
-
 .view-price {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
 }
-
 .view-price1 {
   margin-top: 30rpx;
   margin-right: 20rpx;
@@ -355,12 +376,10 @@
   justify-content: flex-end;
   align-items: center;
 }
-
 .text-price1 {
   font-size: 29rpx;
   color: grey;
 }
-
 .text-save {
   width: 25%;
   height: 100%;
@@ -370,13 +389,11 @@
   text-align: center;
   background: orange;
 }
-
 .parent {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-
 .view-freemoney {
   width: 100%;
   height: 100rpx;
@@ -386,13 +403,11 @@
   align-items: center;
   border-bottom: 1px solid #eee;
 }
-
 .text-hint {
   font-size: 28rpx;
   color: #000;
   margin-left: 40rpx;
 }
-
 .text-hint1 {
   font-size: 28rpx;
   color: #000;
@@ -400,7 +415,6 @@
   flex-shrink: 0;
   flex-grow: 0;
 }
-
 .input-money {
   font-size: 26rpx;
   color: #999;
@@ -410,7 +424,6 @@
   padding-left: 15rpx;
   width: 140rpx;
 }
-
 .btn-use {
   line-height: 55rpx;
   background: red;
@@ -421,18 +434,15 @@
   margin-left: 5rpx;
   padding-right: 10rpx;
 }
-
 .radio-style {
   font-size: 28rpx;
   color: red;
   margin-left: 40rpx;
 }
-
 .text-redhint {
   font-size: 28rpx;
   color: red;
 }
-
 .text-select {
   font-size: 28rpx;
   color: #999;
@@ -440,7 +450,6 @@
   height: 40rpx;
   line-height: 28rpx;
 }
-
 .view-picker {
   border-style: solid;
   border-color: #999;
@@ -455,7 +464,6 @@
   font-size: 28rpx;
   color: #999;
 }
-
 .distribution {
   margin: 30rpx 0 20rpx 40rpx;
   width: 240rpx;
@@ -464,7 +472,6 @@
   color: white;
   background: orange;
 }
-
 .drawer_screen {
   width: 100%;
   height: 100%;
@@ -476,7 +483,6 @@
   opacity: 0.5;
   overflow: hidden;
 }
-
 .drawer_content {
   width: 80%;
   height: 40%;
@@ -493,11 +499,9 @@
   justify-content: center;
   align-items: center;
 }
-
 .drawer_content :first-child {
   margin-bottom: 40rpx;
 }
-
 .slectDistribution {
   width: 400rpx;
   height: 100rpx;
@@ -505,13 +509,11 @@
   background: orange;
   color: white;
 }
-
 .distr {
   display: flex;
   flex-direction: column;
   /* align-items: center;  */
 }
-
 .distrbox {
   width: 100%;
   font-size: 30rpx;
@@ -521,7 +523,6 @@
   padding-right: 20rpx;
   box-sizing: border-box;
 }
-
 .outRangeTip {
   padding: 32rpx;
   background: #3aa0b7;
@@ -530,18 +531,15 @@
   align-items: center;
   justify-content: space-between;
 }
-
 .outRangeTip > view {
   line-height: 48rpx;
   font-size: 32rpx;
   color: #fff;
   text-align: left;
 }
-
 .outRangeTip image {
   width: 32rpx;
 }
-
 .cuopon_info {
   position: fixed;
   height: 100%;
@@ -551,7 +549,6 @@
   left: 0;
   background: rgba(0, 0, 0, 0.3);
 }
-
 .cuopon_content {
   border-width: 0px;
   position: absolute;
@@ -561,14 +558,12 @@
   height: 640rpx;
   border-radius: 10rpx;
 }
-
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
   background: #eeeeee;
   height: 640rpx;
 }
-.selected  .cuopon_btn {
+.selected .cuopon_btn {
   background: #4ab760;
 }
-
