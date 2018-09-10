@@ -8,8 +8,9 @@ Page({
   },
   //退款
   refund: function(e) {
+    console.log(e)
     wx.navigateTo({
-      url: './request_refund/request_refund?order_id=' + this.data.order_id + '&index=' + e.currentTarget.dataset.index
+      url: './request_refund/request_refund?order_id=' + this.data.order_id + '&goods_id=' + e.currentTarget.dataset.goods.goods_id
     })
   },
   onLoad: function(options) {

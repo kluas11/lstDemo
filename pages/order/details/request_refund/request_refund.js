@@ -14,23 +14,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getData(options.order_id, options.index)
+    this.getData(options.order_id, options.goods_id)
     this.setData({
       order_id: options.order_id
     })
   },
 
-  getData: function(order_id, index) {
+  getData: function(order_id, goods_id) {
     var _this = this;
-    server.getJSON('/OrderRefund/getBeRefundedGoodsList', {
+    server.getJSON('/OrderRefund/getBeRefundedGood', {
+        goods_id,
         order_id
       },
       function(res) {
         console.log(res)
         _this.setData({
-          obj: res.data[index]
+          obj: res.data
         })
-      });
+      })
   },
 
   onlyRefund: function() {

@@ -68,7 +68,7 @@
   color: #999;
   margin-top: 40rpx;
 }
-.getback{
+.getback {
   font-size: 24rpx;
   background: #ffffff;
   border: 1rpx solid #CCCCCC;

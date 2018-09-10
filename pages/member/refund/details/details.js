@@ -10,13 +10,17 @@ Page({
     obj: {},
     certificate: [],
     refund_time: "",
-    add_time: ""
+    add_time: "",
+    refund_id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      refund_id: options.refund_id
+    })
     this.getData(options.refund_id)
   },
 
@@ -66,6 +70,27 @@ Page({
       current: e.currentTarget.dataset.url, // 当前显示图片的http链接
       urls: this.data.certificate // 需要预览的图片http链接列表
     })
+  },
+
+  //返回上一层
+  back: function() {
+    wx.navigateBack({
+
+    })
+  },
+
+  //撤销申请
+  cancel: function() {
+    let _this = this
+    server.postJSON('/OrderRefund/cancelRefund', {
+        refund_id: _this.data.refund_id
+      },
+      function(res) {
+        console.log(res)
+        if (res.data.status) {
+          wx.navigateBack()
+        }
+      })
   },
 
   /**

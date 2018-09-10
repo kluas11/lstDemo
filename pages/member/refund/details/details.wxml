@@ -5,6 +5,13 @@
     <text class='content'>{{details.status(obj.status)}}</text>
     <text class='content'>{{refund_time}}</text>
   </view>
+  <view class='cancel-wrapper' wx:if='{{!refund_time&&obj.status==="WAIT"}}'>
+    <view class='title'>您已成功发起退款申请，请耐心等待商家处理。</view>
+    <view class='btn-wrapper'>
+      <view class='back' bindtap='back'>返回我的订单</view>
+      <view class='cancel' bindtap='cancel'>撤销申请</view>
+    </view>
+  </view>
   <view class='turn-down-wrapper' wx:if='{{obj.status==="FAIL"}}'>
     <view class='turn-down'>
       <text class='title'>驳回原因：</text>

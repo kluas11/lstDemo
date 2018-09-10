@@ -1,9 +1,57 @@
-@import '../../../template/coupon_right/coupon_right.wxss';
-
+.list_right {
+  display: flex;
+  width: 186rpx;
+  height: 128rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 1rpx dashed #b5b5b5;
+}
+.list_right_price {
+  font-size: 36rpx;
+  color: #fa6958;
+}
+.list_right_originprice {
+  margin: 6rpx 0;
+  font-size: 16rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+.list_right .cuopon_btn {
+  width: 134rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #fff;
+  background: #d94612;
+  border-radius: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.list_right .cuopon_share {
+  font-size: 28rpx;
+  color: #d94612;
+  font-weight: 400;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  margin-bottom: 14rpx;
+  display: flex;
+  align-items: center;
+}
+.share_img {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 6rpx;
+}
+/* 右边图片 */
+.used_img {
+  width: 156rpx;
+  height: 119rpx;
+}
 page {
   background: #eeeeee;
 }
-
 .tab {
   font-size: 28rpx;
   background: #ffffff;
@@ -13,7 +61,7 @@ page {
   justify-content: space-around;
   color: #626262;
 }
-.list_box{
+.list_box {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -23,12 +71,10 @@ page {
   height: 86rpx;
   line-height: 86rpx;
 }
-
 .tab_active {
   position: relative;
   color: #d94612;
 }
-
 .tab_active::after {
   content: "";
   height: 8rpx;
@@ -39,7 +85,6 @@ page {
   left: 0;
   width: 100%;
 }
-
 .teb_page {
   height: 60rpx;
   background: #fff;
@@ -48,25 +93,20 @@ page {
   font-weight: 400;
   display: flex;
 }
-
 .page_list {
   flex: 1;
   line-height: 60rpx;
   text-align: center;
 }
-
 .pageactive {
   color: #d94612;
 }
-
 .cuopon_lists {
   padding: 28rpx 22rpx;
   box-sizing: border-box;
   background: #eeeeee;
 }
-
 /* 没有数据 */
-
 .view-tint {
   width: 100%;
   height: 100%;
@@ -76,13 +116,11 @@ page {
   justify-content: center;
   margin-top: 70rpx;
 }
-
 .view-tint image {
   width: 412rpx;
   height: 312rpx;
   margin-left: 100rpx;
 }
-
 .view-tint text {
   color: #888;
   font-size: 33rpx;
