@@ -28,6 +28,9 @@
   height: 40rpx;
   line-height: 40rpx;
 }
+.selected .list_right  .cuopon_btn{
+  background: #4ab760;
+}
 .list_right .cuopon_share {
   font-size: 28rpx;
   color: #d94612;

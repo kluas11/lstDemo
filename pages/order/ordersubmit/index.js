@@ -71,7 +71,7 @@ Page({
     var Index = e.currentTarget.dataset.index;
     var address_id = that.data.addressList[Index].address_id;
     var store_id = app.globalData.store_id;
-    server.getJSON('/Dopay/queryShippingPrice', {
+    server.getJSON('/Order/queryShippingPrice', {
       store_id: store_id,
       address_id: address_id
     }, function(res) {
@@ -97,7 +97,7 @@ Page({
     new Promise((resolve, reject) => {
       if (e.detail.value == 1) {
         // 选择物流配送  获取运费
-        server.getJSON('/Dopay/queryShippingPrice', {
+        server.getJSON('/Order/queryShippingPrice', {
           store_id: store_id,
           address_id: address_id
         }, function(res) {
@@ -354,7 +354,7 @@ Page({
       winrecord["goods_num"] = that.data.goodsNum
     }
     // console.log(winrecord)
-    server.newpostJSON("/Dopay/createOrder", winrecord, function(res) {
+    server.newpostJSON("/Order/createOrder", winrecord, function(res) {
       // console.log(res)
       wx.hideLoading();
       var result = res.data
@@ -426,7 +426,7 @@ Page({
           //  默认地址
           addressList: res.data
         })
-        server.getJSON('/Dopay/queryShippingPrice', {
+        server.getJSON('/Order/queryShippingPrice', {
           store_id: store_id,
           address_id: res.data[0].address_id
         }, function(res) {
@@ -479,7 +479,7 @@ Page({
     }
     // 获取商品 库存 交易金额
     // console.log(winrecord)
-    server.getJSON('/Dopay/confirmOrder', winrecord, function(res) {
+    server.getJSON('/Order/confirmOrder', winrecord, function(res) {
       var result = res.data
       // console.log(res)
       if (result.status == false) {

@@ -67,7 +67,7 @@
       领取优惠券
     </view>
     <view class='no_cuopon' wx:if="{{cuoponlist.length ==0}}">暂时没有可用的优惠券</view>
-    <scroll-view scroll-y="true" class='cuopon_lists'>
+    <scroll-view scroll-y="true" class='{{cuoponlist.length ==0?"nocuopon_lists":"cuopon_lists"}}'>
       <!-- 优惠券 -->
       <block wx:for="{{cuoponlist}}" wx:key="{{index}}">
         <coupon Cuoponitem="{{item}}">

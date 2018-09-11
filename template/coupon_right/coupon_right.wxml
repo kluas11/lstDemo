@@ -76,7 +76,7 @@
  -->
 <!-- 确定订单  开始 -->
 <template name="orderCoupon">
-  <view class='list_right {{index==select_index?"disabled2":""}}'>
+  <view class='list_right {{index==select_index?"selected":""}}'>
     <button bindtap='receivetap' data-index='{{index}}' class='cuopon_btn'>{{index==select_index?"已使用":"使用"}}</button>
   </view>
 </template>

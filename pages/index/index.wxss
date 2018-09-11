@@ -349,7 +349,7 @@ button::after {
   top: 272rpx;
   width: 700rpx;
   height: 640rpx;
-  background: #fff;
+  background: #ffffff;
   border-radius: 10rpx;
 }
 
@@ -373,7 +373,12 @@ button::after {
   background:#eeeeee;
   height: 520rpx;
 }
-
+.nocuopon_lists{
+  padding: 24rpx 32rpx 0 30rpx;
+  box-sizing: border-box;
+  background:#ffffff;
+  height: 520rpx;
+}
 .no_cuopon {
   text-align: center;
   padding-top: 100rpx;

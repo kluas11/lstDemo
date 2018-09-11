@@ -1,7 +1,7 @@
 <view class='store_active_list' wx:for="{{item}}" data-goods-id="{{item.goods_id}}" wx:key="{{index}}">
   <view class='store_list_left'>
     <view class='store_list_img'>
-      <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}'></image>
+      <image src='{{item.original_img==null?imageErr:item.original_img+goods_oss}}' lazy-load='true'></image>
     </view>
     <view class='store_content'>
       <view>

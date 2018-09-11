@@ -126,9 +126,14 @@ Page({
           })
         } else {
           that.setData({
-            orderState: false,
-            modalshow: true
+            orderState: false
           })
+          // if (res.data.msg =='余额不足')
+          wx.showToast({
+            title: res.data.msg,
+            image: '/images/about.png'
+          })
+          // console.log(res.data.msg)
         }
       }
     })
