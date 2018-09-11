@@ -30,16 +30,17 @@
 }
 .order_msg {
   margin-top: 20rpx;
+  margin-bottom: 80rpx;
 }
 .order_time {
   display: flex;
   flex-direction: column;
-  padding: 20rpx 10rpx;
+  padding: 5rpx 20rpx;
   font-size: 28rpx;
-  color: #444;
+  color: #999999;
 }
 .order_time .time {
-  padding: 10rpx 0;
+  padding: 5rpx 0;
 }
 .view-address {
   display: flex;
@@ -70,7 +71,7 @@
 .view-addressleft-info {
   display: flex;
   flex-direction: column;
-  margin-left: 10rpx;
+  margin-left: 20rpx;
   justify-content: space-around;
   align-items: flex-start;
 }
@@ -162,12 +163,12 @@
 .carts-item {
   display: flex;
   border-bottom: 1px solid #eee;
-  padding: 30rpx 40rpx;
+  padding: 30rpx 30rpx;
 }
 /*左部图片*/
 .carts-image {
   width: 130rpx;
-  height: 150rpx;
+  height: 130rpx;
   border-width: 3rpx;
   border-style: solid;
   border-color: #ccc;
@@ -189,20 +190,20 @@
   align-items: center;
 }
 .goods_btn {
-  padding: 2rpx 10rpx;
-  line-height: normal;
-  margin: 0;
+  box-sizing: border-box;
+  padding: 5rpx 20rpx;
   font-size: 20rpx;
-  color: #cccccc;
-  background: #ffffff;
-  border-radius: 4rpx;
-  border: 1rpx solid #cccccc;
+  background: #fff;
+  border-radius: 5rpx;
+  border: 1rpx solid #ccc;
+  margin-top: 10rpx;
 }
 /*右上部分标题*/
 .carts-title {
   font-size: 27rpx;
   color: #444;
   line-height: 38rpx;
+  margin-left: 20rpx;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -222,11 +223,15 @@
   justify-content: space-around;
   align-items: flex-end;
 }
+.carts-subtitle .text {
+  color: #666;
+  text-decoration: line-through;
+}
 /*价格*/
 .price_title {
   font-size: 22rpx;
-  color: #cccccc;
-  border-bottom: 1rpx solid #cccccc;
+  color: #666;
+  border-bottom: 1rpx solid #ccc;
   padding: 24rpx;
   display: flex;
   justify-content: space-between;
@@ -342,7 +347,7 @@
   background: #fff;
   margin-top: 20rpx;
   font-size: 20rpx;
-  color: #cccccc;
+  color: #666;
 }
 .view-price1 {
   padding-right: 20rpx;
@@ -356,7 +361,7 @@
 }
 .goods_foot {
   margin: 0 20rpx;
-  border-top: 1rpx solid #cccccc;
+  border-top: 1rpx solid #ccc;
   display: flex;
   justify-content: space-between;
   padding: 10rpx 0 20rpx;
@@ -387,4 +392,38 @@
   border-radius: 9rpx;
   background: orange;
   line-height: 70rpx;
+}
+.batch {
+  width: 100%;
+  height: 80rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  background-color: #fff;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.batch::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border-top: 1rpx solid #f2f2f2;
+  content: "";
+  transform: scaleY(0.5);
+}
+.batch .btn {
+  width: 130rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 25rpx;
+  color: #666;
+  border: 1rpx #ccc solid;
+  border-radius: 5rpx;
 }

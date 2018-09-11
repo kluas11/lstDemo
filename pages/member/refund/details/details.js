@@ -35,7 +35,7 @@ Page({
         if (res.statusCode === 200) {
           _this.setData({
             obj: res.data,
-            certificate: res.data.images.split(",")
+            certificate: JSON.parse(res.data.images)
           })
           _this.date(parseInt(res.data.refund_time), 'refund_time')
           _this.date(parseInt(res.data.add_time), 'add_time')

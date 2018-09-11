@@ -1,4 +1,4 @@
-// pages/member/refund/request_refund/only_refund/only_refund.js
+// pages/order/details/batch_selection/request_refund/request_refund.js
 let server = require('../../../../../utils/server')
 Page({
 
@@ -6,13 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    activeArr: [],
+    goodsList: [],
     statusStyle: 'display:none',
     reasonStyle: 'display:none',
-    obj: {},
     order_id: '',
-    refund_way: '仅退款',
+    refund_way: '',
     //退货数量，默认是1
-    refundNum: 1,
+    // refundNum: 1,
     //货物状态
     goodStatus: 1,
     goodStatusImg: ['/images/hook-active.png', '/images/hook.png'],
@@ -25,6 +26,10 @@ Page({
     description: '',
     //凭证
     certificate: []
+  },
+
+  back: function() {
+    wx.navigateBack()
   },
 
   //货物状态
@@ -42,42 +47,6 @@ Page({
   //关闭退款原因选项
   reasonTopWrapper: function() {
     this.changeData('reasonStyle', 'display:block', 'display:none')
-  },
-
-  //退货数量 减
-  subtract: function() {
-    let refundNum = this.data.refundNum
-    if (refundNum > 1) refundNum--
-      this.setData({
-        refundNum: refundNum
-      })
-    this.money(this.data.obj, refundNum)
-  },
-  //退货数量 加
-  add: function() {
-    let refundNum = this.data.refundNum
-    if (refundNum < parseInt(this.data.obj.goods_num)) refundNum++
-      this.setData({
-        refundNum: refundNum
-      })
-    this.money(this.data.obj, refundNum)
-  },
-
-  //输入退款商品数量
-  inputClick: function(e) {
-    if (parseInt(e.detail.value) < 1 || !parseInt(e.detail.value)) {
-      this.setData({
-        refundNum: 1
-      })
-      this.money(this.data.obj, 1)
-    } else if (parseInt(e.detail.value) > parseInt(this.data.obj.goods_num)) {
-      this.setData({
-        refundNum: parseInt(this.data.obj.goods_num)
-      })
-      this.money(this.data.obj, parseInt(this.data.obj.goods_num))
-    } else {
-      this.money(this.data.obj, parseInt(e.detail.value))
-    }
   },
 
   //货物状态
@@ -137,7 +106,7 @@ Page({
   },
 
   //打开大图
-  previewImage: function(e) {
+  previewImage: function (e) {
     wx.previewImage({
       current: e.currentTarget.dataset.url, // 当前显示图片的http链接
       urls: this.data.certificate // 需要预览的图片http链接列表
@@ -145,7 +114,7 @@ Page({
   },
 
   //删除所选图片
-  deleteImg: function(e) {
+  deleteImg: function (e) {
     let arr = []
     let _arr = this.data.certificate
     _arr.forEach((item, index) => {
@@ -196,20 +165,47 @@ Page({
   },
 
   //退款金额
-  money: function(obj, refundNum) {
+  money: function(obj) {
     let money = 0
     let price = parseFloat(obj.price)
     let goods_num = parseInt(obj.goods_num)
     let total_discount_money = parseFloat(obj.total_discount_money)
-    money = (price * goods_num - total_discount_money) * refundNum / goods_num
-    this.setData({
-      money: money.toFixed(2)
-    })
+    money = (price * goods_num - total_discount_money) * goods_num / goods_num
+    return money
+  },
+
+  //批量退款时获取商品详情列
+  getData: function(order_id) {
+    let _this = this;
+    server.getJSON('/OrderRefund/getBeRefundedGoodsList', {
+        order_id
+      },
+      function(res) {
+        if (res.statusCode === 200) {
+          console.log(res.data)
+          //筛选被选商品
+          let arr = []
+          let activeArr = _this.data.activeArr
+          activeArr.forEach((item, index) => {
+            if (item === "true") arr.push(res.data[index])
+          })
+          //计算退款金额
+          let money = 0
+          arr.forEach((item) => {
+            money += _this.money(item)
+          })
+          _this.setData({
+            goodsList: arr,
+            money: money.toFixed(2)
+          })
+        }
+      })
   },
 
   //提交
   submit: function() {
     let _this = this
+    //iamges
     let img = ''
     this.data.certificate.forEach((item, index) => {
       if ((index + 1) === this.data.certificate.length) {
@@ -220,6 +216,13 @@ Page({
     })
     let images = '[' + img + ']'
     console.log(images)
+    //goods_list
+    let goods_list = {}
+    let goodsList = this.data.goodsList
+    goodsList.forEach((item) => {
+      goods_list[item.goods_id] = item.goods_num
+    })
+    console.log(JSON.stringify(goods_list))
     server.newpostJSON('/OrderRefund/addRefund', {
         order_id: this.data.order_id,
         user_remark: this.data.description,
@@ -227,9 +230,7 @@ Page({
         is_receive_goods: this.data.goodStatus,
         reason: this.data.reason,
         iamges: images,
-        goods_list: JSON.stringify({
-          [this.data.obj.goods_id]: this.data.refundNum
-        })
+        goods_list: JSON.stringify(goods_list)
       },
       function(res) {
         console.log(res)
@@ -240,12 +241,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(JSON.parse(options.obj))
-    this.money(JSON.parse(options.obj), this.data.refundNum)
+    console.log(options.activeArr.split(','))
     this.setData({
-      order_id: options.order_id,
-      obj: JSON.parse(options.obj),
+      activeArr: options.activeArr.split(','),
+      order_id: options.order_id
     })
+    this.getData(options.order_id)
   },
 
   /**

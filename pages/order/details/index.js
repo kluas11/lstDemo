@@ -13,6 +13,12 @@ Page({
       url: './request_refund/request_refund?order_id=' + this.data.order_id + '&goods_id=' + e.currentTarget.dataset.goods.goods_id
     })
   },
+  //批量退款
+  batch: function() {
+    wx.navigateTo({
+      url: './batch_selection/batch_selection?order_id=' + this.data.order_id,
+    })
+  },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;

@@ -186,7 +186,7 @@ Page({
       content: '确定取消订单吗？',
       success: function(res) {
         if (res.confirm) {
-          server.newpostJSON('/Dopay/cancleOrder', {
+          server.newpostJSON('/Order/cancleOrder', {
             order_id: order['order_id']
           }, function(res) {
             if (res.data.status) {
@@ -222,7 +222,7 @@ Page({
       success: function(res) {
         if (res.confirm) {
           var order_id = order['order_id'];
-          server.newpostJSON("/Dopay/completeOrder", {
+          server.newpostJSON("/Order/completeOrder", {
             order_id
           }, function(res) {
             if (res.data.status) {

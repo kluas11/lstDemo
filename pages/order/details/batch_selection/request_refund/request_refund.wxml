@@ -1,18 +1,24 @@
-<!--pages/member/refund/request_refund/returns_refunds/returns_refunds.wxml-->
+<!--pages/order/details/batch_selection/request_refund/request_refund.wxml-->
 <view class='container'>
-  <view class='commodity'>
-    <!-- <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image> -->
-    <image class='img' src='{{obj.original_img}}' lazy-load='true'></image>
-    <view class='content'>
-      <text class='name'>{{obj.goods_name}}</text>
-      <view class="num-wrapper">
-        <image class='subtract' src='/images/subtract_fill.png' mode='aspectFill' lazy-load='true' bindtap='subtract'></image>
-        <input class="input" type='num' bindinput='inputClick' value='{{refundNum}}'></input>
-        <image class='add' src='/images/add_fill.png' lazy-load='true' bindtap='add'></image>
-      </view>
+  <view class='img-wrapper'>
+    <view class='top'>
+      <text class='text'>退款商品</text>
+      <view class='edit' bindtap='back'>编辑</view>
+    </view>
+    <view class='list'>
+      <block wx:for='{{goodsList}}' wx:key='{{index}}'>
+        <view class='list-img'>
+          <image class='img' src='{{item.original_img}}' mode='aspectFill' lazy-load='true'></image>
+          <view class='text'>￥{{item.price}}</view>
+        </view>
+      </block>
     </view>
   </view>
   <view class='select-wrapper'>
+    <view class='status' bindtap='statusClick'>
+      <text class='text'>货物状态</text>
+      <image class='right-arrow' src='/images/right-arrow.png' lazy-load='true'></image>
+    </view>
     <view class='reason' bindtap='reasonClick'>
       <text class='text'>退款原因</text>
       <image class='right-arrow' src='/images/right-arrow.png' lazy-load='true'></image>
@@ -23,6 +29,7 @@
       <text class='text'>退款金额</text>
       <text class='num'>{{money}}</text>
     </view>
+    <view class='tips'>*退款金额不含运费</view>
     <view class='description'>
       <text class='text'>退款说明</text>
       <input class="input" type='text' placeholder='选填' bindinput='inputDescription' value='{{description}}'></input>
@@ -45,6 +52,26 @@
     </view>
   </view>
   <view class='submit' bindtap='submit'>提交</view>
+  <view class='select-top-wrapper' style='{{statusStyle}}'>
+    <view class='flex'>
+      <view class='blank' bindtap='selectTopWrapper'></view>
+      <view class='select'>
+        <view class='status'>
+          <image class='left-arrow' src='/images/left-arrow.png' lazy-load='true' bindtap='selectTopWrapper'></image>
+          <text class='text'>货物状态</text>
+          <view class='right'></view>
+        </view>
+        <view class='select-item' bindtap='goodStatus' data-status='0'>
+          <text class='text'>已收货</text>
+          <image class='hook' src='{{goodStatusImg[0]}}' lazy-load='true'></image>
+        </view>
+        <view class='select-item' bindtap='goodStatus' data-status='1'>
+          <text class='text'>未收货</text>
+          <image class='hook' src='{{goodStatusImg[1]}}' lazy-load='true'></image>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class='reason-top-wrapper' style='{{reasonStyle}}'>
     <view class='flex'>
       <view class='blank' bindtap='reasonTopWrapper'></view>
@@ -69,6 +96,19 @@
         <view class='select-item' bindtap='reasonItem' data-status='3'>
           <text class='text'>其他</text>
           <image class='hook' src='{{reasonImg[3]}}' lazy-load='true'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='quit-tips' style='display:none'>
+    <view class='flex'>
+      <view class='content'>
+        <view class='text'>
+          <text class='text-content'>页面内容已有更改 是否退出申请?</text>
+        </view>
+        <view class='select'>
+          <view class='determine'>确认</view>
+          <view class='cancel'>取消</view>
         </view>
       </view>
     </view>

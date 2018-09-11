@@ -5,7 +5,7 @@
       <view class='numbering'>订单编号：{{item.order_sn}}</view>
       <block wx:for='{{item.goods_list}}' wx:key='index'>
         <view class='commodity'>
-          <image class='img' src='{{item.original_img}}' lazy-load='true'></image>
+          <image class='img' src='{{item.original_img}}' mode='aspectFill' lazy-load='true'></image>
           <view class='right'>
             <text class='name'>{{item.goods_name}}</text>
             <text class='num'>X{{item.goods_num}}</text>

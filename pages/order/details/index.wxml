@@ -48,9 +48,9 @@
         <!-- <text class="carts-key-name">{{item.spec_key_name}}</text> -->
         <view class="carts-subtitle">
           <text class="text-red improt_color">￥{{item.price}}</text>
-          <text class="text-red improt_color">￥{{item.price}}</text>
+          <text class="text improt_color">￥{{item.price}}</text>
           <text class="text-price"> x{{item.goods_num}}</text>
-          <button class='goods_btn' bindtap='refund' data-goods='{{result.goodsList[index]}}'>退款</button>
+          <view class='goods_btn' bindtap='refund' data-goods='{{result.goodsList[index]}}'>退款</view>
         </view>
       </view>
     </view>
@@ -95,10 +95,10 @@
   <view class='order_msg'>
     <!-- 订单时间 -->
     <view class="order_time" style="background:#ffffff;">
-      <text class="time">下单时间 : {{time.timestampToTime(result.add_time)}}</text>
-      <text class="time" wx:if="{{result.pay_time!=='0'}}">支付时间 : {{time.timestampToTime(result.pay_time)}}</text>
-      <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间 : {{time.timestampToTime(result.shipping_time)}}</text>
-      <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间 : {{time.timestampToTime(result.confirm_time)}}</text>
+      <text class="time">订单编号：{{result.order_sn}}</text>
+      <text class="time" wx:if="{{result.pay_time!=='0'}}">创建时间：{{time.timestampToTime(result.add_time)}}</text>
+      <text class="time" wx:if="{{result.shipping_time!=='0'}}">付款时间：{{time.timestampToTime(result.pay_time)}}</text>
+      <text class="time" wx:if="{{result.confirm_time!=='0'}}">发货时间：{{time.timestampToTime(result.shipping_time)}}</text>
     </view>
     <!-- <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
       <view class="view-addressleft">
@@ -113,6 +113,9 @@
       </view>
     </view> -->
   </view>
+</view>
+<view class='batch'>
+  <view class='btn' bindtap='batch' wx:if='{{result.goodsList.length>1}}'>批量退款</view>
 </view>
 <!-- 页面加载动画 -->
 <include src="/template/loading/loading.wxml" />

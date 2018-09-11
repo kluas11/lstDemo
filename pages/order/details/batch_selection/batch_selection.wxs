@@ -1,0 +1,7 @@
+module.exports.active = function (boolean) {
+  if (boolean) {
+    return 'active'
+  } else{
+    return 'notSelected'
+  }
+}
