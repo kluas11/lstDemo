@@ -6,7 +6,7 @@
     <view class='content'>
       <text class='name'>{{obj.goods_name}}</text>
       <view class="num-wrapper">
-        <image class='subtract' src='/images/subtract_fill.png' lazy-load='true' bindtap='subtract'></image>
+        <image class='subtract' src='/images/subtract_fill.png' mode='aspectFill' lazy-load='true' bindtap='subtract'></image>
         <input class="input" type='num' bindinput='inputClick' value='{{refundNum}}'></input>
         <image class='add' src='/images/add_fill.png' lazy-load='true' bindtap='add'></image>
       </view>
@@ -37,7 +37,10 @@
     <view class='title'>上传凭证</view>
     <view class='certificate'>
       <block wx:for='{{certificate}}' wx:key='index'>
-        <image class='item-img' src='{{item}}' mode='aspectFill' lazy-load='true'></image>
+        <view class='item-img-wrapper'>
+          <image class='item-img' src='{{item}}' mode='aspectFill' lazy-load='true' bindtap='previewImage' data-url='{{item}}'></image>
+          <image class='img-delete' src='/images/img-delete.png' data-index='{{index}}' bindtap='deleteImg' lazy-load='true'></image>
+        </view>
       </block>
       <view class='add' wx:if='{{certificate.length<5}}' bindtap='chooseImage'>
         <image class='img' src='/images/camera.png' lazy-load='true'></image>

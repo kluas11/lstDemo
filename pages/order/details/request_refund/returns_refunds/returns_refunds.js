@@ -109,12 +109,34 @@ Page({
     })
   },
 
+  //打开大图
+  previewImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.dataset.url, // 当前显示图片的http链接
+      urls: this.data.certificate // 需要预览的图片http链接列表
+    })
+  },
+
+  //删除所选图片
+  deleteImg: function (e) {
+    let arr = []
+    let _arr = this.data.certificate
+    _arr.forEach((item, index) => {
+      if (e.currentTarget.dataset.index !== index) {
+        arr.push(_arr[index])
+      }
+    })
+    this.setData({
+      certificate: arr
+    })
+  },
+
   //从本地相册选择图片或使用相机拍照
   chooseImage: function() {
     let _this = this
     wx.chooseImage({
       count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
@@ -160,14 +182,23 @@ Page({
 
   //提交
   submit: function() {
-    var _this = this;
+    let _this = this
+    let img = ''
+    this.data.certificate.forEach((item, index) => {
+      if ((index + 1) === this.data.certificate.length) {
+        img += '"' + item + '"'
+      } else {
+        img += '"' + item + '",'
+      }
+    })
+    let images = '[' + img + ']'
     server.newpostJSON('/OrderRefund/addRefund', {
         order_id: this.data.order_id,
         user_remark: this.data.description,
         refund_way: this.data.refund_way,
         is_receive_goods: 1,
         reason: this.data.reason,
-        iamges: this.data.certificate,
+        iamges: images,
         goods_list: JSON.stringify({
           [this.data.obj.goods_id]: this.data.refundNum
         })

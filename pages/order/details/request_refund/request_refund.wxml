@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='commodity'>
     <!-- <image class='img' src='/images/unknown-picture.png' lazy-load='true'></image> -->
-    <image class='img' src='{{obj.original_img}}' lazy-load='true'></image>
+    <image class='img' src='{{obj.original_img}}' mode='aspectFill' lazy-load='true'></image>
     <view class="text">{{obj.goods_name}}</view>
   </view>
   <view class='only-refund' bindtap='onlyRefund'>

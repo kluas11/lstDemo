@@ -1,0 +1,71 @@
+page {
+  width: 100%;
+  height: 100%;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  color: #666666;
+  font-size: 25rpx;
+}
+.container .goods-item {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .goods-item .active {
+  width: 28rpx;
+  height: 28rpx;
+  margin: 0 30rpx;
+}
+.container .goods-item .img {
+  width: 139rpx;
+  height: 139rpx;
+}
+.container .goods-item .content {
+  height: 139rpx;
+  margin-left: 30rpx;
+  box-sizing: border-box;
+  padding-right: 30rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.container .goods-item .content .num {
+  align-self: flex-end;
+}
+.container .confirm-wrapper {
+  width: 100%;
+  height: 80rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .confirm-wrapper .select-all-wrapper {
+  flex: 1;
+}
+.container .confirm-wrapper .select-all-wrapper .img {
+  width: 28rpx;
+  height: 28rpx;
+  margin: 0 10rpx 0 30rpx;
+}
+.container .confirm-wrapper .confirm {
+  width: 478rpx;
+  height: 100%;
+  line-height: 80rpx;
+  background-color: #ff3300;
+  color: #ffffff;
+  text-align: center;
+  justify-items: right;
+}

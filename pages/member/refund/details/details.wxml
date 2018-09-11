@@ -68,7 +68,7 @@
       <view class='left'>退款凭证：</view>
       <view class='right'>
         <block wx:for='{{certificate}}' wx:key='{{index}}'>
-          <image class='img' src='{{item}}' bindtap='previewImage' data-url='{{item}}'></image>
+          <image class='img' src='{{item}}' bindtap='previewImage' data-url='{{item}}' mode='aspectFill'></image>
         </block>
       </view>
     </view>

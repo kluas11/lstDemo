@@ -1,0 +1,21 @@
+<view class='container'>
+  <block wx:for='{{goodsList}}' wx:key='index'>
+    <view class='goods-item' data-index='{{index}}' bindtap='active'>
+      <!-- <wxs src="./batch_selection.wxs" module="active" /> -->
+      <image class='active' src='{{activeArr[index]?active:notSelected}}' lazy-load='true'></image>
+      <image class='img' src='{{item.original_img}}' mode='aspectFill' lazy-load='true'></image>
+      <view class='content'>
+        <text class='name'>{{item.goods_name}}</text>
+        <!-- <text class='specification'>规格:5gx9袋*  剂型: 丸剂；</text> -->
+        <text class='num'>X{{item.goods_num}}</text>
+      </view>
+    </view>
+  </block>
+  <view class='confirm-wrapper'>
+    <view class='select-all-wrapper'>
+      <image class='img' src='{{selectAll}}' bindtap='selectAll' lazy-load='true'></image>
+      <text class='select-all' bindtap='selectAll'>全选</text>
+    </view>
+    <view class='confirm' bindtap='confirm'>确认</view>
+  </view>
+</view>
