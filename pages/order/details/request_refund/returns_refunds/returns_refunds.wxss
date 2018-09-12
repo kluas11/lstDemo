@@ -264,3 +264,86 @@ page {
   width: 31rpx;
   height: 24rpx;
 }
+.container .delete-img-tips {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  animation: bg 0.5s ease forwards;
+}
+.container .delete-img-tips .flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.container .delete-img-tips .flex .content {
+  width: 600rpx;
+  height: 340rpx;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  border: 1rpx #d7d7d7 solid;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.container .delete-img-tips .flex .content .text {
+  width: 100%;
+  font-size: 30rpx;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.container .delete-img-tips .flex .content .text::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-top: 1rpx solid #d7d7d7;
+  content: "";
+  transform: scaleY(0.5);
+}
+.container .delete-img-tips .flex .content .select {
+  width: 100%;
+  height: 66rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.container .delete-img-tips .flex .content .select .determine {
+  flex: 1;
+  height: 100%;
+  line-height: 66rpx;
+  text-align: center;
+}
+.container .delete-img-tips .flex .content .select .line {
+  height: 100%;
+  position: relative;
+}
+.container .delete-img-tips .flex .content .select .line::after {
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  border-left: 1rpx solid #d7d7d7;
+  content: "";
+  transform: scaleX(0.5);
+}
+.container .delete-img-tips .flex .content .select .cancel {
+  flex: 1;
+  height: 100%;
+  line-height: 66rpx;
+  text-align: center;
+}

@@ -8,6 +8,8 @@ Page({
   data: {
     statusStyle: 'display:none',
     reasonStyle: 'display:none',
+    deleteImgTips: false,
+    deleteImgIndex: 0,
     obj: {},
     order_id: '',
     refund_way: '仅退款',
@@ -109,12 +111,12 @@ Page({
       })
     } else if (e.currentTarget.dataset.status === '2') {
       this.setData({
-        reason: '卖家发错货',
+        reason: '生产日期/保质期描叙不符',
         reasonImg: ['/images/hook.png', '/images/hook.png', '/images/hook-active.png', '/images/hook.png']
       })
     } else if (e.currentTarget.dataset.status === '3') {
       this.setData({
-        reason: '卖家发错货',
+        reason: '其他',
         reasonImg: ['/images/hook.png', '/images/hook.png', '/images/hook.png', '/images/hook-active.png']
       })
     }
@@ -146,15 +148,29 @@ Page({
 
   //删除所选图片
   deleteImg: function(e) {
+    this.setData({
+      deleteImgTips: true,
+      deleteImgIndex: e.currentTarget.dataset.index
+    })
+  },
+  //确认删除所选图片
+  deleteDetermine: function() {
     let arr = []
     let _arr = this.data.certificate
     _arr.forEach((item, index) => {
-      if (e.currentTarget.dataset.index !== index) {
+      if (this.data.deleteImgIndex !== index) {
         arr.push(_arr[index])
       }
     })
     this.setData({
+      deleteImgTips: false,
       certificate: arr
+    })
+  },
+  //取消删除所选图片
+  deleteCancel: function() {
+    this.setData({
+      deleteImgTips: false
     })
   },
 
@@ -175,7 +191,7 @@ Page({
   uploadFile: function(data) {
     let _this = this
     wx.uploadFile({
-      url: 'https://tlst.paycore.cc/index.php/WXAPI/UploadFiles/uploadRefundImg',
+      url: server.getHttp('/UploadFiles/uploadRefundImg'),
       filePath: data,
       formData: {
         'refundImg': data

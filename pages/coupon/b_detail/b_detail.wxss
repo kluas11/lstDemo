@@ -1,5 +1,5 @@
 /* pages/coupon/b_detail/b_detail.wxss */
-button[disabled]{
+button[disabled] {
   border: 1rpx solid #cccccc;
 }
 .orderpaybox {

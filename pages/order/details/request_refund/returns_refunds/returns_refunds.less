@@ -243,4 +243,75 @@ page {
       }
     }
   }
+  .delete-img-tips {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    animation: bg 0.5s ease forwards;
+    .flex {
+      width: 100%;
+      height: 100%;
+      .flex(row, center, center);
+      .content {
+        width: ~'600rpx';
+        height: ~'340rpx';
+        background-color: #ffffff;
+        box-sizing: border-box;
+        border: ~'1rpx' rgb(215, 215, 215) solid;
+        border-radius: ~'10rpx';
+        .flex(column);
+        .text {
+          width: 100%;
+          font-size: ~'30rpx';
+          flex: 1;
+          position: relative;
+          .flex(row, center, center);
+          &::after {
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            border-top: ~'1rpx' solid rgb(215, 215, 215);
+            content: "";
+            transform: scaleY(0.5);
+          }
+        }
+        .select {
+          width: 100%;
+          height: ~'66rpx';
+          .flex(row);
+          .determine {
+            flex: 1;
+            height: 100%;
+            line-height: ~'66rpx';
+            text-align: center;
+          }
+          .line {
+            height: 100%;
+            position: relative;
+            &::after {
+              display: block;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              height: 100%;
+              border-left: ~'1rpx' solid rgb(215, 215, 215);
+              content: "";
+              transform: scaleX(0.5);
+            }
+          }
+          .cancel {
+            flex: 1;
+            height: 100%;
+            line-height: ~'66rpx';
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
 }

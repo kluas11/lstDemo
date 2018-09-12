@@ -50,7 +50,14 @@ function __newjson(method, setting) {
   return wx.request(setting);
 }
 
+function __getHttp(setting) {
+  return setting.url
+}
+
 module.exports = {
+  getHttp: function() {
+    return __getHttp(__args.apply(this, arguments))
+  },
   getJSON: function() {
     return __json('GET', __args.apply(this, arguments));
   },

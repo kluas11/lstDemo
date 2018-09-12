@@ -1,20 +1,241 @@
-@import '../../template/coupon_right/coupon_right.wxss';
-@import '../../template/active_admin/active_admin.wxss';
-@import '../../template/active_store/active_store.wxss';
+.list_right {
+  display: flex;
+  width: 186rpx;
+  height: 128rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-left: 1rpx dashed #b5b5b5;
+}
+.list_right_price {
+  font-size: 36rpx;
+  color: #fa6958;
+}
+.list_right_originprice {
+  margin: 6rpx 0;
+  font-size: 16rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+.list_right .cuopon_btn {
+  width: 134rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #fff;
+  background: #d94612;
+  border-radius: 20rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.list_right .cuopon_share {
+  font-size: 28rpx;
+  color: #d94612;
+  font-weight: 400;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  margin-bottom: 14rpx;
+  display: flex;
+  align-items: center;
+}
+.share_img {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 6rpx;
+}
+/* 右边图片 */
+.used_img {
+  width: 156rpx;
+  height: 119rpx;
+}
+.admin .active_list {
+  border: 1px solid #c9c9c9;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 17rpx 20rpx 25rpx;
+  margin: 0 16rpx 14rpx 16rpx;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.34901961);
+}
+.admin .list_left {
+  display: flex;
+  font-size: 28rpx;
+}
+.admin .content {
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 320rpx;
+}
+.admin .content .time {
+  font-size: 24rpx;
+  color: #9fa19f;
+  display: flex;
+  align-items: center;
+}
+.admin .time_img {
+  width: 27rpx;
+  height: 30rpx;
+  margin-right: 6rpx;
+}
+.admin .ac_price {
+  display: flex;
+  align-items: flex-end;
+}
+.admin .ac_price .ac_num {
+  font-size: 36rpx;
+}
+.admin .ac_price .del {
+  color: #9fa19f;
+  font-size: 24rpx;
+  text-decoration: line-through;
+  margin-left: 20rpx;
+}
+.admin .list_img {
+  display: flex;
+}
+.admin .list_img image {
+  width: 154rpx;
+  height: 180rpx;
+}
+.admin .limit {
+  font-size: 20rpx;
+  margin-top: 40rpx;
+}
+.admin .ac_list_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.admin .buy_now {
+  font-size: 18rpx;
+  border: 1px solid #78b948;
+  border-radius: 6rpx;
+  width: 104rpx;
+  height: 58rpx;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+  padding: 0;
+}
+.admin .buy_text1 {
+  flex: 1;
+  font-size: 16rpx;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  position: relative;
+  z-index: 9;
+}
+.admin .buy_text2 {
+  flex: 1;
+  background: #78b948;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin .percent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50%;
+  background: #cde5bc;
+  z-index: 0;
+}
+.admin .disabled_btn {
+  font-size: 18rpx;
+  border: 1px solid #999999;
+  border-radius: 6rpx;
+  width: 104rpx;
+  height: 58rpx;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+  padding: 0;
+}
+.admin .dis_text2 {
+  flex: 1;
+  background: #999999;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.admin .store_active_list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 17rpx 20rpx 25rpx;
+  border-bottom: 1px solid #c9c9c9;
+}
+.admin .store_list_left {
+  display: flex;
+  font-size: 28rpx;
+  flex: 1;
+}
+.admin .store_content {
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #666;
+  flex: 1;
+}
+.admin .store_content .time {
+  font-size: 24rpx;
+  color: #999;
+  margin: 10rpx 0;
+}
+.store_content .content_foot {
+  display: flex;
+  justify-content: space-between;
+}
+.content_foot .cart {
+  width: 68rpx;
+  height: 68rpx;
+  background: #d94612;
+  border-radius: 50%;
+  line-height: 68rpx;
+  text-align: center;
+}
+.icon-ziyuan {
+  font-size: 30rpx;
+  color: #ffffff;
+}
+.content_foot .price {
+  font-size: 36rpx;
+  color: #d94612;
+}
+.admin .store_list_img {
+  display: flex;
+}
+.admin .store_list_img image {
+  width: 225rpx;
+  height: 250rpx;
+}
 page {
   background: #eee;
   padding-top: 90rpx;
   height: 100%;
 }
-
 button::after {
   border: none;
 }
-
 .layout {
   height: 100%;
 }
-
 .shopNameTip {
   font-size: 32rpx;
   color: #666;
@@ -30,22 +251,18 @@ button::after {
   width: 100%;
   box-sizing: border-box;
 }
-
 .lists {
   padding: 20rpx 0;
   background: #fff;
 }
-
 .address {
   display: flex;
   align-items: center;
 }
-
 .icon-dizhi1 {
   margin-right: 12rpx;
   font-size: 40rpx;
 }
-
 .search {
   border: 1px solid #ccc;
   flex: 1;
@@ -56,20 +273,16 @@ button::after {
   padding-right: 10rpx;
   border-radius: 10rpx;
 }
-
 .keyword {
   font-size: 24rpx;
   color: #969696;
 }
-
 .icon-sousuo {
   font-size: 40rpx;
 }
-
 .coupon_box {
   padding: 20rpx 20rpx 20rpx 40rpx;
 }
-
 .get_coupon {
   background: #ff4747;
   color: #fff;
@@ -77,8 +290,8 @@ button::after {
   padding: 0rpx 10rpx;
   position: relative;
 }
-
-.get_coupon::after, .get_coupon::before {
+.get_coupon::after,
+.get_coupon::before {
   content: "";
   position: absolute;
   width: 14rpx;
@@ -88,32 +301,26 @@ button::after {
   top: 50%;
   transform: translateY(-50%);
 }
-
 .get_coupon::after {
   left: -7rpx;
 }
-
 .get_coupon::before {
   right: -7rpx;
 }
-
 .video {
   position: fixed;
   z-index: 99;
   top: 100rpx;
   left: 30rpx;
 }
-
 .video image {
   width: 100rpx;
   height: 100rpx;
 }
-
 .swiper-image {
   width: 100%;
   height: 100%;
 }
-
 .view1 {
   height: 100%;
   width: 85rpx;
@@ -122,20 +329,16 @@ button::after {
   justify-content: space-around;
   align-items: center;
 }
-
 .view1 image {
   height: 45rpx;
   width: 45rpx;
 }
-
 .line {
   height: 100%;
   width: 2rpx;
   background: #cdcdcd;
 }
-
 /*功能区*/
-
 .func-area {
   display: flex;
   flex-direction: row;
@@ -144,54 +347,44 @@ button::after {
   background: white;
   flex-wrap: wrap;
 }
-
 .func-area .nav_url {
   padding: 20rpx 0;
   width: 25%;
   text-align: center;
 }
-
 .navslide {
   display: flex;
   flex-direction: column;
 }
-
 .navslide navigator image {
   width: 72rpx;
   height: 72rpx;
 }
-
 .navslide navigator text {
   display: block;
   color: #6c6c6c;
   font-size: 20rpx;
   line-height: 50rpx;
 }
-
 .func-area text {
   display: block;
   color: #6c6c6c;
   font-size: 20rpx;
   line-height: 50rpx;
 }
-
 .func-area image {
   width: 72rpx;
   height: 72rpx;
 }
-
 .container-class {
   display: flex;
   flex-direction: column;
 }
-
 /*主商品区*/
-
 .container-goods {
   background: white;
   margin-top: 20rpx;
 }
-
 .category_title {
   display: flex;
   flex-direction: row;
@@ -199,7 +392,6 @@ button::after {
   align-items: flex-end;
   border-bottom: 1px solid #eee;
 }
-
 .container-goods .caption {
   font-size: 32rpx;
   width: 100%;
@@ -208,13 +400,11 @@ button::after {
   padding: 10rpx;
   text-align: center;
 }
-
 .main-goods {
   white-space: nowrap;
   display: flex;
   background-color: #fafafa;
 }
-
 .main-goods .single-goods {
   /* margin: 0 20rpx 20rpx 0; */
   padding: 2%;
@@ -223,13 +413,11 @@ button::after {
   text-align: center;
   background: #fff;
 }
-
 .main-goods image {
   width: 100%;
   height: 280rpx;
   float: left;
 }
-
 .main-goods .title {
   /* margin: 15rpx 0; */
   color: #999;
@@ -243,7 +431,6 @@ button::after {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 .main-goods text {
   font-size: 28rpx;
   width: 100%;
@@ -252,22 +439,18 @@ button::after {
   float: left;
   text-align: center;
 }
-
 .main-goods .summary .price {
   color: red;
 }
-
 .main-goods .summary .sale {
   color: gray;
   font-size: 22rpx;
 }
-
 .main-goods .summary .source {
   display: block;
   width: 100%;
   text-align: center;
 }
-
 .view-ad {
   margin-top: 20rpx;
   width: 100%;
@@ -275,7 +458,6 @@ button::after {
   display: flex;
   flex-direction: column;
 }
-
 .ad-header {
   width: 100%;
   height: 400rpx;
@@ -283,7 +465,6 @@ button::after {
   flex-direction: row;
   justify-content: space-between;
 }
-
 .ad-footer {
   width: 100%;
   height: 200rpx;
@@ -291,17 +472,14 @@ button::after {
   flex-direction: row;
   justify-content: space-between;
 }
-
 .ad-footer image {
   width: 373rpx;
   height: 200rpx;
 }
-
 .ad1 {
   width: 373rpx;
   height: 396rpx;
 }
-
 .header-right {
   width: 373rpx;
   height: 396rpx;
@@ -309,12 +487,10 @@ button::after {
   flex-direction: column-reverse;
   justify-content: space-between;
 }
-
 .header-right image {
   width: 373rpx;
   height: 196rpx;
 }
-
 .footer {
   display: flex;
   flex-direction: row;
@@ -323,7 +499,6 @@ button::after {
   bottom: 60rpx;
   right: 60rpx;
 }
-
 .footer image {
   position: fixed;
   bottom: 40rpx;
@@ -331,7 +506,6 @@ button::after {
   width: 120rpx;
   height: 100rpx;
 }
-
 .cuopon_info {
   position: fixed;
   height: 100%;
@@ -341,7 +515,6 @@ button::after {
   left: 0;
   background: rgba(0, 0, 0, 0.3);
 }
-
 .cuopon_content {
   border-width: 0px;
   position: absolute;
@@ -352,12 +525,11 @@ button::after {
   background: #fff;
   border-radius: 10rpx;
 }
-
 .cuopon_title {
   border-width: 0px;
   height: 121rpx;
   background: inherit;
-  background-color: rgba(253, 80, 80, 1);
+  background-color: #fd5050;
   border-radius: 10rpx;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
@@ -366,31 +538,25 @@ button::after {
   line-height: 121rpx;
   text-align: center;
 }
-
 .cuopon_lists {
   padding: 24rpx 32rpx 0 30rpx;
   box-sizing: border-box;
-  background:#eeeeee;
+  background: #eeeeee;
   height: 520rpx;
 }
-
 .no_cuopon {
   text-align: center;
   padding-top: 100rpx;
   color: #969696;
 }
-
 /* 活动商品 */
-
 .admin {
   margin-top: 20rpx;
   background: #fff;
 }
-
 .admin .active_title {
   padding: 16rpx;
 }
-
 .admin .active_title image {
   width: 130rpx;
   height: 56rpx;
