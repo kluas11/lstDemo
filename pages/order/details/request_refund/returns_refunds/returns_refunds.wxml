@@ -73,4 +73,18 @@
       </view>
     </view>
   </view>
+  <view class='delete-img-tips' wx:if='{{deleteImgTips}}'>
+    <view class='flex'>
+      <view class='content'>
+        <view class='text'>
+          <text class='text-content'>确认删除图片么?</text>
+        </view>
+        <view class='select'>
+          <view class='determine' bindtap='deleteDetermine'>确认</view>
+          <view class='line'></view>
+          <view class='cancel' bindtap='deleteCancel'>取消</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

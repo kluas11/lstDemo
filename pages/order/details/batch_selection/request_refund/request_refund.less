@@ -360,7 +360,7 @@ page {
       }
     }
   }
-  .quit-tips {
+  .delete-img-tips {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -382,6 +382,7 @@ page {
         .flex(column);
         .text {
           width: 100%;
+          font-size: ~'30rpx';
           flex: 1;
           position: relative;
           .flex(row, center, center);
@@ -398,18 +399,32 @@ page {
         }
         .select {
           width: 100%;
-          height: ~'56rpx';
+          height: ~'66rpx';
           .flex(row);
           .determine {
             flex: 1;
             height: 100%;
-            line-height: ~'56rpx';
+            line-height: ~'66rpx';
             text-align: center;
+          }
+          .line {
+            height: 100%;
+            position: relative;
+            &::after {
+              display: block;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              height: 100%;
+              border-left: ~'1rpx' solid rgb(215, 215, 215);
+              content: "";
+              transform: scaleX(0.5);
+            }
           }
           .cancel {
             flex: 1;
             height: 100%;
-            line-height: ~'56rpx';
+            line-height: ~'66rpx';
             text-align: center;
           }
         }

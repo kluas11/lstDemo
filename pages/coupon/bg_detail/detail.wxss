@@ -169,13 +169,13 @@ canvas {
   display: flex;
   justify-content: space-between;
 }
-.refund{
+.refund {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
 }
-.refund_btn{
+.refund_btn {
   height: 80rpx;
   background: #fa6958;
   font-size: 28rpx;
