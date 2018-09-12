@@ -37,7 +37,7 @@
       <view style='display: flex;'>
         <view>
           <!-- 缩略图 -->
-          <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" />
+          <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" lazy-load='true'/>
         </view>
         <view>
           <!-- 商品标题 -->

@@ -188,9 +188,10 @@ Page({
             orderState: false
           })
           wx.showToast({
-            title: '购买失败',
+            title: res.data.msg,
             image: '/images/about.png'
           })
+          // console.log(res.data.msg)
         }
       }
     })
