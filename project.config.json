@@ -41,7 +41,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 35,
+			"current": 43,
 			"list": [
 				{
 					"id": 0,
@@ -304,6 +304,20 @@
 					"name": "优惠券分享领取页面",
 					"pathName": "pages/coupon/receive/receive",
 					"query": "objectId=104&coupon_type=online",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "选择退款方式",
+					"pathName": "pages/order/details/request_refund/request_refund",
+					"query": "order_id=994&goods_id=2275",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "申请退款",
+					"pathName": "pages/order/details/request_refund/only_refund/only_refund",
+					"query": "obj={\"goods_id\":\"2275\",\"goods_name\":\"洁柔百花香迷你巾12小包\",\"goods_sn\":\"6914068013343\",\"original_img\":\"https://lst.paycore.cc/goods/20180717/a33350cdf3dc46b17ba4224fbb9f0c083b1cab9f.png\",\"price\":\"9.00\",\"goods_num\":\"1\",\"total_discount_money\":\"0.00\",\"is_refund\":\"0\"}&order_id=994",
 					"scene": "1011"
 				}
 			]
