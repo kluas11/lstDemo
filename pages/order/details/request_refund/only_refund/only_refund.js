@@ -121,7 +121,6 @@ Page({
       })
     }
   },
-
   //退款说明
   inputDescription: function(e) {
     this.setData({
