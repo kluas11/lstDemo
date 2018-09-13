@@ -39,14 +39,15 @@ App({
   },
   // 登录注册
   getlogin(skip) {
-    var leader;
+    var leader="";
     wx.getStorage({
       key: 'scene',
       success: function(res) {
         leader = res.data ? res.data : "";
-        // console.log(res.data);
+        console.log('邀请人',res.data);
       }
     })
+    console.log('邀请人',leader)
     return new Promise((request, rej) => {
       const that = this;
       if (!skip) {
@@ -61,6 +62,7 @@ App({
                     leader
                   },
                   function(data) {
+                    console.log('登录',data)
                     if (data.data.status) {
                       that.globalData.userInfo = {
                         user_id: data.data.user_id
@@ -74,6 +76,11 @@ App({
                       wx.setStorageSync("sessionName", data.data.sessionName)
                       that.globalData.login = true;
                       request(user.user_id)
+                    }else{
+                      wx.showToast({
+                        title: '登录失败',
+                        image: '/images/about.png'
+                      })
                     }
                   });
               })
