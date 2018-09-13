@@ -82,10 +82,13 @@ Page({
         if (res.data.status) {
           let result = res.data.info;
           let winRecord = {
-            birthday: result.birthday == "0" ? result.birthday? result.birthday:"":"" ,
             real_name: result.real_name,
-            sex: result.sex,
+            // sex: result.sex,
           };
+
+          if (that.birthday == ""||that.birthday == "0"){
+            winRecord["birthday"] = result.birthday != "0" ? result.birthday ? result.birthday : "" : "";
+          }
           if (result.store_id != "" && result.store_id) {
             let list = that.data.storeList
             let indexs = list.findIndex(function(item, index) {
