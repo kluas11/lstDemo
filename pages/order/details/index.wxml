@@ -114,8 +114,8 @@
     </view> -->
   </view>
 </view>
-<view class='batch'>
-  <view class='btn' bindtap='batch' wx:if='{{result.goodsList.length>1}}'>批量退款</view>
+<view class='batch' wx:if='{{result.goodsList.length>1}}'>
+  <view class='btn' bindtap='batch'>批量退款</view>
 </view>
 <!-- 页面加载动画 -->
 <include src="/template/loading/loading.wxml" />

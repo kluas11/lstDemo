@@ -1,4 +1,8 @@
 /* pages/order/ordersubmit/index.wxss */
+page{
+  height: 100%;
+  background: #eeeeee;
+}
 .parent {
   display: flex;
   flex-direction: column;

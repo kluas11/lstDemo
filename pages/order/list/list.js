@@ -125,7 +125,7 @@ Page({
                   orders_id: "",
                   total_amount: 0,
                   orderState: false,
-                  active_index:2
+                  active_index: 2
                 })
                 cPage = 1;
                 ctype = 2;
@@ -156,7 +156,7 @@ Page({
                 orders_id: "",
                 total_amount: 0,
                 orderState: false,
-                active_index:2
+                active_index: 2
               })
               cPage = 1;
               ctype = 2;
@@ -261,21 +261,25 @@ Page({
         status: ctype ? ctype : ''
       },
       function(res) {
-        if (res.data.length <= 0) {
+        if (typeof(res.data) != "string") {
+          if (res.data.length <= 0) {
+            that.setData({
+              loadtext: '——没有更多了——'
+            })
+          }
+          var datas = res.data;
+          var ms = that.data.orders
+          for (var i in datas) {
+            ms.push(datas[i]);
+          }
+          wx.stopPullDownRefresh();
           that.setData({
-            loadtext: '——没有更多了——'
-          })
+            orders: ms,
+            wx_loading: false
+          });
+        }else{
+          return;
         }
-        var datas = res.data;
-        var ms = that.data.orders
-        for (var i in datas) {
-          ms.push(datas[i]);
-        }
-        wx.stopPullDownRefresh();
-        that.setData({
-          orders: ms,
-          wx_loading: false
-        });
       });
   },
   onShow: function() {
