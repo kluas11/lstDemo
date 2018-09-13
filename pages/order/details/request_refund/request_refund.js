@@ -14,16 +14,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getData(options.order_id, options.goods_id)
+    this.getData(options.order_id, options.id)
     this.setData({
       order_id: options.order_id
     })
   },
 
-  getData: function(order_id, goods_id) {
+  //获取退款状态
+  getData: function(order_id, id) {
     var _this = this;
     server.getJSON('/OrderRefund/getBeRefundedGood', {
-        goods_id,
+        id,
         order_id
       },
       function(res) {
@@ -34,14 +35,16 @@ Page({
       })
   },
 
+  //仅退款
   onlyRefund: function() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: './only_refund/only_refund?obj=' + JSON.stringify(this.data.obj) + '&order_id=' + this.data.order_id
     })
   },
 
+  //退货退款
   returnsRefunds: function() {
-    wx.navigateTo({
+    wx.redirectTo({
       url: './returns_refunds/returns_refunds?obj=' + JSON.stringify(this.data.obj) + '&order_id=' + this.data.order_id
     })
   },

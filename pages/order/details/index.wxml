@@ -34,10 +34,10 @@
     <view class='carts_title'>商品清单</view>
     <view wx:for="{{result.goodsList}}" wx:key="index" class="carts-item">
       <!-- -->
-      <view style='display: flex;'>
+      <view style='display:flex;flex:1'>
         <view>
           <!-- 缩略图 -->
-          <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" lazy-load='true'/>
+          <image class="carts-image" src="{{item.original_img+goods_oss}}" mode="aspectFill" lazy-load='true' />
         </view>
         <view>
           <!-- 商品标题 -->
@@ -50,7 +50,10 @@
           <text class="text-red improt_color">￥{{item.price}}</text>
           <text class="text improt_color">￥{{item.price}}</text>
           <text class="text-price"> x{{item.goods_num}}</text>
-          <view class='goods_btn' bindtap='refund' data-goods='{{result.goodsList[index]}}'>退款</view>
+          <view class='goods_btn' wx:if='{{item.refund_count==="0"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
+          <view class='goods_btn' wx:if='{{item.refund_status==="WAIT"}}' bindtap='refund' data-goods='{{item}}'>已申请退款</view>
+          <view class='goods_btn' wx:if='{{item.refund_status==="SUCCESS"}}' bindtap='refund' data-goods='{{item}}'>退款成功</view>
+          <view class='goods_btn' wx:if='{{item.refund_count==="1"&&item.refund_status==="FAIL"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
         </view>
       </view>
     </view>
@@ -114,8 +117,8 @@
     </view> -->
   </view>
 </view>
-<view class='batch'>
-  <view class='btn' bindtap='batch' wx:if='{{result.goodsList.length>1}}'>批量退款</view>
+<view class='batch' wx:if='{{result.goodsList.length>1}}'>
+  <view class='btn' bindtap='batch'>批量退款</view>
 </view>
 <!-- 页面加载动画 -->
 <include src="/template/loading/loading.wxml" />

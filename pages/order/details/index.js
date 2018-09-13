@@ -4,14 +4,23 @@ Page({
   data: {
     goods_oss: App.image_oss + '130_150',
     wx_loading: true,
-    order_id: ''
+    order_id: '',
+    onShow: false
   },
   //退款
   refund: function(e) {
-    console.log(e)
-    wx.navigateTo({
-      url: './request_refund/request_refund?order_id=' + this.data.order_id + '&goods_id=' + e.currentTarget.dataset.goods.goods_id
-    })
+    console.log(e.currentTarget.dataset.goods)
+    let obj = e.currentTarget.dataset.goods
+    //如果可以退款
+    if (obj.refund_count === "0" || obj.refund_count === "1" && obj.refund_status === "FAIL") {
+      wx.navigateTo({
+        url: './request_refund/request_refund?order_id=' + this.data.order_id + '&id=' + obj.id
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/member/refund/details/details?refund_id=' + obj.refund_id,
+      })
+    }
   },
   //批量退款
   batch: function() {
@@ -38,7 +47,8 @@ Page({
           result: result,
           CouponAmount: result.discount_coupon_amount,
           couponInfo: result.couponInfo,
-          wx_loading: false
+          wx_loading: false,
+          onShow: true
         });
       });
   },
@@ -77,11 +87,29 @@ Page({
       }
     })
   },
+
   onReady: function() {
     // 页面渲染完成
   },
   onShow: function() {
     // 页面显示
+    let _this = this
+    if (_this.data.onShow) {
+      server.getJSON('/Order/orderDetails', {
+          order_id: _this.data.order_id
+        },
+        function(res) {
+          let result = res.data;
+          console.log(result)
+          _this.getshipping(result.status)
+          _this.setData({
+            result: result,
+            CouponAmount: result.discount_coupon_amount,
+            couponInfo: result.couponInfo,
+            wx_loading: false
+          })
+        })
+    }
   },
   onHide: function() {
     // 页面隐藏

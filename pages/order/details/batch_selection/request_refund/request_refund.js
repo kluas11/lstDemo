@@ -8,8 +8,8 @@ Page({
   data: {
     activeArr: [],
     goodsList: [],
-    statusStyle: 'display:none',
-    reasonStyle: 'display:none',
+    statusStyle: false,
+    reasonStyle: false,
     deleteImgTips: false,
     deleteImgIndex: 0,
     order_id: '',
@@ -19,9 +19,11 @@ Page({
     //货物状态
     goodStatus: 1,
     goodStatusImg: ['/images/hook-active.png', '/images/hook.png'],
+    goodStatusList: [true, false],
     //退款原因
     reason: '多拍/拍错/不想要',
-    reasonImg: ['/images/hook-active.png', '/images/hook.png', '/images/hook.png', '/images/hook.png'],
+    reasonImg: ['/images/hook-active.png', '/images/hook.png'],
+    reasonList: [true, false, false, false],
     //退款金额
     money: 0,
     //退款说明
@@ -35,60 +37,66 @@ Page({
   },
 
   //货物状态
-  statusClick: function() {
-    this.changeData('statusStyle', 'display:none', 'display:block')
+  statusClick: function () {
+    this.setData({
+      statusStyle: true
+    })
   },
   //退款原因
-  reasonClick: function() {
-    this.changeData('reasonStyle', 'display:none', 'display:block')
+  reasonClick: function () {
+    this.setData({
+      reasonStyle: true
+    })
   },
   //关闭货物状态选项
-  selectTopWrapper: function() {
-    this.changeData('statusStyle', 'display:block', 'display:none')
+  selectTopWrapper: function () {
+    this.setData({
+      statusStyle: false
+    })
   },
   //关闭退款原因选项
-  reasonTopWrapper: function() {
-    this.changeData('reasonStyle', 'display:block', 'display:none')
+  reasonTopWrapper: function () {
+    this.setData({
+      reasonStyle: false
+    })
   },
 
   //货物状态
-  goodStatus: function(e) {
-    if (e.currentTarget.dataset.status === '0') {
-      this.setData({
-        goodStatus: 1,
-        goodStatusImg: ['/images/hook-active.png', '/images/hook.png']
-      })
-    } else if (e.currentTarget.dataset.status === '1') {
-      this.setData({
-        goodStatus: 0,
-        goodStatusImg: ['/images/hook.png', '/images/hook-active.png']
-      })
-    }
+  goodStatus: function (e) {
+    let arr = []
+    let _arr = this.data.goodStatusList
+    _arr.forEach((item, index) => {
+      arr[index] = false
+    })
+    arr[parseInt(e.currentTarget.dataset.index)] = true
+    this.setData({
+      goodStatus: parseInt(e.currentTarget.dataset.status),
+      goodStatusList: arr
+    })
   },
 
   //退款原因
-  reasonItem: function(e) {
-    if (e.currentTarget.dataset.status === '0') {
-      this.setData({
-        reason: '多拍/拍错/不想要',
-        reasonImg: ['/images/hook-active.png', '/images/hook.png', '/images/hook.png', '/images/hook.png']
-      })
-    } else if (e.currentTarget.dataset.status === '1') {
-      this.setData({
-        reason: '卖家发错货',
-        reasonImg: ['/images/hook.png', '/images/hook-active.png', '/images/hook.png', '/images/hook.png']
-      })
-    } else if (e.currentTarget.dataset.status === '2') {
-      this.setData({
-        reason: '生产日期/保质期描叙不符',
-        reasonImg: ['/images/hook.png', '/images/hook.png', '/images/hook-active.png', '/images/hook.png']
-      })
-    } else if (e.currentTarget.dataset.status === '3') {
-      this.setData({
-        reason: '其他',
-        reasonImg: ['/images/hook.png', '/images/hook.png', '/images/hook.png', '/images/hook-active.png']
-      })
+  reasonItem: function (e) {
+    let arr = []
+    let _arr = this.data.reasonList
+    _arr.forEach((item, index) => {
+      arr[index] = false
+    })
+    arr[parseInt(e.currentTarget.dataset.status)] = true
+    let reason = ''
+    if (parseInt(e.currentTarget.dataset.status) === 0) {
+      reason = '多拍/拍错/不想要'
+    } else if (parseInt(e.currentTarget.dataset.status) === 1) {
+      reason = '卖家发错货'
+    } else if (parseInt(e.currentTarget.dataset.status) === 2) {
+      reason = '生产日期/保质期描叙不符'
+    } else if (parseInt(e.currentTarget.dataset.status) === 3) {
+      reason = '其他'
     }
+    this.setData({
+      reason: reason,
+      reasonList: arr
+    })
   },
 
   //退款说明
@@ -96,15 +104,6 @@ Page({
     this.setData({
       description: e.detail.value
     })
-  },
-
-  //改变data
-  changeData: function(dataName, data, change) {
-    if (this.data[dataName] === data) {
-      this.setData({
-        [dataName]: change
-      })
-    }
   },
 
   //打开大图
@@ -236,7 +235,7 @@ Page({
     let goods_list = {}
     let goodsList = this.data.goodsList
     goodsList.forEach((item) => {
-      goods_list[item.goods_id] = item.goods_num
+      goods_list[item.id] = item.goods_num
     })
     console.log(JSON.stringify(goods_list))
     server.newpostJSON('/OrderRefund/addRefund', {
@@ -250,6 +249,12 @@ Page({
       },
       function(res) {
         console.log(res)
+        //提交成功
+        if (res.data.status) {
+          wx.redirectTo({
+            url: '/pages/member/refund/details/details?refund_id=' + res.data.refund_id,
+          })
+        }
       })
   },
 

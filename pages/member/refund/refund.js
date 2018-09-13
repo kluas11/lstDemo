@@ -6,7 +6,8 @@ Page({
    */
   data: {
     backgroundColor: '',
-    refundData: []
+    refundData: [],
+    onShow: false
   },
 
   /**
@@ -14,6 +15,9 @@ Page({
    */
   onLoad: function(options) {
     this.getData()
+    this.setData({
+      onShow: true
+    })
   },
 
   //获取用户退款记录列表
@@ -58,7 +62,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (this.data.onShow) {
+      this.getData()
+    }
   },
 
   /**

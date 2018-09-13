@@ -74,9 +74,7 @@ Page({
 
   //返回上一层
   back: function() {
-    wx.navigateBack({
-
-    })
+    wx.navigateBack()
   },
 
   //撤销申请
@@ -88,7 +86,7 @@ Page({
       function(res) {
         console.log(res)
         if (res.data.status) {
-          wx.navigateBack()
+          _this.getData(_this.data.refund_id)
         }
       })
   },

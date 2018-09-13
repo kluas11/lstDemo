@@ -53,7 +53,7 @@
 .container .cancel-wrapper .btn-wrapper .back {
   width: 139rpx;
   height: 47rpx;
-  line-height: 47rpx;
+  line-height: 45rpx;
   text-align: center;
   box-sizing: border-box;
   border-radius: 5rpx;
@@ -64,7 +64,7 @@
 .container .cancel-wrapper .btn-wrapper .cancel {
   width: 139rpx;
   height: 47rpx;
-  line-height: 47rpx;
+  line-height: 45rpx;
   text-align: center;
   box-sizing: border-box;
   border-radius: 5rpx;
