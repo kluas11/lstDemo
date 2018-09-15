@@ -50,10 +50,12 @@
           <text class="text-red improt_color">￥{{item.price}}</text>
           <text class="text improt_color">￥{{item.price}}</text>
           <text class="text-price"> x{{item.goods_num}}</text>
-          <view class='goods_btn' wx:if='{{item.refund_count==="0"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
-          <view class='goods_btn' wx:if='{{item.refund_status==="WAIT"}}' bindtap='refund' data-goods='{{item}}'>已申请退款</view>
-          <view class='goods_btn' wx:if='{{item.refund_status==="SUCCESS"}}' bindtap='refund' data-goods='{{item}}'>退款成功</view>
-          <view class='goods_btn' wx:if='{{item.refund_count==="1"&&item.refund_status==="FAIL"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
+          <block wx:if='{{result.status!=="1"}}'>
+            <view class='goods_btn' wx:if='{{item.refund_count==="0"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
+            <view class='goods_btn' wx:if='{{item.refund_status==="WAIT"}}' bindtap='refund' data-goods='{{item}}'>已申请退款</view>
+            <view class='goods_btn' wx:if='{{item.refund_status==="SUCCESS"}}' bindtap='refund' data-goods='{{item}}'>退款成功</view>
+            <view class='goods_btn' wx:if='{{item.refund_count==="1"&&item.refund_status==="FAIL"}}' bindtap='refund' data-goods='{{item}}'>退款</view>
+          </block>
         </view>
       </view>
     </view>
