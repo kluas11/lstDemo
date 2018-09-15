@@ -46,7 +46,7 @@ Page({
         that.setData({
           result: result,
           CouponAmount: result.discount_coupon_amount,
-          couponInfo: result.couponInfo,
+          couponInfo: result.couponInfo ? result.couponInfo:'',
           wx_loading: false,
           onShow: true
         });

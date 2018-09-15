@@ -65,33 +65,33 @@
     </view>
     <view class="view-price1">
       <text>商品总额:</text>
-      <text class="text-red ">￥{{result.goods_price}}元</text>
+      <text class="text-red ">￥{{result.goods_price}}</text>
     </view>
     <view class="view-price1">
       <text>邮费:</text>
-      <text class="text-red">￥{{result.shipping_price}}元</text>
+      <text class="text-red">￥{{result.shipping_price}}</text>
     </view>
-    <view class="cuopon_info" wx:if="{{CouponAmount}}">
+    <view class="cuopon_info" wx:if="{{couponInfo}}">
       <view>
         <text>优惠券抵扣:{{couponInfo.name}}</text>
         <!-- 满打折 -->
-        <text wx:if="{{couponInfo.coupon_type == 'PERCENT'}}">{{cuopon.toFloat(couponInfo.subtrac_percent)}}折</text>
+        <!-- <text wx:if="{{couponInfo.coupon_type == 'PERCENT'}}">{{cuopon.toFloat(couponInfo.subtrac_percent)}}折</text> -->
         <!-- 满减 -->
-        <text wx:if="{{couponInfo.coupon_type == 'SUBTRAC'}}">{{cuopon.parseFloat(couponInfo.subtrac_money)}}元</text>
+        <!-- <text wx:if="{{couponInfo.coupon_type == 'SUBTRAC'}}">{{cuopon.parseFloat(couponInfo.subtrac_money)}}</text> -->
         <!-- 一口价 -->
-        <text wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}元</text>
+        <!-- <text wx:if="{{couponInfo.coupon_type == 'BUYOUT'}}">{{cuopon.parseFloat(couponInfo.buyout_price)}}</text> -->
       </view>
       <view>
-        <text class="text-red">-{{result.discount_coupon_amount}}元</text>
+        <text class="text-red">-￥{{result.discount_coupon_amount}}</text>
       </view>
     </view>
     <view class="view-price1" wx:if="{{result.discount_activity_amount}}">
       <text>限时抢购:</text>
-      <text class="text-red">￥{{result.discount_activity_amount}}元</text>
+      <text class="text-red">-￥{{result.discount_activity_amount}}</text>
     </view>
     <view class="goods_foot">
       <text class="text-price1">实付款:</text>
-      <text class="text-red improt_color">￥{{result.total_amount}}元</text>
+      <text class="text-red improt_color">￥{{result.total_amount}}</text>
     </view>
   </view>
 
@@ -99,9 +99,10 @@
     <!-- 订单时间 -->
     <view class="order_time" style="background:#ffffff;">
       <text class="time">订单编号：{{result.order_sn}}</text>
-      <text class="time" wx:if="{{result.pay_time!=='0'}}">创建时间：{{time.timestampToTime(result.add_time)}}</text>
-      <text class="time" wx:if="{{result.shipping_time!=='0'}}">付款时间：{{time.timestampToTime(result.pay_time)}}</text>
-      <text class="time" wx:if="{{result.confirm_time!=='0'}}">发货时间：{{time.timestampToTime(result.shipping_time)}}</text>
+      <text class="time" wx:if="{{result.add_time!=='0'}}">创建时间：{{time.timestampToTime(result.add_time)}}</text>
+      <text class="time" wx:if="{{result.pay_time!=='0'}}">付款时间：{{time.timestampToTime(result.pay_time)}}</text>
+      <text class="time" wx:if="{{result.shipping_time!=='0'}}">发货时间：{{time.timestampToTime(result.shipping_time)}}</text>
+      <text class="time" wx:if="{{result.confirm_time!=='0'}}">收货时间：{{time.timestampToTime(result.confirm_time)}}</text>
     </view>
     <!-- <view class="view-address" wx:if="{{result.shipping_code!=='0'||result.shipping_name}}" style="background:#ffffff">
       <view class="view-addressleft">
