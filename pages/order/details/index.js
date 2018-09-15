@@ -42,11 +42,11 @@ Page({
       function(res) {
         var result = res.data;
         console.log(result)
-        that.getshipping(result.status)
+        result.status && that.getshipping(result.status);
         that.setData({
           result: result,
           CouponAmount: result.discount_coupon_amount,
-          couponInfo: result.couponInfo ? result.couponInfo:'',
+          couponInfo: result.couponInfo ? result.couponInfo : '',
           wx_loading: false,
           onShow: true
         });

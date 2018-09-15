@@ -61,9 +61,10 @@
     </view>
   </view>
   <view class="view-price">
-    <view class='price_title'>
+    <view class='price_title' wx:if="{{result.pay_way}}"> 
       <text>支付方式</text>
-      <text>微信付款</text>
+      <text wx:if="{{result.pay_way=='WXPAY'}}">微信付款</text>
+      <text wx:elif="{{result.pay_way=='WALLETPAY'}}">余额付款</text>
     </view>
     <view class="view-price1">
       <text>商品总额:</text>
