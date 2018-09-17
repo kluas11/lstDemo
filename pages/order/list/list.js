@@ -227,6 +227,7 @@ Page({
           }, function(res) {
             if (res.data.status) {
               wx.showToast({
+                title:'收货成功',
                 icon: 'success',
                 duration: 2000
               })

@@ -62,23 +62,30 @@ Page({
   },
   // 领取优惠券
   receiveCouponTap(e) {
-    let that = this;
-    let coupon_id = e.currentTarget.dataset.coupon_id;
-    server.newpostJSON("/Index/receiveCoupon", {
-      coupon_id,
-    }, function(res) {
-      if (res.data.status) {
-        that.setData({
-          modalshow:true
-        })
-      } else {
-        wx.showToast({
-          title: '领取失败',
-          image: '/images/about.png',
-        })
-      }
-      that.getcouponInof();
-    });
+    if (!this.data.receiveDisable){
+      this.setData({
+        receiveDisable:true
+      })
+      let that = this;
+      let coupon_id = e.currentTarget.dataset.coupon_id;
+      server.newpostJSON("/Index/receiveCoupon", {
+        coupon_id,
+      }, function (res) {
+        if (res.data.status) {
+          that.setData({
+            modalshow: true
+          })
+        } else {
+          wx.showToast({
+            title: '领取失败',
+            image: '/images/about.png',
+          })
+        }
+        that.getcouponInof();
+      });
+    }else{
+      return;
+    }
   },
   // 购买 or 兑换
   buycouponTap: function(e) {
@@ -200,7 +207,8 @@ Page({
   hindetap(e) {
     // console.log(e.detail.modalshow)
     this.setData({
-      modalshow: e.detail.modalshow
+      modalshow: e.detail.modalshow,
+      receiveDisable:false
     })
   },
   // 请求转发接口，现在无法获取到是否转发成功的回调，所以暂时在点击赠送是调用

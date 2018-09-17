@@ -38,7 +38,7 @@ Page({
     cuoponhidden: false,
     coupontext: "暂无可用优惠券",
     wx_loading: true,
-    select_index:0
+    select_index: 0
   },
   // 页面开始加载
   onLoad: function(options) {
@@ -191,7 +191,7 @@ Page({
         }
       })
     }
-  
+
     var payway = e.currentTarget.dataset.way
     var port = ""
     var winrecord = {}
@@ -255,7 +255,7 @@ Page({
                   goodsID: ""
                 })
                 setTimeout(function() {
-                  wx.navigateTo({
+                  wx.redirectTo({
                     url: '../../order/list/list'
                   });
                 }, 2000)
@@ -271,8 +271,8 @@ Page({
               duration: 2000,
               complete: function() {
                 setTimeout(function() {
-                  wx.switchTab({
-                    url: '../../index/index'
+                  wx.redirectTo({
+                    url: '/pages/order/list/list?type=1'
                   });
                 }, 2000)
               }
@@ -292,7 +292,7 @@ Page({
             duration: 2000,
             complete: function() {
               setTimeout(function() {
-                wx.navigateTo({
+                wx.redirectTo({
                   url: '../../order/list/list'
                 });
               }, 2000)
@@ -305,8 +305,8 @@ Page({
             duration: 2000,
             complete: function() {
               setTimeout(function() {
-                wx.switchTab({
-                  url: '../../index/index'
+                wx.redirectTo({
+                  url: '/pages/order/list/list?type=1'
                 });
               }, 2000)
             }
@@ -321,8 +321,8 @@ Page({
         duration: 2000,
         complete: function() {
           setTimeout(function() {
-            wx.switchTab({
-              url: '../../index/index'
+            wx.redirectTo({
+              url: '/pages/order/list/list?type=1'
             });
           }, 2000)
         }
@@ -331,46 +331,63 @@ Page({
   },
   // 提交订单
   formSubmit: function(e) {
-    wx.showLoading({
-      title: '加载中',
-    })
-    var that = this;
-    // 获取需要买的商品 
-    var goodsID = this.data.goodsID
-    // console.log(.shopList)
-    // store_id 获取到storeID
-    var store_id = app.globalData.store_id;
-    var addressIndex = that.data.addressIndex;
-    var addressID = that.data.addressList[addressIndex].address_id;
-    var coupong_id = that.data.coupon_id || '';
-    var winrecord = {
-      store_id: store_id,
-      goods_ids: goodsID,
-      address_id: addressID,
-      is_express: that.data.distributionIndex,
-      user_coupon_id: coupong_id
-    }
-    if (that.data.goodsNum > 0) {
-      winrecord["goods_num"] = that.data.goodsNum
-    }
-    // console.log(winrecord)
-    server.newpostJSON("/Order/createOrder", winrecord, function(res) {
-      // console.log(res)
-      wx.hideLoading();
-      var result = res.data
-      if (result.status) {
-        that.setData({
-          orderId: result.order_id,
-          orderState: true
-        })
-        that.confirmPayMoney(result.order_id);
-      } else {
+    if (!this.data.submitDisable) {
+      this.setData({
+        submitDisable:true
+      })
+      wx.showLoading({
+        title: '加载中',
+      })
+      var that = this;
+      // 获取需要买的商品 
+      var goodsID = this.data.goodsID
+      // console.log(.shopList)
+      // store_id 获取到storeID
+      var store_id = app.globalData.store_id;
+      var addressIndex = that.data.addressIndex;
+      var addressID = that.data.addressList[addressIndex].address_id;
+      var coupong_id = that.data.coupon_id || '';
+      var winrecord = {
+        store_id: store_id,
+        goods_ids: goodsID,
+        address_id: addressID,
+        is_express: that.data.distributionIndex,
+        user_coupon_id: coupong_id
+      }
+      if (that.data.goodsNum > 0) {
+        winrecord["goods_num"] = that.data.goodsNum
+      }
+      // console.log(winrecord)
+      server.newpostJSON("/Order/createOrder", winrecord, function(res) {
+        // console.log(res)
+        wx.hideLoading();
+        var result = res.data
+        if (result.status) {
+          that.setData({
+            orderId: result.order_id,
+            orderState: true
+          })
+          that.confirmPayMoney(result.order_id);
+        } else {
+          wx.showToast({
+            title: '下单失败',
+            image: '../../../images/about.png',
+            duration: 2000,
+            complete: function() {
+              setTimeout(function() {
+                wx.switchTab({
+                  url: '../../index/index'
+                });
+              }, 2000);
+            }
+          })
+        }
+      }, function(res) {
         wx.showToast({
           title: '下单失败',
           image: '../../../images/about.png',
           duration: 2000,
           complete: function() {
-
             setTimeout(function() {
               wx.switchTab({
                 url: '../../index/index'
@@ -378,26 +395,15 @@ Page({
             }, 2000);
           }
         })
-      }
-    }, function(res) {
-      wx.showToast({
-        title: '下单失败',
-        image: '../../../images/about.png',
-        duration: 2000,
-        complete: function() {
-          setTimeout(function() {
-            wx.switchTab({
-              url: '../../index/index'
-            });
-          }, 2000);
-        }
       })
-    })
+    } else {
+      return;
+    }
   },
   //关闭支付窗口
   hidden_paybox(e) {
     if (e.target.id === 'paybox') {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/order/list/list?type=1'
       });
     }
