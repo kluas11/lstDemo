@@ -51,6 +51,8 @@ Page({
   },
   // 页面显示
   onShow: function() {
+    // console.log('111111', !this.data.goodsID);
+    // 注意支付完成 页面也会触发onshow
     if (!this.data.goodsID) {
       return;
     }
@@ -244,6 +246,9 @@ Page({
           "signType": result.signType,
           'paySign': result.paySign,
           'success': function(res) {
+            that.setData({
+              goodsID: ""
+            })
             wx.hideLoading()
             // console.log(res)
             wx.showToast({
@@ -251,15 +256,9 @@ Page({
               icon: "success",
               duration: 2000,
               complete: function() {
-                that.setData({
-                  goodsID: ""
-                })
-                setTimeout(function() {
-                  wx.redirectTo({
-                    url: '../../order/list/list'
-                  });
-                }, 2000)
-
+                wx.redirectTo({
+                  url: '../../order/list/list'
+                });
               }
             })
           },
@@ -333,7 +332,7 @@ Page({
   formSubmit: function(e) {
     if (!this.data.submitDisable) {
       this.setData({
-        submitDisable:true
+        submitDisable: true
       })
       wx.showLoading({
         title: '加载中',

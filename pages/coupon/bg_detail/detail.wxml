@@ -60,7 +60,7 @@
     </view>
     <coupon-detail wx:if="{{item}}" Cuoponitem="{{item}}"></coupon-detail>
     <view class='refund' wx:if="{{item.buy_way=='MONEY'}}">
-      <button class='refund_btn' bindtap='refundTap' wx:if="{{!isouttime==couponInfo.status =='NORMAL'}}">退款</button>
+      <button class='refund_btn' bindtap='refundTap' wx:if="{{!isouttime&&couponInfo.status =='NORMAL'}}">退款</button>
     </view>
   </block>
 </view>

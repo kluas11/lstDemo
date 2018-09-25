@@ -28,7 +28,10 @@ Page({
   },
   onShow() {
     if (!this.data.isload) {
-      this.getUserCoupon("getUserCoupon");
+      this.setData({
+        pagetype: "all"
+      })
+      this.getUserCoupon(this.data.tabtype);
     }
   },
   //点击tab
