@@ -13,7 +13,7 @@ Page({
     deleteImgTips: false,
     deleteImgIndex: 0,
     order_id: '',
-    refund_way: '',
+    refund_way: '退货退款',
     //退货数量，默认是1
     // refundNum: 1,
     //货物状态
