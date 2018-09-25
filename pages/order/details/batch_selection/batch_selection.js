@@ -85,6 +85,12 @@ Page({
 
   //确认
   confirm: function() {
+    let activeArr = this.data.activeArr
+    let num = 0
+    activeArr.forEach((item) => {
+      if (item === false) num++
+    })
+    if (activeArr.length === num) return
     wx.navigateTo({
       url: './request_refund/request_refund?order_id=' + this.data.order_id + '&activeArr=' + this.data.activeArr,
     })
@@ -111,7 +117,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getData(this.data.order_id)
   },
 
   /**
