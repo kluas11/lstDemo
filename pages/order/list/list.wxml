@@ -19,7 +19,7 @@
         <text style='color:#d94612;'>{{filter.status(item.status)}}</text>
       </view>
     </view>
-    <view wx:for="{{item.orders}}" wx:for-item="mapping" wx:for-index="goodsindex" wx:key="" class="carts-item" bindtap="details" data-index="{{index}}">
+    <view wx:for="{{item.order_goods}}" wx:for-item="mapping" wx:for-index="goodsindex" wx:key="" class="carts-item" bindtap="details" data-index="{{index}}">
       <view>
         <!-- 缩略图 -->
         <image class="carts-image" src="{{mapping.original_img+goods_oss}}" mode="aspectFill" />
