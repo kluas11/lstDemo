@@ -18,7 +18,7 @@
       <image src="../../../images/fahuo.png" />
       <text>待发货</text>
     </view>
-    <view bindtap="navigateToRefund"  class="order">
+    <view bindtap="navigateToRefund" class="order">
       <image src="../../../images/sc.png" />
       <text>退款售后</text>
     </view>

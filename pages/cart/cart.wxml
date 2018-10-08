@@ -5,8 +5,10 @@
 </view>
 <view wx:else>
   <scroll-view scroll-y="true" style="width:100%;height:{{height}}px">
+  <view class='edit'>
+    <button class='edit_btn' bindtap='editTap'>{{edittext}}</button>
+  </view>
     <view wx:for="{{carts}}" wx:key="index" class="container carts-list">
-   
       <view class="carts-item inner" data-index="{{index}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle||'left:0rpx'}}">
         <!-- 复选框图标 -->
          <icon  type="{{item.selected?'success_circle':'circle'}}" size="20" bindtap="bindCheckbox" data-index="{{index}}" />
@@ -42,9 +44,10 @@
     <view class="carts-footer-left" bindtap="bindSelectAll">
       <icon  type="{{selectedAllStatus?'success_circle':'circle'}}" size="20" />
        <text>全选</text> 
-      <text style="color:red;">￥: {{total}}(不含运费)</text>
+      <text wx:if="{{!isedit}}" style="color:red;">￥: {{total}}(不含运费)</text>
     </view>
-    <view class="button" bindtap="bindCheckout">立即结算</view>
+    <view class="button"  wx:if="{{!isedit}}" bindtap="bindCheckout">立即结算</view>
+    <view class="button" wx:else bindtap="deleteallTap">删除所选</view>
   </view>
 </view>
 <!-- 页面加载动画 -->

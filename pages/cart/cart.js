@@ -8,12 +8,14 @@ Page({
     minusStatuses: ['disabled', 'disabled', 'normal', 'normal', 'disabled'],
     selectedAllStatus: true,
     total: '',
-    goods_oss: app.image_oss+'130_150',
-    wx_loading:true,
+    goods_oss: app.image_oss + '130_150',
+    wx_loading: true,
     startX: "",
-    delBtnWidth: 70
+    delBtnWidth: 70,
+    edittext: "编辑商品",
+    isedit: false
   },
-  touchS: function (e) {
+  touchS: function(e) {
     if (e.touches.length == 1) {
       this.setData({
         //设置触摸起始点水平方向位置
@@ -21,7 +23,7 @@ Page({
       });
     }
   },
-  touchM: function (e) {
+  touchM: function(e) {
     // if (e.touches.length == 1) {
     //   //手指移动时水平方向位置
     //   var moveX = e.touches[0].clientX;
@@ -39,7 +41,7 @@ Page({
     //       txtStyle = "left:-" + delBtnWidth + "rpx";
     //     }
     //   }
-  
+
     //   //获取手指触摸的是哪一项
     //   // var index = e.currentTarget.dataset.index;
     //   // var list = this.data.carts;
@@ -50,7 +52,7 @@ Page({
     //   // });
     // }
   },
-  touchE: function (e) {
+  touchE: function(e) {
     if (e.changedTouches.length == 1) {
       //手指移动结束后水平位置
       var endX = e.changedTouches[0].clientX;
@@ -69,31 +71,49 @@ Page({
       });
     }
   },
-  onLoad: function (option) {
+  onLoad: function(option) {
     var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var height = res.windowHeight;
         var height = height - height / 750.0 * 60;
-        that.setData({ height: height })
+        that.setData({
+          height: height
+        })
       }
     })
   },
+  // 编辑商品
+  editTap() {
+    if (!this.data.isedit) {
+      this.setData({
+        edittext: '完成',
+        isedit:true
+      })
+      this.bindSelectAll(true)
+    } else {
+      this.setData({
+        edittext: '编辑商品',
+        isedit:false
+      })
+      this.bindSelectAll(false);
+    }
+  },
   // 马上去逛逛
-  see: function (e) {
+  see: function(e) {
     wx.switchTab({
       url: "../category/category"
     });
   },
-// 自减
-  bindMinus: function (e) {
+  // 自减
+  bindMinus: function(e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var num = this.data.carts[index].goods_num;
     // 如果只有1件了，就不允许再减了
     if (num > 1) {
       num--;
     }
-    console.log(num)    
+    console.log(num)
     // 只有大于一件的时候，才能normal状态，否则disable状态
     var minusStatus = num <= 1 ? 'disabled' : 'normal';
     // 购物车数据
@@ -108,12 +128,12 @@ Page({
       minusStatuses: minusStatuses
     });
     // if (num>1){
-      this.saveNum(carts[index].cart_id, num);
-      // return;
+    this.saveNum(carts[index].cart_id, num);
+    // return;
     this.sum();
   },
   // 增加
-  bindPlus: function (e) {
+  bindPlus: function(e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var num = this.data.carts[index].goods_num;
     // 自增
@@ -138,11 +158,11 @@ Page({
     this.sum();
   },
   // 输入
-  bindManual: function (e) {
+  bindManual: function(e) {
     var index = parseInt(e.currentTarget.dataset.index);
     var carts = this.data.carts;
     var num = e.detail.value;
-    if (carts[index].goods_num == num){
+    if (carts[index].goods_num == num) {
       return;
     }
     carts[index].goods_num = num;
@@ -154,7 +174,7 @@ Page({
     this.sum();
   },
   // 取反选中
-  bindCheckbox: function (e) {
+  bindCheckbox: function(e) {
     /*绑定点击事件，将checkbox样式改变为选中与非选中*/
     //拿到下标值，以在carts作遍历指示用
     var index = parseInt(e.currentTarget.dataset.index);
@@ -168,25 +188,25 @@ Page({
     this.setData({
       carts: carts,
     });
-    if (!carts[index].selected){
+    if (!carts[index].selected) {
       this.setData({
         selectedAllStatus: false,
       });
-    }else{
+    } else {
       let cas = this.data.carts;
-      let checkbollen=cas.map((value,index)=>{
-        if (value.selected==false){
+      let checkbollen = cas.map((value, index) => {
+        if (value.selected == false) {
           return false
-        }else{
+        } else {
           return null
-        }  
+        }
       })
-   
-      if (checkbollen.indexOf(false)>-1){
+
+      if (checkbollen.indexOf(false) > -1) {
         this.setData({
           selectedAllStatus: false,
         });
-      }else{
+      } else {
         this.setData({
           selectedAllStatus: true,
         });
@@ -195,9 +215,14 @@ Page({
     this.sum();
   },
   // 全选按钮
-  bindSelectAll: function () {
+  bindSelectAll: function (selecte) {
     // 环境中目前已选状态
-    var selectedAllStatus = this.data.selectedAllStatus;
+    if (typeof selecte === 'boolean'){
+      var selectedAllStatus = selecte;
+    }else{
+      var selectedAllStatus = this.data.selectedAllStatus;
+    }
+    
     // 取反操作
     selectedAllStatus = !selectedAllStatus;
     // 购物车数据，关键是处理selected值
@@ -214,10 +239,10 @@ Page({
     this.sum();
   },
   // 立即结算
-  bindCheckout: function () {
+  bindCheckout: function() {
     // 遍历取出已勾选的cid
     var cartIds = [];
-    var  goodsID=[];
+    var goodsID = [];
 
     for (var i = 0; i < this.data.carts.length; i++) {
       if (this.data.carts[i].selected) {
@@ -238,58 +263,65 @@ Page({
     // return;
     // 需要获取出地址 
     wx.navigateTo({
-      url: '/pages/order/ordersubmit/index?origin=cart' + "&goodsID=" + goodsID 
+      url: '/pages/order/ordersubmit/index?origin=cart' + "&goodsID=" + goodsID
     });
   },
-  getCarts: function () {
+  getCarts: function() {
     var minusStatuses = [];
     var that = this;
     var store_id = app.globalData.store_id;
-  //  门店
-    if (!store_id){
+    // var store_id = 26;
+    //  门店
+    if (!store_id) {
       app.get_getLocation()
       store_id = app.globalData.store_id;
     }
-     server.getJSON('/Cart/cartList',{
-       store_id: store_id
-        }, function (res) {
-          console.log(res)
+    server.getJSON('/Cart/cartList', {
+      store_id: store_id
+    }, function(res) {
+      console.log(res)
       var carts = res.data
       // success
       if (carts.length != 0)
-        that.setData({ empty: false });
+        that.setData({
+          empty: false
+        });
       else {
-        that.setData({ empty: true });
+        that.setData({
+          empty: true,
+          edittext: "编辑商品",
+          isedit: false
+        });
       }
       // 设置选中??
       // 全选按钮控制 selectedAllStatus
       // var selectedAllStatus = true;
       for (var i = 0; i < carts.length; i++) {
-        carts[i].selected = true;
-        minusStatuses[i] = carts[i].goods_num > 1 ? "normal" :"disabled"
+        carts[i].selected = !that.data.isedit;
+        minusStatuses[i] = carts[i].goods_num > 1 ? "normal" : "disabled"
       }
       that.setData({
         carts: carts,
         minusStatuses: minusStatuses,
-        selectedAllStatus:true,
-        wx_loading:false
+        selectedAllStatus: !that.data.isedit,
+        wx_loading: false
       });
       // // sum
       that.sum();
     });
-  
+
   },
-  onShow: function () {
+  onShow: function() {
     this.getCarts();
   },
   // 计算总和
-  sum: function () {
+  sum: function() {
     var carts = this.data.carts;
     // 计算总金额
     var total = 0;
     for (var i = 0; i < carts.length; i++) {
       if (carts[i].selected) {
-        total += carts[i].goods_num * (carts[i].shop_price*10000)/10000;
+        total += carts[i].goods_num * (carts[i].shop_price * 10000) / 10000;
       }
     }
     var newValue = parseInt(total * 10000);
@@ -301,26 +333,47 @@ Page({
     });
   },
   // 移除购物车
-  deleteCart: function (e) {
+  deleteCart: function(e) {
     var index = parseInt(e.currentTarget.dataset.index)
     var id = this.data.carts[index].cart_id;
-    var that = this
-    console.log(id)
-    server.newpostJSON("/Cart/delCart", { cart_id: id },function (result){
-      if (result.data == 0) {
-      } else {
+    this.del(id)
+  },
+  del(id){
+    let that =this;
+    server.newpostJSON("/Cart/delCart", {
+      cart_id: id
+    }, function (result) {
+      if (result.data == 0) { } else {
         that.getCarts();
       }
     })
   },
-  saveNum: function (id, num) {
+  // 删除所选
+  deleteallTap(){
+    let deleArr=[];
+    this.data.carts.forEach((val,index)=>{
+      if (val.selected){
+        deleArr.push(val.cart_id)
+      }
+    })
+    if (deleArr.length === 0){
+      wx.showToast({
+        title: '请选择商品',
+        image:"/images/about.png",
+        duration:2000
+      })
+    }else{
+      this.del(deleArr.join(','))
+    }
+  },
+  saveNum: function(id, num) {
     var that = this
     server.newpostJSON("/Cart/updateNum", {
       cart_id: id,
       num: num
-    }, function (result){
-      if(result.data == "0" || result.data == 0) {
-        
+    }, function(result) {
+      if (result.data == "0" || result.data == 0) {
+
       }
     })
   },
